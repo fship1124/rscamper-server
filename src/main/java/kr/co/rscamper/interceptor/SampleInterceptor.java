@@ -13,9 +13,7 @@ public class SampleInterceptor extends HandlerInterceptorAdapter {
 
 
   @Override
-  public void postHandle(HttpServletRequest request,
-      HttpServletResponse response, Object handler,
-      ModelAndView modelAndView) throws Exception {
+  public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
   
     System.out.println("post handle........................");
     
@@ -26,13 +24,11 @@ public class SampleInterceptor extends HandlerInterceptorAdapter {
       request.getSession().setAttribute("result", result);
       response.sendRedirect("/doA");
     }
-    
   }
 
 
   @Override
-  public boolean preHandle(HttpServletRequest request, 
-      HttpServletResponse response, Object handler) throws Exception {
+  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
     System.out.println("pre handle..........................");
 
@@ -43,7 +39,6 @@ public class SampleInterceptor extends HandlerInterceptorAdapter {
     System.out.println("Method: " + methodObj);
 
     return true;
-
   }
 }
 
