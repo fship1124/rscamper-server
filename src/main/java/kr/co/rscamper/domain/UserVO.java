@@ -17,6 +17,8 @@ public class UserVO {
 	private String introduce;
 	private Date birthday;
 	private Date regDate;
+	
+	
 	public String getUserUid() {
 		return userUid;
 	}

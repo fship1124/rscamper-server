@@ -5,7 +5,15 @@
   
 <mapper namespace="kr.co.rscamper.MainMapper">
 
+<select id = "getTime" resultType="string">
+	select now()
+</select>
 
+<insert id = "insertMainComment" parameterType="main">
+	insert into main_tb(USER_UID, CONTENT)
+	values(#{userUid}, #{mainContent})
+
+</insert>
 
 
 

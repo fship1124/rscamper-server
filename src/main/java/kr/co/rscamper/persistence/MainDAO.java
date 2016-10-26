@@ -3,6 +3,7 @@ package kr.co.rscamper.persistence;
 import kr.co.rscamper.domain.MainVO;
 
 public interface MainDAO {
-
-	public void insertMain(MainVO vo);
+	
+	public String getTime();
+	public void insertMainComment(MainVO vo);
 }
