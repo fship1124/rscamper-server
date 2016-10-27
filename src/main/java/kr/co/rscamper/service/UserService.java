@@ -4,4 +4,7 @@ import kr.co.rscamper.domain.UserVO;
 
 public interface UserService {
 	public UserVO selectMainByUidComment(String userUid) throws Exception;
+	
+	/** 회원 정보 입력 */
+	public void insertUser(UserVO user) throws Exception;
 }

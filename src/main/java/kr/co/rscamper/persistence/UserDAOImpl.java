@@ -15,10 +15,14 @@ public class UserDAOImpl implements UserDAO {
 	
 	private static final String namespace = "kr.co.rscamper.UserMapper";
 	
-	
 	@Override
 	public UserVO selectMainByUidComment(String userUid) {
 		System.out.println("userUid : " + userUid);
 		return sqlSessionTemplate.selectOne(namespace + ".selectMainByUidComment", userUid);
+	}
+
+	@Override
+	public void insertUser(UserVO user) {
+		sqlSessionTemplate.insert(namespace + ".insertUser", user);
 	}
 }
