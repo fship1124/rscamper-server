@@ -23,7 +23,7 @@ public class TogetherController {
 	public String together() {
 		logger.info("/together > home");
 		
-		return "redirect:http://192.168.0.173:80/rscamper-web/views/together/list.jsp";
+		return "redirect:http://localhost:80/rscamper-web/views/together/list.jsp";
 	}
 	
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
