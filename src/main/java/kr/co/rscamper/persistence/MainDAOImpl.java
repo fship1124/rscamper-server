@@ -1,6 +1,9 @@
 package kr.co.rscamper.persistence;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -17,7 +20,6 @@ public class MainDAOImpl implements MainDAO {
 	private static final String namespace = "kr.co.rscamper.MainMapper";
 	
 	
-	
 	@Override
 	public String getTime() {
 		return sqlSessionTemplate.selectOne(namespace + ".getTime");
@@ -25,10 +27,21 @@ public class MainDAOImpl implements MainDAO {
 	
 	@Override
 	public void insertMainComment(MainVO vo) {
-		int cnt = sqlSessionTemplate.insert("namespace.insertMainComment", vo);
-		System.out.println("cnt : " + cnt);
+		sqlSessionTemplate.insert(namespace + ".insertMainComment", vo);
 	}
 
-
-
+	@Override
+	public List<MainVO> selectMainComment() {
+		System.out.println("in selectMainComment");
+		List<MainVO> list = new ArrayList<>(); 
+		list = sqlSessionTemplate.selectList(namespace + ".selectMainComment");
+		
+//		System.out.println(list);
+//		for (MainVO vo : list) {
+//			System.out.println(vo.getUserUid());
+//			System.out.println(vo.getMainContent());
+//		}
+//		
+		return list;
+	}
 }

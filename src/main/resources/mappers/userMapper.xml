@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.rscamper.UserMapper">
+
+<select id = "selectMainByUidComment" parameterType="string" resultType="user">
+	SELECT DISPLAY_NAME as displayName, PHOTO_URL as photoUrl
+		FROM USER_TB
+	WHERE USER_UID = #{userUid}
+</select>
+
+</mapper>

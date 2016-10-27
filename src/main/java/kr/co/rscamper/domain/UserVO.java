@@ -5,6 +5,7 @@ import java.util.Date;
 public class UserVO {
 	private String userUid;
 	private String displayName;
+	private String photoUrl;
 	private String email;
 	private String providerUid;
 	private String providerName;
@@ -36,6 +37,12 @@ public class UserVO {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
 	}
 	public String getProviderUid() {
 		return providerUid;
@@ -106,10 +113,18 @@ public class UserVO {
 	
 	@Override
 	public String toString() {
-		return "UserVO [userUid=" + userUid + ", displayName=" + displayName + ", email=" + email + ", providerUid="
-				+ providerUid + ", providerName=" + providerName + ", providerDisplayName=" + providerDisplayName
-				+ ", providerPhotoUrl=" + providerPhotoUrl + ", providerEmail=" + providerEmail + ", locationNo="
-				+ locationNo + ", phoneNumber=" + phoneNumber + ", websiteUrl=" + websiteUrl + ", introduce="
-				+ introduce + ", birthday=" + birthday + ", regDate=" + regDate + "]";
+		return "UserVO [userUid=" + userUid + ", displayName=" + displayName + ", photoUrl=" + photoUrl + ", email="
+				+ email + ", providerUid=" + providerUid + ", providerName=" + providerName + ", providerDisplayName="
+				+ providerDisplayName + ", providerPhotoUrl=" + providerPhotoUrl + ", providerEmail=" + providerEmail
+				+ ", locationNo=" + locationNo + ", phoneNumber=" + phoneNumber + ", websiteUrl=" + websiteUrl
+				+ ", introduce=" + introduce + ", birthday=" + birthday + ", regDate=" + regDate + ", getUserUid()="
+				+ getUserUid() + ", getDisplayName()=" + getDisplayName() + ", getEmail()=" + getEmail()
+				+ ", getPhotoUrl()=" + getPhotoUrl() + ", getProviderUid()=" + getProviderUid() + ", getProviderName()="
+				+ getProviderName() + ", getProviderDisplayName()=" + getProviderDisplayName()
+				+ ", getProviderPhotoUrl()=" + getProviderPhotoUrl() + ", getProviderEmail()=" + getProviderEmail()
+				+ ", getLocationNo()=" + getLocationNo() + ", getPhoneNumber()=" + getPhoneNumber()
+				+ ", getWebsiteUrl()=" + getWebsiteUrl() + ", getIntroduce()=" + getIntroduce() + ", getBirthday()="
+				+ getBirthday() + ", getRegDate()=" + getRegDate() + ", getClass()=" + getClass() + ", hashCode()="
+				+ hashCode() + ", toString()=" + super.toString() + "]";
 	}
 }

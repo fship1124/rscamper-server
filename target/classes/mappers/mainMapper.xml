@@ -9,10 +9,16 @@
 	select now()
 </select>
 
-<insert id = "insertMainComment" parameterType="main">
-	insert into main_tb(USER_UID, CONTENT)
-	values(#{userUid}, #{mainContent})
+<select id = "selectMainComment" resultType="main">
+	SELECT USER_UID as userUid, CONTENT as mainContent, REG_DATE as mainRegDate
+		FROM MAIN_TB
+		ORDER BY REG_DATE DESC
+</select>
 
+<insert id = "insertMainComment" parameterType="main">
+	INSERT INTO 
+		MAIN_TB(USER_UID, CONTENT)
+		VALUES (#{userUid}, #{mainContent})
 </insert>
 
 
