@@ -10,11 +10,7 @@
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
 		infrastructure -->
-<<<<<<< HEAD
 	
-	
-=======
-		
     <annotation-driven>
         <!-- @ResponseBody로 String 처리할때 한글처리 -->
 	    <message-converters>
@@ -37,7 +33,6 @@
     </annotation-driven>
 
 
->>>>>>> cc13990cb84a24d964ae56a20c4e23646bc43523
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
