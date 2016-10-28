@@ -19,4 +19,9 @@ public class UserServiceImpl implements UserService {
 		System.out.println("userUid : " + userUid);
 		return dao.selectMainByUidComment(userUid);
 	}
+
+	@Override
+	public void insertUser(UserVO user) throws Exception {
+		dao.insertUser(user);
+	}
 }
