@@ -1,23 +1,30 @@
 package kr.co.rscamper.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.rscamper.domain.MainVO;
 import kr.co.rscamper.domain.TogetherVO;
+import kr.co.rscamper.service.TogetherService;
 
 @Controller
 @RequestMapping("/together/*")
 public class TogetherController {
 	private static final Logger logger = LoggerFactory.getLogger(TogetherController.class);
 	
+	@Inject
+	private TogetherService service;
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String together() {
@@ -33,8 +40,10 @@ public class TogetherController {
 		
 		logger.info("/together > List");
 		
+		List<TogetherVO> list = new ArrayList<>();
+		list = service.selectTogether();
 		
-		return null;
+		
+		return list;
 	}
-	
 }

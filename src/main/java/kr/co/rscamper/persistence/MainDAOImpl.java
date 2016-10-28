@@ -35,13 +35,7 @@ public class MainDAOImpl implements MainDAO {
 		System.out.println("in selectMainComment");
 		List<MainVO> list = new ArrayList<>(); 
 		list = sqlSessionTemplate.selectList(namespace + ".selectMainComment");
-		
-//		System.out.println(list);
-//		for (MainVO vo : list) {
-//			System.out.println(vo.getUserUid());
-//			System.out.println(vo.getMainContent());
-//		}
-//		
+	
 		return list;
 	}
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.rscamper.TogetherMapper">
+
+
+
+<select id = "selectTogether" resultType="TogetherVO">
+	SELECT TOGETHER_DETAIL_NO as togetherDetailNo, TOGETHER_NO as togetherNo, CONTENT
+		FROM TOGETHER_DETAIL_TB
+		ORDER BY TOGETHER_NO DESC
+</select>
+
+
+</mapper>
