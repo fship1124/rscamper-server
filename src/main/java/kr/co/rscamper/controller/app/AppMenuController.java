@@ -7,7 +7,7 @@ import kr.co.rscamper.service.MenuService;
 
 @RestController
 @RequestMapping("/app/menu*")
-public class MenuController {
+public class AppMenuController {
 	
 	@Inject
 	private MenuService service;

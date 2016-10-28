@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/app/tour/*")
-public class TourController {
-	private static final Logger logger = LoggerFactory.getLogger(TogetherController.class);
+public class AppTourController {
+	private static final Logger logger = LoggerFactory.getLogger(AppTourController.class);
 }

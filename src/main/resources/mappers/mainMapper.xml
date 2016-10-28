@@ -9,13 +9,13 @@
 	select now()
 </select>
 
-<select id = "selectMainComment" resultType="main">
+<select id = "selectMainComment" resultType="MainVO">
 	SELECT USER_UID as userUid, CONTENT as mainContent, REG_DATE as mainRegDate
 		FROM MAIN_TB
 		ORDER BY REG_DATE DESC
 </select>
 
-<insert id = "insertMainComment" parameterType="main">
+<insert id = "insertMainComment" parameterType="MainVO">
 	INSERT INTO 
 		MAIN_TB(USER_UID, CONTENT)
 		VALUES (#{userUid}, #{mainContent})

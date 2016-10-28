@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/trainTime/*")
-public class TrainTimeController {
-	private static final Logger logger = LoggerFactory.getLogger(TrainTimeController.class);
+public class AppTrainTimeController {
+	private static final Logger logger = LoggerFactory.getLogger(AppTrainTimeController.class);
 }

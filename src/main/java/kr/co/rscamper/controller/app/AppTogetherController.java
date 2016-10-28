@@ -6,7 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/app/trainMap/*")
-public class TrainMapController {
-	private static final Logger logger = LoggerFactory.getLogger(TrainMapController.class);
+@RequestMapping("/app/together/*")
+public class AppTogetherController {
+	private static final Logger logger = LoggerFactory.getLogger(AppTogetherController.class);
+
+	
 }

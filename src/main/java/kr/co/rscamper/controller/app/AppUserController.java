@@ -14,8 +14,8 @@ import kr.co.rscamper.service.UserService;
 
 @Controller
 @RequestMapping("/app/user/*")
-public class UserController {
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+public class AppUserController {
+	private static final Logger logger = LoggerFactory.getLogger(AppUserController.class);
 	
 	@Inject
 	private UserService userService;

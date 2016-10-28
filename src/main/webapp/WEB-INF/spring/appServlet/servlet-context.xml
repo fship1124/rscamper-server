@@ -45,9 +45,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-	<context:component-scan base-package="kr.co.rscamper" />
 	<beans:bean id="sampleInterceptor" class="kr.co.rscamper.interceptor.SampleInterceptor"></beans:bean>
-
 
 	<interceptors>
 		<interceptor>
@@ -56,4 +54,8 @@
 			<beans:ref bean="sampleInterceptor" />
 		</interceptor>
 	</interceptors>
+	
+	<context:component-scan base-package="kr.co.rscamper.controller" />
+	<context:component-scan base-package="kr.co.rscamper.controller.app" />
+	
 </beans:beans>
