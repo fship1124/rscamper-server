@@ -4,9 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="main" type="kr.co.rscamper.domain.MainVO" />
-		<typeAlias alias="user" type="kr.co.rscamper.domain.UserVO" />
-		<typeAlias alias="MenuVO" type="kr.co.rscamper.domain.MenuVO" />
+		<package name="kr.co.rscamper.domain"/>
 	</typeAliases>
 </configuration>
 
