@@ -11,4 +11,9 @@
 	WHERE USER_UID = #{userUid}
 </select>
 
+<insert id="insertUser" parameterType="user">
+	INSERT INTO USER_TB
+	(USER_UID,DISPLAY_NAME,PHOTO_URL,EMAIL,PROVIDER_UID,PROVIDER_NAME,PROVIDER_DISPLAY_NAME,PROVIDER_PHOTO_URL,PROVIDER_EMAIL,BGPHOTO_URL,LOCATION_NO,PHONE_NUMBER,WEBSITE_URL,INTRODUCE,BIRTHDAY,REG_DATE)
+	VALUES ( #{userUid}, #{displayName}, #{photoUrl}, #{email}, #{providerUid},#{providerName},#{providerName},#{providerDisplayName},#{providerPhotoUrl},#{providerEmail},#{locationNo},#{phoneNumber},#{websiteUrl},#{introduce},#{birthday},#{regDate}) 
+</insert>
 </mapper>
