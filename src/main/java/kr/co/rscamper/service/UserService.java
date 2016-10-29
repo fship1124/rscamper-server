@@ -8,13 +8,12 @@ public interface UserService {
 	/** [App] 회원 가입 */
 	public void insertUser(UserVO user) throws Exception;
 	
-	/** TODO: [App] UID로 회원 정보 가져오기 */
-	
-	/** TODO: [App] 회원 리스트 가져오기 */
-	
 	/** TODO: [App] 회원 정보 수정 */
 	
 	/** TODO: [App] 회원 탈퇴 */
 	
+	/** TODO: [App] UID로 회원 정보 가져오기 */
+	
+	/** TODO: [App] 회원 리스트 가져오기 */
 	
 }

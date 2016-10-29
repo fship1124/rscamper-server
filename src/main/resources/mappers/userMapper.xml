@@ -2,18 +2,38 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="kr.co.rscamper.UserMapper">
 
-<select id = "selectMainByUidComment" parameterType="string" resultType="UserVO">
-	SELECT DISPLAY_NAME as displayName, PHOTO_URL as photoUrl
-		FROM USER_TB
-	WHERE USER_UID = #{userUid}
-</select>
+	<resultMap id="UserVOMap" type="UserVO">
+		<result column="USER_UID" property="userUid" />
+		<result column="PHOTO_URL" property="photoUrl" />
+		<result column="PROVIDER_UID" property="providerUid" />
+		<result column="PROVIDER_NAME" property="providerName" />
+		<result column="PROVIDER_DISPLAY_NAME" property="providerDisplayName" />
+		<result column="PROVIDER_PHOTO_URL" property="providerPhotoUrl" />
+		<result column="PROVIDER_EMAIL" property="providerEmail" />
+		<result column="BGPHOTO_URL" property="bgphotoUrl" />
+		<result column="LOCATION_NO" property="locationNo" />
+		<result column="PHONE_NUMBER" property="phoneNumber" />
+		<result column="WEBSITE_URL" property="websiteUrl" />
+		<result column="REG_DATE" property="regDate" />
+	</resultMap>
 
-<insert id="insertUser" parameterType="UserVO">
-	INSERT INTO USER_TB
-	(USER_UID,DISPLAY_NAME,PHOTO_URL,EMAIL,PROVIDER_UID,PROVIDER_NAME,PROVIDER_DISPLAY_NAME,PROVIDER_PHOTO_URL,PROVIDER_EMAIL,BGPHOTO_URL,LOCATION_NO,PHONE_NUMBER,WEBSITE_URL,INTRODUCE,BIRTHDAY,REG_DATE)
-	VALUES ( #{userUid}, #{displayName}, #{photoUrl}, #{email}, #{providerUid},#{providerName},#{providerName},#{providerDisplayName},#{providerPhotoUrl},#{providerEmail},#{locationNo},#{phoneNumber},#{websiteUrl},#{introduce},#{birthday},#{regDate}) 
-</insert>
+	<select id="selectMainByUidComment" parameterType="string"
+		resultType="UserVO">
+		SELECT DISPLAY_NAME as displayName, PHOTO_URL as photoUrl
+		FROM USER_TB
+		WHERE USER_UID = #{userUid}
+	</select>
+
+	<insert id="insertUser" parameterType="UserVO">
+		INSERT INTO USER_TB
+		(USER_UID,DISPLAY_NAME,PHOTO_URL,EMAIL,PROVIDER_UID,PROVIDER_NAME,PROVIDER_DISPLAY_NAME,PROVIDER_PHOTO_URL,PROVIDER_EMAIL,BGPHOTO_URL,LOCATION_NO,PHONE_NUMBER,WEBSITE_URL,INTRODUCE,BIRTHDAY,REG_DATE)
+		VALUES
+		(#{userUid},#{displayName},#{photoUrl},#{email},#{providerUid},#{providerName},#{providerName},#{providerDisplayName},#{providerPhotoUrl},#{providerEmail},#{locationNo},#{phoneNumber},#{websiteUrl},#{introduce},#{birthday},#{regDate})
+		ON DUPLICATE KEY UPDATE USER_UID = #{userUid}
+	</insert>
+	
+	
 </mapper>

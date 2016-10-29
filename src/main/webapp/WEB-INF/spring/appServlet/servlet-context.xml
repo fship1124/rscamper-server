@@ -55,8 +55,6 @@
 		</interceptor>
 	</interceptors>
 	
-	<context:component-scan base-package="kr.co.rscamper.controller" />
-	<context:component-scan base-package="kr.co.rscamper.controller.app" />
 	<context:component-scan base-package="kr.co.rscamper" />
 	
 </beans:beans>
