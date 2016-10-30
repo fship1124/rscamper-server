@@ -25,4 +25,9 @@ public class UserDAOImpl implements UserDAO {
 	public void insertUser(UserVO user) {
 		sqlSessionTemplate.insert(namespace + ".insertUser", user);
 	}
+
+	@Override
+	public void deleteUserByUid(String userUid) {
+		sqlSessionTemplate.delete(namespace + ".deleteUserByUid", userUid);
+	}
 }

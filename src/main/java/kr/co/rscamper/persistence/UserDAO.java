@@ -9,4 +9,7 @@ public interface UserDAO {
 	/** 회원정보 입력 */
 	public void insertUser(UserVO user);
 
+	/** UID로 회원정보 삭제 */
+	public void deleteUserByUid(String userUid);
+
 }

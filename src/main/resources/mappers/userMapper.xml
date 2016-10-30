@@ -26,7 +26,7 @@
 		FROM USER_TB
 		WHERE USER_UID = #{userUid}
 	</select>
-
+	
 	<insert id="insertUser" parameterType="UserVO">
 		INSERT INTO USER_TB
 		(USER_UID,DISPLAY_NAME,PHOTO_URL,EMAIL,PROVIDER_UID,PROVIDER_NAME,PROVIDER_DISPLAY_NAME,PROVIDER_PHOTO_URL,PROVIDER_EMAIL,BGPHOTO_URL,LOCATION_NO,PHONE_NUMBER,WEBSITE_URL,INTRODUCE,BIRTHDAY,REG_DATE)
@@ -34,6 +34,18 @@
 		(#{userUid},#{displayName},#{photoUrl},#{email},#{providerUid},#{providerName},#{providerName},#{providerDisplayName},#{providerPhotoUrl},#{providerEmail},#{locationNo},#{phoneNumber},#{websiteUrl},#{introduce},#{birthday},#{regDate})
 		ON DUPLICATE KEY UPDATE USER_UID = #{userUid}
 	</insert>
+	
+	<select id="selectUserByUid" parameterType="string" resultMap="UserVOMap">
+		SELECT *
+		FROM USER_TB
+		WHERE USER_UID = #{userUid}
+	</select>
+	
+	<delete id="deleteUserByUid" parameterType="string">
+		DELETE 
+		FROM USER_TB
+		WHERE USER_UID = #{userUid}
+	</delete>
 	
 	
 </mapper>

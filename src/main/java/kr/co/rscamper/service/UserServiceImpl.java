@@ -24,4 +24,10 @@ public class UserServiceImpl implements UserService {
 	public void insertUser(UserVO user) throws Exception {
 		dao.insertUser(user);
 	}
+
+	@Override
+	public void deleteUserByUid(String userUid) {
+		System.out.println(userUid);
+		dao.deleteUserByUid(userUid);
+	}
 }

@@ -7,10 +7,13 @@ public interface UserService {
 	
 	/** [App] 회원 가입 */
 	public void insertUser(UserVO user) throws Exception;
+
+	/** TODO: [App] 회원 탈퇴 */
+	public void deleteUserByUid(String userUid);
 	
 	/** TODO: [App] 회원 정보 수정 */
 	
-	/** TODO: [App] 회원 탈퇴 */
+
 	
 	/** TODO: [App] UID로 회원 정보 가져오기 */
 	
