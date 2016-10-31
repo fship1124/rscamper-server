@@ -24,4 +24,10 @@ public class UserServiceImpl implements UserService {
 	public void insertUser(UserVO user) throws Exception {
 		dao.insertUser(user);
 	}
+
+	@Override
+	public void updateUser(UserVO user) throws Exception {
+		dao.updateUser(user);
+		
+	}
 }
