@@ -17,7 +17,6 @@ public class UserDAOImpl implements UserDAO {
 	
 	@Override
 	public UserVO selectMainByUidComment(String userUid) {
-		System.out.println("userUid : " + userUid);
 		return sqlSessionTemplate.selectOne(namespace + ".selectMainByUidComment", userUid);
 	}
 

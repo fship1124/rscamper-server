@@ -26,16 +26,13 @@ public class MainController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	
-	@Autowired
+	@Inject
 	private MainService mainService;
-	@Autowired
+	@Inject
 	private UserService userService;
 	
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public @ResponseBody List<MainVO> read(HttpServletResponse res) throws Exception {
-		res.setCharacterEncoding("UTF-8");
-		res.setContentType("text/html; charset=UTF-8");
-		
 		logger.info("/main > read");
 		
 		List<MainVO> list = new ArrayList<>();
@@ -45,7 +42,6 @@ public class MainController {
 			UserVO uVo = userService.selectMainByUidComment(val.getUserUid());
 			val.setDisplayName(uVo.getDisplayName());
 			val.setProviderPhotoUrl(uVo.getPhotoUrl());
-			System.out.println(val.toString());
 		}
 		System.out.println(list.size());
 		return list;
@@ -54,13 +50,7 @@ public class MainController {
 	
 	@RequestMapping(value = "/{uid}/{content}", method = RequestMethod.PUT)
 	public @ResponseBody List<MainVO> insert(@PathVariable("uid") String uid, @PathVariable("content") String content, HttpServletResponse res) throws Exception {
-		res.setCharacterEncoding("UTF-8");
-		res.setContentType("text/html; charset=UTF-8");
-		
 		logger.info("/main > insert");
-		
-		logger.info("uid : " + uid);
-		logger.info("content : " + content);
 		
 		MainVO mVo = new MainVO();
 		mVo.setUserUid(uid);
@@ -75,11 +65,8 @@ public class MainController {
 			UserVO uVo = userService.selectMainByUidComment(val.getUserUid());
 			val.setDisplayName(uVo.getDisplayName());
 			val.setProviderPhotoUrl(uVo.getPhotoUrl());
-			System.out.println(val.toString());
 		}
 		System.out.println(list.size());
 		return list;
 	}
-	
-	
 }
