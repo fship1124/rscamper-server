@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/tour/*")
 public class TourController {
 	private static final Logger logger = LoggerFactory.getLogger(TourController.class);
+<<<<<<< HEAD
+=======
+	
+>>>>>>> dh
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String together() {
