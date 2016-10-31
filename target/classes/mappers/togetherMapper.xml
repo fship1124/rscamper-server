@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="kr.co.rscamper.TogetherMapper">
-
 	<resultMap id="togetherMap" type="TogetherVO">
 	    <result column="together_no" property="togetherlNo" />
 	    <result column="url" property="url" />
@@ -36,10 +37,8 @@
 		ORDER BY TOGETHER_NO DESC
 </select>
 
-
 <select id = "totalCount" resultType = 'int'>
 	SELECT COUNT(*) FROM TOGETHER_TB
-
 </select>
 
 
@@ -48,7 +47,6 @@
 	FROM together_tb T, together_detail_tb D
 	WHERE T.TOGETHER_NO = D.TOGETHER_NO
 	AND T.TOGETHER_NO = #{dNo}
-
 </select>
 
 

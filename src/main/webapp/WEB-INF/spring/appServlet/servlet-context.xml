@@ -54,13 +54,10 @@
 			<beans:ref bean="sampleInterceptor" />
 		</interceptor>
 	</interceptors>
-<<<<<<< HEAD
 	<!-- home controller 거쳐야하기때문에 -->
-=======
 	
 	<context:component-scan base-package="kr.co.rscamper.controller" />
 	<context:component-scan base-package="kr.co.rscamper.controller.app" />
->>>>>>> 4a4b19f5298a90cce2a45be4fef6265565181d1a
 	<context:component-scan base-package="kr.co.rscamper" />
 	
 </beans:beans>
