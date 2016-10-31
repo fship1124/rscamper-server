@@ -12,4 +12,7 @@ public interface UserDAO {
 	/** UID로 회원정보 삭제 */
 	public void deleteUserByUid(String userUid);
 
+	/** UID로 회원정보 조회 */
+	public UserVO selectUserByUid(String userUid);
+
 }

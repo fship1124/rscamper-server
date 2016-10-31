@@ -25,9 +25,16 @@ public class AppUserController {
 		userService.insertUser(user);
 	}
 	
-	@RequestMapping(value="/delete", method = RequestMethod.DELETE)
+	@RequestMapping(value="/delete", method = RequestMethod.GET)
 	public @ResponseBody void delete(String userUid) throws Exception{
 		userService.deleteUserByUid(userUid);
 	}
+	
+	@RequestMapping(value="/select/oneUser", method = RequestMethod.GET)
+	public @ResponseBody UserVO selectUserByUid(String userUid) throws Exception{
+		return userService.selectUserByUid(userUid);
+	}
+	
+	
 	
 }

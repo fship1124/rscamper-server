@@ -30,4 +30,9 @@ public class UserDAOImpl implements UserDAO {
 	public void deleteUserByUid(String userUid) {
 		sqlSessionTemplate.delete(namespace + ".deleteUserByUid", userUid);
 	}
+
+	@Override
+	public UserVO selectUserByUid(String userUid) {
+		return sqlSessionTemplate.selectOne(namespace + ".selectUserByUid", userUid);
+	}
 }
