@@ -8,6 +8,7 @@
 	<resultMap id="UserVOMap" type="UserVO">
 		<result column="USER_UID" property="userUid" />
 		<result column="PHOTO_URL" property="photoUrl" />
+		<result column="DISPLAY_NAME" property="displayName" />
 		<result column="PROVIDER_UID" property="providerUid" />
 		<result column="PROVIDER_NAME" property="providerName" />
 		<result column="PROVIDER_DISPLAY_NAME" property="providerDisplayName" />
@@ -46,6 +47,5 @@
 		FROM USER_TB
 		WHERE USER_UID = #{userUid}
 	</delete>
-	
 	
 </mapper>

@@ -20,7 +20,9 @@ public interface UserService {
 	public List<UserVO> selectUserList();
 	
 	/** TODO: [App] 회원 정보 수정 (프로필사진) */
+	
 	/** TODO: [App] 회원 정보 수정 (프로필 배경 사진) */
+	
 	/** TODO: [App] 회원 정보 수정 (회원정보) */
 	
 }

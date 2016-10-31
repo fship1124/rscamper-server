@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void insertUser(UserVO user) throws Exception {
+		System.out.println(user.toString());
 		dao.insertUser(user);
 	}
 
@@ -36,12 +37,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserVO selectUserByUid(String userUid) {
 		System.out.println(userUid);
+		System.out.println(dao.selectUserByUid(userUid).toString());
 		return dao.selectUserByUid(userUid);
 	}
 
 	@Override
 	public List<UserVO> selectUserList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
