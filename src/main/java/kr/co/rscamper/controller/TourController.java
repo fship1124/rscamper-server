@@ -15,6 +15,7 @@ public class TourController {
 	
 >>>>>>> dh
 	
+	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String together() {
 		logger.info("/tour > home");
