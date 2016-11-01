@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.rscamper.TravelogMapper">
+
+
+<select id = "getTime" resultType="string">
+	select now()
+</select>
+
+
+<select id = "listAll" resultType="TravelogVO">
+	<![CDATA[
+		select A.BOARD_NO as boardNo, A.CATEGORY_NO as categoryNo, A.TITLE as title, A.USER_UID as userUid, 
+			   B.DISPLAY_NAME as displayName, A.CONTENT as content, A.VIEW_CNT as ciewCnt, A.REG_DATE as regDate
+		  from board_tb A JOIN user_tb B 
+		    ON A.USER_UID = B.USER_UID
+		 where BOARD_NO > 0
+		 order by BOARD_NO desc
+	 ]]>  
+</select>
+
+
+</mapper>

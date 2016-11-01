@@ -212,6 +212,20 @@
 			<version>1.5.4</version>
 		</dependency>
 
+		<!-- 파일업로드 라이브러리  -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+
+		<!-- 이미지 파일을 고정된 크기로 변환할때 필요 -->
+		<dependency>
+			<groupId>org.imgscalr</groupId>
+			<artifactId>imgscalr-lib</artifactId>
+			<version>4.2</version>
+		</dependency>
+
 
 	</dependencies>
 	<build>
