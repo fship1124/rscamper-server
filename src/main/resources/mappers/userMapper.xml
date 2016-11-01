@@ -30,9 +30,9 @@
 	
 	<insert id="insertUser" parameterType="UserVO">
 		INSERT INTO USER_TB
-		(USER_UID,DISPLAY_NAME,PHOTO_URL,EMAIL,PROVIDER_UID,PROVIDER_NAME,PROVIDER_DISPLAY_NAME,PROVIDER_PHOTO_URL,PROVIDER_EMAIL,BGPHOTO_URL,LOCATION_NO,PHONE_NUMBER,WEBSITE_URL,INTRODUCE,BIRTHDAY,REG_DATE)
+		(USER_UID,DISPLAY_NAME,PHOTO_URL,EMAIL,PROVIDER_UID,PROVIDER_NAME,PROVIDER_DISPLAY_NAME,PROVIDER_PHOTO_URL,PROVIDER_EMAIL,BGPHOTO_URL,LOCATION_NO,PHONE_NUMBER,WEBSITE_URL,INTRODUCE,BIRTHDAY)
 		VALUES
-		(#{userUid},#{displayName},#{photoUrl},#{email},#{providerUid},#{providerName},#{providerName},#{providerDisplayName},#{providerPhotoUrl},#{providerEmail},#{locationNo},#{phoneNumber},#{websiteUrl},#{introduce},#{birthday},#{regDate})
+		(#{userUid},#{displayName},#{photoUrl},#{email},#{providerUid},#{providerName},#{providerDisplayName},#{providerPhotoUrl},#{providerEmail},#{bgphotoUrl},#{locationNo},#{phoneNumber},#{websiteUrl},#{introduce},#{birthday})
 		ON DUPLICATE KEY UPDATE USER_UID = #{userUid}
 	</insert>
 	
@@ -47,5 +47,35 @@
 		FROM USER_TB
 		WHERE USER_UID = #{userUid}
 	</delete>
+	
+	<resultMap id="UserPhotoVOMap" type="UserPhotoVO">
+		<result column="PHOTO_NO" property="photoNo" />
+		<result column="USER_UID" property="userUid" />
+		<result column="REG_DATE" property="regDate" />
+	</resultMap>
+	
+	<select id="selectUserPhotoPath" parameterType="UserPhotoVO" resultMap="UserPhotoVOMap">
+		SELECT *
+		FROM USER_PHOTO_TB
+		WHERE USER_UID = #{userUid} and TYPE = #{type}
+	</select>
+	
+	<delete id="deleteUserPhotoByNo" parameterType="int">
+		DELETE FROM USER_PHOTO_TB
+		WHERE PHOTO_NO = #{photoNo}
+	</delete>
+	
+	<insert id="insertUserPhoto" parameterType="UserPhotoVO">
+		INSERT INTO USER_PHOTO_TB 
+		(USER_UID, TYPE, PATH, SIZE)
+		VALUES 
+		(#{userUid}, #{type}, #{path}, #{size})
+	</insert>
+	
+	<update id="updateUserPhotoUrl" parameterType="UserPhotoVO">
+		UPDATE TABLE
+		FROM USER_TB
+		WHERE 
+	</update>
 	
 </mapper>
