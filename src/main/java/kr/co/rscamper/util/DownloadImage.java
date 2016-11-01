@@ -24,7 +24,7 @@ public class DownloadImage extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = request.getParameter("path");
 		ServletContext context = request.getServletContext();
-		String uploadPath = context.getRealPath("/upload");
+		String uploadPath = context.getRealPath("");
 		File f = new File(uploadPath + path);
 		response.setHeader("Content-Type", "image/jpg");
 

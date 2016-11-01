@@ -6,7 +6,10 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
+import org.junit.runner.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -79,7 +82,7 @@ public class AppUserController {
 			if (oriFileName != null && !oriFileName.equals("")) {
 
 				// 확장자 처리
-				String ext = "";
+				String ext = ".jpg";
 				
 				// 뒤쪽에 있는 . 의 위치
 				int index = oriFileName.lastIndexOf(".");
@@ -90,17 +93,14 @@ public class AppUserController {
 				
 				// 파일 사이즈
 				size = mFile.getSize();
-				System.out.println("파일 사이즈 : " + size);
 				// TODO: 50메가 넘으면 실패 반환
 
 				// 고유한 파일명 만들기
 				String saveFileName = "profile-" + UUID.randomUUID().toString() + ext;
-				System.out.println("저장할 파일명 : " + saveFileName);
 
 				// 임시저장된 파일을 원하는 경로에 저장
 				mFile.transferTo(new File(uploadDir + "/" + saveFileName));
 				path = uploadDir + "/" + saveFileName;
-				System.out.println("파일저장 완료");
 			}
 		}
 		

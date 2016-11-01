@@ -20,6 +20,13 @@
 		<result column="WEBSITE_URL" property="websiteUrl" />
 		<result column="REG_DATE" property="regDate" />
 	</resultMap>
+	
+	<resultMap id="UserPhotoVOMap" type="UserPhotoVO">
+		<result column="PHOTO_NO" property="photoNo" />
+		<result column="USER_UID" property="userUid" />
+		<result column="REG_DATE" property="regDate" />
+	</resultMap>
+	
 
 	<select id="selectMainByUidComment" parameterType="string"
 		resultType="UserVO">
@@ -48,12 +55,6 @@
 		WHERE USER_UID = #{userUid}
 	</delete>
 	
-	<resultMap id="UserPhotoVOMap" type="UserPhotoVO">
-		<result column="PHOTO_NO" property="photoNo" />
-		<result column="USER_UID" property="userUid" />
-		<result column="REG_DATE" property="regDate" />
-	</resultMap>
-	
 	<select id="selectUserPhotoPath" parameterType="UserPhotoVO" resultMap="UserPhotoVOMap">
 		SELECT *
 		FROM USER_PHOTO_TB
@@ -73,9 +74,9 @@
 	</insert>
 	
 	<update id="updateUserPhotoUrl" parameterType="UserPhotoVO">
-		UPDATE TABLE
-		FROM USER_TB
-		WHERE 
+		UPDATE USER_TB
+		SET PHOTO_URL = #{photoUrl}
+		WHERE USER_UID = #{userUid}
 	</update>
 	
 </mapper>
