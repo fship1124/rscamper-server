@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.rscamper.domain.UserPhotoVO;
 import kr.co.rscamper.domain.UserVO;
 
 @Repository
@@ -34,5 +35,25 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public UserVO selectUserByUid(String userUid) {
 		return sqlSessionTemplate.selectOne(namespace + ".selectUserByUid", userUid);
+	}
+
+	@Override
+	public UserPhotoVO selectUserPhotoPath(UserPhotoVO userPhoto) {
+		return sqlSessionTemplate.selectOne(namespace + ".selectUserPhotoPath", userPhoto);
+	}
+
+	@Override
+	public void deleteUserPhotoByNo(int photoNo) {
+		sqlSessionTemplate.delete(namespace + ".deleteUserPhotoByNo", photoNo);
+	}
+
+	@Override
+	public void insertUserPhoto(UserPhotoVO userPhoto) {
+		sqlSessionTemplate.insert(namespace + ".insertUserPhoto", userPhoto);
+	}
+
+	@Override
+	public void updateUserPhotoUrl(UserPhotoVO userPhoto) {
+		sqlSessionTemplate.update(namespace + ".updateUserPhotoUrl", userPhoto);
 	}
 }

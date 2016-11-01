@@ -2,6 +2,7 @@ package kr.co.rscamper.service;
 
 import java.util.List;
 
+import kr.co.rscamper.domain.UserPhotoVO;
 import kr.co.rscamper.domain.UserVO;
 
 public interface UserService {
@@ -18,8 +19,9 @@ public interface UserService {
 		
 	/** TODO: [App] 회원 리스트 가져오기 */
 	public List<UserVO> selectUserList();
-	
+
 	/** TODO: [App] 회원 정보 수정 (프로필사진) */
+	public void updateProfileImage(UserPhotoVO userPhoto);
 	
 	/** TODO: [App] 회원 정보 수정 (프로필 배경 사진) */
 	
