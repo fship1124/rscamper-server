@@ -23,12 +23,12 @@ import kr.co.rscamper.service.UserService;
 @RequestMapping("/post/*")
 public class PostController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(PostController.class);
+	
 	@Autowired
 	private PostService postservice;
 	@Autowired
 	private UserService userService;
-	
-	private static final Logger logger = LoggerFactory.getLogger(PostController.class);
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String post() {
@@ -43,6 +43,7 @@ public class PostController {
 
 		List<PostVO> list = new ArrayList<>();
 		list = postservice.listAll();
+		System.out.println(list.size());
 		return list;
 	}
 	
