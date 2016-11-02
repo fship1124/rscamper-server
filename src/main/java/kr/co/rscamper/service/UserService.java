@@ -20,15 +20,16 @@ public interface UserService {
 	
 	/** [App] UID로 회원 정보 가져오기 */
 	public UserVO selectUserByUid(String userUid);
-		
-	/** TODO: [App] 회원 리스트 가져오기 */
-	public List<UserVO> selectUserList();
 
 	/** [App] 회원 정보 수정 (프로필사진) */
 	public void updateProfileImage(UserPhotoVO userPhoto);
 	
-	/** TODO: [App] 회원 정보 수정 (프로필 배경 사진) */
+	/** [App] 회원 정보 수정 (프로필 배경 사진) */
+	public void updateBgImage(UserPhotoVO userPhoto);
 	
 	/** TODO: [App] 회원 정보 수정 (회원정보) */
+
+	/** TODO: [App] 회원 리스트 가져오기 */
+	public List<UserVO> selectUserList();
 	
 }

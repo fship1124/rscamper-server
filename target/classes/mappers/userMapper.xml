@@ -14,7 +14,7 @@
 		<result column="PROVIDER_DISPLAY_NAME" property="providerDisplayName" />
 		<result column="PROVIDER_PHOTO_URL" property="providerPhotoUrl" />
 		<result column="PROVIDER_EMAIL" property="providerEmail" />
-		<result column="BGPHOTO_URL" property="bgphotoUrl" />
+		<result column="BGPHOTO_URL" property="bgPhotoUrl" />
 		<result column="LOCATION_NO" property="locationNo" />
 		<result column="PHONE_NUMBER" property="phoneNumber" />
 		<result column="WEBSITE_URL" property="websiteUrl" />
@@ -39,7 +39,7 @@
 		INSERT INTO USER_TB
 		(USER_UID,DISPLAY_NAME,PHOTO_URL,EMAIL,PROVIDER_UID,PROVIDER_NAME,PROVIDER_DISPLAY_NAME,PROVIDER_PHOTO_URL,PROVIDER_EMAIL,BGPHOTO_URL,LOCATION_NO,PHONE_NUMBER,WEBSITE_URL,INTRODUCE,BIRTHDAY)
 		VALUES
-		(#{userUid},#{displayName},#{photoUrl},#{email},#{providerUid},#{providerName},#{providerDisplayName},#{providerPhotoUrl},#{providerEmail},#{bgphotoUrl},#{locationNo},#{phoneNumber},#{websiteUrl},#{introduce},#{birthday})
+		(#{userUid},#{displayName},#{photoUrl},#{email},#{providerUid},#{providerName},#{providerDisplayName},#{providerPhotoUrl},#{providerEmail},#{bgPhotoUrl},#{locationNo},#{phoneNumber},#{websiteUrl},#{introduce},#{birthday})
 		ON DUPLICATE KEY UPDATE USER_UID = #{userUid}
 	</insert>
 	
@@ -76,6 +76,12 @@
 	<update id="updateUserPhotoUrl" parameterType="UserPhotoVO">
 		UPDATE USER_TB
 		SET PHOTO_URL = #{photoUrl}
+		WHERE USER_UID = #{userUid}
+	</update>
+	
+	<update id="updateUserBgPhotoUrl" parameterType="UserPhotoVO">
+		UPDATE USER_TB
+		SET BGPHOTO_URL = #{bgPhotoUrl}
 		WHERE USER_UID = #{userUid}
 	</update>
 	

@@ -27,5 +27,8 @@ public interface UserDAO {
 	
 	/** USER_TB에 USER_UID에 PHOTO_URL수정 */
 	public void updateUserPhotoUrl(UserVO user);
+
+	/** USER_TB에 USER_UID에 BGPHOTO_URL수정 */
+	public void updateUserBgPhotoUrl(UserVO user);
 	
 }

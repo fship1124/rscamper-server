@@ -57,4 +57,9 @@ public class UserDAOImpl implements UserDAO {
 		sqlSessionTemplate.update(namespace + ".updateUserPhotoUrl", user);
 	}
 
+	@Override
+	public void updateUserBgPhotoUrl(UserVO user) {
+		sqlSessionTemplate.update(namespace + ".updateUserBgPhotoUrl", user); 
+	}
+
 }
