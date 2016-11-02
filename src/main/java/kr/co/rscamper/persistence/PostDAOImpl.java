@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.rscamper.domain.PostVO;
 
+//@Repository가 DB Exception Translation을 자동으로 해준다
 @Repository
 public class PostDAOImpl implements PostDAO {
 	
