@@ -6,19 +6,14 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
-=======
+
 import kr.co.rscamper.domain.PageVO;
->>>>>>> 0a968fdbefaac34e3858dcc592a6908b660fb5ce
 import kr.co.rscamper.domain.PostVO;
 import kr.co.rscamper.domain.UserVO;
 import kr.co.rscamper.persistence.PostDAO;
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 0a968fdbefaac34e3858dcc592a6908b660fb5ce
 @Service
 public class PostServiceImpl implements PostService {
 
