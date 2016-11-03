@@ -28,10 +28,11 @@ public interface UserService {
 	public void updateBgImage(UserPhotoVO userPhoto) throws Exception;
 	
 	/** TODO: [App] 회원 정보 수정 (회원정보) */
+	public void updateUserByUid(UserVO user);
 
 	/** TODO: [App] 회원 리스트 가져오기 */
 	public List<UserVO> selectUserList() throws Exception;
+
+	public void updateUser(UserVO user);
 	
-	/** 회원정보 변경 */
-	public void updateUser(UserVO user) throws Exception;
 }

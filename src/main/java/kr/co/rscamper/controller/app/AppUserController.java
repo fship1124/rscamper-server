@@ -32,13 +32,18 @@ public class AppUserController {
 	private UserService userService;
 
 	@Inject
-	ServletContext servletContext;
+	private ServletContext servletContext;
 
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public @ResponseBody void insert(UserVO user) throws Exception {
 		userService.insertUser(user);
 	}
 
+	@RequestMapping(value = "/update/oneUser", method = RequestMethod.POST)
+	public @ResponseBody void update(UserVO user) throws Exception {
+		userService.updateUserByUid(user);
+	}
+	
 	@RequestMapping(value = "/delete/oneUser", method = RequestMethod.DELETE)
 	public @ResponseBody void delete(String userUid) throws Exception {
 		userService.deleteUserByUid(userUid);
@@ -66,7 +71,6 @@ public class AppUserController {
 		Long size = (long) 0;
 		int type = 1;
 		
-		// c:\\\\\
 		String uploadDir = servletContext.getRealPath("/upload/images/profile");
 
 		File f = new File(uploadDir);

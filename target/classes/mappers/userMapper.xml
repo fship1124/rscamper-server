@@ -27,6 +27,10 @@
 		<result column="REG_DATE" property="regDate" />
 	</resultMap>
 	
+	
+	
+	<!-- ======================================================================================= -->
+	
 	<select id="selectMainByUidComment" parameterType="string"
 		resultType="UserVO">
 		SELECT DISPLAY_NAME as displayName, PHOTO_URL as photoUrl
@@ -84,9 +88,12 @@
 		WHERE USER_UID = #{userUid}
 	</update>
 	
-	<update id="updateUser" parameterType="UserVO">
-		update user_tb set DISPLAY_NAME = #{displayName}, PHOTO_URL = #{photoUrl}, EMAIL = #{email}, BGPHOTO_RUL = #{bgphotoUrl}, LOCATION_NO = #{locationNo}, PHONE_NUMBER = #{phoneNumber}, WEBSITE_URL = #{websiteUrl}, INTRODUCE = #{introduce}, BIRTHDAY = #{birthday}, REG_DATE = #{regDate}
+	<update id="updateUserByUid" parameterType="UserVO">
+		update user_tb 
+		set DISPLAY_NAME = #{displayName}, LOCATION_NO = #{locationNo}, PHONE_NUMBER = #{phoneNumber}, INTRODUCE = #{introduce}, BIRTHDAY = #{birthday}, WEBSITE_URL = #{websiteUrl}
 		where USER_UID = #{userUid}
 	</update>
+	
+	<!-- ======================================================================================= -->
 
 </mapper>

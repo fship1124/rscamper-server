@@ -25,7 +25,12 @@ public class UserDAOImpl implements UserDAO {
 	public void insertUser(UserVO user) {
 		sqlSessionTemplate.insert(namespace + ".insertUser", user);
 	}
-
+	
+	@Override
+	public void updateUserByUid(UserVO user) {
+		sqlSessionTemplate.update(namespace + ".updateUserByUid", user);
+	}
+	
 	@Override
 	public void deleteUserByUid(String userUid) {
 		sqlSessionTemplate.delete(namespace + ".deleteUserByUid", userUid);
@@ -50,6 +55,9 @@ public class UserDAOImpl implements UserDAO {
 	public void insertUserPhoto(UserPhotoVO userPhoto) {
 		sqlSessionTemplate.insert(namespace + ".insertUserPhoto", userPhoto);
 	}
+	
+
+
 
 	@Override
 	public void updateUserPhotoUrl(UserVO user) {
@@ -61,8 +69,4 @@ public class UserDAOImpl implements UserDAO {
 		sqlSessionTemplate.update(namespace + ".updateUserBgPhotoUrl", user); 
 	}
 
-	@Override
-	public void updateUser(UserVO user) throws Exception {
-		sqlSessionTemplate.update(namespace + ".updateUser", user);
-	}
 }

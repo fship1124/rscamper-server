@@ -104,8 +104,15 @@ public class UserServiceImpl implements UserService {
 		dao.updateUserBgPhotoUrl(user);	
 	}
 		
-	public void updateUser(UserVO user) throws Exception {
-		dao.updateUser(user);
+	@Override
+	public void updateUserByUid(UserVO user) {
+		System.out.println("회원수정 : "+ user.toString());
+		dao.updateUserByUid(user);
+	}
+
+	@Override
+	public void updateUser(UserVO user) {
+		// TODO Auto-generated method stub
 		
 	}
 }
