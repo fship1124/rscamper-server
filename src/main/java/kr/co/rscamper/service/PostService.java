@@ -6,6 +6,7 @@ import kr.co.rscamper.domain.PageVO;
 import kr.co.rscamper.domain.PostVO;
 import kr.co.rscamper.domain.UserVO;
 
+
 public interface PostService {
 
 	public String getTime() throws Exception;
