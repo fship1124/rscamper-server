@@ -25,8 +25,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserVO selectMainByUidComment(String userUid) throws Exception {
-		System.out.println("in selectMainByUidComment");
-		System.out.println("userUid : " + userUid);
 		return dao.selectMainByUidComment(userUid);
 	}
 
@@ -37,6 +35,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void deleteUserByUid(String userUid) {
 		System.out.println("회원탈퇴 : " + userUid);
 		dao.deleteUserByUid(userUid);
@@ -104,6 +103,10 @@ public class UserServiceImpl implements UserService {
 		user.setUserUid(userPhoto.getUserUid());
 		user.setBgPhotoUrl(bgPhotoUrl);
 		dao.updateUserBgPhotoUrl(user);		
+=======
+	public void updateUser(UserVO user) throws Exception {
+		dao.updateUser(user);
+>>>>>>> master
 		
 	}
 }

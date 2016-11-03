@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/tour/*")
 public class TourController {
-	private static final Logger logger = LoggerFactory.getLogger(TourController.class);
+	private static final Logger logger = LoggerFactory.getLogger(TogetherController.class);
 	
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)

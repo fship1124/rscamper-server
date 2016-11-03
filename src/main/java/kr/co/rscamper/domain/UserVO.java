@@ -20,6 +20,7 @@ public class UserVO {
 	private Date birthday;
 	private Date regDate;
 	
+<<<<<<< HEAD
 
 	public String getBgPhotoUrl() {
 		return bgPhotoUrl;
@@ -27,6 +28,8 @@ public class UserVO {
 	public void setBgPhotoUrl(String bgPhotoUrl) {
 		this.bgPhotoUrl = bgPhotoUrl;
 	}
+=======
+>>>>>>> master
 	public String getUserUid() {
 		return userUid;
 	}

@@ -18,7 +18,6 @@ public class UserDAOImpl implements UserDAO {
 	
 	@Override
 	public UserVO selectMainByUidComment(String userUid) {
-		System.out.println("userUid : " + userUid);
 		return sqlSessionTemplate.selectOne(namespace + ".selectMainByUidComment", userUid);
 	}
 
@@ -28,6 +27,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void deleteUserByUid(String userUid) {
 		sqlSessionTemplate.delete(namespace + ".deleteUserByUid", userUid);
 	}
@@ -62,4 +62,9 @@ public class UserDAOImpl implements UserDAO {
 		sqlSessionTemplate.update(namespace + ".updateUserBgPhotoUrl", user); 
 	}
 
+=======
+	public void updateUser(UserVO user) throws Exception {
+		sqlSessionTemplate.update(namespace + ".updateUser", user);
+	}
+>>>>>>> master
 }
