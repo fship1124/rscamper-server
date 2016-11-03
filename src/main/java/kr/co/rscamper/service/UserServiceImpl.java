@@ -70,8 +70,8 @@ public class UserServiceImpl implements UserService {
 		
 		// 5. USER_TB에 USER_UID에 PHOTO_URL수정
 		String path = userPhoto.getPath();
-//		String photoUrl = "http://192.168.0.228:3001" + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
-		String photoUrl = "http://192.168.1.13:3001" + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
+		String photoUrl = "http://192.168.0.228:3001" + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
+//		String photoUrl = "http://192.168.1.13:3001" + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
 		
 		UserVO user = new UserVO();
 		user.setUserUid(userPhoto.getUserUid());
@@ -95,8 +95,8 @@ public class UserServiceImpl implements UserService {
 		dao.insertUserPhoto(userPhoto);
 		
 		String path = userPhoto.getPath();
-//		String bgPhotoUrl = "http://192.168.0.228:3001" + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
-		String bgPhotoUrl = "http://192.168.1.13:3001" + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
+		String bgPhotoUrl = "http://192.168.0.228:3001" + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
+//		String bgPhotoUrl = "http://192.168.1.13:3001" + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
 		
 		UserVO user = new UserVO();
 		user.setUserUid(userPhoto.getUserUid());
