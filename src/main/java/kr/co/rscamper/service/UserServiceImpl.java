@@ -35,7 +35,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public void deleteUserByUid(String userUid) {
 		System.out.println("회원탈퇴 : " + userUid);
 		dao.deleteUserByUid(userUid);
@@ -102,11 +101,11 @@ public class UserServiceImpl implements UserService {
 		UserVO user = new UserVO();
 		user.setUserUid(userPhoto.getUserUid());
 		user.setBgPhotoUrl(bgPhotoUrl);
-		dao.updateUserBgPhotoUrl(user);		
-=======
+		dao.updateUserBgPhotoUrl(user);	
+	}
+		
 	public void updateUser(UserVO user) throws Exception {
 		dao.updateUser(user);
->>>>>>> master
 		
 	}
 }

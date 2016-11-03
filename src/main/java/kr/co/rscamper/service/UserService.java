@@ -14,7 +14,6 @@ public interface UserService {
 	
 	/** [App] 회원 가입 */
 	public void insertUser(UserVO user) throws Exception;
-<<<<<<< HEAD
 
 	/** [App] 회원 탈퇴 */
 	public void deleteUserByUid(String userUid);
@@ -33,9 +32,6 @@ public interface UserService {
 	/** TODO: [App] 회원 리스트 가져오기 */
 	public List<UserVO> selectUserList();
 	
-=======
-	
 	/** 회원정보 변경 */
 	public void updateUser(UserVO user)throws Exception;
->>>>>>> master
 }
