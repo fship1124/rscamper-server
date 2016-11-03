@@ -5,7 +5,26 @@
   <link rel="self" href="https://spring.io/blog.atom" />
   <id>http://spring.io/blog.atom</id>
   <icon>https://spring.io/favicon.ico</icon>
+<<<<<<< HEAD
   <updated>2016-10-28T10:41:00Z</updated>
+=======
+  <updated>2016-10-31T16:01:00Z</updated>
+  <entry>
+    <title>Webinar Replay: Consumer Driven Contracts and Your Microservice Architecture</title>
+    <link rel="alternate" href="https://spring.io/blog/2016/10/31/webinar-replay-consumer-driven-contracts-and-your-microservice-architecture" />
+    <category term="news" label="News and Events" />
+    <author>
+      <name>Pieter Humphrey</name>
+    </author>
+    <id>tag:spring.io,2016-10-31:2673</id>
+    <updated>2016-10-31T16:01:00Z</updated>
+    <content type="html">&lt;p&gt;Speaker: Marcin Grzejszczak&lt;br/&gt;Slides: &lt;a href="http://www.slideshare.net/MarcinGrzejszczak/consumer-driven-contracts-and-your-microservice-architecture-67641511"&gt;http://www.slideshare.net/MarcinGrzejszczak/consumer-driven-contracts-and-your-microservice-architecture-67641511&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;TDD introduced many improvements into the development process, but in our opinion the biggest impact relates to code design. Looking at the code from the usage perspective (by first writing an acceptance test) allows us to focus on usability rather than concrete implementation. Unfortunately, we usually rest on our laurels not trying to uplift this practice to the architecture level. &lt;/p&gt;
+&lt;p&gt;This presentation will show you how you can use the Spring Cloud Contract Verifier functionality in order to have a fully automated solution to stub your HTTP / Messaging collaborators. Just by adding proper configuration, you&amp;rsquo;ll surround the microservices you are testing with faked stubs that are tested against their producer, making much more realistic tests. &lt;/p&gt;
+&lt;p&gt;We will write a system using the CDC approach together with Spring Boot, Spring Cloud and Spring Cloud Contract Verifier. I&amp;rsquo;ll show you how easy it is to write applications that have a consumer-driven API, allowing a developer to speed up the time for writing better quality software.&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/4fJiz0woxAc" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</content>
+  </entry>
+>>>>>>> jhs
   <entry>
     <title>Spring Vault and Spring Cloud Vault 1.0.0.M1 are now available</title>
     <link rel="alternate" href="https://spring.io/blog/2016/10/28/spring-vault-and-spring-cloud-vault-1-0-0-m1-are-now-available" />
@@ -962,6 +981,7 @@ public class ExampleApplication implements CommandLineRunner {&#xD;
   &lt;li&gt;This post on &lt;a href="http://nixmash.com/java/know-your-spring-boot-embedded-servlet-container/"&gt;Spring Boot&amp;rsquo;s embedded web containers&lt;/a&gt;, by Dave Burke, is a good read.&lt;/li&gt;
 &lt;/ul&gt;</content>
   </entry>
+<<<<<<< HEAD
   <entry>
     <title>Spring Boot wins JAX Innovation Award for 2016</title>
     <link rel="alternate" href="https://spring.io/blog/2016/10/11/spring-boot-wins-jax-innovation-award-for-2016" />
@@ -974,4 +994,6 @@ public class ExampleApplication implements CommandLineRunner {&#xD;
     <content type="html">&lt;p&gt;The winners of the &lt;a href="https://jaxenter.com/winners-jax-innovation-awards-2016-jax-london-129588.html"&gt;JAX Innovation Awards 2016&lt;/a&gt; have been announced this evening at the JAX Innovation Awards special event in London, United Kingdom. The winner of the ¡®Most innovative contribution to the Java ecosystem¡¯ category is &lt;a href="http://projects.spring.io/spring-boot"&gt;Spring Boot&lt;/a&gt;. Docker has been voted the most innovative solution to software delivery and DevOps while the Special Jury Award went to Let¡¯s Encrypt. &lt;/p&gt;
 &lt;p&gt;&lt;img src="https://pbs.twimg.com/media/CvOp6OpVUAAMGAj.jpg" alt="Spring Boot wins JAX Innovation Award 2016" /&gt;&lt;/p&gt;</content>
   </entry>
+=======
+>>>>>>> jhs
 </feed>
