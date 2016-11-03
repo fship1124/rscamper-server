@@ -4,13 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.rscamper.UserMapper">
-<!-- <resultMap type="UserVO" id="userMap">
-	<result property="userUid" column="USER_UID"/>
-	<result property="displayname" column="DISPLAYNAME"/>
-	<result property="photoUrl" column="PHOTO_URL"/>
-	<result property="email" column="EMAIL"/>
-	
-</resultMap> -->
 
 	<resultMap id="UserVOMap" type="UserVO">
 		<result column="USER_UID" property="userUid" />
