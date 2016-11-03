@@ -4,9 +4,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.stereotype.Service;
+
 import kr.co.rscamper.domain.PostVO;
 import kr.co.rscamper.persistence.PostDAO;
 
+
+@Service
 public class PostServiceImpl implements PostService {
 
 	@Inject

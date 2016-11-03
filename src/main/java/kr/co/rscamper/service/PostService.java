@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.rscamper.domain.PostVO;
 
+
 public interface PostService {
 
 	public String getTime() throws Exception;
