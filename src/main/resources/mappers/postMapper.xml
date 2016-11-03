@@ -3,9 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="kr.co.rscamper.TravelogMapper">
+<mapper namespace="kr.co.rscamper.PostMapper">
 
-<resultMap type="TravelogVO" id="travelogMap">
+<resultMap type="PostVO" id="postMap">
 	<result column="BOARD_NO" property="boardNo" />
 	<result column="CATEGORY_NO" property="categoryNo" />
 	<result column="NAME" property="categoryName" />
@@ -22,13 +22,13 @@
 </select>
 
 
-<select id = "listAll" parameterType="PageVO" resultMap="travelogMap">
+<select id = "listAll" parameterType="map" resultMap="postMap">
 	<![CDATA[
 		select *
           from board_tb A JOIN user_tb B JOIN board_category_tb C
             on A.USER_UID = B.USER_UID 
            and A.CATEGORY_NO = C.CATEGORY_NO
-		   where BOARD_NO > 0
+		   where BOARD_NO > 0 and A.USER_UID = #{userUid}
 		   order by BOARD_NO desc
 		   LIMIT #{pageStart}, #{perPageNum}
 	 ]]>  

@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: Song
 Build-Jdk: 1.8.0_111
+=======
+Built-By: hsjung1
+Build-Jdk: 1.8.0_65
+>>>>>>> jhs_server
 Created-By: Maven Integration for Eclipse
 

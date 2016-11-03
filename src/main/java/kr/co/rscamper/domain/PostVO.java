@@ -6,10 +6,14 @@ public class PostVO {
 
 	private int boardNo;
 	private int categoryNo;
+	private int categoryName;
 	private String title;
 	private String userUid;
+	private String displayName;
+	private String content;
 	private int viewCnt;
 	private Date regDate;
+	
 	public int getBoardNo() {
 		return boardNo;
 	}
@@ -22,6 +26,12 @@ public class PostVO {
 	public void setCategoryNo(int categoryNo) {
 		this.categoryNo = categoryNo;
 	}
+	public int getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(int categoryName) {
+		this.categoryName = categoryName;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -33,6 +43,18 @@ public class PostVO {
 	}
 	public void setUserUid(String userUid) {
 		this.userUid = userUid;
+	}
+	public String getDisplayName() {
+		return displayName;
+	}
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public int getViewCnt() {
 		return viewCnt;
@@ -48,9 +70,12 @@ public class PostVO {
 	}
 	@Override
 	public String toString() {
-		return "PostVO [boardNo=" + boardNo + ", categoryNo=" + categoryNo + ", title=" + title + ", userUid=" + userUid
+		return "PostVO [boardNo=" + boardNo + ", categoryNo=" + categoryNo + ", categoryName=" + categoryName
+				+ ", title=" + title + ", userUid=" + userUid + ", displayName=" + displayName + ", content=" + content
 				+ ", viewCnt=" + viewCnt + ", regDate=" + regDate + "]";
 	}
+	
+	
 	
 	
 }
