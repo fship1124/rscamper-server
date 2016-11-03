@@ -13,13 +13,19 @@ public class UserVO {
 	private String providerPhotoUrl;
 	private String providerEmail;
 	private int locationNo;
+	private String bgPhotoUrl;
 	private String phoneNumber;
 	private String websiteUrl;
 	private String introduce;
 	private Date birthday;
 	private Date regDate;
 	
-	
+	public String getBgPhotoUrl() {
+		return bgPhotoUrl;
+	}
+	public void setBgPhotoUrl(String bgPhotoUrl) {
+		this.bgPhotoUrl = bgPhotoUrl;
+	}
 	public String getUserUid() {
 		return userUid;
 	}
