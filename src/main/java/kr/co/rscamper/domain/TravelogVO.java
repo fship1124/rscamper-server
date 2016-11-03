@@ -6,6 +6,7 @@ public class TravelogVO {
 	
 	private int boardNo;
 	private int categoryNo;
+	private String categoryName;
 	private String title;
 	private String userUid;
 	private String displayName;
@@ -24,6 +25,12 @@ public class TravelogVO {
 	}
 	public void setCategoryNo(int categoryNo) {
 		this.categoryNo = categoryNo;
+	}
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 	public String getTitle() {
 		return title;
@@ -70,9 +77,9 @@ public class TravelogVO {
 	
 	@Override
 	public String toString() {
-		return "TravelogVO [boardNo=" + boardNo + ", categoryNo=" + categoryNo + ", title=" + title + ", userUid="
-				+ userUid + ", displayName=" + displayName + ", content=" + content + ", viewCnt=" + viewCnt
-				+ ", regDate=" + regDate + ", imageNo=" + imageNo + "]";
+		return "TravelogVO [boardNo=" + boardNo + ", categoryNo=" + categoryNo + ", categoryName=" + categoryName
+				+ ", title=" + title + ", userUid=" + userUid + ", displayName=" + displayName + ", content=" + content
+				+ ", viewCnt=" + viewCnt + ", regDate=" + regDate + ", imageNo=" + imageNo + "]";
 	}
 	
 	

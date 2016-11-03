@@ -1,7 +1,9 @@
 package kr.co.rscamper.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.rscamper.domain.PageMaker;
+import kr.co.rscamper.domain.PageVO;
 import kr.co.rscamper.domain.TravelogVO;
 import kr.co.rscamper.service.TravelogService;
 import kr.co.rscamper.service.UserService;
@@ -37,12 +41,21 @@ public class TravelogController {
 	
 	// 게시물 목록 확인
 	@RequestMapping(value="/list", method = RequestMethod.GET)
-	public @ResponseBody List<TravelogVO> list() throws Exception{
-
+	public @ResponseBody  Map<String, Object> read(PageVO vo) throws Exception{
+		logger.info("/travelog > List");
+		
 		List<TravelogVO> list = new ArrayList<>();
-		list = travelogservice.listAll();
-		System.out.println(list.size());
-		return list;
+		list = travelogservice.listTravelog(vo);
+		
+		int totalCount = travelogservice.totalCount();
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setPage(vo);
+		pageMaker.setTotalCount(totalCount);
+		Map<String, Object> map = new HashMap<>();
+		map.put("page", list);
+		map.put("pageMaker", pageMaker);
+		return map;
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)

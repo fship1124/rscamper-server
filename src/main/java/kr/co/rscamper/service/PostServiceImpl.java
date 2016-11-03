@@ -6,7 +6,9 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.rscamper.domain.PageVO;
 import kr.co.rscamper.domain.PostVO;
+import kr.co.rscamper.domain.UserVO;
 import kr.co.rscamper.persistence.PostDAO;
 
 
@@ -38,8 +40,8 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostVO> listAll() throws Exception {
-		return dao.listAllMyPost();
+	public List<PostVO> listAll(PageVO vo, String userUid) throws Exception {
+		return dao.listAllMyPost(vo, userUid);
 	}
 
 }
