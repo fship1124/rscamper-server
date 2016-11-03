@@ -2,18 +2,18 @@ package kr.co.rscamper.domain;
 
 import java.util.Date;
 
-public class PostVO {
-
+public class TravelogVO {
+	
 	private int boardNo;
 	private int categoryNo;
-	private int categoryName;
+	private String categoryName;
 	private String title;
 	private String userUid;
 	private String displayName;
 	private String content;
 	private int viewCnt;
 	private Date regDate;
-	
+	private int imageNo;
 	public int getBoardNo() {
 		return boardNo;
 	}
@@ -26,10 +26,10 @@ public class PostVO {
 	public void setCategoryNo(int categoryNo) {
 		this.categoryNo = categoryNo;
 	}
-	public int getCategoryName() {
+	public String getCategoryName() {
 		return categoryName;
 	}
-	public void setCategoryName(int categoryName) {
+	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
 	public String getTitle() {
@@ -68,13 +68,19 @@ public class PostVO {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
-	@Override
-	public String toString() {
-		return "PostVO [boardNo=" + boardNo + ", categoryNo=" + categoryNo + ", categoryName=" + categoryName
-				+ ", title=" + title + ", userUid=" + userUid + ", displayName=" + displayName + ", content=" + content
-				+ ", viewCnt=" + viewCnt + ", regDate=" + regDate + "]";
+	public int getImageNo() {
+		return imageNo;
+	}
+	public void setImageNo(int imageNo) {
+		this.imageNo = imageNo;
 	}
 	
+	@Override
+	public String toString() {
+		return "TravelogVO [boardNo=" + boardNo + ", categoryNo=" + categoryNo + ", categoryName=" + categoryName
+				+ ", title=" + title + ", userUid=" + userUid + ", displayName=" + displayName + ", content=" + content
+				+ ", viewCnt=" + viewCnt + ", regDate=" + regDate + ", imageNo=" + imageNo + "]";
+	}
 	
 	
 	

@@ -3,8 +3,6 @@ package kr.co.rscamper.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.rscamper.domain.MenuVO;
+import kr.co.rscamper.domain.PageVO;
 import kr.co.rscamper.domain.PostVO;
-import kr.co.rscamper.service.MenuService;
+import kr.co.rscamper.domain.UserVO;
 import kr.co.rscamper.service.PostService;
 import kr.co.rscamper.service.UserService;
 
@@ -23,12 +21,12 @@ import kr.co.rscamper.service.UserService;
 @RequestMapping("/post/*")
 public class PostController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(PostController.class);
+	
 	@Autowired
 	private PostService postservice;
 	@Autowired
 	private UserService userService;
-	
-	private static final Logger logger = LoggerFactory.getLogger(PostController.class);
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String post() {
@@ -39,10 +37,11 @@ public class PostController {
 	
 	
 	@RequestMapping(value="/list", method = RequestMethod.GET)
-	public @ResponseBody List<PostVO> list() throws Exception{
+	public @ResponseBody List<PostVO> list(PageVO vo, String userUid) throws Exception{
 
 		List<PostVO> list = new ArrayList<>();
-		list = postservice.listAll();
+		list = postservice.listAll(vo, userUid);
+		System.out.println(list.size());
 		return list;
 	}
 	

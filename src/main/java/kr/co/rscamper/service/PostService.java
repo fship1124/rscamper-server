@@ -2,7 +2,9 @@ package kr.co.rscamper.service;
 
 import java.util.List;
 
+import kr.co.rscamper.domain.PageVO;
 import kr.co.rscamper.domain.PostVO;
+import kr.co.rscamper.domain.UserVO;
 
 
 public interface PostService {
@@ -18,7 +20,7 @@ public interface PostService {
 //	post 삭제
 	public void remove(Integer boardNo) throws Exception;
 //	전체 post list 
-	public List<PostVO> listAll() throws Exception;
+	public List<PostVO> listAll(PageVO vo, String userUid) throws Exception;
 	
 	
 }
