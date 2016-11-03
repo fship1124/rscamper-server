@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.rscamper.domain.PageVO;
 import kr.co.rscamper.domain.TravelogVO;
 import kr.co.rscamper.persistence.TravelogDAO;
 
@@ -21,10 +22,16 @@ public class TravelogServiceImple implements TravelogService {
 	}
 
 	@Override
-	public List<TravelogVO> listAll() throws Exception {
-		return dao.listAllTravelog();
+	public List<TravelogVO> listTravelog(PageVO vo) throws Exception {
+		return dao.listTravelog(vo);
 	}
 
+	@Override
+	public int totalCount() throws Exception {
+		return dao.totalCount();
+	}
+
+	
 	@Override
 	public void regist(TravelogVO travelog) throws Exception {
 		dao.insertTravelog(travelog);
