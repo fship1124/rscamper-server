@@ -73,8 +73,8 @@ public class TourController {
 		return sb;
 	}
 
-	@RequestMapping(value = "/api/detail", method = RequestMethod.GET)
-	public @ResponseBody StringBuilder apiDetailAjax(@RequestParam("contentid") String contentid, @RequestParam("contenttypeid") String contenttypeid) throws Exception {
+	@RequestMapping(value = "/api/detail1", method = RequestMethod.GET)
+	public @ResponseBody StringBuilder apiDetail1Ajax(@RequestParam("contentid") String contentid, @RequestParam("contenttypeid") String contenttypeid) throws Exception {
 		logger.info("/tour > detail");
 		System.out.println("contentid : " + contentid);
 
@@ -113,4 +113,43 @@ public class TourController {
 	}
 	
 	
+	
+	@RequestMapping(value = "/api/detail2", method = RequestMethod.GET)
+	public @ResponseBody StringBuilder apiDetail2Ajax(@RequestParam("contentid") String contentid, @RequestParam("contenttypeid") String contenttypeid) throws Exception {
+		logger.info("/tour > detail");
+		System.out.println("contentid : " + contentid);
+
+		StringBuilder urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailIntro"); /* URL */
+		urlBuilder.append("?ServiceKey=5AkDpDktcQsMsol9FxLRPbpAhj6M8yO5aRfb9BVCvD76mDEAgwOfEjNcJ3Kcd07t8tXGEmhr%2BCAOvNJv%2FyYivA%3D%3D"); // Service Key
+		urlBuilder.append("&contentId=" + contentid);
+		urlBuilder.append("&contenttypeid=" + contenttypeid);
+		urlBuilder.append("&MobileOS=ETC&MobileApp=AppTesting");
+		urlBuilder.append("&_type=json"); /* 페이지 번호 */
+		URL url = new URL(urlBuilder.toString());
+
+		logger.info("url : " + url);
+		
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("GET");
+		conn.setRequestProperty("Content-type", "application/json");
+		logger.info("Response code: " + conn.getResponseCode());
+
+		BufferedReader rd;
+		if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+			rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		} else {
+			rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+		}
+		StringBuilder sb = new StringBuilder();
+		String line;
+
+		while ((line = rd.readLine()) != null) {
+			sb.append(line);
+		}
+
+		rd.close();
+		conn.disconnect();
+		logger.info("/detail2 : " + sb.toString());
+		return sb;
+	}
 }
