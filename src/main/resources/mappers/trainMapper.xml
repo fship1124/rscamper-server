@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.rscamper.TrainMapper">
+<!-- id = class명Map 으로 -->
+<resultMap type="TrainVO" id="trainMap">
+	<result property="stationNo" column="STATION_NO"/>
+	<result property="stationTitle" column="STATION_TITLE"/>
+	<result property="stationVital" column="STATION_VITAL"/>
+</resultMap>
+
+<select id="list" resultMap="trainMap">
+	select	*
+		
+	from
+			train_tb
+</select>
+
+
+</mapper>
