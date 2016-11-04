@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.junit.runner.Request;
 import org.springframework.stereotype.Service;
 
+import kr.co.rscamper.domain.LocationVO;
 import kr.co.rscamper.domain.UserPhotoVO;
 import kr.co.rscamper.domain.UserVO;
 import kr.co.rscamper.persistence.UserDAO;
@@ -22,12 +23,29 @@ public class UserServiceImpl implements UserService {
 	
 	@Inject
 	ServletContext servletContext;
+	
+	private String URL = "http://14.32.66.104:8081";
+//	private static String URL = "http://192.168.0.228:3001";
+//	private static String URL = "http://192.168.1.13:3001";
 
 	@Override
 	public UserVO selectMainByUidComment(String userUid) throws Exception {
 		return dao.selectMainByUidComment(userUid);
 	}
 
+	@Override
+	public void updateUser(UserVO user) {
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	/*===========================================================================*/
+	 
 	@Override
 	public void insertUser(UserVO user) throws Exception {
 		System.out.println("회원가입 : " + user.toString());
@@ -53,6 +71,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void updateProfileImage(UserPhotoVO userPhoto) {
+		System.out.println("프로필 이미지수정 : " + userPhoto.toString());
+		
 		// 1. 기존 매칭되는 사진 정보 경로 가져오기(userUid, type)
 		UserPhotoVO oldUserPhoto = dao.selectUserPhotoPath(userPhoto);
 		if (oldUserPhoto != null) {
@@ -70,8 +90,7 @@ public class UserServiceImpl implements UserService {
 		
 		// 5. USER_TB에 USER_UID에 PHOTO_URL수정
 		String path = userPhoto.getPath();
-		String photoUrl = "http://192.168.0.228:3001" + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
-//		String photoUrl = "http://192.168.1.13:3001" + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
+		String photoUrl = URL + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
 		
 		UserVO user = new UserVO();
 		user.setUserUid(userPhoto.getUserUid());
@@ -83,6 +102,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void updateBgImage(UserPhotoVO userPhoto) {
 		UserPhotoVO oldUserPhoto = dao.selectUserPhotoPath(userPhoto);
+		System.out.println("배경이미지수정 : " + userPhoto.toString());
 		if (oldUserPhoto != null) {
 			String oldPath = oldUserPhoto.getPath();
 			
@@ -95,8 +115,7 @@ public class UserServiceImpl implements UserService {
 		dao.insertUserPhoto(userPhoto);
 		
 		String path = userPhoto.getPath();
-		String bgPhotoUrl = "http://192.168.0.228:3001" + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
-//		String bgPhotoUrl = "http://192.168.1.13:3001" + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
+		String bgPhotoUrl = URL + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
 		
 		UserVO user = new UserVO();
 		user.setUserUid(userPhoto.getUserUid());
@@ -111,8 +130,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateUser(UserVO user) {
-		// TODO Auto-generated method stub
-		
+	public List<LocationVO> selectLocationList() {
+		return dao.selectLocationList();
 	}
+
+	@Override
+	public LocationVO selectLocationByNo() {
+		return dao.selectLocationByNo();
+	}
+
 }

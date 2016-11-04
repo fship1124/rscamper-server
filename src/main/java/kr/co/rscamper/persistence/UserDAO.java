@@ -1,5 +1,8 @@
 package kr.co.rscamper.persistence;
 
+import java.util.List;
+
+import kr.co.rscamper.domain.LocationVO;
 import kr.co.rscamper.domain.UserPhotoVO;
 import kr.co.rscamper.domain.UserVO;
 
@@ -33,6 +36,10 @@ public interface UserDAO {
 
 	/** USER_TB에 USER_UID에 BGPHOTO_URL수정 */
 	public void updateUserBgPhotoUrl(UserVO user);
+
+	public List<LocationVO> selectLocationList();
+
+	public LocationVO selectLocationByNo();
 
 
 	

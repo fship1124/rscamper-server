@@ -1,10 +1,13 @@
 package kr.co.rscamper.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.rscamper.domain.LocationVO;
 import kr.co.rscamper.domain.UserPhotoVO;
 import kr.co.rscamper.domain.UserVO;
 
@@ -56,9 +59,6 @@ public class UserDAOImpl implements UserDAO {
 		sqlSessionTemplate.insert(namespace + ".insertUserPhoto", userPhoto);
 	}
 	
-
-
-
 	@Override
 	public void updateUserPhotoUrl(UserVO user) {
 		sqlSessionTemplate.update(namespace + ".updateUserPhotoUrl", user);
@@ -67,6 +67,17 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void updateUserBgPhotoUrl(UserVO user) {
 		sqlSessionTemplate.update(namespace + ".updateUserBgPhotoUrl", user); 
+	}
+
+	@Override
+	public List<LocationVO> selectLocationList() {
+		return sqlSessionTemplate.selectList(namespace + ".selectLocationList");
+	}
+
+	@Override
+	public LocationVO selectLocationByNo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

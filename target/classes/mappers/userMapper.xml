@@ -28,7 +28,11 @@
 		<result column="REG_DATE" property="regDate" />
 	</resultMap>
 	
-	<!-- ======================================================================================= -->
+	<resultMap type="LocationVO" id="LocationVOMap">
+		<result column="LOCATION_NO" property="locationNo"/>
+		<result column="LOCATION_NAME" property="locationName"/>
+	</resultMap>
+	
 	
 	<select id="selectMainByUidComment" parameterType="string"
 		resultType="UserVO">
@@ -36,6 +40,9 @@
 		FROM USER_TB
 		WHERE USER_UID = #{userUid}
 	</select>
+	
+	
+	<!-- ======================================================================================= -->
 	
 	<insert id="insertUser" parameterType="UserVO">
 		INSERT INTO USER_TB
@@ -92,6 +99,17 @@
 		set DISPLAY_NAME = #{displayName}, LOCATION_NO = #{locationNo}, PHONE_NUMBER = #{phoneNumber}, INTRODUCE = #{introduce}, BIRTHDAY = #{birthday}, WEBSITE_URL = #{websiteUrl}
 		where USER_UID = #{userUid}
 	</update>
+	
+	<select id="selectLocationList" resultMap="LocationVOMap">
+		SELECT *
+		FROM LOCATION_TB
+	</select>
+	
+	<select id="selectLotaionByNo" parameterType="int" resultMap="LocationVOMap">
+		SELECT *
+		FROM LOCATION_TB
+		WHERE LOCATION_NO = #{locationNo}
+	</select>
 	
 	<!-- ======================================================================================= -->
 
