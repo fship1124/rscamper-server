@@ -56,7 +56,7 @@ public class TogetherController {
 	}
 	
 	@RequestMapping(value = "/{detailNo}", method = RequestMethod.GET)
-	public String redirectDetail(@PathVariable("detailNo") int dNo, Model model) throws Exception {
+	public String redirectDetail(@PathVariable("detailNo") int dNo) throws Exception {
 		logger.info("/together > redirectDetail");
 		
 		return "redirect:http://localhost:80/rscamper-web/views/together/detail.jsp?no=" + dNo;

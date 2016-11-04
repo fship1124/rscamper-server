@@ -1,6 +1,9 @@
 package kr.co.rscamper.persistence;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -8,8 +11,11 @@ import org.apache.ibatis.session.SqlSessionException;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.rscamper.domain.PageVO;
 import kr.co.rscamper.domain.PostVO;
+import kr.co.rscamper.domain.UserVO;
 
+//@Repository가 DB Exception Translation을 자동으로 해준다
 @Repository
 public class PostDAOImpl implements PostDAO {
 	
@@ -19,28 +25,43 @@ public class PostDAOImpl implements PostDAO {
 	private static final String namespace = "kr.co.rscamper.PostMapper";
 
 	@Override
-	public String getTime() {
+	public String getTime() throws Exception{
 		return sqlSessionTemplate.selectOne(namespace + ".getTime");
 	}
 
 	@Override
-	public PostVO detailMyPost(Integer boardNo) {
-		return sqlSessionTemplate.selectOne(namespace + ".detailMyPost", boardNo);
+	public int totalCount() throws Exception {
+		return sqlSessionTemplate.selectOne(namespace + ".totalCount");
 	}
 
 	@Override
-	public void updateMyPost(PostVO post) {
-		sqlSessionTemplate.update(namespace + ".updateMyPost", post);
+	public PostVO detailMyPost(Integer boardNo) throws Exception {
+		return sqlSessionTemplate.selectOne(namespace + ".detailPost", boardNo);
 	}
 
 	@Override
-	public List<PostVO> listAllMyPost() {
-		return sqlSessionTemplate.selectList(namespace + ".list");
+	public void updateMyPost(PostVO post) throws Exception {
+		sqlSessionTemplate.update(namespace + ".updatePost", post );
 	}
+
 
 	@Override
-	public void deleteMyPost(Integer boardNo) {
-		sqlSessionTemplate.delete(namespace + ".delete", boardNo);
+	public void deleteMyPost(Integer boardNo) throws Exception {
+		sqlSessionTemplate.delete(namespace + ".deletePost", boardNo);
 	}
 
+
+	@Override
+	public List<PostVO> listAllMyPost(PageVO vo, String userUid) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("pageStart", vo.getPageStart());
+		paramMap.put("perPageNum", vo.getPerPageNum());
+		paramMap.put("userUid", userUid);
+		
+		List<PostVO> list = new ArrayList<>();
+		return sqlSessionTemplate.selectList(namespace + ".listAll", paramMap);
+	}
+
+	
+	
 }

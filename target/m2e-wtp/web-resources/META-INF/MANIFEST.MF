@@ -1,5 +1,9 @@
 Manifest-Version: 1.0
 Built-By: Bitcamp
+<<<<<<< HEAD
 Build-Jdk: 1.8.0_91
+=======
+Build-Jdk: 1.8.0_65
+>>>>>>> 914e62f5fbd3bc1af5e9ce189fee084624524637
 Created-By: Maven Integration for Eclipse
 
