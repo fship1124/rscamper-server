@@ -16,8 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="list" resultMap="menuMap">
 	select	*
-		from
-		menu_tb
+	from menu_tb
 </select>
 
 
