@@ -27,12 +27,7 @@ public class MenuController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MenuController.class);
 	
-//	@RequestMapping(value="/list", method = RequestMethod.GET)
-/*	public void list(MenuVO vo)throws Exception {
-		System.out.println("hi1");
-		System.out.println(vo);
-		service.list(vo);
-	}	*/
+
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public @ResponseBody List<MenuVO> list() throws Exception{
 

@@ -74,7 +74,7 @@ public class UserController {
 			e.printStackTrace();
 		}
 		
-		return "rediret:http://localhost:80/rscamper-web/views/main.jsp";
+		return "redirect:http://localhost:80/rscamper-web/views/main.jsp";
 	}
 	
 	
