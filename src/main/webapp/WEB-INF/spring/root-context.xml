@@ -19,7 +19,7 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="url" value="jdbc:mysql://14.32.66.104:9000/rscamper"></property>
+		<property name="url" value="jdbc:mysql://14.32.66.104:8082/rscamper"></property>
 <!-- 		<property name="url" value="jdbc:mysql://192.168.0.9:3306/rscamper"></property> -->
 <!-- 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/rscamper"></property> -->
 		<property name="username" value="rscamper"></property>

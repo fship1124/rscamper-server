@@ -76,6 +76,40 @@ public class TourController {
 	}
 	
 	
+	
+	@RequestMapping(value = "/api/detail", method = RequestMethod.GET)
+	public @ResponseBody String apiDetailAjax(@RequestParam("contentid") String contentid, @RequestParam("contenttypeid") String contenttypeid) throws Exception {
+		logger.info("/tour > detail");
+		
+		String s1 = apiDetailExecute(contentid, contenttypeid, "detailCommon", "&defaultYN=Y&addrinfoYN=Y&overviewYN=Y");
+		String s2 = apiDetailExecute(contentid, contenttypeid, "detailIntro", "");
+		String s3 = apiDetailExecute(contentid, contenttypeid, "detailInfo", "");
+		String s4 = apiDetailExecute(contentid, contenttypeid, "detailImage", "&imageYN=Y");
+		
+		logger.info("api1 : " + s1);
+		logger.info("api2 : " + s2);
+		logger.info("api3 : " + s3);
+		logger.info("api4 : " + s4);
+		
+		JSONObject obj = new JSONObject();
+		obj.put("api1", s1);
+		obj.put("api2", s2);
+		obj.put("api3", s3);
+		obj.put("api4", s4);
+		
+		System.out.println(obj.toString());
+		
+		JSONArray array = new JSONArray();
+		array.put(0, s1);
+		array.put(1, s2);
+		array.put(2, s3);
+		array.put(3, s4);
+		
+		return array.toString();
+	}
+	
+	
+	
 	public String apiDetailExecute(String contentId, String contenttypeId, String a, String b) throws Exception {
 		StringBuilder urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorService/" + a); /* URL */
 		urlBuilder.append("?ServiceKey=5AkDpDktcQsMsol9FxLRPbpAhj6M8yO5aRfb9BVCvD76mDEAgwOfEjNcJ3Kcd07t8tXGEmhr%2BCAOvNJv%2FyYivA%3D%3D"); // Service Key
@@ -111,37 +145,4 @@ public class TourController {
 		conn.disconnect();
 		return sb.toString();
 	}
-	
-	
-	@RequestMapping(value = "/api/detail", method = RequestMethod.GET)
-	public @ResponseBody String apiDetailAjax(@RequestParam("contentid") String contentid, @RequestParam("contenttypeid") String contenttypeid) throws Exception {
-		logger.info("/tour > detail");
-		
-		String s1 = apiDetailExecute(contentid, contenttypeid, "detailCommon", "&defaultYN=Y&addrinfoYN=Y&overviewYN=Y");
-		String s2 = apiDetailExecute(contentid, contenttypeid, "detailIntro", "");
-		String s3 = apiDetailExecute(contentid, contenttypeid, "detailInfo", "");
-		String s4 = apiDetailExecute(contentid, contenttypeid, "detailImage", "&imageYN=Y");
-		
-		logger.info("api1 : " + s1);
-		logger.info("api2 : " + s2);
-		logger.info("api3 : " + s3);
-		logger.info("api4 : " + s4);
-		
-		JSONObject obj = new JSONObject();
-		obj.put("api1", s1);
-		obj.put("api2", s2);
-		obj.put("api3", s3);
-		obj.put("api4", s4);
-		
-		System.out.println(obj.toString());
-		
-		JSONArray array = new JSONArray();
-		array.put(0, s1);
-		array.put(1, s2);
-		array.put(2, s3);
-		array.put(3, s4);
-		
-		return array.toString();
-	}
-	
 }
