@@ -37,8 +37,10 @@ public interface UserDAO {
 	/** USER_TB에 USER_UID에 BGPHOTO_URL수정 */
 	public void updateUserBgPhotoUrl(UserVO user);
 
+	/** 지역정보 리스트 전체 조회 */
 	public List<LocationVO> selectLocationList();
 
+	/** 지역정보 리스트 지역번호로 조회 */
 	public LocationVO selectLocationByNo();
 
 
