@@ -52,13 +52,12 @@ public class PostDAOImpl implements PostDAO {
 
 
 	@Override
-	public List<PostVO> listAllMyPost(PageVO vo, String userUid) throws Exception {
+	public List<PostVO> listAllMyPost(PageVO vo, String uid) throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("pageStart", vo.getPageStart());
 		paramMap.put("perPageNum", vo.getPerPageNum());
-		paramMap.put("userUid", userUid);
-		
-		List<PostVO> list = new ArrayList<>();
+		paramMap.put("uid", uid);
+//		System.out.println(paramMap.get("pageStart")+paramMap.get("perPageNum")+paramMap.get("uid"));
 		return sqlSessionTemplate.selectList(namespace + ".listAll", paramMap);
 	}
 

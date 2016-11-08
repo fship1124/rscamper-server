@@ -6,7 +6,7 @@ public class PostVO {
 
 	private int boardNo;
 	private int categoryNo;
-	private int categoryName;
+	private String categoryName;
 	private String title;
 	private String userUid;
 	private String displayName;
@@ -26,10 +26,11 @@ public class PostVO {
 	public void setCategoryNo(int categoryNo) {
 		this.categoryNo = categoryNo;
 	}
-	public int getCategoryName() {
+	
+	public String getCategoryName() {
 		return categoryName;
 	}
-	public void setCategoryName(int categoryName) {
+	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
 	public String getTitle() {

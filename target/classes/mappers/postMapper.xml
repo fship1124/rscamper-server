@@ -22,20 +22,20 @@
 </select>
 
 
-<select id = "listAll" parameterType="map" resultMap="postMap">
+<select id = "listAll" parameterType="hashmap" resultMap="postMap">
 	<![CDATA[
 		select *
           from board_tb A JOIN user_tb B JOIN board_category_tb C
             on A.USER_UID = B.USER_UID 
            and A.CATEGORY_NO = C.CATEGORY_NO
-		   where BOARD_NO > 0 and A.USER_UID = #{userUid}
+		   where BOARD_NO > 0 and A.USER_UID = #{uid}
 		   order by BOARD_NO desc
 		   LIMIT #{pageStart}, #{perPageNum}
 	 ]]>  
 </select>
 
-<select id = "totalCount" resultType = 'int'>
-	select count(*) from board_tb
+<select id = "totalCount" parameterType="UserVO" resultType = 'int'>
+	select count(*) from board_tb where USER_UID = #{userUid}
 </select>
 
 
