@@ -12,7 +12,6 @@ public class UserVO {
 	private String providerDisplayName;
 	private String providerPhotoUrl;
 	private String providerEmail;
-	private int locationNo;
 	private String bgPhotoUrl;
 	private String phoneNumber;
 	private String websiteUrl;
@@ -20,6 +19,15 @@ public class UserVO {
 	private Date birthday;
 	private Date regDate;
 	
+	private int locationNo;
+	private String locationName;
+
+	public String getLocationName() {
+		return locationName;
+	}
+	public void setLocationName(String locationName) {
+		this.locationName = locationName;
+	}
 	public String getBgPhotoUrl() {
 		return bgPhotoUrl;
 	}
@@ -122,15 +130,9 @@ public class UserVO {
 		return "UserVO [userUid=" + userUid + ", displayName=" + displayName + ", photoUrl=" + photoUrl + ", email="
 				+ email + ", providerUid=" + providerUid + ", providerName=" + providerName + ", providerDisplayName="
 				+ providerDisplayName + ", providerPhotoUrl=" + providerPhotoUrl + ", providerEmail=" + providerEmail
-				+ ", locationNo=" + locationNo + ", phoneNumber=" + phoneNumber + ", websiteUrl=" + websiteUrl
-				+ ", introduce=" + introduce + ", birthday=" + birthday + ", regDate=" + regDate + ", getUserUid()="
-				+ getUserUid() + ", getDisplayName()=" + getDisplayName() + ", getEmail()=" + getEmail()
-				+ ", getPhotoUrl()=" + getPhotoUrl() + ", getProviderUid()=" + getProviderUid() + ", getProviderName()="
-				+ getProviderName() + ", getProviderDisplayName()=" + getProviderDisplayName()
-				+ ", getProviderPhotoUrl()=" + getProviderPhotoUrl() + ", getProviderEmail()=" + getProviderEmail()
-				+ ", getLocationNo()=" + getLocationNo() + ", getPhoneNumber()=" + getPhoneNumber()
-				+ ", getWebsiteUrl()=" + getWebsiteUrl() + ", getIntroduce()=" + getIntroduce() + ", getBirthday()="
-				+ getBirthday() + ", getRegDate()=" + getRegDate() + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + ", toString()=" + super.toString() + "]";
+				+ ", bgPhotoUrl=" + bgPhotoUrl + ", phoneNumber=" + phoneNumber + ", websiteUrl=" + websiteUrl
+				+ ", introduce=" + introduce + ", birthday=" + birthday + ", regDate=" + regDate + ", locationNo="
+				+ locationNo + ", locationName=" + locationName + "]";
 	}
+	
 }

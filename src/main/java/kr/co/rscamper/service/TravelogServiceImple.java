@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.rscamper.domain.CommentVO;
 import kr.co.rscamper.domain.PageVO;
 import kr.co.rscamper.domain.TravelogVO;
 import kr.co.rscamper.persistence.TravelogDAO;
@@ -22,8 +23,8 @@ public class TravelogServiceImple implements TravelogService {
 	}
 
 	@Override
-	public List<TravelogVO> listTravelog(PageVO vo) throws Exception {
-		return dao.listTravelog(vo);
+	public List<TravelogVO> listTravelog(PageVO page) throws Exception {
+		return dao.listTravelog(page);
 	}
 
 	@Override
@@ -35,6 +36,35 @@ public class TravelogServiceImple implements TravelogService {
 	@Override
 	public void regist(TravelogVO travelog) throws Exception {
 		dao.insertTravelog(travelog);
+	}
+
+	@Override
+	public TravelogVO selectByNo(int bNo) throws Exception {
+		return dao.selectByNo(bNo);
+	}
+
+	@Override
+	public void addCommnet(CommentVO comment) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<CommentVO> listComment(Integer boardNo) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void modifyComment(CommentVO comment) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeComment(Integer boardNo) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

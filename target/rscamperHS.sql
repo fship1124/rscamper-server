@@ -1,3 +1,0 @@
-select * from 
-
-show tables;

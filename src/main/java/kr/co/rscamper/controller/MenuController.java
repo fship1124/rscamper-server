@@ -19,7 +19,7 @@ import kr.co.rscamper.service.MenuService;
  * Handles requests for the application home page.
  */
 @RestController
-@RequestMapping("/menu*")
+@RequestMapping("/menu/*")
 public class MenuController {
 	
 	@Inject

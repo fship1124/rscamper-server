@@ -5,7 +5,6 @@ package kr.co.rscamper.domain;
 
 import java.util.Date;
 
-
 public class MainVO {
 	private String userUid;
 	private String displayName;

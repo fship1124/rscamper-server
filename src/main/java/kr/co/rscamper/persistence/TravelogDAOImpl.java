@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.rscamper.domain.CommentVO;
 import kr.co.rscamper.domain.PageVO;
 import kr.co.rscamper.domain.TogetherVO;
 import kr.co.rscamper.domain.TravelogVO;
@@ -27,9 +28,9 @@ public class TravelogDAOImpl implements TravelogDAO {
 	}
 
 	@Override
-	public List<TravelogVO> listTravelog(PageVO vo) throws Exception {
+	public List<TravelogVO> listTravelog(PageVO page) throws Exception {
 		List<TravelogVO> list = new ArrayList<>(); 
-		return sqlSessionTemplate.selectList(namespace + ".listAll", vo);
+		return sqlSessionTemplate.selectList(namespace + ".listAll", page);
 	}
 	
 	@Override
@@ -40,6 +41,31 @@ public class TravelogDAOImpl implements TravelogDAO {
 	@Override
 	public void insertTravelog(TravelogVO travelog) throws Exception {
 		sqlSessionTemplate.insert(namespace + ".insert", travelog);
+	}
+
+	@Override
+	public TravelogVO selectByNo(int bNo) throws Exception {
+		return sqlSessionTemplate.selectOne(namespace + ".selectByNo", bNo);
+	}
+
+	@Override
+	public List<CommentVO> listComment(Integer boardNo) throws Exception {
+		return sqlSessionTemplate.selectList(namespace + ".listComment", boardNo);
+	}
+
+	@Override
+	public void insertComment(CommentVO comment) throws Exception {
+		sqlSessionTemplate.selectList(namespace + ".insertComment", comment);
+	}
+
+	@Override
+	public void updateComment(CommentVO comment) throws Exception {
+		sqlSessionTemplate.selectList(namespace + ".updateComment", comment);
+	}
+
+	@Override
+	public void delteteComment(Integer commentNo) throws Exception {
+		sqlSessionTemplate.selectList(namespace + ".delteteComment", commentNo);
 	}
 	
 	

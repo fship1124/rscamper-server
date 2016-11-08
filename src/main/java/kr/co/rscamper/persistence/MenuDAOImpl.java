@@ -15,11 +15,14 @@ public class MenuDAOImpl implements MenuDAO{
 	@Inject
 	private SqlSession session;
 	
-	private static String namespace = "kr.co.rscamper.mapper.MenuMapper";
+	private static String namespace = "kr.co.rscamper.MenuMapper";
 
 	@Override
 	public List<MenuVO> list() throws Exception {
 		List<MenuVO> list = session.selectList(namespace + ".list");
+		for (MenuVO menu : list) {
+			System.out.println("메뉴" + menu.toString());
+		}
 		return list;
 	}
 }
