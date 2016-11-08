@@ -19,6 +19,7 @@
 		<result column="PHONE_NUMBER" property="phoneNumber" />
 		<result column="WEBSITE_URL" property="websiteUrl" />
 		<result column="REG_DATE" property="regDate" />
+		<result column="LOCATION_NAME" property="locationName"></result>
 	</resultMap>
 	
 	<resultMap id="UserPhotoVOMap" type="UserPhotoVO">
@@ -27,12 +28,21 @@
 		<result column="REG_DATE" property="regDate" />
 	</resultMap>
 	
+	<resultMap type="LocationVO" id="LocationVOMap">
+		<result column="LOCATION_NO" property="locationNo"/>
+		<result column="LOCATION_NAME" property="locationName"/>
+	</resultMap>
+	
+	
 	<select id="selectMainByUidComment" parameterType="string"
 		resultType="UserVO">
 		SELECT DISPLAY_NAME as displayName, PHOTO_URL as photoUrl
 		FROM USER_TB
 		WHERE USER_UID = #{userUid}
 	</select>
+	
+	
+	<!-- ======================================================================================= -->
 	
 	<insert id="insertUser" parameterType="UserVO">
 		INSERT INTO USER_TB
@@ -44,8 +54,8 @@
 	
 	<select id="selectUserByUid" parameterType="string" resultMap="UserVOMap">
 		SELECT *
-		FROM USER_TB
-		WHERE USER_UID = #{userUid}
+		FROM USER_TB U, LOCATION_TB L
+		WHERE U.LOCATION_NO = L.LOCATION_NO AND USER_UID = #{userUid}
 	</select>
 	
 	<delete id="deleteUserByUid" parameterType="string">
@@ -84,9 +94,23 @@
 		WHERE USER_UID = #{userUid}
 	</update>
 	
-	<update id="updateUser" parameterType="UserVO">
-		update user_tb set DISPLAY_NAME = #{displayName}, PHOTO_URL = #{photoUrl}, EMAIL = #{email}, BGPHOTO_RUL = #{bgphotoUrl}, LOCATION_NO = #{locationNo}, PHONE_NUMBER = #{phoneNumber}, WEBSITE_URL = #{websiteUrl}, INTRODUCE = #{introduce}, BIRTHDAY = #{birthday}, REG_DATE = #{regDate}
+	<update id="updateUserByUid" parameterType="UserVO">
+		update user_tb 
+		set DISPLAY_NAME = #{displayName}, LOCATION_NO = #{locationNo}, PHONE_NUMBER = #{phoneNumber}, INTRODUCE = #{introduce}, BIRTHDAY = #{birthday}, WEBSITE_URL = #{websiteUrl}
 		where USER_UID = #{userUid}
 	</update>
+	
+	<select id="selectLocationList" resultMap="LocationVOMap">
+		SELECT *
+		FROM LOCATION_TB
+	</select>
+	
+	<select id="selectLotaionByNo" parameterType="int" resultMap="LocationVOMap">
+		SELECT *
+		FROM LOCATION_TB
+		WHERE LOCATION_NO = #{locationNo}
+	</select>
+	
+	<!-- ======================================================================================= -->
 
 </mapper>

@@ -1,6 +1,3 @@
-/*
- *   모든 페이지에서 사용할 수 있도록 공통 컴포넌트로 생성
- */
 package kr.co.rscamper.util;
 
 import java.io.BufferedInputStream;

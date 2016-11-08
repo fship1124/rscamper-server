@@ -1,7 +1,5 @@
 package kr.co.rscamper.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,8 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.rscamper.domain.PageMaker;
 import kr.co.rscamper.domain.PageVO;
 import kr.co.rscamper.domain.PostVO;
-import kr.co.rscamper.domain.TravelogVO;
-import kr.co.rscamper.domain.UserVO;
 import kr.co.rscamper.service.PostService;
 import kr.co.rscamper.service.UserService;
 

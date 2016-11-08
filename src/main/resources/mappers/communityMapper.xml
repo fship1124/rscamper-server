@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.rscamper.CommunityMapper">
+
+	<resultMap type="CommunityVO" id="CommunityVOMap">
+		<result column="BOARD_NO" property="boardNo" />
+		<result column="VIEW_CNT" property="viewCnt" />
+		<result column="REG_DATE" property="regDate" />
+		
+		<result column="CATEGORY_NO" property="categoryNo" />
+		<result column="CATEGORY_NAME" property="categoryName" />
+		
+		<result column="USER_UID" property="userUid" />
+		<result column="PHOTO_URL" property="photoUrl" />
+		<result column="DISPLAY_NAME" property="displayName" />
+		<result column="PROVIDER_UID" property="providerUid" />
+		<result column="PROVIDER_NAME" property="providerName" />
+		<result column="PROVIDER_DISPLAY_NAME" property="providerDisplayName" />
+		<result column="PROVIDER_PHOTO_URL" property="providerPhotoUrl" />
+		<result column="PROVIDER_EMAIL" property="providerEmail" />
+		<result column="BGPHOTO_URL" property="bgPhotoUrl" />
+		<result column="LOCATION_NO" property="locationNo" />
+		<result column="PHONE_NUMBER" property="phoneNumber" />
+		<result column="WEBSITE_URL" property="websiteUrl" />
+		<result column="LOCATION_NAME" property="locationName"></result>
+	</resultMap>
+	
+	<select id="selectCommunityList" resultMap="CommunityVOMap" parameterType="hashMap">
+		SELECT *
+		FROM BOARD_TB B, BOARD_CATEGORY_TB C, USER_TB U, LOCATION_TB L
+		WHERE C.CATEGORY_NO = B.CATEGORY_NO AND B.USER_UID = U.USER_UID AND U.LOCATION_NO = L.LOCATION_NO
+		ORDER BY BOARD_NO DESC
+		LIMIT #{page}, #{count}
+	</select>
+	
+	<select id="selectCommunityTotalPages" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD_TB
+	</select>
+	
+	<select id="selectCommunity" resultMap="CommunityVOMap" parameterType="int">
+		SELECT *
+		FROM BOARD_TB B, BOARD_CATEGORY_TB C, USER_TB U, LOCATION_TB L
+		WHERE C.CATEGORY_NO = B.CATEGORY_NO 
+		AND B.USER_UID = U.USER_UID 
+		AND U.LOCATION_NO = L.LOCATION_NO
+		AND BOARD_NO = #{boardNo}
+	</select>
+	
+	<select id="selectCategoryList" resultMap="CommunityVOMap">
+		SELECT *
+		FROM BOARD_CATEGORY_TB
+	</select>
+	
+	<insert id="insertBoard" parameterType="CommunityVO">
+		INSERT INTO BOARD_TB (CATEGORY_NO, USER_UID, TITLE, CONTENT)
+		VALUES (#{categoryNo}, #{userUid}, #{title}, #{content})
+	</insert>
+	
+	<delete id="deleteBoardByBoardNo" parameterType="int">
+		DELETE FROM BOARD_TB
+		WHERE BOARD_NO = #{boardNo}
+	</delete>
+
+</mapper>
