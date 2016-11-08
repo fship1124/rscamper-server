@@ -7,7 +7,9 @@ import javax.inject.Inject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.rscamper.domain.LocationLikedVO;
 import kr.co.rscamper.domain.RecordCoverVO;
+import kr.co.rscamper.domain.RecordLocationVO;
 import kr.co.rscamper.domain.TourScheduleVO;
 
 @Repository
@@ -26,6 +28,7 @@ public class TourScheduleDAO {
 	
 	public void delSchedule(int no) {
 		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.delSchedule", no);
+		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.delCover", no);
 	}
 	
 	public void changeCover(RecordCoverVO rc) {
@@ -47,4 +50,23 @@ public class TourScheduleDAO {
 		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getDetailTourSchedule", no);
 	}
 	
+	public void updateStrapline(TourScheduleVO tv) {
+		sqlSessionTemplate.update("kr.co.rscamper.TourSchedule.updateStrapline", tv);
+	}
+	
+	public void addScheduleLocation(RecordLocationVO rl) {
+		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.addScheduleLocation", rl);
+	}
+	
+	public List<RecordLocationVO> getScheduleLocation(int no) {
+		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getScheduleLocation", no);
+	}
+	
+	public int locationLikeCount(int code) {
+		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.locationLikeCount", code);
+	}
+	
+	public void insertLikePlus(LocationLikedVO ll) {
+		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.insertLikePlus", ll);
+	}
 }
