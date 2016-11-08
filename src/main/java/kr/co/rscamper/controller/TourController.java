@@ -28,7 +28,7 @@ public class TourController {
 	public String together() {
 		logger.info("/tour > home");
 
-		return "redirect:http://localhost:80/rscamper-web/views/tour/list.jsp";
+		return "redirect:http://192.168.0.173:80/rscamper-web/views/tour/list.jsp";
 	};
 
 	@RequestMapping(value = "/api/list", method = RequestMethod.GET)
