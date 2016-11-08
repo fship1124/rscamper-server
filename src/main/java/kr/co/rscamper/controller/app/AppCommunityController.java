@@ -28,6 +28,11 @@ public class AppCommunityController {
 		return communityService.selectCommunityList(page);
 	}
 	
+	@RequestMapping(value = "/select/oneBoard", method = RequestMethod.GET)
+	public @ResponseBody CommunityVO selectCommunity(int boardNo) throws Exception {
+		return communityService.selectCommunity(boardNo);
+	}
+	
 	@RequestMapping(value = "/select/category", method = RequestMethod.GET)
 	public @ResponseBody List<CommunityVO> selectCategoryList() throws Exception {
 		return communityService.selectCategoryList();
@@ -36,6 +41,12 @@ public class AppCommunityController {
 	@RequestMapping(value = "/insert/board", method = RequestMethod.POST)
 	public @ResponseBody void insertBoard(CommunityVO community) throws Exception {
 		communityService.insertBoard(community);
+	}
+	
+	@RequestMapping(value = "/delete/oneBoard", method = RequestMethod.DELETE)
+	public @ResponseBody void deleteBoardByBoardNo(int boardNo) throws Exception {
+		System.out.println("삭제" + boardNo);
+		communityService.deleteBoardByBoardNo(boardNo);
 	}
 	
 }

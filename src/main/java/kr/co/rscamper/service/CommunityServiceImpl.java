@@ -9,13 +9,18 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import kr.co.rscamper.domain.CommunityVO;
+import kr.co.rscamper.domain.UserVO;
 import kr.co.rscamper.persistence.CommunityDAO;
+import kr.co.rscamper.persistence.UserDAO;
 
 @Service
 public class CommunityServiceImpl implements CommunityService {
 
 	@Inject
 	public CommunityDAO dao;
+	
+	@Inject
+	public UserDAO userDao;
 
 	@Override
 	public Map<String, Object> selectCommunityList(int page) {
@@ -43,6 +48,16 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public void insertBoard(CommunityVO community) {
 		dao.insertBoard(community);
+	}
+
+	@Override
+	public CommunityVO selectCommunity(int boardNo) {
+		return dao.selectCommunity(boardNo);
+	}
+
+	@Override
+	public void deleteBoardByBoardNo(int boardNo) {
+		dao.deleteBoardByBoardNo(boardNo);
 	}
 
 }

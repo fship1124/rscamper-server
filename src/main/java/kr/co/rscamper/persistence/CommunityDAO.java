@@ -18,5 +18,11 @@ public interface CommunityDAO {
 
 	// 게시글 입력
 	public void insertBoard(CommunityVO community);
+
+	// 게시물 하나 조회
+	public CommunityVO selectCommunity(int boardNo);
+
+	// 게시물 하나 삭제
+	public void deleteBoardByBoardNo(int boardNo);
 	
 }

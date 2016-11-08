@@ -10,6 +10,9 @@ public interface CommunityService {
 	/** 커뮤니티 게시글(+유저정보)(페이징) 가져오기 */
 	public Map<String, Object> selectCommunityList(int page);
 
+	/** 커뮤니티 게시글 하나 정보 가져오기 */
+	public CommunityVO selectCommunity(int boardNo);
+
 	/** 커뮤니티 게시판 카테고리 리스트 가져오기 */
 	public List<CommunityVO> selectCategoryList();
 
@@ -17,4 +20,7 @@ public interface CommunityService {
 	 * @param community */
 	public void insertBoard(CommunityVO community);
 
+	/** 게시물 삭제 */
+	public void deleteBoardByBoardNo(int boardNo);
+	
 }

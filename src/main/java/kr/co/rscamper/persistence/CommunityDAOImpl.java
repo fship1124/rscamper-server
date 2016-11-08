@@ -38,6 +38,16 @@ public class CommunityDAOImpl implements CommunityDAO {
 	public void insertBoard(CommunityVO community) {
 		sqlSessionTemplate.insert(namespace + ".insertBoard", community);
 	}
+
+	@Override
+	public CommunityVO selectCommunity(int boardNo) {
+		return sqlSessionTemplate.selectOne(namespace + ".selectCommunity", boardNo);
+	}
+
+	@Override
+	public void deleteBoardByBoardNo(int boardNo) {
+		sqlSessionTemplate.delete(namespace + ".deleteBoardByBoardNo", boardNo);
+	}
 	
 	
 	
