@@ -22,8 +22,8 @@ public class TravelogServiceImple implements TravelogService {
 	}
 
 	@Override
-	public List<TravelogVO> listTravelog(PageVO vo) throws Exception {
-		return dao.listTravelog(vo);
+	public List<TravelogVO> listTravelog(PageVO page) throws Exception {
+		return dao.listTravelog(page);
 	}
 
 	@Override
@@ -35,6 +35,11 @@ public class TravelogServiceImple implements TravelogService {
 	@Override
 	public void regist(TravelogVO travelog) throws Exception {
 		dao.insertTravelog(travelog);
+	}
+
+	@Override
+	public TravelogVO selectByNo(int bNo) throws Exception {
+		return dao.selectByNo(bNo);
 	}
 
 	

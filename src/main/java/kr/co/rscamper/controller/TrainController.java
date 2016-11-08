@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import kr.co.rscamper.domain.TrainVO;
 import kr.co.rscamper.service.TrainService;
 
-@RestController
-@RequestMapping("/train/*")
+// @RestController
+// @RequestMapping("/train/*")
 public class TrainController {
 	
 	@Inject
@@ -24,12 +24,12 @@ public class TrainController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TrainController.class);
 	
-	@RequestMapping(value="/test", method = RequestMethod.GET)
+/*	@RequestMapping(value="/test", method = RequestMethod.GET)
 	public @ResponseBody List<TrainVO> list() throws Exception {
 		logger.info("qqqqq");
 		System.out.println("짜자잔");
 		List<TrainVO> list = new ArrayList<>();
 		list = service.list();
 		return list;
-	}
+	}*/
 }

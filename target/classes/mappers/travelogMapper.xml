@@ -8,7 +8,7 @@
 <resultMap type="TravelogVO" id="travelogMap">
 	<result column="BOARD_NO" property="boardNo" />
 	<result column="CATEGORY_NO" property="categoryNo" />
-	<result column="NAME" property="categoryName" />
+	<result column="CATEGORY_NAME" property="categoryName" />
 	<result column="TITLE" property="title" />
 	<result column="USER_UID" property="userUid" />
 	<result column="DISPLAY_NAME" property="displayName" />
@@ -38,5 +38,53 @@
 	select count(*) from board_tb
 </select>
 
+<insert id="insert" parameterType="TravelogVO" >
+	insert into board_tb
+</insert>
+
+<select id="selectByNo" parameterType="int" resultMap="travelogMap" >
+	select * 
+	  from board_tb A JOIN user_tb B JOIN board_category_tb C
+            on A.USER_UID = B.USER_UID 
+           and A.CATEGORY_NO = C.CATEGORY_NO
+         where BOARD_NO = #{bNo}
+</select>
+
+
+
+<!-- comment  -->
+<resultMap type="CommentVO" id="travelogCommentMap">
+	<result column="COMMENT_NO" property="commentNo" />
+	<result column="TARGET_COMMENT_NO" property="targetCommentNo" />
+	<result column="BOARD_NO" property="boardNo" />
+	<result column="USER_UID" property="userUid" />
+	<result column="CONTENT" property="content" />
+	<result column="REG_DATE" property="regDate" />
+</resultMap>
+
+<select id="listComment" parameterType="int" resultMap="travelogCommentMap" >
+	<![CDATA[
+	select * 
+	  from board_comment_tb
+	 where BOARD_NO = #{boardNo} and COMMENT_NO > 0
+	 order by COMMENT_NO desc
+	]]> 
+</select>
+
+<insert id="insertComment" parameterType="CommentVO" >
+	insert into board_comment_tb(TARGET_CIMMENT_NO, BOARD_NO, USER_UID, CONTENT, REG_DATE)
+	values (#{targetCommentNo}, #{boardNo}, #{userUid}, #{content}, #{regDate})
+</insert>
+
+<update id="updateComment" parameterType="CommentVO" >
+	update board_comment_tb
+	   set CONTENT = #{content},  REG_DATE = now()
+	 where COMMENT_NO = #{commentNo}
+</update>
+
+<delete id="delteteComment" parameterType="int" >
+	delete from board_comment_tb 
+	 where COMMENT_NO = #{commentNo}
+</delete>
 
 </mapper>
