@@ -12,8 +12,21 @@ public class TourScheduleVO {
 	private int picture;
 	private String period;
 	private RecordCoverVO cover;
+	private String strapline;
+	private String introduce;
 	
-	
+	public String getStrapline() {
+		return strapline;
+	}
+	public void setStrapline(String strapline) {
+		this.strapline = strapline;
+	}
+	public String getIntroduce() {
+		return introduce;
+	}
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}	
 	public RecordCoverVO getCover() {
 		return cover;
 	}
