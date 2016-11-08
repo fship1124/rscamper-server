@@ -12,26 +12,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.co.rscamper.domain.MenuVO;
-import kr.co.rscamper.service.MenuService;
+import kr.co.rscamper.domain.TrainVO;
+import kr.co.rscamper.service.TrainService;
 
-/**
- * Handles requests for the application home page.
- */
 @RestController
-@RequestMapping("/menu/*")
-public class MenuController {
+@RequestMapping("/train/*")
+public class TrainController {
 	
 	@Inject
-	private MenuService service;
+	private TrainService service;
 	
-	private static final Logger logger = LoggerFactory.getLogger(MenuController.class);
+	private static final Logger logger = LoggerFactory.getLogger(TrainController.class);
 	
-
-	@RequestMapping(value="/list", method = RequestMethod.GET)
-	public @ResponseBody List<MenuVO> list() throws Exception{
-
-		List<MenuVO> list = new ArrayList<>();
+	@RequestMapping(value="/test", method = RequestMethod.GET)
+	public @ResponseBody List<TrainVO> list() throws Exception {
+		logger.info("qqqqq");
+		System.out.println("짜자잔");
+		List<TrainVO> list = new ArrayList<>();
 		list = service.list();
 		return list;
 	}

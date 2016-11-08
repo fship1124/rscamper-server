@@ -19,6 +19,6 @@ public interface PostDAO {
 
 	public void deleteMyPost(Integer boardNo) throws Exception;
 	
-	public List<PostVO> listAllMyPost(PageVO vo, String userUid) throws Exception;
+	public List<PostVO> listAllMyPost(PageVO vo, String uid) throws Exception;
 
 }
