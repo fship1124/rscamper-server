@@ -34,7 +34,7 @@ public class TogetherController {
 	public String together() {
 		logger.info("/together > home");
 		
-		return "redirect:http://192.168.0.173:80/rscamper-web/views/together/list.jsp";
+		return "redirect:http://localhost:80/rscamper-web/views/together/list.jsp";
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -59,7 +59,7 @@ public class TogetherController {
 	public String redirectDetail(@PathVariable("detailNo") int dNo) throws Exception {
 		logger.info("/together > redirectDetail");
 		
-		return "redirect:http://192.168.0.173:80/rscamper-web/views/together/detail.jsp?no=" + dNo;
+		return "redirect:http://localhost:80/rscamper-web/views/together/detail.jsp?no=" + dNo;
 	}
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.POST)

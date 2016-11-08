@@ -33,7 +33,7 @@ public class BenefitController {
 	public String benefit() {
 		logger.info("/benefit > home");
 
-		return "redirect:http://192.168.0.173:80/rscamper-web/views/benefit/list.jsp";
+		return "redirect:http://localhost:80/rscamper-web/views/benefit/list.jsp";
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)

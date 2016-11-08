@@ -41,7 +41,7 @@ public class TravelogController {
 	public String travelog() {
 		logger.info("/travelog > home");
 		
-		return "redirect:http://192.168.0.173:80/rscamper-web/views/travelog/list.jsp";
+		return "redirect:http://localhost:80/rscamper-web/views/travelog/list.jsp";
 	}
 	
 	// 게시물 목록 확인
@@ -83,7 +83,7 @@ public class TravelogController {
 	public String redirectDetail(@PathVariable("boardNo") int bNo) throws Exception {
 		logger.info("/travelog > redirectDetail");
 		
-		return "redirect:http://192.168.0.173:80/rscamper-web/views/travelog/detail.jsp?bNo=" + bNo;
+		return "redirect:http://localhost:80/rscamper-web/views/travelog/detail.jsp?bNo=" + bNo;
 	}
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.POST)

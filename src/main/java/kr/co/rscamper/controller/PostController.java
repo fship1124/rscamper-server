@@ -35,7 +35,7 @@ public class PostController {
 		logger.info("/post > home");
 		
 //		return "redirect:http://localhost:80/rscamper-web/views/post/list.jsp?uid=" + uid;
-		return "redirect:http://192.168.0.173:80/rscamper-web/views/post/list.jsp";
+		return "redirect:http://localhost:80/rscamper-web/views/post/list.jsp";
 	}
 	
 	
