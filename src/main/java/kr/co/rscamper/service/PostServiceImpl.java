@@ -24,6 +24,11 @@ public class PostServiceImpl implements PostService {
 	public String getTime() throws Exception {
 		return dao.getTime();
 	}
+	
+	@Override
+	public int totalCount() throws Exception {
+		return dao.totalCount();
+	}
 
 	@Override
 	public PostVO read(Integer boardNo) throws Exception {
@@ -41,8 +46,8 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostVO> listAll(PageVO vo, String userUid) throws Exception {
-		return dao.listAllMyPost(vo, userUid);
+	public List<PostVO> listAll(PageVO vo, String uid) throws Exception {
+		return dao.listAllMyPost(vo, uid);
 	}
 
 }
