@@ -20,7 +20,8 @@ public interface PostService {
 //	post 삭제
 	public void remove(Integer boardNo) throws Exception;
 //	전체 post list 
-	public List<PostVO> listAll(PageVO vo, String userUid) throws Exception;
+	public List<PostVO> listAll(PageVO vo, String uid) throws Exception;
 	
+	public int totalCount() throws Exception;
 	
 }
