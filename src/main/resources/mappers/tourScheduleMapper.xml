@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.rscamper.TourSchedule">
+	<resultMap type="TourScheduleVO" id="scheduleMap">
+		<result property="recordNo" column="RECORD_NO"/>
+		<result property="userUid" column="USER_UID"/>
+		<result property="departureDate" column="DEPARTURE_DATE"/>
+		<result property="arriveDate" column="ARRIVE_DATE"/>
+		<result property="title" column="TITLE"/>
+		<result property="budGet" column="BUDGET"/>
+		<result property="picture" column="PICTURE"/>
+		<result property="period" column="PERIOD" />
+		<result property="strapline" column="STRAPLINE"/>
+		<result property="introduce" column="INTRODUCE"/>
+	</resultMap>
+	<resultMap type="RecordCoverVO" id="RecordCoverMap">
+		<result property="coverNo" column="COVER_NO"/>
+		<result property="recordNo" column="RECORD_NO"/>
+		<result property="realPath" column="REAL_PATH"/>
+		<result property="filePath" column="FILE_PATH"/>
+		<result property="oriName" column="ORI_NAME"/>
+		<result property="fileName" column="FILE_NAME"/>
+	</resultMap>
+	
+	<resultMap type="RecordLocationVO" id="RecordLocationMap">
+		<result property="locationNo" column="LOCATION_NO"/>
+		<result property="recordNo" column="RECORD_NO"/>
+		<result property="title" column="TITLE"/>
+		<result property="contentCode" column="CONTENT_CODE"/>
+		<result property="imageUrl" column="IMAGE_URL"/>
+		<result property="detailDepartureDate" column="DETAIL_DEPARTURE_DATE"/>
+		<result property="contentTypeId" column="CONTENT_TYPE_ID"/>
+		<result property="departureDate" column="DEPARTURE_DATE"/>
+	</resultMap>
+	
+	<select id="getSchedule" parameterType="string" resultMap="scheduleMap">
+		select * 
+		  from record_tb
+		 where USER_UID = #{uid}
+	</select>
+	
+	<insert id="insertSchedule" parameterType="TourScheduleVO">
+		insert into record_tb(USER_UID,DEPARTURE_DATE,ARRIVE_DATE,TITLE,BUDGET,PICTURE,PERIOD)
+		values (#{userUid},#{departureDate},#{arriveDate},#{title},0,0,#{period}) 
+	</insert>
+	
+	<delete id="delSchedule" parameterType="int">
+		delete
+		  from record_tb
+		 where RECORD_NO = #{no}
+	</delete>
+	<delete id="delCover" parameterType="int">
+		delete
+		  from record_cover_tb
+		 where RECORD_NO = #{no}
+	</delete>
+	<update id="changeCover" parameterType="RecordCoverVO">
+		update record_cover_tb
+		   set FILE_PATH = #{filePath}
+		 where RECORD_NO = #{recordNo} 
+	</update>
+	<insert id="insertCover" parameterType="RecordCoverVO">
+		insert into record_cover_tb(RECORD_NO, FILE_PATH)
+		values (#{recordNo},#{filePath})
+	</insert>
+	<select id="getCover" parameterType="int" resultMap="RecordCoverMap">
+		select *
+		  from record_cover_tb
+		 where RECORD_NO = #{no} 
+	</select>
+	<update id="updateCover" parameterType="int">
+		update record_tb
+		   set picture = 1
+		 where RECORD_NO = #{no}
+	</update>
+	<select id="getDetailTourSchedule" parameterType="int" resultMap="scheduleMap">
+		select *
+		  from record_tb
+		 where RECORD_NO = #{no}
+	</select>
+	<update id="updateStrapline" parameterType="TourScheduleVO">
+		update record_tb
+		   set STRAPLINE = #{strapline},
+		       INTRODUCE = #{introduce}
+		 where RECORD_NO = #{recordNo}
+	</update>
+	<insert id="addScheduleLocation" parameterType="RecordLocationVO">
+		insert into record_location_tb(RECORD_NO,TITLE,CONTENT_CODE,IMAGE_URL, DETAIL_DEPARTURE_DATE, CONTENT_TYPE_ID, DEPARTURE_DATE)
+		values(#{recordNo},#{title},#{contentCode},#{imageUrl},#{detailDepartureDate},#{contentTypeId},#{departureDate})
+	</insert>
+	<select id="getScheduleLocation" parameterType="int" resultMap="RecordLocationMap">
+		select *
+		  from record_location_tb
+		 where RECORD_NO = #{no}
+	</select>
+	<select id="locationLikeCount" parameterType="int" resultType="int">
+		select count(CONTENT_CODE)
+		  from record_location_liked_tb
+		 where CONTENT_CODE = #{code}
+	</select>
+	<insert id="insertLikePlus" parameterType="LocationLikedVO">
+		insert into record_location_liked_tb
+		values (#{contentId},#{uid})
+	</insert>
+</mapper>

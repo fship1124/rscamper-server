@@ -26,7 +26,7 @@ public class UserController {
 	@RequestMapping(value="/home", method = RequestMethod.GET)
 	public String user() {
 		logger.info("eeeeeeeeeeeeee");
-		return "redirect:http://localhost:80/rscamper-web/views/user/user.jsp";
+		return "redirect:http://192.168.0.173:80/rscamper-web/views/user/user.jsp";
 	}
 	
 	@RequestMapping(value="/insert", method = RequestMethod.POST)
@@ -74,7 +74,7 @@ public class UserController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:http://localhost:80/rscamper-web/views/main.jsp";
+		return "redirect:http://192.168.0.173:80/rscamper-web/views/main.jsp";
 	}
 	
 	

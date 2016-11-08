@@ -16,6 +16,6 @@ public class TrainMapController {
 	public String trainMap() {
 		logger.info("/trainMap > home");
 		
-		return "redirect:http://localhost:80/rscamper-web/views/train/trainMap.jsp";
+		return "redirect:http://192.168.0.173:80/rscamper-web/views/train/trainMap.jsp";
 	}
 }

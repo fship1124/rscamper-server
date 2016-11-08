@@ -29,7 +29,7 @@ public class TrainTimeController {
 	public String trainTime() {
 		logger.info("/trainTime > home");
 		
-		return "redirect:http://localhost:80/rscamper-web/views/train/trainTimeList.jsp";
+		return "redirect:http://192.168.0.173:80/rscamper-web/views/train/trainTimeList.jsp";
 	}
 	
 	
