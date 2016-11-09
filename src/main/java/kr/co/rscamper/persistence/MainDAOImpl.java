@@ -19,12 +19,6 @@ public class MainDAOImpl implements MainDAO {
 	
 	private static final String namespace = "kr.co.rscamper.MainMapper";
 	
-	
-	@Override
-	public String getTime() {
-		return sqlSessionTemplate.selectOne(namespace + ".getTime");
-	}
-	
 	@Override
 	public void insertMainComment(MainVO vo) {
 		sqlSessionTemplate.insert(namespace + ".insertMainComment", vo);

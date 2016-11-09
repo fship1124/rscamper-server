@@ -1,7 +1,9 @@
 package kr.co.rscamper.domain;
 
+
+
 public class BenefitVO {
-	private int benefitNo;
+	private int benefitNo;			// 
 	private String title;
 	private String url;
 	private String location;

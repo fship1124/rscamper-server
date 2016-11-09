@@ -1,3 +1,12 @@
+/**-----------------------------------------------------------------------
+ * rscamper Project
+ * ------------------------------------------------------------------------
+ * @Class MainController.java
+ * @Description 메인 페이지 실시간 댓글 요청에 대한 처리를 위한 Handler 클래스  
+ * @author 김호동
+ * @since 2016. 10. 15.
+ */
+
 package kr.co.rscamper.controller;
 
 import java.util.ArrayList;
@@ -20,6 +29,7 @@ import kr.co.rscamper.domain.UserVO;
 import kr.co.rscamper.service.MainService;
 import kr.co.rscamper.service.UserService;
 
+
 @Controller
 @RequestMapping("/main/*")
 public class MainController {
@@ -30,7 +40,13 @@ public class MainController {
 	private MainService mainService;
 	@Inject
 	private UserService userService;
+
 	
+	/**
+	 * @Description 메인 페이지 실시간 댓글 리스트 정보 요청에 대한 처리
+	 * @param none
+	 * @return List DB에 저장된 댓글 목록
+	 */
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public @ResponseBody List<MainVO> read(HttpServletResponse res) throws Exception {
 		logger.info("/main > read");
@@ -48,6 +64,11 @@ public class MainController {
 	}
 	
 	
+	/**
+	 * @Description 메인 페이지 실시간 댓글 리스트 정보 요청에 대한 처리
+	 * @param none
+	 * @return List DB에 저장된 댓글 목록
+	 */
 	@RequestMapping(value = "/{uid}/{content}", method = RequestMethod.PUT)
 	public @ResponseBody List<MainVO> insert(@PathVariable("uid") String uid, @PathVariable("content") String content, HttpServletResponse res) throws Exception {
 		logger.info("/main > insert");
