@@ -26,7 +26,7 @@ public class AppCommunityController {
 	
 	@RequestMapping(value = "/select/board", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> selectCommunityList(int page) throws Exception {
-		return communityService.selectCommunityList(page);
+		return communityService.selectCommunityList(page, 10);
 	}
 	
 	@RequestMapping(value = "/select/oneBoard", method = RequestMethod.GET)
@@ -44,6 +44,11 @@ public class AppCommunityController {
 		communityService.insertBoard(community);
 	}
 	
+	@RequestMapping(value = "/update/oneBoard", method = RequestMethod.POST)
+	public @ResponseBody void updateBoardByBoardNo(CommunityVO community) throws Exception {
+		communityService.updateboardByBoardNo(community);
+	}
+	
 	@RequestMapping(value = "/delete/oneBoard", method = RequestMethod.DELETE)
 	public @ResponseBody void deleteBoardByBoardNo(int boardNo) throws Exception {
 		communityService.deleteBoardByBoardNo(boardNo);
@@ -51,7 +56,7 @@ public class AppCommunityController {
 	
 	@RequestMapping(value = "/select/comment", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> selectCommentList(int page, int boardNo) throws Exception {
-		return communityService.selectCommentList(page, boardNo);
+		return communityService.selectCommentList(page, boardNo, 10);
 	}
 	
 	@RequestMapping(value = "/insert/comment", method = RequestMethod.POST)
@@ -59,15 +64,17 @@ public class AppCommunityController {
 		communityService.insertComment(comment);
 	}
 	
-	@RequestMapping(value = "/delete/oneComment", method = RequestMethod.DELETE)
-	public @ResponseBody void deleteCommentByCommentNo(int commentNo) throws Exception {
-		communityService.deleteCommentByCommentNo(commentNo);
-	}
-	
 	@RequestMapping(value = "/update/oneComment", method = RequestMethod.POST)
 	public @ResponseBody void updateCommentByCommentNo(CommentVO comment) throws Exception {
 		System.out.println(comment.toString());
 		communityService.updateCommentByCommentNo(comment);
 	}
+	
+	@RequestMapping(value = "/delete/oneComment", method = RequestMethod.DELETE)
+	public @ResponseBody void deleteCommentByCommentNo(int commentNo) throws Exception {
+		communityService.deleteCommentByCommentNo(commentNo);
+	}
+	
+
 	
 }

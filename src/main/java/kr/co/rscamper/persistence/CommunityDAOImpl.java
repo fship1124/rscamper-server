@@ -26,8 +26,18 @@ public class CommunityDAOImpl implements CommunityDAO {
 	}
 
 	@Override
+	public List<CommunityVO> selectCommunityListByCategoryNo(Map<String, Integer> pageMap) {
+		return sqlSessionTemplate.selectList(namespace + ".selectCommunityListByCategoryNo", pageMap);
+	}
+
+	@Override
 	public int selectCommunityTotalPages() {
 		return sqlSessionTemplate.selectOne(namespace + ".selectCommunityTotalPages");
+	}
+
+	@Override
+	public int selectCommunityTotalPagesByCategoryNo(int categoryNo) {
+		return sqlSessionTemplate.selectOne(namespace + ".selectCommunityTotalPagesByCategoryNo");
 	}
 
 	@Override
@@ -36,20 +46,24 @@ public class CommunityDAOImpl implements CommunityDAO {
 	}
 
 	@Override
-	public void insertBoard(CommunityVO community) {
-		sqlSessionTemplate.insert(namespace + ".insertBoard", community);
-	}
-
-	@Override
 	public CommunityVO selectCommunity(int boardNo) {
 		return sqlSessionTemplate.selectOne(namespace + ".selectCommunity", boardNo);
 	}
 
 	@Override
+	public void insertBoard(CommunityVO community) {
+		sqlSessionTemplate.insert(namespace + ".insertBoard", community);
+	}
+	
+	@Override
+	public void updateboardByBoardNo(CommunityVO community) {
+		sqlSessionTemplate.update(namespace + ".updateBoardByBoardNo", community);
+	}
+	
+	@Override
 	public void deleteBoardByBoardNo(int boardNo) {
 		sqlSessionTemplate.delete(namespace + ".deleteBoardByBoardNo", boardNo);
 	}
-
 
 	@Override
 	public List<CommentVO> selectCommentList(Map<String, Integer> pageMap) {
@@ -75,6 +89,5 @@ public class CommunityDAOImpl implements CommunityDAO {
 	public void updateCommentByCommentNo(CommentVO comment) {
 		sqlSessionTemplate.update(namespace + ".updateCommentByCommentNo", comment);
 	}
-	
 	
 }

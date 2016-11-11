@@ -68,9 +68,28 @@
 		LIMIT #{page}, #{count}
 	</select>
 	
+	<select id="selectCommunityListByCategoryNo" resultMap="CommunityVOMap" parameterType="hashMap">
+		SELECT *, 
+			(SELECT COUNT(*) FROM BOARD_COMMENT_TB BC WHERE BC.BOARD_NO=B.BOARD_NO) COMMENT_CNT, 
+			(SELECT COUNT(*) FROM LIKE_TB LIKETB WHERE LIKETB.TARGET_NO=B.BOARD_NO AND LIKETB.TARGET_TYPE=1) LIKE_CNT
+		FROM BOARD_TB B, BOARD_CATEGORY_TB C, USER_TB U, LOCATION_TB L
+		WHERE C.CATEGORY_NO = B.CATEGORY_NO 
+			AND B.USER_UID = U.USER_UID 
+			AND U.LOCATION_NO = L.LOCATION_NO
+			AND CATEGORY_NO = #{categoryNo}
+		ORDER BY BOARD_NO DESC
+		LIMIT #{page}, #{count}
+	</select>
+	
 	<select id="selectCommunityTotalPages" resultType="int">
 		SELECT COUNT(*)
 		FROM BOARD_TB
+	</select>
+	
+	<select id="selectCommunityTotalPagesByCategoryNo" resultType="int" parameterType="int">
+		SELECT COUNT(*)
+		FROM BOARD_TB
+		WHERE CATEGORY_NO = #{categoryNo}
 	</select>
 	
 	<select id="selectCommunity" resultMap="CommunityVOMap" parameterType="int">
@@ -93,6 +112,12 @@
 		INSERT INTO BOARD_TB (CATEGORY_NO, USER_UID, TITLE, CONTENT)
 		VALUES (#{categoryNo}, #{userUid}, #{title}, #{content})
 	</insert>
+	
+	<update id="updateBoardByBoardNo" parameterType="CommunityVO">
+		UPDATE BOARD_TB 
+		SET TITLE = #{title}, CONTENT = #{content}, CATEGORY_NO = #{categoryNo}
+		WHERE BOARD_NO = #{boardNo}
+	</update>
 	
 	<delete id="deleteBoardByBoardNo" parameterType="int">
 		DELETE FROM BOARD_TB
