@@ -23,7 +23,7 @@ public class DownloadImage extends HttpServlet {
 		ServletContext context = request.getServletContext();
 		String uploadPath = context.getRealPath("");
 		
-		// 파일 낫 파운드 익셉션 처리
+		// TODO: 파일 낫 파운드 익셉션 처리
 		File f = new File(uploadPath + path);
 		
 		response.setHeader("Content-Type", "image/jpg");

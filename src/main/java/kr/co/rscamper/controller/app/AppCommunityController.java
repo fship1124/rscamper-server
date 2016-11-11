@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.rscamper.domain.CommentVO;
 import kr.co.rscamper.domain.CommunityVO;
 import kr.co.rscamper.service.CommunityService;
 
@@ -45,8 +46,28 @@ public class AppCommunityController {
 	
 	@RequestMapping(value = "/delete/oneBoard", method = RequestMethod.DELETE)
 	public @ResponseBody void deleteBoardByBoardNo(int boardNo) throws Exception {
-		System.out.println("삭제" + boardNo);
 		communityService.deleteBoardByBoardNo(boardNo);
+	}
+	
+	@RequestMapping(value = "/select/comment", method = RequestMethod.GET)
+	public @ResponseBody Map<String, Object> selectCommentList(int page, int boardNo) throws Exception {
+		return communityService.selectCommentList(page, boardNo);
+	}
+	
+	@RequestMapping(value = "/insert/comment", method = RequestMethod.POST)
+	public @ResponseBody void insertComment(CommentVO comment) throws Exception {
+		communityService.insertComment(comment);
+	}
+	
+	@RequestMapping(value = "/delete/oneComment", method = RequestMethod.DELETE)
+	public @ResponseBody void deleteCommentByCommentNo(int commentNo) throws Exception {
+		communityService.deleteCommentByCommentNo(commentNo);
+	}
+	
+	@RequestMapping(value = "/update/oneComment", method = RequestMethod.POST)
+	public @ResponseBody void updateCommentByCommentNo(CommentVO comment) throws Exception {
+		System.out.println(comment.toString());
+		communityService.updateCommentByCommentNo(comment);
 	}
 	
 }

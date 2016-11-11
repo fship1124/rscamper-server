@@ -3,6 +3,7 @@ package kr.co.rscamper.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.rscamper.domain.CommentVO;
 import kr.co.rscamper.domain.CommunityVO;
 
 public interface CommunityService {
@@ -22,5 +23,17 @@ public interface CommunityService {
 
 	/** 게시물 삭제 */
 	public void deleteBoardByBoardNo(int boardNo);
+
+	/** 댓글(+유저정보)(페이징) 가져오기 */
+	public Map<String, Object> selectCommentList(int page, int boardNo);
+
+	/** 댓글 입력 */
+	public void insertComment(CommentVO comment);
+
+	/** 댓글 삭제 */
+	public void deleteCommentByCommentNo(int commentNo);
+
+	/** 댓글 수정 */
+	public void updateCommentByCommentNo(CommentVO comment);
 	
 }
