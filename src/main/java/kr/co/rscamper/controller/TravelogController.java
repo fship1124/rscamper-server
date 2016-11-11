@@ -122,12 +122,12 @@ public class TravelogController {
 		
 		CommentVO cVo = new CommentVO();
 		cVo.setUserUid(userUid);
-		cVo.setCommentContent(commentContent);
+		cVo.setContent(commentContent);
 		cVo.setBoardNo(boardNo);
 		travelogservice.addCommnet(cVo);
 		
 		List<CommentVO> list = new ArrayList<>();
-		list = travelogservice.listComment(cVo.getBoardNo());
+//		list = travelogservice.listComment(cVo.getBoardNo());
 		
 		for (CommentVO val : list) {
 			UserVO uVo = userService.selectMainByUidComment(val.getUserUid());
@@ -143,7 +143,7 @@ public class TravelogController {
 		logger.info("/travelogComment > listComment");
 		
 		List<CommentVO> list = new ArrayList<>();
-		list = travelogservice.listComment(boardNo);
+//		list = travelogservice.listComment(boardNo);
 		
 		for (CommentVO val : list) {
 			UserVO uVo = userService.selectMainByUidComment(val.getUserUid());
@@ -161,7 +161,7 @@ public class TravelogController {
 	    ResponseEntity<String> entity = null;
 	    try {
 	      vo.setCommentNo(rno);
-	      travelogservice.modifyReply(vo);
+//	      travelogservice.modifyReply(vo);
 
 	      entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 	    } catch (Exception e) {

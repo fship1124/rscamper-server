@@ -23,19 +23,36 @@ public class CommunityServiceImpl implements CommunityService {
 	public UserDAO userDao;
 
 	@Override
-	public Map<String, Object> selectCommunityList(int page) {
+	public Map<String, Object> selectCommunityList(int page, int count) {
 		// 페이징 카운트
-		int COUNT = 10;
-		page = (page - 1) * COUNT;
+		page = (page - 1) * count;
 
-		int totalPages = (int) Math.ceil((double) dao.selectCommunityTotalPages() / (double) COUNT);
+		int totalPages = (int) Math.ceil((double) dao.selectCommunityTotalPages() / (double) count);
 		Map<String, Integer> pageMap = new HashMap<String, Integer>();
-		pageMap.put("count", COUNT);
+		pageMap.put("count", count);
 		pageMap.put("page", page);
-		List<CommunityVO> board = dao.selectCommunityList(pageMap);
+		List<CommunityVO> boardList = dao.selectCommunityList(pageMap);
 
 		Map<String, Object> boardMap = new HashMap<>();
-		boardMap.put("board", board);
+		boardMap.put("boardList", boardList);
+		boardMap.put("totalPages", totalPages);
+		return boardMap;
+	}
+	
+	@Override
+	public Map<String, Object> selectCommunityListByCategoryNo(int page, int count, int categoryNo) {
+		// 페이징 카운트
+		page = (page - 1) * count;
+
+		int totalPages = (int) Math.ceil((double) dao.selectCommunityTotalPagesByCategoryNo(categoryNo) / (double) count);
+		Map<String, Integer> pageMap = new HashMap<String, Integer>();
+		pageMap.put("page", page);
+		pageMap.put("count", count);
+		pageMap.put("categoryNo", categoryNo);
+		List<CommunityVO> boardList = dao.selectCommunityListByCategoryNo(pageMap);
+
+		Map<String, Object> boardMap = new HashMap<>();
+		boardMap.put("boardList", boardList);
 		boardMap.put("totalPages", totalPages);
 		return boardMap;
 	}
@@ -46,13 +63,18 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	@Override
-	public void insertBoard(CommunityVO community) {
-		dao.insertBoard(community);
+	public CommunityVO selectCommunity(int boardNo) {
+		return dao.selectCommunity(boardNo);
 	}
 
 	@Override
-	public CommunityVO selectCommunity(int boardNo) {
-		return dao.selectCommunity(boardNo);
+	public void insertBoard(CommunityVO community) {
+		dao.insertBoard(community);
+	}
+	
+	@Override
+	public void updateboardByBoardNo(CommunityVO community) {
+		dao.updateboardByBoardNo(community);
 	}
 
 	@Override
@@ -60,21 +82,21 @@ public class CommunityServiceImpl implements CommunityService {
 		dao.deleteBoardByBoardNo(boardNo);
 	}
 
+	
 	@Override
-	public Map<String, Object> selectCommentList(int page, int boardNo) {
+	public Map<String, Object> selectCommentList(int page, int boardNo, int count) {
 		// 페이징 카운트
-		int COUNT = 4;
-		page = (page - 1) * COUNT;
+		page = (page - 1) * count;
 		
-		int totalPages = (int) Math.ceil((double) dao.selectCommentTotalPages(boardNo) / (double) COUNT);
+		int totalPages = (int) Math.ceil((double) dao.selectCommentTotalPages(boardNo) / (double) count);
 		Map<String, Integer> pageMap = new HashMap<String, Integer>();
-		pageMap.put("count", COUNT);
+		pageMap.put("count", count);
 		pageMap.put("page", page);
 		pageMap.put("boardNo", boardNo);
-		List<CommentVO> comment = dao.selectCommentList(pageMap);
+		List<CommentVO> commentList = dao.selectCommentList(pageMap);
 
 		Map<String, Object> commentMap = new HashMap<>();
-		commentMap.put("comment", comment);
+		commentMap.put("commentList", commentList);
 		commentMap.put("totalPages", totalPages);
 		return commentMap;
 	}
