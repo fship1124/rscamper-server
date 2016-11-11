@@ -2,14 +2,12 @@ package kr.co.rscamper.controller.app;
 
 import java.io.File;
 import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
 
-import org.junit.runner.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import kr.co.rscamper.domain.LocationVO;
 import kr.co.rscamper.domain.UserPhotoVO;
 import kr.co.rscamper.domain.UserVO;
 import kr.co.rscamper.service.UserService;
@@ -32,13 +31,24 @@ public class AppUserController {
 	private UserService userService;
 
 	@Inject
-	ServletContext servletContext;
+	private ServletContext servletContext;
 
+	@RequestMapping(value = "/select/locations", method = RequestMethod.GET)
+	public @ResponseBody List<LocationVO> selectLocationList() throws Exception {
+		return userService.selectLocationList();
+	}
+	
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public @ResponseBody void insert(UserVO user) throws Exception {
 		userService.insertUser(user);
 	}
 
+	@RequestMapping(value = "/update/oneUser", method = RequestMethod.POST)
+	public @ResponseBody void update(UserVO user) throws Exception {
+		System.out.println("수정 : " + user.toString());
+		userService.updateUserByUid(user);
+	}
+	
 	@RequestMapping(value = "/delete/oneUser", method = RequestMethod.DELETE)
 	public @ResponseBody void delete(String userUid) throws Exception {
 		userService.deleteUserByUid(userUid);
@@ -66,7 +76,6 @@ public class AppUserController {
 		Long size = (long) 0;
 		int type = 1;
 		
-		// c:\\\\\
 		String uploadDir = servletContext.getRealPath("/upload/images/profile");
 
 		File f = new File(uploadDir);
@@ -151,6 +160,8 @@ public class AppUserController {
 					// 파일명에서 확장자명(.포함)을 추출
 					ext = oriFileName.substring(index);
 				}
+				
+				// TODO: 이미지 섬네일 만들기
 				
 				// 파일 사이즈
 				size = mFile.getSize();

@@ -3,7 +3,9 @@ package kr.co.rscamper.controller.app;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -11,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.rscamper.domain.LocationLikedVO;
 import kr.co.rscamper.domain.RecordCoverVO;
+import kr.co.rscamper.domain.RecordLocationVO;
 import kr.co.rscamper.domain.TourScheduleVO;
 import kr.co.rscamper.service.TourScheduleService;
 
@@ -127,4 +131,56 @@ public class AppTourScheduleController {
 		return tv;
 	}
 	
+	@RequestMapping("/updateStrapline")
+	@ResponseBody
+	public TourScheduleVO updateStrapline(int no, String title, String content) throws Exception {
+		TourScheduleVO tv = new TourScheduleVO();
+		tv.setRecordNo(no);
+		tv.setStrapline(title);
+		tv.setIntroduce(content);
+		service.updateStrapline(tv);
+		return service.getDetailTourSchedule(no);
+	}
+	
+	@RequestMapping("/addScheduleLocation")
+	@ResponseBody
+	public void addScheduleLocation(String add, String title, String imgUrl, String contentCode, String contentTypeId, int recordNo) throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy. MM. dd. hh:mm");
+		String getDate[] = add.replace("[", "").replace("\"","").replace("]", "").split(",");
+		String timeData[] = getDate[0].substring(0, 12).replace(" ", "").split("\\.");
+		Date d = new Date(Integer.parseInt(timeData[0]) - 1900, Integer.parseInt(timeData[1]), Integer.parseInt(timeData[2]), Integer.parseInt(getDate[1]), Integer.parseInt(getDate[2]));
+		RecordLocationVO rl = new RecordLocationVO();
+		rl.setRecordNo(recordNo);
+		rl.setImageUrl(imgUrl);
+		rl.setContentCode(Integer.parseInt(contentCode));
+		rl.setContentTypeId(Integer.parseInt(contentTypeId));
+		rl.setDepartureDate(getDate[0]);
+		rl.setDetailDepartureDate(d);
+		rl.setTitle(title);
+		service.addScheduleLocation(rl);
+	}
+	
+	@RequestMapping("/getScheduleLocation")
+	@ResponseBody
+	public List<RecordLocationVO> getScheduleLocation(int no) throws Exception {
+		List<RecordLocationVO> rl = service.getScheduleLocation(no);
+		
+		for (RecordLocationVO rv : rl) {
+			rv.setLikeCount(service.locationLikeCount(rv.getContentCode()));
+		}
+		return rl;
+	}
+	
+	@RequestMapping("/insertLikePlus")
+	@ResponseBody
+	public int insertLikePlus(int no, String uid) throws Exception {
+		LocationLikedVO ll = new LocationLikedVO();
+		ll.setContentId(no);
+		ll.setUid(uid);
+		service.insertLikePlus(ll);
+		System.out.println(no);
+		System.out.println(uid);
+		
+		return service.locationLikeCount(no);
+	}
 }

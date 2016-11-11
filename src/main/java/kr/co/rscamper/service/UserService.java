@@ -6,10 +6,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.junit.runner.Request;
 
+import kr.co.rscamper.domain.LocationVO;
 import kr.co.rscamper.domain.UserPhotoVO;
 import kr.co.rscamper.domain.UserVO;
 
 public interface UserService {
+	
+	/** */
 	public UserVO selectMainByUidComment(String userUid) throws Exception;
 	
 	/** [App] 회원 가입 */
@@ -28,10 +31,17 @@ public interface UserService {
 	public void updateBgImage(UserPhotoVO userPhoto) throws Exception;
 	
 	/** TODO: [App] 회원 정보 수정 (회원정보) */
+	public void updateUserByUid(UserVO user);
 
+	/** [App] 지역목록 리스트 가져오기 */
+	public List<LocationVO> selectLocationList();
+	
+	/** [App] NO로 지역정보 가져오기 */
+	public LocationVO selectLocationByNo();
+	
 	/** TODO: [App] 회원 리스트 가져오기 */
 	public List<UserVO> selectUserList() throws Exception;
+
+
 	
-	/** 회원정보 변경 */
-	public void updateUser(UserVO user) throws Exception;
 }

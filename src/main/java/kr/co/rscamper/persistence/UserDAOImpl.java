@@ -1,10 +1,13 @@
 package kr.co.rscamper.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.rscamper.domain.LocationVO;
 import kr.co.rscamper.domain.UserPhotoVO;
 import kr.co.rscamper.domain.UserVO;
 
@@ -25,7 +28,12 @@ public class UserDAOImpl implements UserDAO {
 	public void insertUser(UserVO user) {
 		sqlSessionTemplate.insert(namespace + ".insertUser", user);
 	}
-
+	
+	@Override
+	public void updateUserByUid(UserVO user) {
+		sqlSessionTemplate.update(namespace + ".updateUserByUid", user);
+	}
+	
 	@Override
 	public void deleteUserByUid(String userUid) {
 		sqlSessionTemplate.delete(namespace + ".deleteUserByUid", userUid);
@@ -50,7 +58,7 @@ public class UserDAOImpl implements UserDAO {
 	public void insertUserPhoto(UserPhotoVO userPhoto) {
 		sqlSessionTemplate.insert(namespace + ".insertUserPhoto", userPhoto);
 	}
-
+	
 	@Override
 	public void updateUserPhotoUrl(UserVO user) {
 		sqlSessionTemplate.update(namespace + ".updateUserPhotoUrl", user);
@@ -62,7 +70,14 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void updateUser(UserVO user) throws Exception {
-		sqlSessionTemplate.update(namespace + ".updateUser", user);
+	public List<LocationVO> selectLocationList() {
+		return sqlSessionTemplate.selectList(namespace + ".selectLocationList");
 	}
+
+	@Override
+	public LocationVO selectLocationByNo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

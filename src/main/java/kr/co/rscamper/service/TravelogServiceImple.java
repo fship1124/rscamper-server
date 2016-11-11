@@ -70,8 +70,9 @@ public class TravelogServiceImple implements TravelogService {
 
 	@Override
 	  public int count(Integer boardNo) throws Exception {
-
 	    return dao.count(boardNo);
 	  }
+		
+
 	
 }
