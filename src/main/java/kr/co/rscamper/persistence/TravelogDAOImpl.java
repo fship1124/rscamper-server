@@ -1,7 +1,9 @@
 package kr.co.rscamper.persistence;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -44,18 +46,28 @@ public class TravelogDAOImpl implements TravelogDAO {
 	}
 
 	@Override
-	public TravelogVO selectByNo(int bNo) throws Exception {
-		return sqlSessionTemplate.selectOne(namespace + ".selectByNo", bNo);
+	public TravelogVO selectByNo(int boardNo) throws Exception {
+		return sqlSessionTemplate.selectOne(namespace + ".selectByNo", boardNo);
+	}
+	
+	@Override
+	public void delete(int boardNo) throws Exception {
+		sqlSessionTemplate.delete(namespace + ".delete", boardNo);
 	}
 
 	@Override
-	public List<CommentVO> listComment(Integer boardNo) throws Exception {
-		return sqlSessionTemplate.selectList(namespace + ".listComment", boardNo);
+	public List<CommentVO> listComment(Integer boardNo, PageVO page) throws Exception {
+		
+		Map<String, Object> paramMap = new HashMap<>();
+
+		paramMap.put("boardNo", boardNo);
+		paramMap.put("page", page);
+		return sqlSessionTemplate.selectList(namespace + ".listComment", paramMap);
 	}
 
 	@Override
-	public void insertComment(CommentVO comment) throws Exception {
-		sqlSessionTemplate.selectList(namespace + ".insertComment", comment);
+	public void insertComment(CommentVO cVo) throws Exception {
+		sqlSessionTemplate.selectList(namespace + ".insertComment", cVo);
 	}
 
 	@Override
@@ -68,7 +80,15 @@ public class TravelogDAOImpl implements TravelogDAO {
 		sqlSessionTemplate.selectList(namespace + ".delteteComment", commentNo);
 	}
 	
-	
+	@Override
+	  public int count(Integer bno) throws Exception {
+	    return sqlSessionTemplate.selectOne(namespace + ".count", bno);
+	  }
+
+	@Override
+	public int getBno(Integer rno) throws Exception {
+	    return sqlSessionTemplate.selectOne(namespace + ".getBno", rno);
+	  }
 	
 	
 }

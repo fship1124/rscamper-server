@@ -7,7 +7,9 @@ public class CommentVO {
 	private Integer targetCommentNo;
 	private Integer boardNo;
 	private String userUid;
-	private String content;
+	private String displayName;
+	private String providerPhotoUrl;
+	private String commentContent;
 	private Date regDate;
 	public Integer getCommentNo() {
 		return commentNo;
@@ -33,11 +35,23 @@ public class CommentVO {
 	public void setUserUid(String userUid) {
 		this.userUid = userUid;
 	}
-	public String getContent() {
-		return content;
+	public String getDisplayName() {
+		return displayName;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+	public String getProviderPhotoUrl() {
+		return providerPhotoUrl;
+	}
+	public void setProviderPhotoUrl(String providerPhotoUrl) {
+		this.providerPhotoUrl = providerPhotoUrl;
+	}
+	public String getCommentContent() {
+		return commentContent;
+	}
+	public void setCommentContent(String commentContent) {
+		this.commentContent = commentContent;
 	}
 	public Date getRegDate() {
 		return regDate;
@@ -45,11 +59,14 @@ public class CommentVO {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	
 	@Override
 	public String toString() {
 		return "CommentVO [commentNo=" + commentNo + ", targetCommentNo=" + targetCommentNo + ", boardNo=" + boardNo
-				+ ", userUid=" + userUid + ", content=" + content + ", regDate=" + regDate + "]";
+				+ ", userUid=" + userUid + ", displayName=" + displayName + ", providerPhotoUrl=" + providerPhotoUrl
+				+ ", commentContent=" + commentContent + ", regDate=" + regDate + "]";
 	}
+	
 	
 	
 }

@@ -47,8 +47,12 @@
 	  from board_tb A JOIN user_tb B JOIN board_category_tb C
             on A.USER_UID = B.USER_UID 
            and A.CATEGORY_NO = C.CATEGORY_NO
-         where BOARD_NO = #{bNo}
+         where BOARD_NO = #{boardNo}
 </select>
+
+<delete id="delete" parameterType="int" >
+	delete from board_tb where BOARD_NO = #{boardNo}
+</delete>
 
 
 
@@ -58,7 +62,7 @@
 	<result column="TARGET_COMMENT_NO" property="targetCommentNo" />
 	<result column="BOARD_NO" property="boardNo" />
 	<result column="USER_UID" property="userUid" />
-	<result column="CONTENT" property="content" />
+	<result column="CONTENT" property="commentContent" />
 	<result column="REG_DATE" property="regDate" />
 </resultMap>
 
@@ -68,17 +72,19 @@
 	  from board_comment_tb
 	 where BOARD_NO = #{boardNo} and COMMENT_NO > 0
 	 order by COMMENT_NO desc
+	 imit #{page.pageStart}, #{page.perPageNum}
 	]]> 
 </select>
 
 <insert id="insertComment" parameterType="CommentVO" >
-	insert into board_comment_tb(TARGET_CIMMENT_NO, BOARD_NO, USER_UID, CONTENT, REG_DATE)
-	values (#{targetCommentNo}, #{boardNo}, #{userUid}, #{content}, #{regDate})
+	insert into 
+		board_comment_tb(BOARD_NO, USER_UID, CONTENT, REG_DATE)
+		values ( #{boardNo}, #{userUid}, #{commentContent}, #{regDate})
 </insert>
 
 <update id="updateComment" parameterType="CommentVO" >
 	update board_comment_tb
-	   set CONTENT = #{content},  REG_DATE = now()
+	   set CONTENT = #{commentContent},  REG_DATE = now()
 	 where COMMENT_NO = #{commentNo}
 </update>
 
@@ -86,5 +92,14 @@
 	delete from board_comment_tb 
 	 where COMMENT_NO = #{commentNo}
 </delete>
+
+<select id="count" resultType="int">
+	select count(BOARD_NO) from board_comment_tb
+	where BOARD_NO =#{boardNo}
+</select>
+
+<select id="getBno" resultType="int">
+	select BOARD_NO as boardNo from board_comment_tb where COMMENT_NO = #{commentNo}
+</select>
 
 </mapper>
