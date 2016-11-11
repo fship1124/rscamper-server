@@ -20,6 +20,6 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		return "redirect:http://192.168.0.173:80/rscamper-web/views/main.jsp";
+		return "redirect:http://localhost:80/rscamper-web/views/main.jsp";
 	}
 }
