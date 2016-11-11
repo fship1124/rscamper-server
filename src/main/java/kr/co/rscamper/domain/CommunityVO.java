@@ -33,8 +33,8 @@ public class CommunityVO {
 	
 	private int likeCnt;
 	private int commentCnt;
-	
 
+	
 	public int getCommentCnt() {
 		return commentCnt;
 	}

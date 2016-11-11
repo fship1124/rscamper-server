@@ -8,6 +8,8 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.rscamper.domain.BoardBookMarkVO;
+import kr.co.rscamper.domain.BoardLikeVO;
 import kr.co.rscamper.domain.CommentVO;
 import kr.co.rscamper.domain.CommunityVO;
 import kr.co.rscamper.persistence.CommunityDAO;
@@ -24,7 +26,6 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public Map<String, Object> selectCommunityList(int page, int count) {
-		// 페이징 카운트
 		page = (page - 1) * count;
 
 		int totalPages = (int) Math.ceil((double) dao.selectCommunityTotalPages() / (double) count);
@@ -41,7 +42,6 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	@Override
 	public Map<String, Object> selectCommunityListByCategoryNo(int page, int count, int categoryNo) {
-		// 페이징 카운트
 		page = (page - 1) * count;
 
 		int totalPages = (int) Math.ceil((double) dao.selectCommunityTotalPagesByCategoryNo(categoryNo) / (double) count);
@@ -85,7 +85,6 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	@Override
 	public Map<String, Object> selectCommentList(int page, int boardNo, int count) {
-		// 페이징 카운트
 		page = (page - 1) * count;
 		
 		int totalPages = (int) Math.ceil((double) dao.selectCommentTotalPages(boardNo) / (double) count);
@@ -116,4 +115,34 @@ public class CommunityServiceImpl implements CommunityService {
 		dao.updateCommentByCommentNo(comment);
 	}
 
+	@Override
+	public boolean likeProcess(BoardLikeVO boardLike) {
+		if (dao.selectBoardLike(boardLike) == 0) {
+			dao.insertBoardLike(boardLike);
+			return false;
+		} else {
+			dao.deleteBoardLike(boardLike);
+			return true;
+		}
+	}
+
+	@Override
+	public boolean bookMarkProcess(BoardBookMarkVO boardBookMark) {
+		if (dao.selectBoardBookMark(boardBookMark) == 0) {
+			dao.insertBoardBookMark(boardBookMark);
+			return false;
+		} else {
+			dao.deleteBoardBookMark(boardBookMark);
+			return true;
+		}
+	}
+
+	@Override
+	public boolean selectBookMarkStatus(BoardBookMarkVO boardBookMark) {
+		if (dao.selectBoardBookMark(boardBookMark) == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }

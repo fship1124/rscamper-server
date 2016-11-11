@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.rscamper.domain.BoardBookMarkVO;
+import kr.co.rscamper.domain.BoardLikeVO;
 import kr.co.rscamper.domain.CommentVO;
 import kr.co.rscamper.domain.CommunityVO;
 import kr.co.rscamper.service.CommunityService;
@@ -25,8 +27,13 @@ public class AppCommunityController {
 	private CommunityService communityService;
 	
 	@RequestMapping(value = "/select/board", method = RequestMethod.GET)
-	public @ResponseBody Map<String, Object> selectCommunityList(int page) throws Exception {
-		return communityService.selectCommunityList(page, 10);
+	public @ResponseBody Map<String, Object> selectCommunityList(int page, int count) throws Exception {
+		return communityService.selectCommunityList(page, count);
+	}
+	
+	@RequestMapping(value = "/select/boardByCategory", method = RequestMethod.GET)
+	public @ResponseBody Map<String, Object> selectCommunityListByCategoryNo(int page, int count, int categoryNo) throws Exception {
+		return communityService.selectCommunityListByCategoryNo(page, count, categoryNo);
 	}
 	
 	@RequestMapping(value = "/select/oneBoard", method = RequestMethod.GET)
@@ -66,7 +73,6 @@ public class AppCommunityController {
 	
 	@RequestMapping(value = "/update/oneComment", method = RequestMethod.POST)
 	public @ResponseBody void updateCommentByCommentNo(CommentVO comment) throws Exception {
-		System.out.println(comment.toString());
 		communityService.updateCommentByCommentNo(comment);
 	}
 	
@@ -75,6 +81,19 @@ public class AppCommunityController {
 		communityService.deleteCommentByCommentNo(commentNo);
 	}
 	
-
+	@RequestMapping(value = "/like", method = RequestMethod.POST)
+	public @ResponseBody boolean likeProcess(BoardLikeVO boardLike) throws Exception {
+		return communityService.likeProcess(boardLike);
+	}
+	
+	@RequestMapping(value = "/bookMark", method = RequestMethod.POST)
+	public @ResponseBody boolean bookMarkProcess(BoardBookMarkVO boardBookMark) throws Exception {
+		return communityService.bookMarkProcess(boardBookMark);
+	}
+	
+	@RequestMapping(value = "/select/bookMark", method = RequestMethod.GET)
+	public @ResponseBody boolean selectBookMarkStatus(BoardBookMarkVO boardBookMark) throws Exception {
+		return communityService.selectBookMarkStatus(boardBookMark);
+	}
 	
 }

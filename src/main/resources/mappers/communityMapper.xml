@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.rscamper.CommunityMapper">
 
@@ -53,13 +51,26 @@
 		
 		<result column="LOCATION_NO" property="locationNo" />
 		<result column="LOCATION_NAME" property="locationName" />
-
-</resultMap>
+	</resultMap>
+	
+	<resultMap type="BoardLikeVO" id="BoardLikeVOMap">
+		<result column="TARGET_NO" property="targetNo"/>
+		<result column="TARGET_TYPE" property="targetType"/>
+		<result column="USER_UID" property="userUid"/>
+		<result column="REG_DATE" property="regDate"/>
+	</resultMap>
+	
+	<resultMap type="BoardBookMarkVO" id="BoardBookMarkVOMap">
+		<result column="TARGET_NO" property="targetNo"/>
+		<result column="TARGET_TYPE" property="targetType"/>
+		<result column="USER_UID" property="userUid"/>
+		<result column="REG_DATE" property="regDate"/>
+	</resultMap>
 	
 	<select id="selectCommunityList" resultMap="CommunityVOMap" parameterType="hashMap">
 		SELECT *, 
 			(SELECT COUNT(*) FROM BOARD_COMMENT_TB BC WHERE BC.BOARD_NO=B.BOARD_NO) COMMENT_CNT, 
-			(SELECT COUNT(*) FROM LIKE_TB LIKETB WHERE LIKETB.TARGET_NO=B.BOARD_NO AND LIKETB.TARGET_TYPE=1) LIKE_CNT
+			(SELECT COUNT(*) FROM BOARD_LIKE_TB LIKETB WHERE LIKETB.TARGET_NO=B.BOARD_NO AND LIKETB.TARGET_TYPE=1) LIKE_CNT
 		FROM BOARD_TB B, BOARD_CATEGORY_TB C, USER_TB U, LOCATION_TB L
 		WHERE C.CATEGORY_NO = B.CATEGORY_NO 
 			AND B.USER_UID = U.USER_UID 
@@ -71,12 +82,12 @@
 	<select id="selectCommunityListByCategoryNo" resultMap="CommunityVOMap" parameterType="hashMap">
 		SELECT *, 
 			(SELECT COUNT(*) FROM BOARD_COMMENT_TB BC WHERE BC.BOARD_NO=B.BOARD_NO) COMMENT_CNT, 
-			(SELECT COUNT(*) FROM LIKE_TB LIKETB WHERE LIKETB.TARGET_NO=B.BOARD_NO AND LIKETB.TARGET_TYPE=1) LIKE_CNT
+			(SELECT COUNT(*) FROM BOARD_LIKE_TB LIKETB WHERE LIKETB.TARGET_NO=B.BOARD_NO AND LIKETB.TARGET_TYPE=1) LIKE_CNT
 		FROM BOARD_TB B, BOARD_CATEGORY_TB C, USER_TB U, LOCATION_TB L
 		WHERE C.CATEGORY_NO = B.CATEGORY_NO 
 			AND B.USER_UID = U.USER_UID 
 			AND U.LOCATION_NO = L.LOCATION_NO
-			AND CATEGORY_NO = #{categoryNo}
+			AND B.CATEGORY_NO = #{categoryNo}
 		ORDER BY BOARD_NO DESC
 		LIMIT #{page}, #{count}
 	</select>
@@ -95,7 +106,7 @@
 	<select id="selectCommunity" resultMap="CommunityVOMap" parameterType="int">
 		SELECT *, 
 			(SELECT COUNT(*) FROM BOARD_COMMENT_TB BC WHERE BC.BOARD_NO=B.BOARD_NO) COMMENT_CNT, 
-			(SELECT COUNT(*) FROM LIKE_TB LIKETB WHERE LIKETB.TARGET_NO=B.BOARD_NO AND LIKETB.TARGET_TYPE=1) LIKE_CNT
+			(SELECT COUNT(*) FROM BOARD_LIKE_TB LIKETB WHERE LIKETB.TARGET_NO=B.BOARD_NO AND LIKETB.TARGET_TYPE=1) LIKE_CNT
 		FROM BOARD_TB B, BOARD_CATEGORY_TB C, USER_TB U, LOCATION_TB L
 		WHERE C.CATEGORY_NO = B.CATEGORY_NO 
 			AND B.USER_UID = U.USER_UID 
@@ -154,6 +165,38 @@
 	<delete id="deleteCommentByCommentNo" parameterType="int">
 		DELETE FROM BOARD_COMMENT_TB
 		WHERE COMMENT_NO = #{commentNo}
+	</delete>
+	
+	<select id="selectBoardLike" parameterType="BoardLikeVO" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD_LIKE_TB
+		WHERE TARGET_NO = #{targetNo} AND TARGET_TYPE = #{targetType} AND USER_UID = #{userUid}
+	</select>
+	
+	<insert id="insertBoardLike" parameterType="BoardLikeVO">
+		INSERT INTO BOARD_LIKE_TB (TARGET_NO, TARGET_TYPE, USER_UID)
+		VALUES (#{targetNo}, #{targetType}, #{userUid})
+	</insert>
+	
+	<delete id="deleteBoardLike" parameterType="BoardLikeVO">
+		DELETE FROM BOARD_LIKE_TB
+		WHERE TARGET_NO = #{targetNo} AND TARGET_TYPE = #{targetType} AND USER_UID = #{userUid}
+	</delete>
+	
+	<select id="selectBoardBookMark" parameterType="BoardBookMarkVO" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD_BOOKMARK_TB
+		WHERE TARGET_NO = #{targetNo} AND TARGET_TYPE = #{targetType} AND USER_UID = #{userUid}
+	</select>
+	
+	<insert id="insertBoardBookMark" parameterType="BoardBookMarkVO">
+		INSERT INTO BOARD_BOOKMARK_TB (TARGET_NO, TARGET_TYPE, USER_UID)
+		VALUES (#{targetNo}, #{targetType}, #{userUid})
+	</insert>
+	
+	<delete id="deleteBoardBookMark" parameterType="BoardBookMarkVO">
+		DELETE FROM BOARD_BOOKMARK_TB
+		WHERE TARGET_NO = #{targetNo} AND TARGET_TYPE = #{targetType} AND USER_UID = #{userUid}
 	</delete>
 
 </mapper>

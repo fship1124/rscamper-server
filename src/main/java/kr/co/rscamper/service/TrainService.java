@@ -6,5 +6,5 @@ import kr.co.rscamper.domain.TrainVO;
 
 public interface TrainService {
 
-	public List<TrainVO> list()throws Exception;
+	public List<TrainVO> list() throws Exception;
 }
