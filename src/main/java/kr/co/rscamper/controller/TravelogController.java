@@ -160,7 +160,7 @@ public class TravelogController {
 
 	    ResponseEntity<String> entity = null;
 	    try {
-	      vo.setRno(rno);
+	      vo.setCommentNo(rno);
 	      travelogservice.modifyReply(vo);
 
 	      entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
