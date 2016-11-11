@@ -50,32 +50,32 @@ public class UserController {
 		return "redirect:http://localhost:80/rscamper-web/views/main.jsp";
 	}
 	*/
-	@RequestMapping(value="/update", method = RequestMethod.POST)
-	public String update(String userUid, String displayName, String photoUrl, String email, String bgphotoUrl, 
-			int locationNo, String phoneNumber, String websiteUrl, String introduce, Date birthday, Date regDate)throws Exception {
-		UserVO user = new UserVO();
-		user.setUserUid(userUid);
-		user.setDisplayName(displayName);
-		user.setPhotoUrl(bgphotoUrl);
-		user.setEmail(email);
-		user.setLocationNo(locationNo);
-		user.setPhoneNumber(phoneNumber);
-		user.setWebsiteUrl(websiteUrl);
-		user.setIntroduce(introduce);
-		user.setBirthday(birthday);
-		user.setRegDate(regDate);
-		
-		HashMap<String, Object> result = new HashMap<>();
-		try {
-			service.updateUser(user);
-			result.put("login", "success");
-		} catch (Exception e) {
-			result.put("login", "fail");
-			e.printStackTrace();
-		}
-		
-		return "redirect:http://192.168.0.173:80/rscamper-web/views/main.jsp";
-	}
-	
+//	@RequestMapping(value="/update", method = RequestMethod.POST)
+//	public String update(String userUid, String displayName, String photoUrl, String email, String bgphotoUrl, 
+//			int locationNo, String phoneNumber, String websiteUrl, String introduce, Date birthday, Date regDate)throws Exception {
+//		UserVO user = new UserVO();
+//		user.setUserUid(userUid);
+//		user.setDisplayName(displayName);
+//		user.setPhotoUrl(bgphotoUrl);
+//		user.setEmail(email);
+//		user.setLocationNo(locationNo);
+//		user.setPhoneNumber(phoneNumber);
+//		user.setWebsiteUrl(websiteUrl);
+//		user.setIntroduce(introduce);
+//		user.setBirthday(birthday);
+//		user.setRegDate(regDate);
+//		
+//		HashMap<String, Object> result = new HashMap<>();
+//		try {
+//			service.updateUser(user);
+//			result.put("login", "success");
+//		} catch (Exception e) {
+//			result.put("login", "fail");
+//			e.printStackTrace();
+//		}
+//		
+//		return "redirect:http://192.168.0.173:80/rscamper-web/views/main.jsp";
+//	}
+//	
 	
 }

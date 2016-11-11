@@ -67,17 +67,6 @@ public class CommunityVO {
 		this.locationName = locationName;
 	}
 
-	@Override
-	public String toString() {
-		return "CommunityVO [boardNo=" + boardNo + ", title=" + title + ", content=" + content + ", viewCnt=" + viewCnt
-				+ ", regDate=" + regDate + ", categoryNo=" + categoryNo + ", categoryName=" + categoryName
-				+ ", userUid=" + userUid + ", displayName=" + displayName + ", photoUrl=" + photoUrl + ", email="
-				+ email + ", providerUid=" + providerUid + ", providerName=" + providerName + ", providerDisplayName="
-				+ providerDisplayName + ", providerPhotoUrl=" + providerPhotoUrl + ", providerEmail=" + providerEmail
-				+ ", bgPhotoUrl=" + bgPhotoUrl + ", phoneNumber=" + phoneNumber + ", websiteUrl=" + websiteUrl
-				+ ", introduce=" + introduce + ", birthday=" + birthday + "]";
-	}
-
 	public String getDisplayName() {
 		return displayName;
 	}

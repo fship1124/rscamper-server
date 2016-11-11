@@ -32,16 +32,6 @@ public class UserServiceImpl implements UserService {
 	public UserVO selectMainByUidComment(String userUid) throws Exception {
 		return dao.selectMainByUidComment(userUid);
 	}
-
-	@Override
-	public void updateUser(UserVO user) {
-		
-	}
-	
-	
-	
-	
-	
 	
 	
 	/*===========================================================================*/
