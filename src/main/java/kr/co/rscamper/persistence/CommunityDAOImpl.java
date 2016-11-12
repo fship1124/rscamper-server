@@ -39,7 +39,7 @@ public class CommunityDAOImpl implements CommunityDAO {
 
 	@Override
 	public int selectCommunityTotalPagesByCategoryNo(int categoryNo) {
-		return sqlSessionTemplate.selectOne(namespace + ".selectCommunityTotalPagesByCategoryNo");
+		return sqlSessionTemplate.selectOne(namespace + ".selectCommunityTotalPagesByCategoryNo", categoryNo);
 	}
 
 	@Override

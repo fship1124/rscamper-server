@@ -26,7 +26,7 @@ public class CommunityController {
 	
 	@RequestMapping(value = "/select/board", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> selectCommunityList(int page) throws Exception {
-		return communityService.selectCommunityList(page);
+		return communityService.selectCommunityList(page, 10);
 	}
 	
 	@RequestMapping(value = "/select/oneBoard", method = RequestMethod.GET)
@@ -51,7 +51,7 @@ public class CommunityController {
 	
 	@RequestMapping(value = "/select/comment", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> selectCommentList(int page, int boardNo) throws Exception {
-		return communityService.selectCommentList(page, boardNo);
+		return communityService.selectCommentList(page, 10, boardNo);
 	}
 	
 	@RequestMapping(value = "/insert/comment", method = RequestMethod.POST)
