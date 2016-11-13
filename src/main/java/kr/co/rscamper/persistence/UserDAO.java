@@ -42,7 +42,5 @@ public interface UserDAO {
 
 	/** 지역정보 리스트 지역번호로 조회 */
 	public LocationVO selectLocationByNo();
-
-
 	
 }

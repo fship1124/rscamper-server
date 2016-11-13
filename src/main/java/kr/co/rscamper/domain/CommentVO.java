@@ -13,6 +13,21 @@ public class CommentVO {
 	private String displayName;
 	private String photoUrl;
 	private String email;
+	
+	private String providerUid;
+	private String providerName;
+	private String providerDisplayName;
+	private String providerPhotoUrl;
+	private String providerEmail;
+	private String bgPhotoUrl;
+	private String phoneNumber;
+	private String websiteUrl;
+	private String introduce;
+	private Date birthday;
+	
+	private int locationNo;
+	private String locationName;
+	
 	public String getDisplayName() {
 		return displayName;
 	}
@@ -103,22 +118,6 @@ public class CommentVO {
 	public void setLocationName(String locationName) {
 		this.locationName = locationName;
 	}
-	private String providerUid;
-	private String providerName;
-	private String providerDisplayName;
-	private String providerPhotoUrl;
-	private String providerEmail;
-	private String bgPhotoUrl;
-	private String phoneNumber;
-	private String websiteUrl;
-	private String introduce;
-	private Date birthday;
-	
-	private int locationNo;
-	private String locationName;
-	
-	
-	
 	
 	public Integer getCommentNo() {
 		return commentNo;
@@ -156,11 +155,17 @@ public class CommentVO {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	
 	@Override
 	public String toString() {
 		return "CommentVO [commentNo=" + commentNo + ", targetCommentNo=" + targetCommentNo + ", boardNo=" + boardNo
-				+ ", userUid=" + userUid + ", content=" + content + ", regDate=" + regDate + "]";
+				+ ", content=" + content + ", regDate=" + regDate + ", userUid=" + userUid + ", displayName="
+				+ displayName + ", photoUrl=" + photoUrl + ", email=" + email + ", providerUid=" + providerUid
+				+ ", providerName=" + providerName + ", providerDisplayName=" + providerDisplayName
+				+ ", providerPhotoUrl=" + providerPhotoUrl + ", providerEmail=" + providerEmail + ", bgPhotoUrl="
+				+ bgPhotoUrl + ", phoneNumber=" + phoneNumber + ", websiteUrl=" + websiteUrl + ", introduce="
+				+ introduce + ", birthday=" + birthday + ", locationNo=" + locationNo + ", locationName=" + locationName
+				+ "]";
 	}
-	
 	
 }
