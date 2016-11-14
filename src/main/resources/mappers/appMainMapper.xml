@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.rscamper.AppMainMapper">
+
+	<resultMap type="CommunityVO" id="CommunityVOMap">
+		<result column="BOARD_NO" property="boardNo" />
+		<result column="VIEW_CNT" property="viewCnt" />
+		<result column="REG_DATE" property="regDate" />
+		
+		<result column="CATEGORY_NO" property="categoryNo" />
+		<result column="CATEGORY_NAME" property="categoryName" />
+		
+		<result column="USER_UID" property="userUid" />
+		<result column="PHOTO_URL" property="photoUrl" />
+		<result column="DISPLAY_NAME" property="displayName" />
+		<result column="PROVIDER_UID" property="providerUid" />
+		<result column="PROVIDER_NAME" property="providerName" />
+		<result column="PROVIDER_DISPLAY_NAME" property="providerDisplayName" />
+		<result column="PROVIDER_PHOTO_URL" property="providerPhotoUrl" />
+		<result column="PROVIDER_EMAIL" property="providerEmail" />
+		<result column="BGPHOTO_URL" property="bgPhotoUrl" />
+		<result column="PHONE_NUMBER" property="phoneNumber" />
+		<result column="WEBSITE_URL" property="websiteUrl" />
+		
+		<result column="LOCATION_NO" property="locationNo" />
+		<result column="LOCATION_NAME" property="locationName" />
+		
+		<result column="COMMENT_CNT" property="commentCnt"/>
+		<result column="LIKE_CNT" property="likeCnt"/>
+	</resultMap>
+	
+	<select id="selectCommunityList" resultMap="CommunityVOMap" parameterType="hashMap">
+		SELECT *, 
+			(SELECT COUNT(*) FROM BOARD_COMMENT_TB BC WHERE BC.BOARD_NO=B.BOARD_NO) COMMENT_CNT, 
+			(SELECT COUNT(*) FROM BOARD_LIKE_TB LIKETB WHERE LIKETB.TARGET_NO=B.BOARD_NO AND LIKETB.TARGET_TYPE=1) LIKE_CNT
+		FROM BOARD_TB B, BOARD_CATEGORY_TB C, USER_TB U, LOCATION_TB L
+		WHERE C.CATEGORY_NO = B.CATEGORY_NO 
+			AND B.USER_UID = U.USER_UID 
+			AND U.LOCATION_NO = L.LOCATION_NO
+		ORDER BY BOARD_NO DESC
+		LIMIT #{page}, #{count}
+	</select>
+	
+	<select id="selectCommunityListByCategoryNo" resultMap="CommunityVOMap" parameterType="hashMap">
+		SELECT *, 
+			(SELECT COUNT(*) FROM BOARD_COMMENT_TB BC WHERE BC.BOARD_NO=B.BOARD_NO) COMMENT_CNT, 
+			(SELECT COUNT(*) FROM BOARD_LIKE_TB LIKETB WHERE LIKETB.TARGET_NO=B.BOARD_NO AND LIKETB.TARGET_TYPE=1) LIKE_CNT
+		FROM BOARD_TB B, BOARD_CATEGORY_TB C, USER_TB U, LOCATION_TB L
+		WHERE C.CATEGORY_NO = B.CATEGORY_NO 
+			AND B.USER_UID = U.USER_UID 
+			AND U.LOCATION_NO = L.LOCATION_NO
+			AND B.CATEGORY_NO = #{categoryNo}
+		ORDER BY BOARD_NO DESC
+		LIMIT #{page}, #{count}
+	</select>
+	
+	<select id="selectCommunityTotalPages" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD_TB
+	</select>
+	
+	<select id="selectCommunityTotalPagesByCategoryNo" resultType="int" parameterType="int">
+		SELECT COUNT(*)
+		FROM BOARD_TB
+		WHERE CATEGORY_NO = #{categoryNo}
+	</select>
+	
+	<select id="selectCommunity" resultMap="CommunityVOMap" parameterType="int">
+		SELECT *, 
+			(SELECT COUNT(*) FROM BOARD_COMMENT_TB BC WHERE BC.BOARD_NO=B.BOARD_NO) COMMENT_CNT, 
+			(SELECT COUNT(*) FROM BOARD_LIKE_TB LIKETB WHERE LIKETB.TARGET_NO=B.BOARD_NO AND LIKETB.TARGET_TYPE=1) LIKE_CNT
+		FROM BOARD_TB B, BOARD_CATEGORY_TB C, USER_TB U, LOCATION_TB L
+		WHERE C.CATEGORY_NO = B.CATEGORY_NO 
+			AND B.USER_UID = U.USER_UID 
+			AND U.LOCATION_NO = L.LOCATION_NO
+			AND BOARD_NO = #{boardNo}
+	</select>
+	
+	<select id="selectCategoryList" resultMap="CommunityVOMap">
+		SELECT *
+		FROM BOARD_CATEGORY_TB
+	</select>
+
+</mapper>
