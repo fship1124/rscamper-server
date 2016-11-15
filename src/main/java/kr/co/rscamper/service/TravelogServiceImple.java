@@ -44,8 +44,8 @@ public class TravelogServiceImple implements TravelogService {
 	}
 
 	@Override
-	public void delete(int boardNo) throws Exception {
-		dao.delete(boardNo);
+	public void deleteBoardByBoardNo(int boardNo) throws Exception {
+		dao.deleteBoardByBoardNo(boardNo);
 	}
 	
 	@Override
@@ -72,6 +72,11 @@ public class TravelogServiceImple implements TravelogService {
 	  public int count(Integer boardNo) throws Exception {
 	    return dao.count(boardNo);
 	  }
+
+	@Override
+	public int totalCountComment(Integer boardNo) throws Exception {
+		return dao.totalCountComment(boardNo);
+	}
 		
 
 	

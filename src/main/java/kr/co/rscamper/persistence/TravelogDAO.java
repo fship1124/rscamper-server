@@ -19,7 +19,7 @@ public interface TravelogDAO {
 
 	public TravelogVO selectByNo(int boardNo) throws Exception;
 	
-	public void delete(int boardNo) throws Exception;
+	public void deleteBoardByBoardNo(int boardNo) throws Exception;
 	
 	// comment ============================= 
 	
@@ -31,7 +31,9 @@ public interface TravelogDAO {
 	
 	public void delteteComment(Integer commentNo) throws Exception;
 
-	public int count(Integer bno) throws Exception;
+	public int count(Integer boardNo) throws Exception;
 
 	public int getBno(Integer rno) throws Exception;
+
+	public int totalCountComment(Integer boardNo) throws Exception;
 }

@@ -6,7 +6,7 @@ public class CommentVO {
 	private Integer commentNo;
 	private Integer targetCommentNo;
 	private Integer boardNo;
-	private String content;
+	private String commentContent;
 	private Date regDate;
 	
 	private String userUid;
@@ -144,11 +144,12 @@ public class CommentVO {
 	public void setUserUid(String userUid) {
 		this.userUid = userUid;
 	}
-	public String getContent() {
-		return content;
+	
+	public String getCommentContent() {
+		return commentContent;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setCommentContent(String commentContent) {
+		this.commentContent = commentContent;
 	}
 	public Date getRegDate() {
 		return regDate;
@@ -159,7 +160,7 @@ public class CommentVO {
 	@Override
 	public String toString() {
 		return "CommentVO [commentNo=" + commentNo + ", targetCommentNo=" + targetCommentNo + ", boardNo=" + boardNo
-				+ ", userUid=" + userUid + ", content=" + content + ", regDate=" + regDate + "]";
+				+ ", userUid=" + userUid + ", commentContent=" + commentContent + ", regDate=" + regDate + "]";
 	}
 	
 	
