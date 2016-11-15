@@ -3,6 +3,8 @@ package kr.co.rscamper.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.rscamper.domain.BoardBookMarkVO;
+import kr.co.rscamper.domain.BoardLikeVO;
 import kr.co.rscamper.domain.CommentVO;
 import kr.co.rscamper.domain.CommunityVO;
 
@@ -54,5 +56,14 @@ public interface CommunityService {
 
 	/** 댓글 수정 */
 	public void updateCommentByCommentNo(CommentVO comment);
+	
+	/** 좋아요 서비스(좋아요 안했으면 좋아요+1, 했으면 좋아요-1) */
+	public boolean likeProcess(BoardLikeVO boardLike);
+
+	/** 북마크 서비스(북마크 안했으면 추가, 했으면 삭제) */
+	public boolean bookMarkProcess(BoardBookMarkVO boardBookMark);
+
+	/** 북마크 여부 조회 */
+	public boolean selectBookMarkStatus(BoardBookMarkVO boardBookMark);
 	
 }

@@ -3,6 +3,8 @@ package kr.co.rscamper.persistence;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.rscamper.domain.BoardBookMarkVO;
+import kr.co.rscamper.domain.BoardLikeVO;
 import kr.co.rscamper.domain.CommentVO;
 import kr.co.rscamper.domain.CommunityVO;
 
@@ -50,4 +52,21 @@ public interface CommunityDAO {
 	// 댓글 수정
 	public void updateCommentByCommentNo(CommentVO comment);
 
+	// 좋아요 조회
+	public int selectBoardLike(BoardLikeVO boardLike);
+	
+	// 좋아요 등록
+	public void insertBoardLike(BoardLikeVO boardLike);
+	
+	// 좋아요 삭제
+	public void deleteBoardLike(BoardLikeVO boardLike);
+
+	// 북마크 조회
+	public int selectBoardBookMark(BoardBookMarkVO boardBookMark);
+
+	// 북마크 등록
+	public void insertBoardBookMark(BoardBookMarkVO boardBookMark);
+
+	// 북마크 삭제
+	public void deleteBoardBookMark(BoardBookMarkVO boardBookMark);
 }

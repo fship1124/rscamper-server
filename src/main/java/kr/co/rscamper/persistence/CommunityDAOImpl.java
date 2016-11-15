@@ -9,6 +9,8 @@ import javax.inject.Inject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.rscamper.domain.BoardBookMarkVO;
+import kr.co.rscamper.domain.BoardLikeVO;
 import kr.co.rscamper.domain.CommentVO;
 import kr.co.rscamper.domain.CommunityVO;
 
@@ -37,7 +39,7 @@ public class CommunityDAOImpl implements CommunityDAO {
 
 	@Override
 	public int selectCommunityTotalPagesByCategoryNo(int categoryNo) {
-		return sqlSessionTemplate.selectOne(namespace + ".selectCommunityTotalPagesByCategoryNo");
+		return sqlSessionTemplate.selectOne(namespace + ".selectCommunityTotalPagesByCategoryNo", categoryNo);
 	}
 
 	@Override
@@ -88,6 +90,36 @@ public class CommunityDAOImpl implements CommunityDAO {
 	@Override
 	public void updateCommentByCommentNo(CommentVO comment) {
 		sqlSessionTemplate.update(namespace + ".updateCommentByCommentNo", comment);
+	}
+
+	@Override
+	public int selectBoardLike(BoardLikeVO boardLike) {
+		return sqlSessionTemplate.selectOne(namespace + ".selectBoardLike", boardLike);
+	}
+
+	@Override
+	public void insertBoardLike(BoardLikeVO boardLike) {
+		sqlSessionTemplate.insert(namespace + ".insertBoardLike", boardLike);
+	}
+
+	@Override
+	public void deleteBoardLike(BoardLikeVO boardLike) {
+		sqlSessionTemplate.insert(namespace + ".deleteBoardLike", boardLike);
+	}
+
+	@Override
+	public int selectBoardBookMark(BoardBookMarkVO boardBookMark) {
+		return sqlSessionTemplate.selectOne(namespace + ".selectBoardBookMark", boardBookMark);
+	}
+
+	@Override
+	public void insertBoardBookMark(BoardBookMarkVO boardBookMark) {
+		sqlSessionTemplate.insert(namespace + ".insertBoardBookMark", boardBookMark);
+	}
+
+	@Override
+	public void deleteBoardBookMark(BoardBookMarkVO boardBookMark) {
+		sqlSessionTemplate.insert(namespace + ".deleteBoardBookMark", boardBookMark);
 	}
 	
 }

@@ -82,6 +82,4 @@ public class TravelogVO {
 				+ ", viewCnt=" + viewCnt + ", regDate=" + regDate + ", imageNo=" + imageNo + "]";
 	}
 	
-	
-	
 }
