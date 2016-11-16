@@ -31,7 +31,11 @@ public class TravelogDAOImpl implements TravelogDAO {
 
 	@Override
 	public List<TravelogVO> listTravelog(PageVO page) throws Exception {
-		List<TravelogVO> list = new ArrayList<>(); 
+		Map<String, Object> paramMap = new HashMap<>();
+//		paramMap.put("page", page);
+//		paramMap.put("categoryNo", categoryNo);
+//		System.out.println("page:"+page+"   categoryNo:"+ categoryNo);
+		
 		return sqlSessionTemplate.selectList(namespace + ".listAll", page);
 	}
 	
@@ -51,8 +55,8 @@ public class TravelogDAOImpl implements TravelogDAO {
 	}
 	
 	@Override
-	public void delete(int boardNo) throws Exception {
-		sqlSessionTemplate.delete(namespace + ".delete", boardNo);
+	public void deleteBoardByBoardNo(int boardNo) throws Exception {
+		sqlSessionTemplate.delete(namespace + ".deleteBoardByBoardNo", boardNo);
 	}
 
 	@Override
@@ -62,6 +66,7 @@ public class TravelogDAOImpl implements TravelogDAO {
 
 		paramMap.put("boardNo", boardNo);
 		paramMap.put("page", page);
+		System.out.println(paramMap);
 		return sqlSessionTemplate.selectList(namespace + ".listComment", paramMap);
 	}
 
@@ -81,14 +86,19 @@ public class TravelogDAOImpl implements TravelogDAO {
 	}
 	
 	@Override
-	  public int count(Integer bno) throws Exception {
-	    return sqlSessionTemplate.selectOne(namespace + ".count", bno);
+	  public int count(Integer boardNo) throws Exception {
+	    return sqlSessionTemplate.selectOne(namespace + ".count", boardNo);
 	  }
 
 	@Override
 	public int getBno(Integer rno) throws Exception {
 	    return sqlSessionTemplate.selectOne(namespace + ".getBno", rno);
 	  }
+
+	@Override
+	public int totalCountComment(Integer boardNo) throws Exception {
+		return sqlSessionTemplate.selectOne(namespace + ".totalCountComment", boardNo);
+	}
 	
 	
 }

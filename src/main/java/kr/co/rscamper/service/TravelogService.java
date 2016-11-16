@@ -21,7 +21,7 @@ public interface TravelogService {
 	public TravelogVO selectByNo(int boardNo) throws Exception;
 	
 	// 여행기 게시물 삭제
-	public void delete(int boardNo) throws Exception;
+	public void deleteBoardByBoardNo(int boardNo) throws Exception;
 	
 	// comment *******************************************
 	public void addCommnet(CommentVO cVo) throws Exception;
@@ -34,4 +34,5 @@ public interface TravelogService {
 	
 	public int count(Integer boardNo) throws Exception;
 	
+	public int totalCountComment(Integer boardNo) throws Exception;
 }

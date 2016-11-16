@@ -97,6 +97,7 @@
 		FROM BOARD_TB
 	</select>
 	
+	
 	<select id="selectCommunityTotalPagesByCategoryNo" resultType="int" parameterType="int">
 		SELECT COUNT(*)
 		FROM BOARD_TB

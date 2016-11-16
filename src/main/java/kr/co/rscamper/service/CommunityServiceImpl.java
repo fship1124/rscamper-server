@@ -51,10 +51,19 @@ public class CommunityServiceImpl implements CommunityService {
 		pageMap.put("page", page);
 		pageMap.put("count", count);
 		pageMap.put("categoryNo", categoryNo);
+		System.out.println("page:"+page+"count"+count+"categoryNo"+ categoryNo);
 		List<CommunityVO> boardList = dao.selectCommunityListByCategoryNo(pageMap);
+		System.out.println("totalPages:" + totalPages);
+
 		Map<String, Object> boardMap = new HashMap<>();
 		boardMap.put("boardList", boardList);
 		boardMap.put("totalPages", totalPages);
+		boardMap.put("count", count);
+		boardMap.put("page", page);
+		
+		System.out.println(boardMap);
+		System.out.println(boardList.get(0).toString());
+		
 		return boardMap;
 	}
 
