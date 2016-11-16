@@ -1,3 +1,13 @@
+/**-----------------------------------------------------------------------
+ * rscamper Project
+ * ------------------------------------------------------------------------
+ * @Class HomeController.java
+ * @Description 홈페이지 요청에 대한 처리를 위한 Handler 클래스  
+ * @author 김호동
+ * @since 2016. 10. 15.
+ */
+
+
 package kr.co.rscamper;
 
 import java.util.Locale;
@@ -9,20 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
-/**-----------------------------------------------------------------------
- * rscamper Project
- * ------------------------------------------------------------------------
- * @Class HomeController.java
- * @Description 홈페이지 요청에 대한 처리를 위한 Handler 클래스  
- * @author 김호동
- * @since 2016. 10. 15.
- */
-
-
 @Controller
 public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
 	
 	
 	/**
