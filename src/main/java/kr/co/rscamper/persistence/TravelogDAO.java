@@ -8,6 +8,7 @@ import kr.co.rscamper.domain.TravelogVO;
 
 public interface TravelogDAO {
 
+	// 여행기 게시물 ============================
 	public String getTime() throws Exception;
 	
 	public List<TravelogVO> listTravelog(PageVO page) throws Exception;
@@ -16,16 +17,23 @@ public interface TravelogDAO {
 	
 	public void insertTravelog(TravelogVO travelog) throws Exception;
 
-	public TravelogVO selectByNo(int bNo) throws Exception;
+	public TravelogVO selectByNo(int boardNo) throws Exception;
+	
+	public void deleteBoardByBoardNo(int boardNo) throws Exception;
 	
 	// comment ============================= 
 	
-	public List<CommentVO> listComment(Integer boardNo) throws Exception;
+	public List<CommentVO> listComment(Integer boardNo, PageVO page) throws Exception;
 	
-	public void insertComment(CommentVO comment) throws Exception;
+	public void insertComment(CommentVO cVo) throws Exception;
 	
 	public void updateComment(CommentVO comment) throws Exception;
 	
 	public void delteteComment(Integer commentNo) throws Exception;
-	
+
+	public int count(Integer boardNo) throws Exception;
+
+	public int getBno(Integer rno) throws Exception;
+
+	public int totalCountComment(Integer boardNo) throws Exception;
 }

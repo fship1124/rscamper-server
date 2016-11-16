@@ -7,7 +7,6 @@ import kr.co.rscamper.domain.UserVO;
 
 public interface MainDAO {
 	
-	public String getTime();
 	public void insertMainComment(MainVO vo);
 	public List<MainVO> selectMainComment();
 }
