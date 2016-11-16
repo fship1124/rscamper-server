@@ -16,12 +16,6 @@ public class MainServiceImpl implements MainService {
 	@Inject
 	private MainDAO dao;
 	
-	
-	@Override
-	public String getTime() throws Exception {
-		return dao.getTime();
-	}
-
 	@Override
 	public void insertMainComment(MainVO vo) throws Exception {
 		dao.insertMainComment(vo);

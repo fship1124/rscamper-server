@@ -24,13 +24,33 @@ import kr.co.rscamper.domain.TourVO;
 public class TourController {
 	private static final Logger logger = LoggerFactory.getLogger(TogetherController.class);
 
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String together() {
-		logger.info("/tour > home");
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	public String tourAll() {
+		logger.info("/tour > all");
 
-		return "redirect:http://localhost:80/rscamper-web/views/tour/list.jsp";
+		return "redirect:http://localhost:80/rscamper-web/views/tour-all/list.jsp";
+	};
+	@RequestMapping(value = "/destination", method = RequestMethod.GET)
+	public String tourDestination() {
+		logger.info("/tour > destination");
+		
+		return "redirect:http://localhost:80/rscamper-web/views/tour-destination/list.jsp";
+	};
+	@RequestMapping(value = "/food", method = RequestMethod.GET)
+	public String tourFood() {
+		logger.info("/tour > food");
+		
+		return "redirect:http://localhost:80/rscamper-web/views/tour-food/list.jsp";
+	};
+	@RequestMapping(value = "/lodge", method = RequestMethod.GET)
+	public String tourLodge() {
+		logger.info("/tour > lodge");
+		
+		return "redirect:http://localhost:80/rscamper-web/views/tour-lodge/list.jsp";
 	};
 
+	
+	
 	@RequestMapping(value = "/api/list", method = RequestMethod.GET)
 	public @ResponseBody StringBuilder apiAjax(TourVO vo) throws Exception {
 		logger.info("/tour > api");
@@ -45,9 +65,9 @@ public class TourController {
 		urlBuilder.append("&cat2=" + (vo.getCat2() == null ? "" : vo.getCat2()));
 		urlBuilder.append("&cat3=" + (vo.getCat3() == null ? "" : vo.getCat3()));
 		urlBuilder.append("&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=B");
-		urlBuilder.append("&numOfRows=" + (vo.getNumOfRows() == null ? "" : vo.getNumOfRows())); /* 검색건수 */
-		urlBuilder.append("&pageNo=" + (vo.getPageNo() == null ? "" : vo.getPageNo())); /* 페이지 번호 */
-		urlBuilder.append("&_type=json"); /* 페이지 번호 */
+		urlBuilder.append("&numOfRows=" + (vo.getNumOfRows() == null ? "" : vo.getNumOfRows())); 	/* 검색건수 */
+		urlBuilder.append("&pageNo=" + (vo.getPageNo() == null ? "" : vo.getPageNo())); 		 	/* 페이지 번호 */
+		urlBuilder.append("&_type=json");												 			/* JSON 타입 지정  */
 		URL url = new URL(urlBuilder.toString());
 
 		logger.info("url : " + url);
@@ -118,7 +138,7 @@ public class TourController {
 			urlBuilder.append("&contentTypeId=" + contenttypeId);
 		}
 		urlBuilder.append(b + "&MobileOS=ETC&MobileApp=AppTesting");
-		urlBuilder.append("&_type=json"); /* 페이지 번호 */
+		urlBuilder.append("&_type=json"); 
 		URL url = new URL(urlBuilder.toString());
 
 		logger.info("url~~~~ : " + url);

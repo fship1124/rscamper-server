@@ -6,7 +6,14 @@ public class CommentVO {
 	private Integer commentNo;
 	private Integer targetCommentNo;
 	private Integer boardNo;
+	private String commentContent;
 	private String content;
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 	private Date regDate;
 	
 	private String userUid;
@@ -143,11 +150,12 @@ public class CommentVO {
 	public void setUserUid(String userUid) {
 		this.userUid = userUid;
 	}
-	public String getContent() {
-		return content;
+	
+	public String getCommentContent() {
+		return commentContent;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setCommentContent(String commentContent) {
+		this.commentContent = commentContent;
 	}
 	public Date getRegDate() {
 		return regDate;
@@ -156,16 +164,17 @@ public class CommentVO {
 		this.regDate = regDate;
 	}
 	
+
 	@Override
 	public String toString() {
 		return "CommentVO [commentNo=" + commentNo + ", targetCommentNo=" + targetCommentNo + ", boardNo=" + boardNo
-				+ ", content=" + content + ", regDate=" + regDate + ", userUid=" + userUid + ", displayName="
-				+ displayName + ", photoUrl=" + photoUrl + ", email=" + email + ", providerUid=" + providerUid
-				+ ", providerName=" + providerName + ", providerDisplayName=" + providerDisplayName
-				+ ", providerPhotoUrl=" + providerPhotoUrl + ", providerEmail=" + providerEmail + ", bgPhotoUrl="
-				+ bgPhotoUrl + ", phoneNumber=" + phoneNumber + ", websiteUrl=" + websiteUrl + ", introduce="
-				+ introduce + ", birthday=" + birthday + ", locationNo=" + locationNo + ", locationName=" + locationName
-				+ "]";
+				+ ", commentContent=" + commentContent + ", content=" + content + ", regDate=" + regDate + ", userUid="
+				+ userUid + ", displayName=" + displayName + ", photoUrl=" + photoUrl + ", email=" + email
+				+ ", providerUid=" + providerUid + ", providerName=" + providerName + ", providerDisplayName="
+				+ providerDisplayName + ", providerPhotoUrl=" + providerPhotoUrl + ", providerEmail=" + providerEmail
+				+ ", bgPhotoUrl=" + bgPhotoUrl + ", phoneNumber=" + phoneNumber + ", websiteUrl=" + websiteUrl
+				+ ", introduce=" + introduce + ", birthday=" + birthday + ", locationNo=" + locationNo
+				+ ", locationName=" + locationName + "]";
 	}
 	
 }

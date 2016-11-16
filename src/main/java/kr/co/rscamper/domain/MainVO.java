@@ -1,16 +1,22 @@
-/* 
- * 메인 - 실시간 정보 공유 DTO 
+/**-----------------------------------------------------------------------
+ * rscamper Project
+ * ------------------------------------------------------------------------
+ * @Class MainVO.java
+ * @Description 실시간 댓글 정보 공유 DTO
+ * @author 김호동
+ * @since 2016. 10. 15.
  */
+
 package kr.co.rscamper.domain;
 
 import java.util.Date;
 
 public class MainVO {
-	private String userUid;
-	private String displayName;
-	private String providerPhotoUrl;
-	private String mainContent;
-	private Date mainRegDate;
+	private String userUid;				// 사용자 UID
+	private String displayName;			// 사용자 명
+	private String providerPhotoUrl;	// 사진 URL
+	private String mainContent;			// 댓글 내용
+	private Date mainRegDate;			// 댓글 등록 시간
 	
 	
 	public String getUserUid() {
