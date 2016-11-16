@@ -24,10 +24,25 @@ public class DownloadImage extends HttpServlet {
 		ServletContext context = request.getServletContext();
 		String uploadPath = context.getRealPath("");
 		
-		// TODO: 파일 낫 파운드 익셉션 처리
-		File f = new File(uploadPath + path);
+		String defaultPath = "upload/images/default/default-user-bg.jpg";			
 		
-		response.setHeader("Content-Type", "image/jpg");
+		File f = new File(uploadPath + path);
+		if (!f.exists() || f.isDirectory()) {
+			f = new File(uploadPath + defaultPath);
+			path = defaultPath;
+		};
+		
+		switch (path.split("\\.")[1]) {
+			case "png" :
+				response.setHeader("Content-Type", "image/png");
+				break;
+			case "gif" :
+				response.setHeader("Content-Type", "image/gif");
+				break;
+			case "jpg" :
+				response.setHeader("Content-Type", "image/jpg");
+				break;
+		};
 
 		FileInputStream fis = new FileInputStream(f);
 		BufferedInputStream bis = new BufferedInputStream(fis);

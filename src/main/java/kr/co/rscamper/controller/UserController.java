@@ -48,7 +48,6 @@ public class UserController {
 
 	@RequestMapping(value = "/update/oneUser", method = RequestMethod.POST)
 	public @ResponseBody void update(UserVO user) throws Exception {
-		System.out.println("수정 : " + user.toString());
 		userService.updateUserByUid(user);
 	}
 	
@@ -64,6 +63,7 @@ public class UserController {
 
 	@RequestMapping(value = "/update/profileImage", method = RequestMethod.POST)
 	public @ResponseBody void updateProfileImage(UserPhotoVO userPhoto) throws Exception {
+		System.out.println(userPhoto.toString());
 		userService.updateProfileImage(userPhoto);
 	}
 	

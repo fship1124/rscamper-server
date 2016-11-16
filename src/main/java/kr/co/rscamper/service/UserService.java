@@ -30,7 +30,7 @@ public interface UserService {
 	/** [App] 회원 정보 수정 (프로필 배경 사진) */
 	public void updateBgImage(UserPhotoVO userPhoto) throws Exception;
 	
-	/** TODO: [App] 회원 정보 수정 (회원정보) */
+	/** [App] 회원 정보 수정 (회원정보) */
 	public void updateUserByUid(UserVO user);
 
 	/** [App] 지역목록 리스트 가져오기 */
@@ -39,7 +39,7 @@ public interface UserService {
 	/** [App] NO로 지역정보 가져오기 */
 	public LocationVO selectLocationByNo();
 	
-	/** TODO: [App] 회원 리스트 가져오기 */
+	/** [App] 회원 리스트 가져오기 */
 	public List<UserVO> selectUserList() throws Exception;
 
 
