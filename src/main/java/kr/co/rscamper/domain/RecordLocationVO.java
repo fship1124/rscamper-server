@@ -13,8 +13,22 @@ public class RecordLocationVO {
 	private String departureDate;
 	private int likeCount;
 	private int isLike;
+	private double mapX;
+	private double mapY;
 	
 	
+	public double getMapX() {
+		return mapX;
+	}
+	public void setMapX(double mapX) {
+		this.mapX = mapX;
+	}
+	public double getMapY() {
+		return mapY;
+	}
+	public void setMapY(double mapY) {
+		this.mapY = mapY;
+	}
 	public int getLikeCount() {
 		return likeCount;
 	}
