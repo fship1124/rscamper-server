@@ -33,8 +33,8 @@ public class CommunityVO {
 	
 	private int likeCnt;
 	private int commentCnt;
-	
 
+	
 	public int getCommentCnt() {
 		return commentCnt;
 	}
@@ -65,17 +65,6 @@ public class CommunityVO {
 
 	public void setLocationName(String locationName) {
 		this.locationName = locationName;
-	}
-
-	@Override
-	public String toString() {
-		return "CommunityVO [boardNo=" + boardNo + ", title=" + title + ", content=" + content + ", viewCnt=" + viewCnt
-				+ ", regDate=" + regDate + ", categoryNo=" + categoryNo + ", categoryName=" + categoryName
-				+ ", userUid=" + userUid + ", displayName=" + displayName + ", photoUrl=" + photoUrl + ", email="
-				+ email + ", providerUid=" + providerUid + ", providerName=" + providerName + ", providerDisplayName="
-				+ providerDisplayName + ", providerPhotoUrl=" + providerPhotoUrl + ", providerEmail=" + providerEmail
-				+ ", bgPhotoUrl=" + bgPhotoUrl + ", phoneNumber=" + phoneNumber + ", websiteUrl=" + websiteUrl
-				+ ", introduce=" + introduce + ", birthday=" + birthday + "]";
 	}
 
 	public String getDisplayName() {
@@ -245,5 +234,18 @@ public class CommunityVO {
 	public void setUserUid(String userUid) {
 		this.userUid = userUid;
 	}
+
+	@Override
+	public String toString() {
+		return "CommunityVO [boardNo=" + boardNo + ", title=" + title + ", content=" + content + ", viewCnt=" + viewCnt
+				+ ", regDate=" + regDate + ", categoryNo=" + categoryNo + ", categoryName=" + categoryName
+				+ ", userUid=" + userUid + ", displayName=" + displayName + ", photoUrl=" + photoUrl + ", email="
+				+ email + ", providerUid=" + providerUid + ", providerName=" + providerName + ", providerDisplayName="
+				+ providerDisplayName + ", providerPhotoUrl=" + providerPhotoUrl + ", providerEmail=" + providerEmail
+				+ ", bgPhotoUrl=" + bgPhotoUrl + ", phoneNumber=" + phoneNumber + ", websiteUrl=" + websiteUrl
+				+ ", introduce=" + introduce + ", birthday=" + birthday + ", locationNo=" + locationNo
+				+ ", locationName=" + locationName + ", likeCnt=" + likeCnt + ", commentCnt=" + commentCnt + "]";
+	}
+	
 	
 }

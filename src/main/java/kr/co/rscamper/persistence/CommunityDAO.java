@@ -3,26 +3,70 @@ package kr.co.rscamper.persistence;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.rscamper.domain.BoardBookMarkVO;
+import kr.co.rscamper.domain.BoardLikeVO;
+import kr.co.rscamper.domain.CommentVO;
 import kr.co.rscamper.domain.CommunityVO;
 
 public interface CommunityDAO {
 
-	// 페이징 처리된 게시판 리스트 조회
-	public List<CommunityVO> selectCommunityList(Map<?, ?> pageMap);
+	// 게시판 리스트 조회(전체)
+	public List<CommunityVO> selectCommunityList(Map<String, Integer> pageMap);
+	
+	// 게시글 리스트 조회(카테고리별)
+	public List<CommunityVO> selectCommunityListByCategoryNo(Map<String, Integer> pageMap);
 
 	// 전체 게시물 카운트 조회
 	public int selectCommunityTotalPages();
+	
+	// 게시판별 게시물 카운트 조회
+	public int selectCommunityTotalPagesByCategoryNo(int categoryNo);
 
 	// 게시판 카테고리 조회
 	public List<CommunityVO> selectCategoryList();
 
-	// 게시글 입력
-	public void insertBoard(CommunityVO community);
-
 	// 게시물 하나 조회
 	public CommunityVO selectCommunity(int boardNo);
 
-	// 게시물 하나 삭제
-	public void deleteBoardByBoardNo(int boardNo);
+	// 게시글 입력
+	public void insertBoard(CommunityVO community);
+
+	// 게시글 하나 수정
+	public void updateboardByBoardNo(CommunityVO community);
 	
+	// 게시글 하나 삭제
+	public void deleteBoardByBoardNo(int boardNo);
+
+	// 전체 댓글 카운트 조회
+	public int selectCommentTotalPages(int boardNo);
+
+	// 페이징 처리된 댓글 리스트 조회
+	public List<CommentVO> selectCommentList(Map<String, Integer> pageMap);
+
+	// 댓글 입력
+	public void insertComment(CommentVO comment);
+
+	// 댓글 삭제
+	public void deleteCommentByCommentNo(int commentNo);
+
+	// 댓글 수정
+	public void updateCommentByCommentNo(CommentVO comment);
+
+	// 좋아요 조회
+	public int selectBoardLike(BoardLikeVO boardLike);
+	
+	// 좋아요 등록
+	public void insertBoardLike(BoardLikeVO boardLike);
+	
+	// 좋아요 삭제
+	public void deleteBoardLike(BoardLikeVO boardLike);
+
+	// 북마크 조회
+	public int selectBoardBookMark(BoardBookMarkVO boardBookMark);
+
+	// 북마크 등록
+	public void insertBoardBookMark(BoardBookMarkVO boardBookMark);
+
+	// 북마크 삭제
+	public void deleteBoardBookMark(BoardBookMarkVO boardBookMark);
 }
