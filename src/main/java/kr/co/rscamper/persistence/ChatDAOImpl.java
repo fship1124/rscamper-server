@@ -46,4 +46,11 @@ public class ChatDAOImpl implements ChatDAO {
 		System.out.println(result);
 	}
 
+	@Override
+	public void deleteRoomUser(ChatUserVO vo) throws Exception {
+		System.out.println("in deleteRoomUser");
+		int result = sqlSessionTemplate.delete(namespace + ".deleteRoomUser", vo);
+		System.out.println(result);
+	}
+
 }

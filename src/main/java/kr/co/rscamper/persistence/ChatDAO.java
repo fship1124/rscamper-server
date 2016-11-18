@@ -16,4 +16,6 @@ public interface ChatDAO {
 
 	public void insertChatRoomUser(ChatUserVO vo) throws Exception;
 
+	public void deleteRoomUser(ChatUserVO vo) throws Exception;
+
 }
