@@ -51,6 +51,7 @@ public class AppUserController {
 	
 	@RequestMapping(value = "/delete/oneUser", method = RequestMethod.DELETE)
 	public @ResponseBody void delete(String userUid) throws Exception {
+		System.out.println("회원탈퇴 : " + userUid);
 		userService.deleteUserByUid(userUid);
 	}
 

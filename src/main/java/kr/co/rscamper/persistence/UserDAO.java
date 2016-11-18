@@ -43,6 +43,7 @@ public interface UserDAO {
 	/** 지역정보 리스트 지역번호로 조회 */
 	public LocationVO selectLocationByNo();
 
-
+	/** 회원 리스트 조회 */
+	public List<UserVO> selectUserList();
 	
 }
