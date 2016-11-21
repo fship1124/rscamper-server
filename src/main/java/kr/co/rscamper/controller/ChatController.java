@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +22,7 @@ import kr.co.rscamper.domain.UserVO;
 import kr.co.rscamper.service.ChatService;
 import kr.co.rscamper.service.UserService;
 
+
 @Controller
 @RequestMapping("/chat/*")
 public class ChatController {
@@ -34,7 +33,7 @@ public class ChatController {
 	@Inject 
 	private UserService userService;
 	
-	private static final Logger logger = LoggerFactory.getLogger(TogetherController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String chat() {
@@ -50,7 +49,7 @@ public class ChatController {
 
 		List<ChatRoomVO> list = new ArrayList<>();
 		list = service.list();
-		System.out.println(list);
+//		System.out.println(list);
 		
 		CodeVO cVo = new CodeVO();
 		for (ChatRoomVO vo : list) {
@@ -69,6 +68,7 @@ public class ChatController {
 	};
 	
 	
+	// 채팅방 입장 접속자 정보 입력
 	@RequestMapping(value = "/insert_user", method = RequestMethod.POST)
 	public @ResponseBody void ajaxInsertUser(ChatUserVO uVo) throws Exception {
 		logger.info("/chat > insert_user");
@@ -81,9 +81,10 @@ public class ChatController {
 	};
 	
 	
+	// 채팅방 접속자 리스트 가져오기
 	@RequestMapping(value = "/list_user", method = RequestMethod.GET)
 	public @ResponseBody List<ChatUserVO> listUser(@RequestParam("roomNo") int roomNo) throws Exception {
-		logger.info("/chat > insert_user");
+		logger.info("/chat > list_user");
 		
 		System.out.println(roomNo);
 		
@@ -91,40 +92,63 @@ public class ChatController {
 		userList = service.selectRoomUserList(roomNo);
 		
 		for (ChatUserVO vo : userList) {
-			System.out.println("ttttt");
 			System.out.println(vo.getUserUid());
 			UserVO uVo = userService.selectUserByUid(vo.getUserUid());
 			System.out.println(uVo.toString());
 			vo.setDisplayName(uVo.getDisplayName());
 		}
 		
-		
-		System.out.println(userList.size());
-		
 		return userList;
 	};
 	
 	
-	
+	// 기본방 입장
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String detailChat(HttpServletRequest req,  HttpServletResponse res, @RequestParam("room") int roomNo, @RequestParam("location") String location,
+	public String detailChat(ChatRoomVO crVo, UserVO uVo, @RequestParam("room") int roomNo, @RequestParam("location") int location,
 			@RequestParam("title") String title) throws Exception {
-		logger.info("/chat > detail");
-		
+		logger.info("/chat > detail get");
+
 		System.out.println(roomNo);
 		System.out.println(location);
 		System.out.println(title);
-		
+
 		CodeVO cVo = new CodeVO();
 		cVo.setGroupCodeNo("areacode");
-		cVo.setCodeNo(roomNo);
+		cVo.setCodeNo(location);
 		String areaName = service.selectAreaNameBycode(cVo);
-		
-		location = URLEncoder.encode(location, "UTF-8");
+
+		// location = URLEncoder.encode(location, "UTF-8");
 		title = URLEncoder.encode(title, "UTF-8");
 		areaName = URLEncoder.encode(areaName, "UTF-8");
+
+		return "redirect:http://192.168.0.173:80/rscamper-web/views/chat/detail.jsp?room=" + areaName + "&location="
+				+ location + "&title=" + title + "&roomNo=" + roomNo;
+
+	};
+	
+	
+	// 사용자 방 생성 -> 입장
+	@RequestMapping(value = "/detail", method = RequestMethod.POST)
+	public @ResponseBody String detailChat(ChatRoomVO crVo, UserVO uVo) throws Exception {
+		logger.info("/chat > detail post");
 		
-		return "redirect:http://192.168.0.173:80/rscamper-web/views/chat/detail.jsp?room=" + areaName + "&location=" + location + "&title=" + title;
+		System.out.println(crVo.getAreacode());
+		System.out.println(crVo.getChatRoomName());
+		System.out.println(uVo.getUserUid());
+		
+		ChatRoomVO vo = new ChatRoomVO();
+		vo = service.insertRoomInfo(crVo);
+		CodeVO cVo = new CodeVO();
+		cVo.setGroupCodeNo("areacode");
+		cVo.setCodeNo(crVo.getAreacode());
+		String areaName1 = service.selectAreaNameBycode(cVo);
+		vo.setAreaName(areaName1);
+		System.out.println(vo.toString());
+		
+		String title = URLEncoder.encode(crVo.getChatRoomName(), "UTF-8");
+		String areaName = URLEncoder.encode(areaName1, "UTF-8");
+		
+		return "redirect:http://192.168.0.173:80/rscamper-web/views/chat/detail.jsp?room=" + areaName + "&location=" + crVo.getAreacode() + "&title=" + title + "&roomNo=" + crVo.getChatRoomInfoNo();
 	};
 	
 	
@@ -140,10 +164,13 @@ public class ChatController {
 		vo.setChatRoomInfoNo(roomNo);
 		service.deleteRoomUser(vo);
 	}
+	
+	@RequestMapping(value = "/delete/room/{roomNo}", method = RequestMethod.DELETE)
+	public @ResponseBody void deleteRoom(@PathVariable("roomNo") int roomNo) throws Exception {
+		logger.info("/tour > delete > room");
+		
+		System.out.println("삭제할 채팅방 번호 : " + roomNo);
+		service.deleteChatRoom(roomNo);
+	}
 }
-
-
-
-
-
 

@@ -16,7 +16,6 @@
 <select id="listRoom" resultMap="chatMap">
 	select * 
 	from chat_room_info_tb 
-	where CHAT_ROOM_LIVE = 'Y'
 </select>
 
 <select id="selectAreaNameBycode" resultType="string" parameterType="CodeVO">
@@ -47,6 +46,35 @@
 	where USER_UID = #{userUid} 
 	  and CHAT_ROOM_INFO_NO = #{chatRoomInfoNo}
 </delete>
+
+
+<delete id="deleteChatRoom" parameterType="int">
+	delete 
+	from chat_room_info_tb 
+	where CHAT_ROOM_INFO_NO = #{no}
+	and CHAT_ROOM_DEFAULT = 'N'
+</delete>
+
+
+<insert id="insertRoomInfo" parameterType="ChatRoomVO">
+	insert into 
+	chat_room_info_tb
+	(CHAT_ROOM_NAME, AREACODE, CHAT_ROOM_DEFAULT) 
+	values
+	(#{chatRoomName}, #{areacode}, 'N')
+
+	<selectKey keyProperty="chatRoomInfoNo" resultType="int" order="AFTER">
+	 SELECT LAST_INSERT_ID();
+	</selectKey>
+</insert>
+
+<select id="selectRoom" resultMap="chatMap" parameterType="int">
+	select *
+	from chat_room_info_tb
+	where CHAT_ROOM_INFO_NO = #{chatRoomInfoNo}
+</select>
+
+
 
 
 

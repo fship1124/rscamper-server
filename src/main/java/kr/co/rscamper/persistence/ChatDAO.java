@@ -18,4 +18,8 @@ public interface ChatDAO {
 
 	public void deleteRoomUser(ChatUserVO vo) throws Exception;
 
+	public ChatRoomVO insertRoomInfo(ChatRoomVO vo) throws Exception;
+
+	public void deleteChatRoom(int roomNo) throws Exception;
+
 }
