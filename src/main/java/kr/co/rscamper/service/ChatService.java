@@ -16,4 +16,10 @@ public interface ChatService {
 
 	public void insertChatRoomUser(ChatUserVO uVo) throws Exception;
 
+	public void deleteRoomUser(ChatUserVO vo) throws Exception;
+
+	public ChatRoomVO insertRoomInfo(ChatRoomVO crVo) throws Exception;
+
+	public void deleteChatRoom(int roomNo) throws Exception;
+
 }

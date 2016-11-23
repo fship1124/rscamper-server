@@ -41,4 +41,22 @@ public class ChatServiceImpl implements ChatService {
 		dao.insertChatRoomUser(vo);
 	}
 
+
+	@Override
+	public void deleteRoomUser(ChatUserVO vo) throws Exception {
+		dao.deleteRoomUser(vo);
+	}
+
+
+	@Override
+	public ChatRoomVO insertRoomInfo(ChatRoomVO vo) throws Exception {
+		return dao.insertRoomInfo(vo);
+	}
+
+
+	@Override
+	public void deleteChatRoom(int roomNo) throws Exception {
+		dao.deleteChatRoom(roomNo);
+	}
+
 }

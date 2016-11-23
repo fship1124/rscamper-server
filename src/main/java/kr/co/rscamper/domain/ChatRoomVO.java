@@ -4,9 +4,10 @@ public class ChatRoomVO {
 	private int chatRoomInfoNo;
 	private String chatRoomName;
 	private int areacode;
-	private String chatRoomLive;
+	private String chatRoomDefault;
 	private String areaName;
 	private int roomUserCnt;
+	
 	public int getChatRoomInfoNo() {
 		return chatRoomInfoNo;
 	}
@@ -25,11 +26,11 @@ public class ChatRoomVO {
 	public void setAreacode(int areacode) {
 		this.areacode = areacode;
 	}
-	public String getChatRoomLive() {
-		return chatRoomLive;
+	public String getChatRoomDefault() {
+		return chatRoomDefault;
 	}
-	public void setChatRoomLive(String chatRoomLive) {
-		this.chatRoomLive = chatRoomLive;
+	public void setChatRoomDefault(String chatRoomDefault) {
+		this.chatRoomDefault = chatRoomDefault;
 	}
 	public String getAreaName() {
 		return areaName;
@@ -43,11 +44,11 @@ public class ChatRoomVO {
 	public void setRoomUserCnt(int roomUserCnt) {
 		this.roomUserCnt = roomUserCnt;
 	}
+	
 	@Override
 	public String toString() {
 		return "ChatRoomVO [chatRoomInfoNo=" + chatRoomInfoNo + ", chatRoomName=" + chatRoomName + ", areacode="
-				+ areacode + ", chatRoomLive=" + chatRoomLive + ", areaName=" + areaName + ", roomUserCnt="
+				+ areacode + ", chatRoomDefault=" + chatRoomDefault + ", areaName=" + areaName + ", roomUserCnt="
 				+ roomUserCnt + "]";
 	}
-	
 }
