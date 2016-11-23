@@ -46,4 +46,33 @@ public class ChatDAOImpl implements ChatDAO {
 		System.out.println(result);
 	}
 
+	@Override
+	public void deleteRoomUser(ChatUserVO vo) throws Exception {
+		System.out.println("in deleteRoomUser");
+		int result = sqlSessionTemplate.delete(namespace + ".deleteRoomUser", vo);
+		System.out.println(result);
+	}
+
+	@Override
+	public ChatRoomVO insertRoomInfo(ChatRoomVO vo) throws Exception {
+		System.out.println("in insertRoomInfo");
+		sqlSessionTemplate.insert(namespace + ".insertRoomInfo", vo);
+		System.out.println(vo.getChatRoomInfoNo());
+		
+		int roomNo = vo.getChatRoomInfoNo();
+		
+		ChatRoomVO cVo = sqlSessionTemplate.selectOne(namespace + ".selectRoom", roomNo);
+		
+		System.out.println(cVo.toString());
+		
+//		int roomLastNo =  sqlSessionTemplate.selectOne(namespace + ".lastInsertId");
+//		System.out.println(roomLastNo);
+		return cVo;
+	}
+
+	@Override
+	public void deleteChatRoom(int roomNo) throws Exception {
+		 int result = sqlSessionTemplate.delete(namespace + ".deleteChatRoom", roomNo);
+		 System.out.println("result : " + result);
+	}
 }

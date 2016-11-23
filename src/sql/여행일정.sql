@@ -1,7 +1,6 @@
 show tables
 
-
-
+select * from public_code_tb
 create table record_location_tb(
 	LOCATION_NO int(11) primary key auto_increment,
 	RECORD_NO int(11) not null,	
@@ -19,9 +18,14 @@ create table record_location_liked_tb (
 select *
   from record_location_liked_tb
 
+  select * from record_tb;
 select * from record_location_tb
 
+
+select * from record_cover_tb
+
 alter table record_location_tb add DDATE varchar(50);
+alter table record_location_tb change MAPX MAPX double(13,10);
 alter table record_location_tb change DEPARTUREDATE DEPARTURE_DATE varchar(50)
 alter table record_location_tb change DETAIL_DEPARTUREDATE DETAIL_DEPARTURE_DATE varchar(50)
 select *
@@ -72,5 +76,4 @@ create table record_cover_tb(
 	ORI_NAME varchar(200),
 	FILE_NAME varchar(200)
 );
-
 

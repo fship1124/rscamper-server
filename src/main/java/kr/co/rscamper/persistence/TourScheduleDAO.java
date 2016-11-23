@@ -69,4 +69,16 @@ public class TourScheduleDAO {
 	public void insertLikePlus(LocationLikedVO ll) {
 		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.insertLikePlus", ll);
 	}
+	
+	public LocationLikedVO checkedIsLike(LocationLikedVO ll) {
+		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.checkedIsLike", ll);
+	}
+	
+	public void removeLiked(LocationLikedVO ll) {
+		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.removeLiked", ll);
+	}
+	
+	public void delLocation(int locationNo) {
+		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.delLocation",locationNo);
+	}
 }
