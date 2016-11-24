@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.rscamper.ChatMapper">
+
+<resultMap id="chatMap" type="ChatRoomVO">
+    <result column="CHAT_ROOM_INFO_NO" property="chatRoomInfoNo" />
+    <result column="CHAT_ROOM_NAME" property="chatRoomName" />
+    <result column="AREACODE" property="areacode" />
+    <result column="CHAT_ROOM_LIVE" property="chatRoomLive" />
+</resultMap>
+
+
+<select id="listRoom" resultMap="chatMap">
+	select * 
+	from chat_room_info_tb 
+</select>
+
+<select id="selectAreaNameBycode" resultType="string" parameterType="CodeVO">
+	select CODE_NAME as codeName
+	from public_code_tb 
+	where GROUP_CODE_NO = #{groupCodeNo} 
+		  and CODE_NO = #{codeNo}
+</select>
+
+<select id="selectRoomUserList" resultType="ChatUserVO" parameterType="int">
+	select USER_UID as userUid
+	from chat_user_info_tb 
+	where CHAT_ROOM_INFO_NO = #{no1};
+</select>
+
+<insert id="insertChatRoomUser" parameterType="ChatUserVO">
+	insert into 
+	chat_user_info_tb
+	(USER_UID, CHAT_ROOM_INFO_NO) 
+	values
+	(#{userUid}, #{chatRoomInfoNo});
+
+</insert>
+
+<delete id="deleteRoomUser" parameterType="ChatUserVO">
+	delete 
+	from chat_user_info_tb 
+	where USER_UID = #{userUid} 
+	  and CHAT_ROOM_INFO_NO = #{chatRoomInfoNo}
+</delete>
+
+
+<delete id="deleteChatRoom" parameterType="int">
+	delete 
+	from chat_room_info_tb 
+	where CHAT_ROOM_INFO_NO = #{no}
+	and CHAT_ROOM_DEFAULT = 'N'
+</delete>
+
+
+<insert id="insertRoomInfo" parameterType="ChatRoomVO">
+	insert into 
+	chat_room_info_tb
+	(CHAT_ROOM_NAME, AREACODE, CHAT_ROOM_DEFAULT) 
+	values
+	(#{chatRoomName}, #{areacode}, 'N')
+
+	<selectKey keyProperty="chatRoomInfoNo" resultType="int" order="AFTER">
+	 SELECT LAST_INSERT_ID();
+	</selectKey>
+</insert>
+
+<select id="selectRoom" resultMap="chatMap" parameterType="int">
+	select *
+	from chat_room_info_tb
+	where CHAT_ROOM_INFO_NO = #{chatRoomInfoNo}
+</select>
+
+
+
+
+
+</mapper>

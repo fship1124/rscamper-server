@@ -96,7 +96,7 @@
 	
 	<update id="updateUserByUid" parameterType="UserVO">
 		update user_tb 
-		set DISPLAY_NAME = #{displayName}, LOCATION_NO = #{locationNo}, PHONE_NUMBER = #{phoneNumber}, INTRODUCE = #{introduce}, BIRTHDAY = #{birthday}, WEBSITE_URL = #{websiteUrl}
+		set DISPLAY_NAME = #{displayName}, LOCATION_NO = #{locationNo}, PHONE_NUMBER = #{phoneNumber}, INTRODUCE = #{introduce}, BIRTHDAY = #{birthday}, WEBSITE_URL = #{websiteUrl}, GENDER = #{gender}
 		where USER_UID = #{userUid}
 	</update>
 	

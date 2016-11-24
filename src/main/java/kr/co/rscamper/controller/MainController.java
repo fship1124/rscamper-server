@@ -1,3 +1,12 @@
+/**-----------------------------------------------------------------------
+ * rscamper Project
+ * ------------------------------------------------------------------------
+ * @Class MainController.java
+ * @Description 메인 페이지 실시간 댓글 요청에 대한 처리를 위한 Handler 클래스  
+ * @author 김호동
+ * @since 2016. 10. 15.
+ */
+
 package kr.co.rscamper.controller;
 
 import java.util.ArrayList;
@@ -8,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +28,7 @@ import kr.co.rscamper.domain.UserVO;
 import kr.co.rscamper.service.MainService;
 import kr.co.rscamper.service.UserService;
 
+
 @Controller
 @RequestMapping("/main/*")
 public class MainController {
@@ -30,7 +39,13 @@ public class MainController {
 	private MainService mainService;
 	@Inject
 	private UserService userService;
+
 	
+	/**
+	 * @Description 메인 페이지 실시간 댓글 리스트 정보 요청에 대한 처리
+	 * @param none
+	 * @return List DB에 저장된 댓글 목록
+	 */
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public @ResponseBody List<MainVO> read(HttpServletResponse res) throws Exception {
 		logger.info("/main > read");
@@ -43,11 +58,15 @@ public class MainController {
 			val.setDisplayName(uVo.getDisplayName());
 			val.setProviderPhotoUrl(uVo.getPhotoUrl());
 		}
-		System.out.println(list.size());
 		return list;
 	}
 	
 	
+	/**
+	 * @Description 메인 페이지 실시간 댓글 리스트 정보 요청에 대한 처리
+	 * @param none
+	 * @return List DB에 저장된 댓글 목록
+	 */
 	@RequestMapping(value = "/{uid}/{content}", method = RequestMethod.PUT)
 	public @ResponseBody List<MainVO> insert(@PathVariable("uid") String uid, @PathVariable("content") String content, HttpServletResponse res) throws Exception {
 		logger.info("/main > insert");
@@ -66,7 +85,6 @@ public class MainController {
 			val.setDisplayName(uVo.getDisplayName());
 			val.setProviderPhotoUrl(uVo.getPhotoUrl());
 		}
-		System.out.println(list.size());
 		return list;
 	}
 }

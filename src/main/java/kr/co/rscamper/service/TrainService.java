@@ -8,6 +8,7 @@ import kr.co.rscamper.domain.TrainVO;
 public interface TrainService {
 
 	public List<TrainVO> list() throws Exception;
+<<<<<<< HEAD
 
 	public String selectDepPlaceId(String depPlaceId) throws Exception;
 
@@ -17,4 +18,6 @@ public interface TrainService {
 
 
 //	public Map<String, Object> detailTrain(TrainVO train)throws Exception;
+=======
+>>>>>>> b9f7220999affbc48e1d1fb95798e51bc879d875
 }

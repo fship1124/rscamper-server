@@ -72,9 +72,4 @@ public class BenefitController {
 		
 		return vo;
 	}
-	
-	
-	
-	
-	
 }

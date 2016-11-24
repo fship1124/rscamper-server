@@ -15,6 +15,7 @@
 		<result property="period" column="PERIOD" />
 		<result property="strapline" column="STRAPLINE"/>
 		<result property="introduce" column="INTRODUCE"/>
+		<result property="regDate" column="REG_DATE"/>
 	</resultMap>
 	<resultMap type="RecordCoverVO" id="RecordCoverMap">
 		<result property="coverNo" column="COVER_NO"/>
@@ -88,8 +89,8 @@
 		 where RECORD_NO = #{recordNo}
 	</update>
 	<insert id="addScheduleLocation" parameterType="RecordLocationVO">
-		insert into record_location_tb(RECORD_NO,TITLE,CONTENT_CODE,IMAGE_URL, DETAIL_DEPARTURE_DATE, CONTENT_TYPE_ID, DEPARTURE_DATE)
-		values(#{recordNo},#{title},#{contentCode},#{imageUrl},#{detailDepartureDate},#{contentTypeId},#{departureDate})
+		insert into record_location_tb(RECORD_NO,TITLE,CONTENT_CODE,IMAGE_URL, DETAIL_DEPARTURE_DATE, CONTENT_TYPE_ID, DEPARTURE_DATE, MAPX, MAPY)
+		values(#{recordNo},#{title},#{contentCode},#{imageUrl},#{detailDepartureDate},#{contentTypeId},#{departureDate},#{mapX},#{mapY})
 	</insert>
 	<select id="getScheduleLocation" parameterType="int" resultMap="RecordLocationMap">
 		select *
@@ -105,4 +106,21 @@
 		insert into record_location_liked_tb
 		values (#{contentId},#{uid})
 	</insert>
+	<select id="checkedIsLike" parameterType="LocationLikedVO" resultType="LocationLikedVO">
+		select CONTENT_CODE as contentId, USER_UID as uid
+		  from record_location_liked_tb
+		 where CONTENT_CODE = #{contentId}
+		   and USER_UID = #{uid}
+	</select>
+	<delete id="removeLiked" parameterType="LocationLikedVO">
+		delete 
+		  from record_location_liked_tb
+		 where CONTENT_CODE = #{contentId}
+		   and USER_UID = #{uid}
+	</delete>
+	<delete id="delLocation" parameterType="int">
+		delete 
+		  from record_location_tb
+		 where LOCATION_NO = #{locationNo} 
+	</delete>
 </mapper>

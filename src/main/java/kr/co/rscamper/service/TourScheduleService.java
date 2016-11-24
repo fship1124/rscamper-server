@@ -33,4 +33,10 @@ public interface TourScheduleService {
 	public int isLike() throws Exception;
 	
 	public void insertLikePlus(LocationLikedVO ll) throws Exception;
+	
+	public LocationLikedVO checkedIsLike(LocationLikedVO ll) throws Exception;
+	
+	public void removeLiked(LocationLikedVO ll) throws Exception;
+	
+	public void delLocation(int locationNo) throws Exception;
 }
