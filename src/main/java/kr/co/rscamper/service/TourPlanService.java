@@ -12,9 +12,12 @@ public interface TourPlanService {
 	public Map<String, Object> selectTourPlanList(TourPlanParamVO tourPlanParam);
 
 	/** 여행일정 신규 작성 */
-	public void insertTourPlan(TourPlanVO tourPlan);
+	public int insertTourPlan(TourPlanVO tourPlan);
 
 	/** 장소정보 리스트 가져오기 */
 	public Map<String, Object> selectSpotList(TourPlanSpotParamVO tourPlanSpotParam);
+
+	/** 여행일정 한개 가져오기 */
+	public TourPlanVO selectTourPlan(int recordNo);
 	
 }

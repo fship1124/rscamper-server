@@ -61,6 +61,18 @@
 		]]>
 	</select>
 	
+	<select id="selectTourPlan" resultMap="TourPlanVOMap" parameterType="int">
+<!-- 			(SELECT COUNT(*) ) LIKE_CNT,  -->
+<!-- 			(SELECT COUNT(*) ) COMMENT_CNT,  -->
+<!-- 			(SELECT COUNT(*) ) LOCATION_CNT -->
+		<![CDATA[
+			SELECT R.*, U.DISPLAY_NAME DISPLAY_NAME
+			FROM RECORD_TB R, USER_TB U
+			WHERE R.RECORD_NO = #{recordNo}
+			AND R.USER_UID = U.USER_UID
+		]]>
+	</select>
+	
 	<select id="selectTourPlanTotalPages" resultType="int" parameterType="TourPlanParamVO">
 		SELECT COUNT(*)
 		FROM RECORD_TB
@@ -72,6 +84,9 @@
 	<insert id="insertTourPlan" parameterType="TourPlanVO">
 		INSERT INTO RECORD_TB (USER_UID, TITLE, STRAPLINE, INTRODUCE, DEPARTURE_DATE, ARRIVE_DATE, PERIOD, BUDGET, PICTURE)
 		VALUES (#{userUid}, #{title}, #{strapline}, #{introduce}, #{departureDate}, #{arriveDate}, #{period}, 0, 0)
+	<selectKey keyProperty="recordNo" resultType="int" order="AFTER">
+        SELECT last_insert_id()
+    </selectKey>
 	</insert>
 	
 	<select id="selectTourPlanSpotTotalPages" parameterType="TourPlanSpotParamVO" resultType="int">
@@ -113,7 +128,6 @@
 			ORDER BY ${standard} ${order}
 			LIMIT #{startRow}, #{amount}
 	</select>
-	
 	
 	
 	

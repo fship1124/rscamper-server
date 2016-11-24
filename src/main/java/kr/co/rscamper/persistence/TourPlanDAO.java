@@ -16,12 +16,15 @@ public interface TourPlanDAO {
 	public int selectTourPlanTotalPages(TourPlanParamVO tourPlanParam);
 
 	/** 여행일정 신규 등록 */
-	public void insertTourPlan(TourPlanVO tourPlan);
+	public int insertTourPlan(TourPlanVO tourPlan);
 
 	/** 여행장소 총 개수 조회 */
 	public int selectSpotTotalPages(TourPlanSpotParamVO tourPlanSpotParam);
 
 	/** 여행장소 리스트 조회 */
 	public List<TourPlanSpotVO> selectTourSpotList(TourPlanSpotParamVO tourPlanSpotParam);
+
+	/** 여행일정 한개 조회*/
+	public TourPlanVO selectTourPlan(int recordNo);
 	
 }
