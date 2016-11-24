@@ -19,10 +19,8 @@ public class MenuDAOImpl implements MenuDAO{
 
 	@Override
 	public List<MenuVO> list() throws Exception {
-		List<MenuVO> list = session.selectList(namespace + ".list");
-//		for (MenuVO menu : list) {
-//			System.out.println("메뉴" + menu.toString());
-//		}
-		return list;
+
+		return session.selectList(namespace + ".list");
+
 	}
 }

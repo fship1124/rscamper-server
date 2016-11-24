@@ -48,11 +48,21 @@ public class ChatServiceImpl implements ChatService {
 	public List<CodeVO> getCodeName(String codeName) throws Exception {
 		return dao.getCodeName(codeName);
 	}
+	
+	@Override
+	public void deleteRoomUser(ChatUserVO vo) throws Exception {
+		dao.deleteRoomUser(vo);
+	}
 
 
 	@Override
 	public List<ChatRoomVO> getChatRoom(int no) throws Exception {
 		return dao.getChatRoom(no);
+	}
+	
+	@Override
+	public ChatRoomVO insertRoomInfo(ChatRoomVO vo) throws Exception {
+		return dao.insertRoomInfo(vo);
 	}
 
 
@@ -72,6 +82,11 @@ public class ChatServiceImpl implements ChatService {
 	@Override
 	public List<ChatUserInfoVO> getRoomUserList(int chatRoomInfoNo) throws Exception {
 		return dao.getRoomUserList(chatRoomInfoNo);
+	}
+	
+	@Override
+	public void deleteChatRoom(int roomNo) throws Exception {
+		dao.deleteChatRoom(roomNo);
 	}
 
 }

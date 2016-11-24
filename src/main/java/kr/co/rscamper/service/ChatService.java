@@ -28,4 +28,10 @@ public interface ChatService {
 	
 	public List<ChatUserInfoVO> getRoomUserList(int chatRoomInfoNo) throws Exception;
 
+	public void deleteRoomUser(ChatUserVO vo) throws Exception;
+
+	public ChatRoomVO insertRoomInfo(ChatRoomVO crVo) throws Exception;
+
+	public void deleteChatRoom(int roomNo) throws Exception;
+
 }

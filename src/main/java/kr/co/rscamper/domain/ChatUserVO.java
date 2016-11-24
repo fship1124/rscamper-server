@@ -4,6 +4,8 @@ public class ChatUserVO {
 	private int chatUserInfoNo;
 	private String userUid;
 	private int chatRoomInfoNo;
+	private String displayName;
+	
 	public int getChatUserInfoNo() {
 		return chatUserInfoNo;
 	}
@@ -22,11 +24,16 @@ public class ChatUserVO {
 	public void setChatRoomInfoNo(int chatRoomInfoNo) {
 		this.chatRoomInfoNo = chatRoomInfoNo;
 	}
-	
-	
+	public String getDisplayName() {
+		return displayName;
+	}
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
 	@Override
 	public String toString() {
 		return "ChatUserVO [chatUserInfoNo=" + chatUserInfoNo + ", userUid=" + userUid + ", chatRoomInfoNo="
-				+ chatRoomInfoNo + "]";
+				+ chatRoomInfoNo + ", displayName=" + displayName + "]";
 	}
+
 }

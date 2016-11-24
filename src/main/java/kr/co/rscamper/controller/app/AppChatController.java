@@ -61,6 +61,5 @@ public class AppChatController {
 	@RequestMapping("/delChatUser")
 	@ResponseBody
 	public void delChatUser(String uid) throws Exception {
-		service.
 	}
 }
