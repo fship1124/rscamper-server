@@ -1,6 +1,6 @@
 show tables
 
-select * from public_code_tb
+select * from record_location_tb
 create table record_location_tb(
 	LOCATION_NO int(11) primary key auto_increment,
 	RECORD_NO int(11) not null,	
@@ -77,3 +77,20 @@ create table record_cover_tb(
 	FILE_NAME varchar(200)
 );
 
+select c.USER_UID, c.CHAT_USER_INFO_NO, c.CHAT_ROOM_INFO_NO, u.DISPLAY_NAME, u.PHOTO_URL
+  from user_tb u, (select * 
+                     from chat_user_info_tb
+                    where CHAT_ROOM_INFO_NO = 1) c
+ where c.user_uid = u.user_uid
+
+select * 
+  from chat_user_info_tb
+ where CHAT_ROOM_INFO_NO = 1
+delete from chat_user_info_tb
+ delete  from chat_user_info_tb where user_uid = "lacdY77IMXcYfrWNoeBnm0WhTKF2"
+select * from user_tb
+select * from chat_room_info_tb
+
+delete from chat_user_info_tb
+select * from chat_user_info_tb
+select * from public_code_tb
