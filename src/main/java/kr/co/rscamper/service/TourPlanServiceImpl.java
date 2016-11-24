@@ -40,9 +40,9 @@ public class TourPlanServiceImpl implements TourPlanService {
 	}
 
 	@Override
-	public void insertTourPlan(TourPlanVO tourPlan) {
+	public int insertTourPlan(TourPlanVO tourPlan) {
 		tourPlan.setPeriod(getDate( tourPlan.getDepartureDate(), tourPlan.getArriveDate()));
-		dao.insertTourPlan(tourPlan);
+		return dao.insertTourPlan(tourPlan);
 	}
 	
 	public String getDate(Date dDate, Date aDate) {
@@ -56,7 +56,6 @@ public class TourPlanServiceImpl implements TourPlanService {
 		} else {
 			d = "1일";
 		}
-		System.out.println(d);
 		return d;
 	}
 
@@ -71,6 +70,11 @@ public class TourPlanServiceImpl implements TourPlanService {
 		tourSpotMap.put("tourSpotList", tourSpotList);
 		tourSpotMap.put("totalPages", totalPages);
 		return tourSpotMap;
+	}
+
+	@Override
+	public TourPlanVO selectTourPlan(int recordNo) {
+		return dao.selectTourPlan(recordNo);
 	}
 	
 }

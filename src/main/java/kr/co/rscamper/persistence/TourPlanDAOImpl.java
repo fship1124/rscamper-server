@@ -31,20 +31,24 @@ public class TourPlanDAOImpl implements TourPlanDAO {
 	}
 
 	@Override
-	public void insertTourPlan(TourPlanVO tourPlan) {
+	public int insertTourPlan(TourPlanVO tourPlan) {
 		sqlSessionTemplate.insert(namespace + ".insertTourPlan", tourPlan);
+		return tourPlan.getRecordNo();
 	}
 
 	@Override
 	public int selectSpotTotalPages(TourPlanSpotParamVO tourPlanSpotParam) {
-		System.out.println("Total Page : " + tourPlanSpotParam.toString());
 		return sqlSessionTemplate.selectOne(namespace + ".selectTourPlanSpotTotalPages", tourPlanSpotParam);
 	}
 
 	@Override
 	public List<TourPlanSpotVO> selectTourSpotList(TourPlanSpotParamVO tourPlanSpotParam) {
-		System.out.println("Tour Spot List : " + tourPlanSpotParam.toString());
 		return sqlSessionTemplate.selectList(namespace + ".selectTourPlanSpotList", tourPlanSpotParam);
+	}
+
+	@Override
+	public TourPlanVO selectTourPlan(int recordNo) {
+		return sqlSessionTemplate.selectOne(namespace + ".selectTourPlan", recordNo);
 	}
 	
 	

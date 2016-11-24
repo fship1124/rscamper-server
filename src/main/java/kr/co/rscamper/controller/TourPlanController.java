@@ -31,13 +31,18 @@ public class TourPlanController {
 	}
 	
 	@RequestMapping(value = "/insert/tourPlan", method = RequestMethod.POST)
-	public @ResponseBody void insertTourPlan(TourPlanVO tourPlan) throws Exception {
-		tourPlanService.insertTourPlan(tourPlan);
+	public @ResponseBody int insertTourPlan(TourPlanVO tourPlan) throws Exception {
+		return tourPlanService.insertTourPlan(tourPlan);
 	}
 	
 	@RequestMapping(value = "/select/spotList", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> selectSpotList(TourPlanSpotParamVO tourPlanSpotParam) throws Exception {
 		return tourPlanService.selectSpotList(tourPlanSpotParam);
+	}
+	
+	@RequestMapping(value = "/select/oneTourPlan", method = RequestMethod.GET)
+	public @ResponseBody TourPlanVO selectTourPlan(int recordNo) throws Exception {
+		return tourPlanService.selectTourPlan(recordNo);
 	}
 	
 	
