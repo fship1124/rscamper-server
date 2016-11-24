@@ -7,8 +7,6 @@ public class TrainVO {
 	private int stationNo;
 	private String stationTitle;
 	private String trainId;
-	private String trainStartId;
-	private String trainArriveId;
 	private int stationVital;
 	private int trainSaemaeul;
 	private int trainMugunghwa;
@@ -16,20 +14,7 @@ public class TrainVO {
 	private int trainNuriro;
 	private int trainItxchungchun;
 	private int trainItxsaemaeul;
-	private Date regDate;
-	private String trainGradeCode;
-	public String getTrainStartId() {
-		return trainStartId;
-	}
-	public void setTrainStartId(String trainStartId) {
-		this.trainStartId = trainStartId;
-	}
-	public String getTrainArriveId() {
-		return trainArriveId;
-	}
-	public void setTrainArriveId(String trainArriveId) {
-		this.trainArriveId = trainArriveId;
-	}
+	//
 	public int getStationNo() {
 		return stationNo;
 	}
@@ -90,26 +75,15 @@ public class TrainVO {
 	public void setTrainItxsaemaeul(int trainItxsaemaeul) {
 		this.trainItxsaemaeul = trainItxsaemaeul;
 	}
-	public Date getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
-	public String getTrainGradeCode() {
-		return trainGradeCode;
-	}
-	public void setTrainGradeCode(String trainGradeCode) {
-		this.trainGradeCode = trainGradeCode;
-	}
 	@Override
 	public String toString() {
 		return "TrainVO [stationNo=" + stationNo + ", stationTitle=" + stationTitle + ", trainId=" + trainId
-				+ ", trainStartId=" + trainStartId + ", trainArriveId=" + trainArriveId + ", stationVital="
-				+ stationVital + ", trainSaemaeul=" + trainSaemaeul + ", trainMugunghwa=" + trainMugunghwa
-				+ ", trainTonggeun=" + trainTonggeun + ", trainNuriro=" + trainNuriro + ", trainItxchungchun="
-				+ trainItxchungchun + ", trainItxsaemaeul=" + trainItxsaemaeul + ", regDate=" + regDate
-				+ ", trainGradeCode=" + trainGradeCode + "]";
+				+ ", stationVital=" + stationVital + ", trainSaemaeul=" + trainSaemaeul + ", trainMugunghwa="
+				+ trainMugunghwa + ", trainTonggeun=" + trainTonggeun + ", trainNuriro=" + trainNuriro
+				+ ", trainItxchungchun=" + trainItxchungchun + ", trainItxsaemaeul=" + trainItxsaemaeul + "]";
 	}
+
+	
+
 
 }

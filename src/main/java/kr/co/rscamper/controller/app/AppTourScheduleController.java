@@ -90,6 +90,9 @@ public class AppTourScheduleController {
 			dayList.add(getWeek(new Date(nextDay)));
 			nextDay = nextDay + day;
 		}
+		for(String aaa : dayList) {
+			System.out.println(aaa);
+		}
 		return dayList;
 	}
 	
