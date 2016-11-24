@@ -11,6 +11,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.rscamper.domain.BoardBookMarkVO;
+import kr.co.rscamper.domain.BoardLikeVO;
 import kr.co.rscamper.domain.CommentVO;
 import kr.co.rscamper.domain.PageVO;
 import kr.co.rscamper.domain.TogetherVO;
@@ -55,9 +57,15 @@ public class TravelogDAOImpl implements TravelogDAO {
 	}
 	
 	@Override
+	public void updateBoard(TravelogVO travelog) throws Exception {
+		sqlSessionTemplate.update(namespace + ".updateBoard", travelog);
+	}
+	
+	@Override
 	public void deleteBoardByBoardNo(int boardNo) throws Exception {
 		sqlSessionTemplate.delete(namespace + ".deleteBoardByBoardNo", boardNo);
 	}
+	
 
 	@Override
 	public List<CommentVO> listComment(Integer boardNo, PageVO page) throws Exception {
@@ -76,8 +84,8 @@ public class TravelogDAOImpl implements TravelogDAO {
 	}
 
 	@Override
-	public void updateComment(CommentVO comment) throws Exception {
-		sqlSessionTemplate.selectList(namespace + ".updateComment", comment);
+	public void updateComment(CommentVO cVo) throws Exception {
+		sqlSessionTemplate.selectList(namespace + ".updateComment", cVo);
 	}
 
 	@Override
@@ -100,5 +108,35 @@ public class TravelogDAOImpl implements TravelogDAO {
 		return sqlSessionTemplate.selectOne(namespace + ".totalCountComment", boardNo);
 	}
 	
+	@Override
+	public int selectBoardLike(BoardLikeVO boardLike) {
+		return sqlSessionTemplate.selectOne(namespace + ".selectBoardLike", boardLike);
+	}
+
+	@Override
+	public void insertBoardLike(BoardLikeVO boardLike) {
+		sqlSessionTemplate.insert(namespace + ".insertBoardLike", boardLike);
+	}
+
+	@Override
+	public void deleteBoardLike(BoardLikeVO boardLike) {
+		sqlSessionTemplate.insert(namespace + ".deleteBoardLike", boardLike);
+	}
+
+	@Override
+	public int selectBoardBookMark(BoardBookMarkVO boardBookMark) {
+		return sqlSessionTemplate.selectOne(namespace + ".selectBoardBookMark", boardBookMark);
+	}
+
+	@Override
+	public void insertBoardBookMark(BoardBookMarkVO boardBookMark) {
+		sqlSessionTemplate.insert(namespace + ".insertBoardBookMark", boardBookMark);
+	}
+
+	@Override
+	public void deleteBoardBookMark(BoardBookMarkVO boardBookMark) {
+		sqlSessionTemplate.insert(namespace + ".deleteBoardBookMark", boardBookMark);
+	}
+
 	
 }

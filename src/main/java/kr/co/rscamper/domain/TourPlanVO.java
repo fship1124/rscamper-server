@@ -2,7 +2,8 @@ package kr.co.rscamper.domain;
 
 import java.util.Date;
 
-public class TourScheduleVO {
+public class TourPlanVO {
+
 	private int recordNo;
 	private String userUid;
 	private Date departureDate;
@@ -16,6 +17,74 @@ public class TourScheduleVO {
 	private String introduce;
 	private Date regDate;
 	
+	private int likeCnt;
+	private int commentCnt;
+	private int locationCnt;
+	private int postCnt;
+	
+	
+	private String displayName;
+	
+	private int totalPages;
+	
+	
+	@Override
+	public String toString() {
+		return "TourPlanVO [recordNo=" + recordNo + ", userUid=" + userUid + ", departureDate=" + departureDate
+				+ ", arriveDate=" + arriveDate + ", title=" + title + ", budGet=" + budGet + ", picture=" + picture
+				+ ", period=" + period + ", cover=" + cover + ", strapline=" + strapline + ", introduce=" + introduce
+				+ ", regDate=" + regDate + ", likeCnt=" + likeCnt + ", commentCnt=" + commentCnt + ", locationCnt="
+				+ locationCnt + ", postCnt=" + postCnt + ", displayName=" + displayName + ", totalPages=" + totalPages
+				+ "]";
+	}
+
+
+	public int getPostCnt() {
+		return postCnt;
+	}
+
+
+	public void setPostCnt(int postCnt) {
+		this.postCnt = postCnt;
+	}
+
+
+	public int getLikeCnt() {
+		return likeCnt;
+	}
+	public void setLikeCnt(int likeCnt) {
+		this.likeCnt = likeCnt;
+	}
+	public int getCommentCnt() {
+		return commentCnt;
+	}
+	public void setCommentCnt(int commentCnt) {
+		this.commentCnt = commentCnt;
+	}
+	public int getLocationCnt() {
+		return locationCnt;
+	}
+	public void setLocationCnt(int locationCnt) {
+		this.locationCnt = locationCnt;
+	}
+	public int getTotalPages() {
+		return totalPages;
+	}
+	public void setTotalPages(int totalPages) {
+		this.totalPages = totalPages;
+	}
+	public String getDisplayName() {
+		return displayName;
+	}
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+	public String getPeriod() {
+		return period;
+	}
+	public void setPeriod(String period) {
+		this.period = period;
+	}
 	public Date getRegDate() {
 		return regDate;
 	}
@@ -39,12 +108,6 @@ public class TourScheduleVO {
 	}
 	public void setCover(RecordCoverVO cover) {
 		this.cover = cover;
-	}
-	public String getPeriod() {
-		return period;
-	}
-	public void setPeriod(String period) {
-		this.period = period;
 	}
 	public int getRecordNo() {
 		return recordNo;
