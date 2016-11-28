@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import kr.co.rscamper.persistence.AppMypageDAO;
 
 @Service
-public class AppMypageServiceImpl implements AppMainService {
+public class AppMypageServiceImpl implements AppMypageService {
 
 	@Inject
 	private AppMypageDAO dao;

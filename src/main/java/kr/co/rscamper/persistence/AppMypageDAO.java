@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import kr.co.rscamper.domain.BoardBookMarkVO;
 
 @Repository
-public class AppMypageDAO implements AppMainDAO {
+public class AppMypageDAO {
 
 	@Inject
 	private SqlSessionTemplate sqlSessionTemplate;
