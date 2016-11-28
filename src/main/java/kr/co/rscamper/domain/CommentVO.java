@@ -7,12 +7,34 @@ public class CommentVO {
 	private Integer targetCommentNo;
 	private Integer boardNo;
 	private String commentContent;
+	private String content;
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 	private Date regDate;
 	
 	private String userUid;
 	private String displayName;
 	private String photoUrl;
 	private String email;
+	
+	private String providerUid;
+	private String providerName;
+	private String providerDisplayName;
+	private String providerPhotoUrl;
+	private String providerEmail;
+	private String bgPhotoUrl;
+	private String phoneNumber;
+	private String websiteUrl;
+	private String introduce;
+	private Date birthday;
+	
+	private int locationNo;
+	private String locationName;
+	
 	public String getDisplayName() {
 		return displayName;
 	}
@@ -103,22 +125,6 @@ public class CommentVO {
 	public void setLocationName(String locationName) {
 		this.locationName = locationName;
 	}
-	private String providerUid;
-	private String providerName;
-	private String providerDisplayName;
-	private String providerPhotoUrl;
-	private String providerEmail;
-	private String bgPhotoUrl;
-	private String phoneNumber;
-	private String websiteUrl;
-	private String introduce;
-	private Date birthday;
-	
-	private int locationNo;
-	private String locationName;
-	
-	
-	
 	
 	public Integer getCommentNo() {
 		return commentNo;
@@ -157,11 +163,18 @@ public class CommentVO {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	
+
 	@Override
 	public String toString() {
 		return "CommentVO [commentNo=" + commentNo + ", targetCommentNo=" + targetCommentNo + ", boardNo=" + boardNo
-				+ ", userUid=" + userUid + ", commentContent=" + commentContent + ", regDate=" + regDate + "]";
+				+ ", commentContent=" + commentContent + ", content=" + content + ", regDate=" + regDate + ", userUid="
+				+ userUid + ", displayName=" + displayName + ", photoUrl=" + photoUrl + ", email=" + email
+				+ ", providerUid=" + providerUid + ", providerName=" + providerName + ", providerDisplayName="
+				+ providerDisplayName + ", providerPhotoUrl=" + providerPhotoUrl + ", providerEmail=" + providerEmail
+				+ ", bgPhotoUrl=" + bgPhotoUrl + ", phoneNumber=" + phoneNumber + ", websiteUrl=" + websiteUrl
+				+ ", introduce=" + introduce + ", birthday=" + birthday + ", locationNo=" + locationNo
+				+ ", locationName=" + locationName + "]";
 	}
-	
 	
 }

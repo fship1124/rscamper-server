@@ -14,7 +14,14 @@ public class TourScheduleVO {
 	private RecordCoverVO cover;
 	private String strapline;
 	private String introduce;
+	private Date regDate;
 	
+	public Date getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
+	}
 	public String getStrapline() {
 		return strapline;
 	}

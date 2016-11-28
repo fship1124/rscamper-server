@@ -6,6 +6,8 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.rscamper.domain.BoardBookMarkVO;
+import kr.co.rscamper.domain.BoardLikeVO;
 import kr.co.rscamper.domain.CommentVO;
 import kr.co.rscamper.domain.PageVO;
 import kr.co.rscamper.domain.TravelogVO;
@@ -43,6 +45,12 @@ public class TravelogServiceImple implements TravelogService {
 		return dao.selectByNo(boardNo);
 	}
 
+
+	@Override
+	public void updateBoard(TravelogVO travelog) throws Exception {
+		dao.updateBoard(travelog);
+	}
+	
 	@Override
 	public void deleteBoardByBoardNo(int boardNo) throws Exception {
 		dao.deleteBoardByBoardNo(boardNo);
@@ -58,16 +66,17 @@ public class TravelogServiceImple implements TravelogService {
 		return dao.listComment(boardNo, page);
 	}
 
-	@Override
-	public void modifyComment(CommentVO comment) throws Exception {
-		dao.updateComment(comment);
-	}
 
 	@Override
-	public void removeComment(Integer commentNo) throws Exception {
+	public void deleteComment(Integer commentNo) throws Exception {
 		dao.delteteComment(commentNo);
 	}
 
+	@Override
+	public void updateComment(CommentVO cVo) throws Exception {
+		dao.updateComment(cVo);
+	}
+	
 	@Override
 	  public int count(Integer boardNo) throws Exception {
 	    return dao.count(boardNo);
@@ -78,6 +87,36 @@ public class TravelogServiceImple implements TravelogService {
 		return dao.totalCountComment(boardNo);
 	}
 		
+	@Override
+	public boolean likeProcess(BoardLikeVO boardLike) {
+		if (dao.selectBoardLike(boardLike) == 0) {
+			dao.insertBoardLike(boardLike);
+			return false;
+		} else {
+			dao.deleteBoardLike(boardLike);
+			return true;
+		}
+	}
+
+	@Override
+	public boolean bookMarkProcess(BoardBookMarkVO boardBookMark) {
+		if (dao.selectBoardBookMark(boardBookMark) == 0) {
+			dao.insertBoardBookMark(boardBookMark);
+			return false;
+		} else {
+			dao.deleteBoardBookMark(boardBookMark);
+			return true;
+		}
+	}
+
+	@Override
+	public boolean selectBookMarkStatus(BoardBookMarkVO boardBookMark) {
+		if (dao.selectBoardBookMark(boardBookMark) == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 
 	
 }

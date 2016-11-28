@@ -85,4 +85,19 @@ public class TourScheduleServiceImpl implements TourScheduleService {
 		dao.insertLikePlus(ll);
 	}
 
+	@Override
+	public LocationLikedVO checkedIsLike(LocationLikedVO ll) throws Exception {
+		return dao.checkedIsLike(ll);
+	}
+
+	@Override
+	public void removeLiked(LocationLikedVO ll) throws Exception {
+		dao.removeLiked(ll);
+	}
+
+	@Override
+	public void delLocation(int locationNo) throws Exception {
+		dao.delLocation(locationNo);
+	}
+
 }

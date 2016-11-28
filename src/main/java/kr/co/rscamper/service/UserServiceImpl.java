@@ -33,9 +33,6 @@ public class UserServiceImpl implements UserService {
 		return dao.selectMainByUidComment(userUid);
 	}
 	
-	
-	/*===========================================================================*/
-	 
 	@Override
 	public void insertUser(UserVO user) throws Exception {
 		System.out.println("회원가입 : " + user.toString());
@@ -56,7 +53,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<UserVO> selectUserList() {
-		return null;
+		return dao.selectUserList();
 	}
 
 	@Override
@@ -91,8 +88,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void updateBgImage(UserPhotoVO userPhoto) {
-		UserPhotoVO oldUserPhoto = dao.selectUserPhotoPath(userPhoto);
 		System.out.println("배경이미지수정 : " + userPhoto.toString());
+		UserPhotoVO oldUserPhoto = dao.selectUserPhotoPath(userPhoto);
 		if (oldUserPhoto != null) {
 			String oldPath = oldUserPhoto.getPath();
 			

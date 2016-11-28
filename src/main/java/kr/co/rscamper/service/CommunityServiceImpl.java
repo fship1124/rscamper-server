@@ -27,7 +27,6 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public Map<String, Object> selectCommunityList(int page, int count) {
 		page = (page - 1) * count;
-		System.out.println(dao.selectCommunityTotalPages());
 
 		int totalPages = (int) Math.ceil((double) dao.selectCommunityTotalPages() / (double) count);
 		Map<String, Integer> pageMap = new HashMap<String, Integer>();
@@ -44,25 +43,19 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public Map<String, Object> selectCommunityListByCategoryNo(int page, int count, int categoryNo) {
 		page = (page - 1) * count;
-		System.out.println(dao.selectCommunityTotalPagesByCategoryNo(categoryNo));
 		
 		int totalPages = (int) Math.ceil((double) dao.selectCommunityTotalPagesByCategoryNo(categoryNo) / (double) count);
 		Map<String, Integer> pageMap = new HashMap<String, Integer>();
 		pageMap.put("page", page);
 		pageMap.put("count", count);
 		pageMap.put("categoryNo", categoryNo);
-		System.out.println("page:"+page+"count"+count+"categoryNo"+ categoryNo);
 		List<CommunityVO> boardList = dao.selectCommunityListByCategoryNo(pageMap);
-		System.out.println("totalPages:" + totalPages);
 
 		Map<String, Object> boardMap = new HashMap<>();
 		boardMap.put("boardList", boardList);
 		boardMap.put("totalPages", totalPages);
 		boardMap.put("count", count);
 		boardMap.put("page", page);
-		
-		System.out.println(boardMap);
-		System.out.println(boardList.get(0).toString());
 		
 		return boardMap;
 	}

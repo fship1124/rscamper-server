@@ -29,6 +29,7 @@ public class AppTourScheduleController {
 	@RequestMapping("/getschedule")
 	@ResponseBody
 	public List<TourScheduleVO> getScheduleList(String uid) throws Exception {
+		System.out.println("asdasd");
 		List<TourScheduleVO> tList = new ArrayList<>();
 		tList = service.getSchedule(uid);
 		for (TourScheduleVO ts : tList) {
@@ -89,6 +90,9 @@ public class AppTourScheduleController {
 			dayList.add(getWeek(new Date(nextDay)));
 			nextDay = nextDay + day;
 		}
+		for(String aaa : dayList) {
+			System.out.println(aaa);
+		}
 		return dayList;
 	}
 	
@@ -144,7 +148,7 @@ public class AppTourScheduleController {
 	
 	@RequestMapping("/addScheduleLocation")
 	@ResponseBody
-	public void addScheduleLocation(String add, String title, String imgUrl, String contentCode, String contentTypeId, int recordNo) throws Exception {
+	public void addScheduleLocation(String add, String title, String imgUrl, String contentCode, String contentTypeId, int recordNo, double mapX, double mapY) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy. MM. dd. hh:mm");
 		String getDate[] = add.replace("[", "").replace("\"","").replace("]", "").split(",");
 		String timeData[] = getDate[0].substring(0, 12).replace(" ", "").split("\\.");
@@ -157,6 +161,8 @@ public class AppTourScheduleController {
 		rl.setDepartureDate(getDate[0]);
 		rl.setDetailDepartureDate(d);
 		rl.setTitle(title);
+		rl.setMapX(mapX);
+		rl.setMapY(mapY);
 		service.addScheduleLocation(rl);
 	}
 	
@@ -171,6 +177,39 @@ public class AppTourScheduleController {
 		return rl;
 	}
 	
+	@RequestMapping("/delLocation")
+	@ResponseBody
+	public List<RecordLocationVO> delLocation(int locationNo, int no) throws Exception {
+		service.delLocation(locationNo);
+		
+		List<RecordLocationVO> rl = service.getScheduleLocation(no);
+		
+		for (RecordLocationVO rv : rl) {
+			rv.setLikeCount(service.locationLikeCount(rv.getContentCode()));
+		}
+		return rl;
+	}
+	
+	@RequestMapping("/locationLikeCount")
+	@ResponseBody
+	public int locationLikeCount(int no) throws Exception {
+		return service.locationLikeCount(no);
+	}
+	
+	@RequestMapping("/checkedIsLike")
+	@ResponseBody
+	public boolean checkedIsLike(int no, String uid) throws Exception {
+		LocationLikedVO ll = new LocationLikedVO();
+		ll.setContentId(no);
+		ll.setUid(uid);
+		LocationLikedVO lv = new LocationLikedVO();
+		lv = service.checkedIsLike(ll);
+		if(lv == null) {
+			return false;
+		}
+		return true;
+	}
+	
 	@RequestMapping("/insertLikePlus")
 	@ResponseBody
 	public int insertLikePlus(int no, String uid) throws Exception {
@@ -183,4 +222,15 @@ public class AppTourScheduleController {
 		
 		return service.locationLikeCount(no);
 	}
+	
+	@RequestMapping("/removeLiked")
+	@ResponseBody
+	public int removeLiked(int no, String uid) throws Exception {
+		LocationLikedVO ll = new LocationLikedVO();
+		ll.setContentId(no);
+		ll.setUid(uid);	
+		service.removeLiked(ll);
+		return service.locationLikeCount(no);
+	}
+	
 }

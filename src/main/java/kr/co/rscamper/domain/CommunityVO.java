@@ -33,7 +33,6 @@ public class CommunityVO {
 	
 	private int likeCnt;
 	private int commentCnt;
-
 	
 	public int getCommentCnt() {
 		return commentCnt;
@@ -246,6 +245,5 @@ public class CommunityVO {
 				+ ", introduce=" + introduce + ", birthday=" + birthday + ", locationNo=" + locationNo
 				+ ", locationName=" + locationName + ", likeCnt=" + likeCnt + ", commentCnt=" + commentCnt + "]";
 	}
-	
 	
 }

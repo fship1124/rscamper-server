@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.rscamper.domain.BoardBookMarkVO;
+import kr.co.rscamper.domain.BoardLikeVO;
 import kr.co.rscamper.domain.CommentVO;
 import kr.co.rscamper.domain.MainVO;
 import kr.co.rscamper.domain.PageMaker;
@@ -52,10 +54,11 @@ public class TravelogController {
 		return "redirect:http://localhost:80/rscamper-web/views/travelog/list.jsp";
 	}
 	
-	// 게시물 목록 확인
+	// 게시글 목록 확인
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public @ResponseBody  Map<String, Object> read(PageVO page) throws Exception{
 		logger.info("/travelog > List");
+		
 		
 		List<TravelogVO> list = new ArrayList<>();
 		list = travelogservice.listTravelog(page);
@@ -73,11 +76,12 @@ public class TravelogController {
 		return map;
 	}
 	
-	// 게시물 실제 등록
+	// 게시글 실제 등록
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> insert(
 			@RequestParam String userUid, String title, String content, int categoryNo, PageVO page) 
 			throws Exception {
+		
 		TravelogVO travelog = new TravelogVO();
 		travelog.setUserUid(userUid);
 		travelog.setTitle(title);
@@ -89,7 +93,6 @@ public class TravelogController {
 		List<TravelogVO> list = new ArrayList<>();
 		list = travelogservice.listTravelog(page);
 		
-		System.out.println("게시물등록후 list:"+list);
 		int totalCount = travelogservice.totalCount();
 				
 		PageMaker pageMaker = new PageMaker();
@@ -98,12 +101,11 @@ public class TravelogController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("page", list);
 		map.put("pageMaker", pageMaker);
-		System.out.print("게시물등록후 map: ");
-		System.out.println(map);
 				
 		return null;
 	}
 	
+	// 게시글 상세 
 	@RequestMapping(value = "/{boardNo}", method = RequestMethod.GET)
 	public String redirectDetail(@PathVariable("boardNo") int boardNo) throws Exception {
 		logger.info("/travelog > redirectDetail");
@@ -115,19 +117,14 @@ public class TravelogController {
 	public @ResponseBody TravelogVO detail(@RequestParam("boardNo") int boardNo) throws Exception {
 		logger.info("/travelog > detail");
 		
+		
 		TravelogVO vo = new TravelogVO();
 		vo = travelogservice.selectByNo(boardNo);
 		
 		return travelogservice.selectByNo(boardNo);
 	}
-	/*
-	@RequestMapping(value = "/delete/{boardNo}", method = RequestMethod.DELETE)
-	public String deleteBoardByBoardNo(@PathVariable("boardNo") int boardNo) throws Exception{
-		logger.info("/travelog > redirectDelete");
-		
-		travelogservice.deleteBoardByBoardNo(boardNo);
-		return "redirect:http://localhost:80/rscamper-web/views/travelog/list.js";
-	}*/
+	
+	// 게시글 삭제 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String deleteBoardByBoardNo(int boardNo) throws Exception{
 		logger.info("/travelog > redirectDelete");
@@ -137,24 +134,19 @@ public class TravelogController {
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String updateBoardByBoardNo(int boardNo, TravelogVO travelog) throws Exception{
+	public @ResponseBody void updateBoard(TravelogVO travelog) throws Exception{
 		logger.info("/travelog > redirectUpdate");
 		
-//		travelogservice.updateBoardByBoardNo(boardNo);
-		return "redirect:http://localhost:80/rscamper-web/views/travelog/detail.jsp";
+		System.out.println("travelog:"+travelog);
+		travelogservice.updateBoard(travelog);
 	}
 	
-	
-	
+	// 댓글 등록
 	@RequestMapping(value = "/commentRegister", method = RequestMethod.POST)
 	public @ResponseBody void insert(
 			@RequestParam String userUid, String commentContent, int boardNo, PageVO page) 
 			throws Exception {
 		logger.info("/travelogComment > insert");
-		System.out.println(userUid);
-		System.out.println(commentContent);
-		System.out.println(boardNo);
-		System.out.println(page);
 		
 		CommentVO cVo = new CommentVO();
 		cVo.setUserUid(userUid);
@@ -162,16 +154,20 @@ public class TravelogController {
 		cVo.setBoardNo(boardNo);
 		travelogservice.addCommnet(cVo);
 		
-		System.out.println("success");
 	}
 	
+	// 댓글 목록
 	@RequestMapping(value = "/commentList", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> listComment(@RequestParam int boardNo, PageVO page) throws Exception {
 		logger.info("/travelogComment > listComment");
 		
 		List<CommentVO> list = new ArrayList<>();
 		list = travelogservice.listComment(boardNo, page);
-		System.out.println("commentList:" + list);
+		for (CommentVO val : list) {
+			UserVO uVo = userService.selectMainByUidComment(val.getUserUid());
+			val.setDisplayName(uVo.getDisplayName());
+			val.setProviderPhotoUrl(uVo.getPhotoUrl());
+		}
 		
 		int totalCountComment = travelogservice.totalCountComment(boardNo);
 		
@@ -181,74 +177,49 @@ public class TravelogController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("page", list);
 		map.put("pageMaker", pageMaker);
-		System.out.println("map:" + map);
+		
+		System.out.println(map);
 		
 		return map;
 	}
 	
-
-	  @RequestMapping(value = "/{rno}", method = { RequestMethod.PUT, RequestMethod.PATCH })
-	  public ResponseEntity<String> update(@PathVariable("rno") Integer rno, @RequestBody CommentVO vo) {
-
-	    ResponseEntity<String> entity = null;
-	    try {
-	      vo.setCommentNo(rno);
-//	      travelogservice.modifyReply(vo);
-
-	      entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-	    } catch (Exception e) {
-	      e.printStackTrace();
-	      entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-	    }
-	    return entity;
-	  }
-
-	  @RequestMapping(value = "/commentDelte/{rno}", method = RequestMethod.DELETE)
-	  public ResponseEntity<String> remove(@PathVariable("rno") Integer rno) {
-
-	    ResponseEntity<String> entity = null;
-	    try {
-	    	travelogservice.removeComment(rno);
-	      entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-	    } catch (Exception e) {
-	      e.printStackTrace();
-	      entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-	    }
-	    return entity;
-	  }
-
-	  @RequestMapping(value = "/{boardNo}/{page}", method = RequestMethod.GET)
-	  public ResponseEntity<Map<String, Object>> listPage(
-	      @PathVariable("boardNo") Integer boardNo,
-	      @PathVariable("page") Integer page) {
-
-	    ResponseEntity<Map<String, Object>> entity = null;
-	    
-	    try {
-	      PageVO pageVo = new PageVO();
-	      pageVo.setPage(page);
-	      
-	      PageMaker pageMaker = new PageMaker();
-	      pageMaker.setPage(pageVo);
-
-	      Map<String, Object> map = new HashMap<String, Object>();
-	      List<CommentVO> list = travelogservice.listComment(boardNo, pageVo);
-
-	      map.put("list", list);
-
-	      int replyCount = travelogservice.count(boardNo);
-	      pageMaker.setTotalCount(replyCount);
-
-	      map.put("pageMaker", pageMaker);
-
-	      entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-
-	    } catch (Exception e) {
-	      e.printStackTrace();
-	      entity = new ResponseEntity<Map<String, Object>>(HttpStatus.BAD_REQUEST);
-	    }
-	    return entity;
-	  }
-
+	// 댓글 삭제
+	@RequestMapping(value = "/commentDelete", method = RequestMethod.GET)
+	public @ResponseBody void commentDelete(@RequestParam int commentNo) throws Exception {
+		logger.info("/travelogComment > commentDelete");
+		travelogservice.deleteComment(commentNo);
+	} 
+	
+	// 댓글 수정
+	@RequestMapping(value = "/commentUpdate", method = RequestMethod.POST)
+	public @ResponseBody void commentUpdate(
+			@RequestParam String userUid, String commentContent, int commentNo, PageVO page) throws Exception {
+		logger.info("/travelogComment > commentUpdate");
+		
+		CommentVO cVo = new CommentVO();
+		cVo.setUserUid(userUid);
+		cVo.setCommentContent(commentContent);
+		cVo.setCommentNo(commentNo);
+		
+		travelogservice.updateComment(cVo);
+	}
+	
+	@RequestMapping(value = "/like", method = RequestMethod.POST)
+	public @ResponseBody boolean likeProcess(BoardLikeVO boardLike) throws Exception {
+		logger.info("/travelogComment > like");
+		return travelogservice.likeProcess(boardLike);
+	}
+	
+	@RequestMapping(value = "/bookMark", method = RequestMethod.POST)
+	public @ResponseBody boolean bookMarkProcess(BoardBookMarkVO boardBookMark) throws Exception {
+		logger.info("/travelogComment > bookMark");
+		return travelogservice.bookMarkProcess(boardBookMark);
+	}
+	
+	@RequestMapping(value = "/select/bookMark", method = RequestMethod.GET)
+	public @ResponseBody boolean selectBookMarkStatus(BoardBookMarkVO boardBookMark) throws Exception {
+		logger.info("/travelogComment > select > bookMark");
+		return travelogservice.selectBookMarkStatus(boardBookMark);
+	}
 	
 }

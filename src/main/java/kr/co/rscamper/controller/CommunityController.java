@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.rscamper.domain.CommentVO;
 import kr.co.rscamper.domain.CommunityVO;
-import kr.co.rscamper.domain.PageVO;
 import kr.co.rscamper.service.CommunityService;
 
 @Controller

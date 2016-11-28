@@ -10,10 +10,12 @@ public class TravelogVO {
 	private String title;
 	private String userUid;
 	private String displayName;
+	private String providerPhotoUrl;
 	private String content;
 	private int viewCnt;
 	private Date regDate;
 	private int imageNo;
+	
 	public int getBoardNo() {
 		return boardNo;
 	}
@@ -49,6 +51,12 @@ public class TravelogVO {
 	}
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
+	}
+	public String getProviderPhotoUrl() {
+		return providerPhotoUrl;
+	}
+	public void setProviderPhotoUrl(String providerPhotoUrl) {
+		this.providerPhotoUrl = providerPhotoUrl;
 	}
 	public String getContent() {
 		return content;

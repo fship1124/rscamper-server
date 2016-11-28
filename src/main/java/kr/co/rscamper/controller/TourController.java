@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.rscamper.domain.ChatUserVO;
 import kr.co.rscamper.domain.TourVO;
 
 @Controller
@@ -48,7 +49,6 @@ public class TourController {
 		
 		return "redirect:http://localhost:80/rscamper-web/views/tour-lodge/list.jsp";
 	};
-
 	
 	
 	@RequestMapping(value = "/api/list", method = RequestMethod.GET)
@@ -96,7 +96,6 @@ public class TourController {
 	}
 	
 	
-	
 	@RequestMapping(value = "/api/detail", method = RequestMethod.GET)
 	public @ResponseBody String apiDetailAjax(@RequestParam("contentid") String contentid, @RequestParam("contenttypeid") String contenttypeid) throws Exception {
 		logger.info("/tour > detail");
@@ -127,7 +126,6 @@ public class TourController {
 		
 		return array.toString();
 	}
-	
 	
 	
 	public String apiDetailExecute(String contentId, String contenttypeId, String a, String b) throws Exception {

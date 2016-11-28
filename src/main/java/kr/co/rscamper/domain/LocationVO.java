@@ -17,6 +17,7 @@ public class LocationVO {
 	public void setLocationName(String locationName) {
 		this.locationName = locationName;
 	}
+	
 	@Override
 	public String toString() {
 		return "LocationVO [locationNo=" + locationNo + ", locationName=" + locationName + "]";

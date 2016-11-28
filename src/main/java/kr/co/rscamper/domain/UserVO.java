@@ -16,12 +16,19 @@ public class UserVO {
 	private String phoneNumber;
 	private String websiteUrl;
 	private String introduce;
+	private String gender;
 	private Date birthday;
 	private Date regDate;
-	
+
 	private int locationNo;
 	private String locationName;
 
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 	public String getLocationName() {
 		return locationName;
 	}
