@@ -11,6 +11,6 @@ public class AppMainDAOImpl implements AppMainDAO {
 	@Inject
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	private static final String namespace = "kr.co.rscamper.MainMapper";
+	private static final String namespace = "kr.co.rscamper.AppMainMapper";
 	
 }
