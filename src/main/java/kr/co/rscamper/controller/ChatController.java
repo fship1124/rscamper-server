@@ -29,7 +29,6 @@ public class ChatController {
 	
 	@Inject
 	private ChatService service;
-	
 	@Inject 
 	private UserService userService;
 	
