@@ -1,5 +1,6 @@
 package kr.co.rscamper.service;
 
+import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -9,9 +10,13 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
+import kr.co.rscamper.domain.TourPlanScheduleVO;
 import kr.co.rscamper.domain.TourPlanSpotParamVO;
 import kr.co.rscamper.domain.TourPlanVO;
+import kr.co.rscamper.domain.UserPhotoVO;
+import kr.co.rscamper.domain.UserVO;
 import kr.co.rscamper.domain.TourPlanSpotVO;
 import kr.co.rscamper.persistence.TourPlanDAO;
 
@@ -76,5 +81,62 @@ public class TourPlanServiceImpl implements TourPlanService {
 	public TourPlanVO selectTourPlan(int recordNo) {
 		return dao.selectTourPlan(recordNo);
 	}
-	
+
+	@Override
+	public void updateCoverImage(TourPlanCoverVO tourPlanCover) {
+		System.out.println("배경이미지수정 : " + tourPlanCover.toString());
+		
+		// 이전에 있던 파일 정보 가져오기
+		TourPlanCoverVO oldTourPlanCover = dao.selectTourPlanCoverByNo(tourPlanCover.getRecordNo());
+		if (oldTourPlanCover != null) {
+			String oldPath = oldTourPlanCover.getRealPath();
+			
+			File f = new File(oldPath);
+			f.delete();
+			
+			// DB에 커버사진 파일 정보 지우기
+			dao.deleteTourPlanCoverByNo(oldTourPlanCover.getCoverNo());
+		}
+
+		// 사진 정보 입력하고 키값 리턴 받기
+		dao.insertTourPlanCover(tourPlanCover);
+		System.out.println("커버넘버 : " + tourPlanCover.getCoverNo());
+		
+		// 리턴받은 키값과 picture=1로 수정
+		TourPlanVO tourPlan = new TourPlanVO();
+		tourPlan.setRecordNo(tourPlanCover.getRecordNo());
+		tourPlan.setPicture(1);
+		
+		dao.updateTourPlanImgByNo(tourPlan);
+	}
+
+	@Override
+	public void updateTourPlanTitle(TourPlanVO tourPlan) {
+		dao.updateTourPlanTitle(tourPlan);
+	}
+
+	@Override
+	public void updateTourPlan(TourPlanVO tourPlan) {
+		System.out.println("일정정보 : " + tourPlan.toString());
+		dao.updateTourPlan(tourPlan);
+	}
+
+	@Override
+	public void insertTourPlanSchedule(TourPlanScheduleVO tourPlanSchedule) {
+		System.out.println("일정스케쥴정보 : " + tourPlanSchedule.toString());
+		dao.insertTourPlanSchedule(tourPlanSchedule);
+	}
+
+	@Override
+	public void deleteTourPlanScheduleByRecordNo(int recordNo) {
+		System.out.println("일정스케쥴 리스트 삭제");
+		dao.deleteTourPlanScheduleByRecordNo(recordNo);
+	}
+
+	@Override
+	public List<TourPlanScheduleVO> selectTourPlanScheduleListByRecordNo(int recordNo) {
+		System.out.println("일정스케쥴 리스트 조회");
+		return dao.selectTourPlanScheduleListByRecordNo(recordNo);
+	}
+
 }
