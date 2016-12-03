@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.co.rscamper.domain.ChatRoomVO;
+import kr.co.rscamper.domain.ChatUserInfoVO;
 import kr.co.rscamper.domain.ChatUserVO;
 import kr.co.rscamper.domain.CodeVO;
 
@@ -46,6 +47,26 @@ public class ChatDAOImpl implements ChatDAO {
 		System.out.println(result);
 	}
 
+	@Override
+	public List<CodeVO> getCodeName(String codeName) throws Exception {
+		return sqlSessionTemplate.selectList(namespace + ".getCodeName", codeName);
+	}
+
+	@Override
+	public List<ChatRoomVO> getChatRoom(int no) throws Exception {
+		return sqlSessionTemplate.selectList(namespace + ".getChatRoom", no);
+	}
+
+	@Override
+	public ChatRoomVO getChatRoomInfo(int roomNo) throws Exception {
+		return sqlSessionTemplate.selectOne(namespace + ".getChatRoomInfo", roomNo);
+	}
+
+	@Override
+	public List<ChatUserInfoVO> getRoomUserList(int chatRoomInfoNo) throws Exception {
+		return sqlSessionTemplate.selectList(namespace + ".getRoomUserList", chatRoomInfoNo);
+	}
+	
 	@Override
 	public void deleteRoomUser(ChatUserVO vo) throws Exception {
 		System.out.println("in deleteRoomUser");

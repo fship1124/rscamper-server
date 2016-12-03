@@ -12,6 +12,8 @@
 			<result column="TITLE" property="title" />
 			<result column="USER_UID" property="userUid" />
 			<result column="DISPLAY_NAME" property="displayName" />
+			<result column="PROVIDER_PHOTO_URL" property="providerPhotoUrl" />
+			
 			<result column="CONTENT" property="content" />
 			<result column="VIEW_CNT" property="viewCnt" />
 			<result column="REG_DATE" property="regDate" />
