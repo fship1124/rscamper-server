@@ -1,6 +1,9 @@
 package kr.co.rscamper.service;
 
+import java.util.List;
 import java.util.Map;
+
+import kr.co.rscamper.domain.AppMainCommentVO;
 
 public interface AppMainService {
 
@@ -13,4 +16,6 @@ public interface AppMainService {
 	/**메인페이지 베스트 일정*/
 	public Map<String, Object> selectRecordList(int page, int count);
 	
+	/**메인페이지 댓글*/
+	public List<AppMainCommentVO> selectMainCommentList(String userUid);
 }
