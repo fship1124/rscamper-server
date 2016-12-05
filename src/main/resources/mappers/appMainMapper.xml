@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.rscamper.AppMainMapper">
+
+	<resultMap type="AppMainVO" id="AppMainMap">
+		<result column="CATEGORY_NAME" property="categoryName"/>
+		<result column="NO" property="no"/>
+		<result column="REG_DATE" property="regDate"/>
+		<result column="USER_UID" property="userUid"/>
+		<result column="TITLE" property="title"/>
+		<result column="PICTURE" property="picture"/>
+		<result column="DISPLAY_NAME" property="displayName"/>
+		<result column="LIKE_CNT" property="likeCnt"/>
+		<result column="TARGET_TYPE" property="targetType"/>
+	</resultMap>
+
+	<select id="selectMainList" parameterType="hashMap" resultMap="AppMainMap">
+		(SELECT B.BOARD_NO AS NO, B.REG_DATE, B.USER_UID, TITLE, B.BOARD_NO AS PICTURE, U.DISPLAY_NAME, 
+				COALESCE((SELECT COUNT(*) FROM BOARD_LIKE_TB BL WHERE BL.TARGET_NO = B.BOARD_NO), 0) LIKE_CNT, 
+				(SELECT DISTINCT COALESCE(TARGET_TYPE, 1) FROM BOARD_TB B LEFT JOIN BOARD_LIKE_TB BL ON BL.TARGET_NO = B.BOARD_NO) TARGET_TYPE
+		 FROM BOARD_TB B, USER_TB U
+		 WHERE B.USER_UID = U.USER_UID)
+		UNION
+		(SELECT R.RECORD_NO AS NO, R.REG_DATE, R.USER_UID, TITLE, R.PICTURE, U.DISPLAY_NAME, 
+				COALESCE((SELECT COUNT(*) FROM RECORD_LIKE_TB RL WHERE RL.RECORD_NO = R.RECORD_NO), 0) LIKE_CNT, 
+				(SELECT DISTINCT COALESCE(TARGET_TYPE, 3) FROM RECORD_TB R LEFT JOIN RECORD_LIKE_TB RL ON RL.RECORD_NO = R.RECORD_NO WHERE RL.RECORD_NO = R.RECORD_NO) TARGET_TYPE
+		 FROM RECORD_TB R, USER_TB U
+		 WHERE R.USER_UID = U.USER_UID
+		 	AND R.ISOPEN = 1)
+		ORDER BY LIKE_CNT DESC, REG_DATE DESC
+		LIMIT #{page}, #{count}
+	</select>
+	
+	<select id="countAllBoard" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD_TB
+	</select>
+	
+	<select id="countAllRecord" resultType="int">
+		SELECT COUNT(*)
+		FROM RECORD_TB
+	</select>
+	
+	<select id="selectBoardListByCategoryNo" parameterType="hashMap" resultMap="AppMainMap">
+		SELECT C.CATEGORY_NAME, B.BOARD_NO AS NO, B.REG_DATE, B.USER_UID, TITLE, B.BOARD_NO AS PICTURE, U.PHOTO_URL, U.DISPLAY_NAME, 
+			COALESCE((SELECT COUNT(*) FROM BOARD_LIKE_TB BL WHERE BL.TARGET_NO = B.BOARD_NO), 0) LIKE_CNT, 
+			(SELECT DISTINCT COALESCE(TARGET_TYPE, 1) FROM BOARD_TB B LEFT JOIN BOARD_LIKE_TB BL ON BL.TARGET_NO = B.BOARD_NO) TARGET_TYPE
+		 FROM BOARD_TB B, BOARD_CATEGORY_TB C, USER_TB U
+		 WHERE B.USER_UID = U.USER_UID
+		 	AND B.CATEGORY_NO = C.CATEGORY_NO
+		 	AND B.CATEGORY_NO = #{categoryNo}
+		 ORDER BY LIKE_CNT DESC, REG_DATE DESC
+		 LIMIT #{page}, #{count}
+	</select>
+	
+	<select id="countBoardByCategoryNo" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD_TB
+		WHERE CATEGORY_NO = #{categoryNo}
+	</select>
+	
+	<select id="selectRecordList" parameterType="hashMap" resultMap="AppMainMap">
+		 SELECT R.RECORD_NO AS NO, R.REG_DATE, R.USER_UID, TITLE, R.PICTURE, U.PHOTO_URL, U.DISPLAY_NAME, 
+			COALESCE((SELECT COUNT(*) FROM RECORD_LIKE_TB RL WHERE RL.RECORD_NO = R.RECORD_NO), 0) LIKE_CNT, 
+			(SELECT DISTINCT COALESCE(TARGET_TYPE, 3) FROM RECORD_TB R LEFT JOIN RECORD_LIKE_TB RL ON RL.RECORD_NO = R.RECORD_NO WHERE RL.RECORD_NO = R.RECORD_NO) TARGET_TYPE
+		 FROM RECORD_TB R, USER_TB U
+		 WHERE R.USER_UID = U.USER_UID
+		 	AND R.ISOPEN = 1
+		 ORDER BY LIKE_CNT DESC, REG_DATE DESC
+		 LIMIT #{page}, #{count}
+	</select>
+
+</mapper>

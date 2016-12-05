@@ -168,7 +168,7 @@ public class UserController {
 				
 				// 파일 사이즈
 				size = mFile.getSize();
-				// TODO: 50메가 넘으면 실패 반환
+				// TODO: 10메가 넘으면 실패 반환
 
 				// 고유한 파일명 만들기
 				String saveFileName = "bg-" + UUID.randomUUID().toString() + ext;
