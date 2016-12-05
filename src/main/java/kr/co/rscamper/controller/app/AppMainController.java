@@ -1,5 +1,6 @@
 package kr.co.rscamper.controller.app;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.rscamper.domain.AppMainCommentVO;
 import kr.co.rscamper.service.AppMainService;
 
 @Controller
@@ -34,6 +36,11 @@ public class AppMainController {
 	@RequestMapping(value = "/recordList", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> selectRecordList(int page, int count) throws Exception {
 		return service.selectRecordList(page, count);
+	}
+	
+	@RequestMapping(value = "/commentList", method = RequestMethod.GET)
+	public @ResponseBody List<AppMainCommentVO> selectMainCommentList(String userUid) throws Exception {
+		return service.selectMainCommentList(userUid);
 	}
 	
 }
