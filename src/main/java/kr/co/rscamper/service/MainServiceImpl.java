@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.rscamper.domain.BenefitVO;
 import kr.co.rscamper.domain.MainVO;
 import kr.co.rscamper.domain.UserVO;
 import kr.co.rscamper.persistence.MainDAO;
@@ -25,5 +26,11 @@ public class MainServiceImpl implements MainService {
 	public List<MainVO> selectMainComment() throws Exception {
 		return dao.selectMainComment();
 	}
+
+	@Override
+	public List<BenefitVO> selectList(int benefitno) throws Exception {
+		return dao.selectList(benefitno);
+	}
+
 
 }

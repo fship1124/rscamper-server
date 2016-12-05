@@ -15,5 +15,10 @@
 		VALUES (#{userUid}, #{mainContent})
 </insert>
 
-
+<select id="selectBenefit" parameterType="BenefitVO">
+	select *
+	from benefit_tb
+	order by benefit_no asc
+</select>
+	
 </mapper>

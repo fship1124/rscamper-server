@@ -21,10 +21,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.rscamper.domain.BenefitVO;
 import kr.co.rscamper.domain.MainVO;
 import kr.co.rscamper.domain.UserVO;
+import kr.co.rscamper.service.BenefitService;
 import kr.co.rscamper.service.MainService;
 import kr.co.rscamper.service.UserService;
 
@@ -39,6 +42,8 @@ public class MainController {
 	private MainService mainService;
 	@Inject
 	private UserService userService;
+//	@Inject
+//	private BenefitService service;
 
 	
 	/**
@@ -87,4 +92,15 @@ public class MainController {
 		}
 		return list;
 	}
+	
+	@RequestMapping(value="benefitList", method = RequestMethod.GET)
+	public @ResponseBody List<BenefitVO> list(@RequestParam("benefitno") int benefitno)throws Exception {
+		logger.info("/benefitList > list");
+		
+		BenefitVO bvo = new BenefitVO();
+		return mainService.selectList(benefitno);;
+	}
+	
+	
+	
 }
