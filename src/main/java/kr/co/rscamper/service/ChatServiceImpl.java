@@ -84,9 +84,16 @@ public class ChatServiceImpl implements ChatService {
 		return dao.getRoomUserList(chatRoomInfoNo);
 	}
 	
+	
 	@Override
 	public void deleteChatRoom(int roomNo) throws Exception {
 		dao.deleteChatRoom(roomNo);
+	}
+
+
+	@Override
+	public List<ChatRoomVO> listByArea(int area) throws Exception {
+		return dao.listByArea(area);
 	}
 
 }

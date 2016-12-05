@@ -96,4 +96,12 @@ public class ChatDAOImpl implements ChatDAO {
 		 int result = sqlSessionTemplate.delete(namespace + ".deleteChatRoom", roomNo);
 		 System.out.println("result : " + result);
 	}
+
+	@Override
+	public List<ChatRoomVO> listByArea(int area) throws Exception {
+		List<ChatRoomVO> list = new ArrayList<>();
+		list = sqlSessionTemplate.selectList(namespace + ".listRoomByArea", area);
+		System.out.println(list.size());
+		return list;
+	}
 }

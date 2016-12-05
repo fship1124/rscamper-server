@@ -31,4 +31,6 @@ public interface ChatDAO {
 
 	public void deleteChatRoom(int roomNo) throws Exception;
 
+	public List<ChatRoomVO> listByArea(int area) throws Exception;
+
 }
