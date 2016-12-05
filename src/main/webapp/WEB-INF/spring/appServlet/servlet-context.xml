@@ -14,7 +14,6 @@
 		<beans:property name="maxUploadSize" value="52428800" /> <!-- 최대파일사이즈 -->
 	</beans:bean>
 	
-	
     <annotation-driven>
         <!-- @ResponseBody로 String 처리할때 한글처리 -->
 	    <message-converters>

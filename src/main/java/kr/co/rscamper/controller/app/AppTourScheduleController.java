@@ -3,7 +3,6 @@ package kr.co.rscamper.controller.app;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,9 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.rscamper.domain.BoardBookMarkVO;
 import kr.co.rscamper.domain.LocationLikedVO;
 import kr.co.rscamper.domain.RecordCoverVO;
 import kr.co.rscamper.domain.RecordLocationVO;
+import kr.co.rscamper.domain.ScheduleLikeVO;
+import kr.co.rscamper.domain.ScheduleListCommentVO;
+import kr.co.rscamper.domain.ScheduleMemoVO;
+import kr.co.rscamper.domain.TourPlanVO;
 import kr.co.rscamper.domain.TourScheduleVO;
 import kr.co.rscamper.service.TourScheduleService;
 
@@ -42,7 +46,7 @@ public class AppTourScheduleController {
 	
 	@RequestMapping("/insert")
 	@ResponseBody
-	public List<TourScheduleVO> insertTourSchedule(String uid, String title, String sDate, String fDate) throws Exception {
+	public List<TourScheduleVO> insertTourSchedule(String uid, String title, String sDate, String fDate, int isOpen) throws Exception {
 		TourScheduleVO tv = new TourScheduleVO();
 		System.out.println("스케줄등록");
 		tv.setUserUid(uid);
@@ -50,6 +54,8 @@ public class AppTourScheduleController {
 		tv.setDepartureDate(parseDate(sDate));
 		tv.setArriveDate(parseDate(fDate));
 		tv.setPeriod(getDate(tv.getDepartureDate(), tv.getArriveDate()));
+		// 1 = 공개     2 = 비공개
+		tv.setIsOpen(isOpen);
 		service.insertSchedule(tv);
 		return getScheduleList(uid);
 	}
@@ -89,6 +95,9 @@ public class AppTourScheduleController {
 		while (aDate >= nextDay) {
 			dayList.add(getWeek(new Date(nextDay)));
 			nextDay = nextDay + day;
+		}
+		for(String aaa : dayList) {
+			System.out.println(aaa);
 		}
 		return dayList;
 	}
@@ -149,14 +158,22 @@ public class AppTourScheduleController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy. MM. dd. hh:mm");
 		String getDate[] = add.replace("[", "").replace("\"","").replace("]", "").split(",");
 		String timeData[] = getDate[0].substring(0, 12).replace(" ", "").split("\\.");
-		Date d = new Date(Integer.parseInt(timeData[0]) - 1900, Integer.parseInt(timeData[1]), Integer.parseInt(timeData[2]), Integer.parseInt(getDate[1]), Integer.parseInt(getDate[2]));
+		Date d = new Date(Integer.parseInt(timeData[0]) - 1900, Integer.parseInt(timeData[1]) - 1, Integer.parseInt(timeData[2]), Integer.parseInt(getDate[1]), Integer.parseInt(getDate[2]));
 		RecordLocationVO rl = new RecordLocationVO();
 		rl.setRecordNo(recordNo);
 		rl.setImageUrl(imgUrl);
 		rl.setContentCode(Integer.parseInt(contentCode));
 		rl.setContentTypeId(Integer.parseInt(contentTypeId));
 		rl.setDepartureDate(getDate[0]);
+		System.out.println("--------------------------------------");
+		System.out.println(rl.getDepartureDate());
+		System.out.println("--------------------------------------");
+		for (String a : timeData) {
+			System.out.println(a);
+		}
+		System.out.println("--------------------------------------");
 		rl.setDetailDepartureDate(d);
+		System.out.println(rl.getDetailDepartureDate());
 		rl.setTitle(title);
 		rl.setMapX(mapX);
 		rl.setMapY(mapY);
@@ -230,4 +247,107 @@ public class AppTourScheduleController {
 		return service.locationLikeCount(no);
 	}
 	
+	
+	@RequestMapping("/allScheduleList")
+	@ResponseBody
+	public Map<String, Object> allScheduleList(int page, int count) throws Exception {
+		return service.allScheduleList(page, count);
+	}
+	
+	@RequestMapping("/checkScheduleLike")
+	@ResponseBody
+	public boolean checkScheduleLike(ScheduleLikeVO sl) throws Exception {
+		return service.checkScheduleLike(sl);
+	}
+	
+	@RequestMapping("/addScheduleLike")
+	@ResponseBody
+	public int addScheduleLike(ScheduleLikeVO sl) throws Exception {
+		return service.addScheduleLike(sl);
+	}
+	
+	@RequestMapping("/cancelScheduleLike")
+	@ResponseBody
+	public int cancelScheduleLike(ScheduleLikeVO sl) throws Exception {
+		return service.cancelScheduleLike(sl);
+	}
+	
+	@RequestMapping("/addCustomizing")
+	@ResponseBody
+	public int addCustomizing(TourScheduleVO tv) throws Exception {
+		
+		return service.addCustomizing(tv);
+	}
+	
+	@RequestMapping("/checkCustomizing")
+	@ResponseBody
+	public boolean checkCustomizing(ScheduleLikeVO sl) throws Exception {
+		return service.checkCustomizing(sl);
+	}
+	
+	@RequestMapping("/cancelCustomizing")
+	@ResponseBody
+	public int cancelCustomizing(ScheduleLikeVO sl) throws Exception {
+		return service.cancelCustomizing(sl);
+	}
+	
+	@RequestMapping("/addScheduleBookmark")
+	@ResponseBody
+	public int addScheduleBookmark(BoardBookMarkVO bbv) throws Exception {
+		return service.addScheduleBookmark(bbv);
+	}
+	
+	@RequestMapping("/cancelScheduleBookMark")
+	@ResponseBody
+	public int cancelScheduleBookMark(BoardBookMarkVO bbv) throws Exception {
+		return service.cancelScheduleBookMark(bbv);
+	}
+	
+	@RequestMapping("/checkScheduleSet")
+	@ResponseBody
+	public Map<String, Boolean> checkScheduleSet(ScheduleLikeVO sl, int targetType) throws Exception {
+		return service.checkScheduleSet(sl, targetType);
+	}
+	
+	@RequestMapping("/scheduleListDetail")
+	@ResponseBody
+	public TourPlanVO scheduleListDetail(int no) throws Exception {
+		return service.scheduleListDetail(no);
+	}
+	
+	@RequestMapping("/insertScheduleListComment")
+	@ResponseBody
+	public List<ScheduleListCommentVO> insertScheduleListComment(ScheduleListCommentVO slc) throws Exception {
+		return service.insertScheduleListComment(slc);
+	}
+	
+	@RequestMapping("/getScheduleListComment")
+	@ResponseBody
+	public List<ScheduleListCommentVO> getScheduleListComment(int recordNo) throws Exception {
+		return service.getScheduleListComment(recordNo);
+	}
+	
+	@RequestMapping("/delScheduleListComment")
+	@ResponseBody
+	public List<ScheduleListCommentVO> delScheduleListComment(int commentNo, int recordNo) throws Exception {
+		return service.delScheduleListComment(commentNo, recordNo);
+	}
+	
+	@RequestMapping("/addScheduleMemo")
+	@ResponseBody
+	public List<ScheduleMemoVO> addScheduleMemo(ScheduleMemoVO sm) throws Exception {
+		return service.addScheduleMemo(sm);
+	}
+	
+	@RequestMapping("/getScheduleMemo")
+	@ResponseBody
+	public List<ScheduleMemoVO> getScheduleMemo(int recordNo) throws Exception {
+		return service.getScheduleMemo(recordNo);
+	}
+	
+	@RequestMapping("/getMyPost")
+	@ResponseBody
+	public List<ScheduleMemoVO> getMyPost(String userUid) throws Exception {
+		return service.getMyPost(userUid);
+	}
 }

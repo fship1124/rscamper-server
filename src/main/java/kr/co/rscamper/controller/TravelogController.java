@@ -59,6 +59,7 @@ public class TravelogController {
 	public @ResponseBody  Map<String, Object> read(PageVO page) throws Exception{
 		logger.info("/travelog > List");
 		
+		
 		List<TravelogVO> list = new ArrayList<>();
 		list = travelogservice.listTravelog(page);
 		
@@ -80,6 +81,7 @@ public class TravelogController {
 	public @ResponseBody Map<String, Object> insert(
 			@RequestParam String userUid, String title, String content, int categoryNo, PageVO page) 
 			throws Exception {
+		
 		TravelogVO travelog = new TravelogVO();
 		travelog.setUserUid(userUid);
 		travelog.setTitle(title);
@@ -114,6 +116,7 @@ public class TravelogController {
 	@RequestMapping(value = "/detail", method = RequestMethod.POST)
 	public @ResponseBody TravelogVO detail(@RequestParam("boardNo") int boardNo) throws Exception {
 		logger.info("/travelog > detail");
+		
 		
 		TravelogVO vo = new TravelogVO();
 		vo = travelogservice.selectByNo(boardNo);
@@ -174,6 +177,8 @@ public class TravelogController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("page", list);
 		map.put("pageMaker", pageMaker);
+		
+		System.out.println(map);
 		
 		return map;
 	}
