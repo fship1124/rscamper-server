@@ -96,4 +96,9 @@ public class ChatDAOImpl implements ChatDAO {
 		 int result = sqlSessionTemplate.delete(namespace + ".deleteChatRoom", roomNo);
 		 System.out.println("result : " + result);
 	}
+
+	@Override
+	public void delChatUser(String uid) throws Exception {
+		sqlSessionTemplate.delete(namespace + ".delChatUser", uid);
+	}
 }

@@ -33,5 +33,7 @@ public interface ChatService {
 	public ChatRoomVO insertRoomInfo(ChatRoomVO crVo) throws Exception;
 
 	public void deleteChatRoom(int roomNo) throws Exception;
-
+	
+	public void delChatUser(String uid) throws Exception;
+	
 }

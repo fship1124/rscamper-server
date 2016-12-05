@@ -1,5 +1,94 @@
 show tables
 
+select * from user_tb
+
+select * from record_comment_tb order by comment_no desc
+
+
+create table record_comment_tb (
+	COMMENT_NO int primary key auto_increment,
+	RECORD_NO int not null,
+	USER_UID varchar(100) not null,
+	CONTENT varchar(1000) not null,
+	REG_DATE TIMESTAMP default now()
+);
+
+select *,(select title from record_location_tb rl where rl.content_code = rs.contentid) location_Title,
+         (select title from record_tb r where r.record_no = rs.record_no) record_title
+  from record_scheduleMemo_tb rs;
+  
+  
+select * from record_tb
+
+update record_scheduleMemo_tb
+   set memo_type = 1;
+   
+select * from record_location_tb;
+create table record_scheduleMemo_tb (
+	SCHEDULEMEMO_NO int primary key auto_increment,
+	RECORD_NO int,
+	USER_UID varchar(100),
+	TITLE varchar(1000),
+	CONTENT mediumtext,
+	REG_DATE TIMESTAMP default now()
+);
+
+alter table record_scheduleMemo_tb add CONTENTID int;
+
+select *  from board_bookmark_tb where target_type = 3
+
+select * from record_tb
+
+select * from record_schedule_tb
+
+delete  from record_cover_tb;
+delete  from record_like_tb;
+delete  from record_location_like_tb;
+
+select *, COALESCE((select PHOTO_URL from user_tb u where u.user_uid = c.user_uid), 0) PHOTOURL,
+          COALESCE((select DISPLAY_NAME from user_tb u where u.user_uid = c.user_uid), 0) DISPLAYNAME
+  from record_comment_tb c
+
+select * from record_customizing_tb
+
+select *, COALESCE((SELECT COUNT(*) FROM RECORD_LIKE_TB RL WHERE RL.RECORD_NO = R.RECORD_NO), 0) LIKE_CNT,
+		  COALESCE((SELECT COUNT(*) FROM RECORD_COMMENT_TB RC WHERE RC.RECORD_NO = R.RECORD_NO), 0) COMMENT_CNT
+          from user_tb u, record_tb r
+         where ISOPEN = 1
+           and u.user_uid = r.user_uid
+
+alter table record_customizing_tb add AFTER_RECORD_NO int;           
+           
+create table record_customizing_tb (
+	user_uid varchar(100),
+	record_no int,
+	reg_date TIMESTAMP default now()
+);
+
+select * from board_like_tb
+select * from public_data_list_tb
+
+select * from record_tb
+
+select *
+  from user_tb u, record_tb r
+ where ISOPEN = 1
+   and u.user_uid = r.user_uid
+
+select count(record_no) from record_tb
+
+select * from emoticon_tb
+
+update user_tb
+   set photo_url = 'http://14.32.66.104:8081/images?path=upload/images/profile/profile-65992d6d-3709-4392-b115-ba0b32ddfc86.jpg'
+ 
+ 
+
+select * from user_photo_tb
+
+
+ http://14.32.66.104:8081/images?path=upload/images/profile/profile-d5563be7-e2b2-49ab-8cb5-689875403b84.jpg 
+
 select * from record_location_tb
 create table record_location_tb(
 	LOCATION_NO int(11) primary key auto_increment,
@@ -28,11 +117,13 @@ alter table record_location_tb add DDATE varchar(50);
 alter table record_location_tb change MAPX MAPX double(13,10);
 alter table record_location_tb change DEPARTUREDATE DEPARTURE_DATE varchar(50)
 alter table record_location_tb change DETAIL_DEPARTUREDATE DETAIL_DEPARTURE_DATE varchar(50)
+
+alter table record_tb add TARGET_TYPE varchar(3) default '3';
 select *
   from record_tb;
 update record_tb
   set picture = 0;
-show columns from USER_TB
+show columns from board_bookmark_tb
 
 SET FOREIGN_KEY_CHECKS=0
 
@@ -82,6 +173,8 @@ select c.USER_UID, c.CHAT_USER_INFO_NO, c.CHAT_ROOM_INFO_NO, u.DISPLAY_NAME, u.P
                      from chat_user_info_tb
                     where CHAT_ROOM_INFO_NO = 1) c
  where c.user_uid = u.user_uid
+   
+ select * from public_code_tb
 
 select * 
   from chat_user_info_tb

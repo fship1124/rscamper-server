@@ -16,6 +16,7 @@ public class TourPlanVO {
 	private String strapline;
 	private String introduce;
 	private Date regDate;
+	private int isOpen;
 	
 	private int likeCnt;
 	private int commentCnt;
@@ -24,6 +25,7 @@ public class TourPlanVO {
 	
 	
 	private String displayName;
+	private String photoUrl;
 	
 	private int totalPages;
 	
@@ -38,7 +40,25 @@ public class TourPlanVO {
 				+ "]";
 	}
 
+	public int getIsOpen() {
+		return isOpen;
+	}
 
+
+	public void setIsOpen(int isOpen) {
+		this.isOpen = isOpen;
+	}
+
+
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
+	
 	public int getPostCnt() {
 		return postCnt;
 	}

@@ -61,5 +61,19 @@ public class AppChatController {
 	@RequestMapping("/delChatUser")
 	@ResponseBody
 	public void delChatUser(String uid) throws Exception {
+		service.delChatUser(uid);
+	}
+	
+	@RequestMapping("/createRoom")
+	@ResponseBody
+	public ChatRoomVO createRoom(ChatRoomVO cv) throws Exception {
+		return service.insertRoomInfo(cv);
+	}
+	
+	@RequestMapping("/delRoom")
+	@ResponseBody
+	public List<ChatRoomVO> delRoom(int roomNo, int no) throws Exception {
+		service.deleteChatRoom(roomNo);
+		return service.getChatRoom(no);
 	}
 }

@@ -30,5 +30,7 @@ public interface ChatDAO {
 	public ChatRoomVO insertRoomInfo(ChatRoomVO vo) throws Exception;
 
 	public void deleteChatRoom(int roomNo) throws Exception;
+	
+	public void delChatUser(String uid) throws Exception;
 
 }
