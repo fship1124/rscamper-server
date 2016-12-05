@@ -11,7 +11,7 @@
 		<result property="departureDate" column="DEPARTURE_DATE"/>
 		<result property="arriveDate" column="ARRIVE_DATE"/>
 		<result property="title" column="TITLE"/>
-		<result property="budGet" column="BUDGET"/>
+		<result property="budget" column="BUDGET"/>
 		<result property="picture" column="PICTURE"/>
 		<result property="period" column="PERIOD" />
 		<result property="strapline" column="STRAPLINE"/>
@@ -19,18 +19,11 @@
 		<result property="regDate" column="REG_DATE"/>
 		
 		<result property="displayName" column="DISPLAY_NAME"/>
-	</resultMap>
-	
-	<resultMap type="RecordCoverVO" id="RecordCoverMap">
-		<result property="coverNo" column="COVER_NO"/>
-		<result property="recordNo" column="RECORD_NO"/>
-		<result property="realPath" column="REAL_PATH"/>
+		
 		<result property="filePath" column="FILE_PATH"/>
-		<result property="oriName" column="ORI_NAME"/>
-		<result property="fileName" column="FILE_NAME"/>
 	</resultMap>
 	
-	<resultMap type="RecordLocationVO" id="RecordLocationMap">
+		<resultMap type="RecordLocationVO" id="RecordLocationMap">
 		<result property="locationNo" column="LOCATION_NO"/>
 		<result property="recordNo" column="RECORD_NO"/>
 		<result property="title" column="TITLE"/>
@@ -45,13 +38,47 @@
 		<result property="publicDataListNo" column="PUBLIC_DATA_LIST_NO" />
 	</resultMap>
 	
+	<resultMap type="TourPlanCoverVO" id="TourPlanCoverVOMap">
+		<result property="coverNo" column="COVER_NO"/>
+		<result property="recordNo" column="RECORD_NO"/>
+		<result property="realPath" column="REAL_PATH"/>
+		<result property="filePath" column="FILE_PATH"/>
+		<result property="oriName" column="ORI_NAME"/>
+		<result property="fileName" column="FILE_NAME"/>
+	</resultMap>
+	
+	<resultMap type="RecordCoverVO" id="RecordCoverMap">
+		<result property="coverNo" column="COVER_NO"/>
+		<result property="recordNo" column="RECORD_NO"/>
+		<result property="realPath" column="REAL_PATH"/>
+		<result property="filePath" column="FILE_PATH"/>
+		<result property="oriName" column="ORI_NAME"/>
+		<result property="fileName" column="FILE_NAME"/>
+	</resultMap>
+	
+	<resultMap type="TourPlanScheduleVO" id="TourPlanScheduleVOMap">
+		<result property="locationNo" column="LOCATION_NO"/>
+		<result property="recordNo" column="RECORD_NO"/>
+		<result property="contentCode" column="CONTENT_CODE"/>
+		<result property="contentTypeId" column="CONTENT_TYPE_ID"/>
+		<result property="imageUrl" column="IMAGE_URL"/>
+		<result property="detailDepartureDate" column="DETAIL_DEPARTURE_DATE"/>
+		<result property="departureDate" column="DEPARTURE_DATE"/>
+		<result property="detailArriveDate" column="DETAIL_ARRIVE_DATE"/>
+	</resultMap>
+	
+	
 	<select id="selectTourPlanList" resultMap="TourPlanVOMap" parameterType="TourPlanParamVO">
 <!-- 			(SELECT COUNT(*) ) LIKE_CNT,  -->
 <!-- 			(SELECT COUNT(*) ) COMMENT_CNT,  -->
 <!-- 			(SELECT COUNT(*) ) LOCATION_CNT -->
 		<![CDATA[
-			SELECT R.*, U.DISPLAY_NAME DISPLAY_NAME
-			FROM RECORD_TB R, USER_TB U
+			SELECT R.*, C.FILE_PATH FILE_PATH, U.DISPLAY_NAME DISPLAY_NAME
+			FROM RECORD_TB R
+			LEFT OUTER JOIN RECORD_COVER_TB C
+ 			ON R.RECORD_NO = C.RECORD_NO
+            LEFT OUTER JOIN USER_TB U
+            ON R.USER_UID = U.USER_UID
 			WHERE R.USER_UID = U.USER_UID
 			AND (DATEDIFF(ARRIVE_DATE, DEPARTURE_DATE) + 1) BETWEEN #{minTripDays} AND #{maxTripDays}
 			AND (R.TITLE LIKE '%${word}%' OR R.INTRODUCE LIKE '%${word}%' OR R.STRAPLINE LIKE '%${word}%') 
@@ -62,14 +89,14 @@
 	</select>
 	
 	<select id="selectTourPlan" resultMap="TourPlanVOMap" parameterType="int">
-<!-- 			(SELECT COUNT(*) ) LIKE_CNT,  -->
-<!-- 			(SELECT COUNT(*) ) COMMENT_CNT,  -->
-<!-- 			(SELECT COUNT(*) ) LOCATION_CNT -->
 		<![CDATA[
-			SELECT R.*, U.DISPLAY_NAME DISPLAY_NAME
-			FROM RECORD_TB R, USER_TB U
+			SELECT R.*, C.FILE_PATH FILE_PATH, U.DISPLAY_NAME DISPLAY_NAME
+			FROM RECORD_TB R
+			LEFT OUTER JOIN RECORD_COVER_TB C
+ 			ON R.RECORD_NO = C.RECORD_NO
+            LEFT OUTER JOIN USER_TB U
+            ON R.USER_UID = U.USER_UID
 			WHERE R.RECORD_NO = #{recordNo}
-			AND R.USER_UID = U.USER_UID
 		]]>
 	</select>
 	
@@ -107,28 +134,96 @@
 			AND contentTypeId LIKE '32'
 		</if>
 	</select>
-	
+
 	<select id="selectTourPlanSpotList" parameterType="TourPlanSpotParamVO" resultMap="TourPlanSpotVOMap">
-			SELECT *
-			FROM PUBLIC_DATA_LIST_TB
-			WHERE (TITLE LIKE '%${word}%' OR addr1 LIKE '%${word}%' OR addr2 LIKE '%${word}%')
+			SELECT L.*, DC.homepage, DC.overview, C.CODE_NAME as areaname
+			FROM PUBLIC_DATA_LIST_TB L, PUBLIC_DATA_DETAIL_COMMON_TB DC, PUBLIC_CODE_TB C
+			WHERE L.contentid = DC.contentid
+			AND L.areacode = c.CODE_NO
+			AND c.GROUP_CODE_NO LIKE 'areacode'
+			AND (L.TITLE LIKE '%${word}%' OR L.addr1 LIKE '%${word}%' OR L.addr2 LIKE '%${word}%')
 		<if test="category == 'tour'">
-			AND (contentTypeId LIKE '12'
-            OR contentTypeId LIKE '14'
-            OR contentTypeId LIKE '15'
-            OR contentTypeId LIKE '25'
-            OR contentTypeId LIKE '28')
+			AND (L.contentTypeId LIKE '12'
+            OR L.contentTypeId LIKE '14'
+            OR L.contentTypeId LIKE '15'
+            OR L.contentTypeId LIKE '25'
+            OR L.contentTypeId LIKE '28')
 		</if>
 		<if test="category == 'rest'">
-			AND contentTypeId LIKE '39'
+			AND L.contentTypeId LIKE '39'
 		</if>
 		<if test="category == 'bed'">
-			AND contentTypeId LIKE '32'
+			AND L.contentTypeId LIKE '32'
 		</if>
-			ORDER BY ${standard} ${order}
 			LIMIT #{startRow}, #{amount}
 	</select>
+			
 	
+	<!-- 커버 이미지 파일 조회 -->
+	<select id="selectTourPlanCoverByNo" resultMap="TourPlanCoverVOMap" parameterType="int">
+		SELECT *
+		FROM RECORD_COVER_TB
+		WHERE RECORD_NO = #{recordNo}
+	</select>
+
+	<!-- 커버 이미지 파일 정보 삭제 -->
+	<select id="deleteTourPlanCoverByNo" parameterType="int">
+		DELETE 
+		FROM RECORD_COVER_TB
+		WHERE COVER_NO = #{coverNo}
+	</select>
+
+	<!-- 커버 이미지 정보 입력 -->
+	<insert id="insertTourPlanCover" parameterType="TourPlanCoverVO">
+		INSERT INTO RECORD_COVER_TB (RECORD_NO, REAL_PATH, FILE_PATH, ORI_NAME, FILE_NAME, FILE_SIZE)
+		VALUES (#{recordNo}, #{realPath}, #{filePath}, #{oriName}, #{fileName}, #{fileSize})
+	<selectKey keyProperty="coverNo" resultType="int" order="AFTER">
+        SELECT last_insert_id()
+    </selectKey>
+	</insert>
+
+	<!-- 여행일정 배경사진 항목 업데이트 -->
+	<update id="updateTourPlanImgByNo" parameterType="TourPlanVO">
+		UPDATE RECORD_TB
+		SET PICTURE = #{picture}
+		WHERE RECORD_NO = #{recordNo}
+	</update>
 	
+	<!-- 여행일정 제목 업데이트 -->
+	<update id="updateTourPlanTitle" parameterType="TourPlanVO">
+		UPDATE RECORD_TB
+		SET TITLE = #{title}
+		WHERE RECORD_NO = #{recordNo}
+	</update>
+	
+	<!-- 여행일정 전체 변경 -->
+	<update id="updateTourPlan" parameterType="TourPlanVO">
+		UPDATE RECORD_TB
+		SET RECORD_NO = #{recordNo}, USER_UID = #{userUid}, DEPARTURE_DATE = #{departureDate}, 
+		ARRIVE_DATE = #{arriveDate}, TITLE = #{title}, PERIOD = #{period}, STRAPLINE = #{strapline}, 
+		INTRODUCE = #{introduce} 
+		WHERE RECORD_NO = #{recordNo}
+	</update>
+	
+	<!-- 일정 스케줄 입력 -->
+	<insert id="insertTourPlanSchedule" parameterType="TourPlanScheduleVO">
+		INSERT INTO RECORD_LOCATION_TB (LOCATION_NO, RECORD_NO, TITLE, CONTENT_CODE, IMAGE_URL, DETAIL_DEPARTURE_DATE, CONTENT_TYPE_ID, DEPARTURE_DATE, MAPX, MAPY, DETAIL_ARRIVE_DATE)
+		VALUES (#{locationNo},#{recordNo},#{title},#{contentCode},#{imageUrl},#{detailDepartureDate},#{contentTypeId},#{departureDate},#{mapX},#{mapY},#{detailArriveDate})
+		ON DUPLICATE KEY UPDATE LOCATION_NO=#{locationNo},RECORD_NO=#{recordNo},TITLE=#{title},CONTENT_CODE=#{contentCode}, IMAGE_URL=#{imageUrl},DETAIL_DEPARTURE_DATE=#{detailDepartureDate},CONTENT_TYPE_ID=#{contentTypeId},DEPARTURE_DATE=#{departureDate},MAPX=#{mapX},MAPY=#{mapY},DETAIL_ARRIVE_DATE=#{detailArriveDate}
+	</insert>
+	
+	<!-- 일정 스케쥴 삭제 -->
+	<delete id="deleteTourPlanScheduleByRecordNo" parameterType="int">
+		DELETE 
+		FROM RECORD_LOCATION_TB
+		WHERE RECORD_NO = #{recordNo}
+	</delete>
+	
+	<!-- 일정 스케쥴 리스트 조회 -->
+	<select id="selectTourPlanScheduleListByRecordNo" resultMap="TourPlanScheduleVOMap" parameterType="int">
+		SELECT *
+		FROM RECORD_LOCATION_TB
+		WHERE RECORD_NO = #{recordNo}
+	</select>
 	
 </mapper>

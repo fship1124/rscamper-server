@@ -2,6 +2,7 @@ package kr.co.rscamper.domain;
 
 public class TourPlanSpotVO {
 	
+	// 기본정보
 	private int publicDataListNo;
 	private String addr1; 
 	private String addr2;
@@ -23,14 +24,36 @@ public class TourPlanSpotVO {
 	private String title;
 	private String zipcode;
 	
-	@Override
-	public String toString() {
-		return "TourPlanSpotVO [publicDataListNo=" + publicDataListNo + ", addr1=" + addr1 + ", addr2=" + addr2
-				+ ", areacode=" + areacode + ", cat1=" + cat1 + ", cat2=" + cat2 + ", cat3=" + cat3 + ", contentid="
-				+ contentid + ", contenttypeid=" + contenttypeid + ", createdtime=" + createdtime + ", firstimage="
-				+ firstimage + ", firstimage2=" + firstimage2 + ", mapx=" + mapx + ", mapy=" + mapy + ", mlevel="
-				+ mlevel + ", modifiedtime=" + modifiedtime + ", readcount=" + readcount + ", sigungucode="
-				+ sigungucode + ", title=" + title + ", zipcode=" + zipcode + "]";
+	// 지역정보
+	private String areaname;
+	
+	// 상세 - 공통정보
+	private String overview;
+	private String homepage;
+	
+
+	public String getAreaname() {
+		return areaname;
+	}
+
+	public void setAreaname(String areaname) {
+		this.areaname = areaname;
+	}
+
+	public String getOverview() {
+		return overview;
+	}
+
+	public void setOverview(String overview) {
+		this.overview = overview;
+	}
+
+	public String getHomepage() {
+		return homepage;
+	}
+
+	public void setHomepage(String homepage) {
+		this.homepage = homepage;
 	}
 
 	public int getPublicDataListNo() {
