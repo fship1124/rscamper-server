@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.rscamper.domain.BenefitVO;
 import kr.co.rscamper.domain.MainVO;
 
 @Repository
@@ -32,4 +33,10 @@ public class MainDAOImpl implements MainDAO {
 	
 		return list;
 	}
+
+	@Override
+	public List<BenefitVO> selectList(int benefitno) throws Exception {
+		return sqlSessionTemplate.selectList(namespace + "selectBenefit", benefitno);
+	}
+
 }
