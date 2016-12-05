@@ -12,7 +12,6 @@ import javax.servlet.ServletContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +22,7 @@ import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
 import kr.co.rscamper.domain.TourPlanScheduleVO;
 import kr.co.rscamper.domain.TourPlanSpotParamVO;
+import kr.co.rscamper.domain.TourPlanSpotVO;
 import kr.co.rscamper.domain.TourPlanVO;
 import kr.co.rscamper.service.TourPlanService;
 
@@ -71,6 +71,11 @@ public class TourPlanController {
 	@RequestMapping(value = "/select/spotList", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> selectSpotList(TourPlanSpotParamVO tourPlanSpotParam) throws Exception {
 		return tourPlanService.selectSpotList(tourPlanSpotParam);
+	}
+	
+	@RequestMapping(value = "/select/spotDetail", method = RequestMethod.GET)
+	public @ResponseBody TourPlanSpotVO selectSpotDetail(int contentid) throws Exception {
+		return tourPlanService.selectSpotDetail(contentid);
 	}
 	
 	@RequestMapping(value = "/select/oneTourPlan", method = RequestMethod.GET)

@@ -98,5 +98,10 @@ public class TourPlanDAOImpl implements TourPlanDAO {
 		return sqlSessionTemplate.selectList(namespace + ".selectTourPlanScheduleListByRecordNo", recordNo);
 	}
 
+	@Override
+	public TourPlanSpotVO selectSpotDetail(int contentid) {
+		return sqlSessionTemplate.selectOne(namespace + ".selectSpotDetail", contentid);
+	}
+
 
 }

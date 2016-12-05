@@ -17,11 +17,12 @@ public class TourPlanVO {
 	private String introduce;
 	private Date regDate;
 	
-	// 카운트
+	// 카운트(좋아요 북마크 일정복사 댓글수)
 	private int likeCnt;
+	private int bookmarkCnt;
+	private int customCnt;
 	private int commentCnt;
-	private int locationCnt;
-	private int postCnt;
+
 
 
 	// 유저정보
@@ -34,6 +35,16 @@ public class TourPlanVO {
 	private int totalPages;
 	
 
+	public int getCustomCnt() {
+		return customCnt;
+	}
+
+
+	public void setCustomCnt(int customCnt) {
+		this.customCnt = customCnt;
+	}
+
+
 	public String getFilePath() {
 		return filePath;
 	}
@@ -44,14 +55,6 @@ public class TourPlanVO {
 	}
 
 
-	public int getPostCnt() {
-		return postCnt;
-	}
-
-
-	public void setPostCnt(int postCnt) {
-		this.postCnt = postCnt;
-	}
 
 
 	public int getLikeCnt() {
@@ -65,12 +68,6 @@ public class TourPlanVO {
 	}
 	public void setCommentCnt(int commentCnt) {
 		this.commentCnt = commentCnt;
-	}
-	public int getLocationCnt() {
-		return locationCnt;
-	}
-	public void setLocationCnt(int locationCnt) {
-		this.locationCnt = locationCnt;
 	}
 	public int getTotalPages() {
 		return totalPages;
@@ -138,12 +135,6 @@ public class TourPlanVO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public int getBudGet() {
-		return budget;
-	}
-	public void setBudget(int budget) {
-		this.budget = budget;
-	}
 	public int getPicture() {
 		return picture;
 	}
@@ -152,15 +143,25 @@ public class TourPlanVO {
 	}
 
 
-	@Override
-	public String toString() {
-		return "TourPlanVO [recordNo=" + recordNo + ", userUid=" + userUid + ", departureDate=" + departureDate
-				+ ", arriveDate=" + arriveDate + ", title=" + title + ", budget=" + budget + ", picture=" + picture
-				+ ", period=" + period + ", strapline=" + strapline + ", introduce=" + introduce + ", regDate="
-				+ regDate + ", likeCnt=" + likeCnt + ", commentCnt=" + commentCnt + ", locationCnt=" + locationCnt
-				+ ", postCnt=" + postCnt + ", displayName=" + displayName + ", filePath=" + filePath + ", totalPages="
-				+ totalPages + "]";
+	public int getBudget() {
+		return budget;
 	}
+
+	public int getBookmarkCnt() {
+		return bookmarkCnt;
+	}
+
+
+	public void setBookmarkCnt(int bookmarkCnt) {
+		this.bookmarkCnt = bookmarkCnt;
+	}
+
+
+	public void setBudget(int budget) {
+		this.budget = budget;
+	}
+
+
 
 	
 	

@@ -56,5 +56,8 @@ public interface TourPlanDAO {
 	/** 여행일정 - 스케쥴 조회 */
 	public List<TourPlanScheduleVO> selectTourPlanScheduleListByRecordNo(int recordNo);
 
+	/** 여행지 - 디테일 조회 */
+	public TourPlanSpotVO selectSpotDetail(int contentid);
+
 	
 }

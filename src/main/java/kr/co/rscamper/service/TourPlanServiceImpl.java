@@ -139,4 +139,9 @@ public class TourPlanServiceImpl implements TourPlanService {
 		return dao.selectTourPlanScheduleListByRecordNo(recordNo);
 	}
 
+	@Override
+	public TourPlanSpotVO selectSpotDetail(int contentid) {
+		return dao.selectSpotDetail(contentid);
+	}
+
 }

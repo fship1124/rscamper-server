@@ -7,6 +7,7 @@ import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
 import kr.co.rscamper.domain.TourPlanScheduleVO;
 import kr.co.rscamper.domain.TourPlanSpotParamVO;
+import kr.co.rscamper.domain.TourPlanSpotVO;
 import kr.co.rscamper.domain.TourPlanVO;
 
 public interface TourPlanService {
@@ -38,8 +39,10 @@ public interface TourPlanService {
 	/** 여행일정 - 스케쥴 리스트 삭제 */
 	public void deleteTourPlanScheduleByRecordNo(int recordNo);
 
-	/** 여행일정 - 스케쥴 리스트 가져오기 
-	 * @return */
+	/** 여행일정 - 스케쥴 리스트 가져오기 */
 	public List<TourPlanScheduleVO> selectTourPlanScheduleListByRecordNo(int recordNo);
+
+	/** 장소정보 디테일 가져오기*/
+	public TourPlanSpotVO selectSpotDetail(int contentid);
 
 }
