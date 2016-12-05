@@ -32,4 +32,5 @@ public class BenefitServiceImpl implements BenefitService {
 		return dao.selectByNo(no);
 	}
 
+
 }
