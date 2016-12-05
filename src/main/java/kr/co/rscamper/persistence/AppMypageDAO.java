@@ -1,11 +1,14 @@
 package kr.co.rscamper.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import kr.co.rscamper.domain.BoardBookMarkVO;
+import kr.co.rscamper.domain.BookMarkPageVO;
+import kr.co.rscamper.domain.BookMarkVO;
 
 @Repository
 public class AppMypageDAO {
@@ -15,8 +18,12 @@ public class AppMypageDAO {
 	
 	private static final String namespace = "kr.co.rscamper.AppMypageMapper";
 	
-//	public BoardBookMarkVO selectMyBookMark(BoardBookMarkVO boardBookMark) {
-//		return sqlSessionTemplate.selectList(namespace + ".selectMyBookMark", boardBookMark);
-//	}
+	public List<BookMarkVO> selectBookMarkList(BookMarkPageVO bookMarkPage) {
+		return sqlSessionTemplate.selectList(namespace + ".selectBookMarkList", bookMarkPage);
+	}
+	
+	public int countBookMark(String userUid) {
+		return sqlSessionTemplate.selectOne(namespace + ".countBookMark", userUid);
+	}
 	
 }

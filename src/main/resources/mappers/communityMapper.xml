@@ -118,6 +118,7 @@
 	<select id="selectCategoryList" resultMap="CommunityVOMap">
 		SELECT *
 		FROM BOARD_CATEGORY_TB
+		WHERE CATEGORY_NO &lt;= 5
 	</select>
 	
 	<insert id="insertBoard" parameterType="CommunityVO">

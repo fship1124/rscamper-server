@@ -3,56 +3,35 @@
 
 <mapper namespace="kr.co.rscamper.AppMypageMapper">
 
-	<resultMap type="BoardBookMarkVO" id="BoardBookMarkVOMap">
-		<result column="TARGET_NO" property="targetNo"/>
+	<resultMap type="BookMarkVO" id="BookMarkMap">
+		<result column="NO" property="no"/>
 		<result column="TARGET_TYPE" property="targetType"/>
-		<result column="USER_UID" property="userUid"/>
 		<result column="REG_DATE" property="regDate"/>
+		<result column="USER_UID" property="userUid"/>
+		<result column="TITLE" property="title"/>
+		<result column="STRAPLINE" property="strapline"/>
+		<result column="INTRODUCE" property="introduce"/>
+		<result column="PICTURE" property="picture"/>
+		<result column="PHOTO_URL" property="photoUrl"/>
+		<result column="DISPLAY_NAME" property="displayName"/>
 	</resultMap>
 	
-	<resultMap type="CommunityVO" id="CommunityVOMap">
-		<result column="BOARD_NO" property="boardNo" />
-		<result column="VIEW_CNT" property="viewCnt" />
-		<result column="REG_DATE" property="regDate" />
-		
-		<result column="CATEGORY_NO" property="categoryNo" />
-		<result column="CATEGORY_NAME" property="categoryName" />
-		
-		<result column="USER_UID" property="userUid" />
-		<result column="PHOTO_URL" property="photoUrl" />
-		<result column="DISPLAY_NAME" property="displayName" />
-		<result column="PROVIDER_UID" property="providerUid" />
-		<result column="PROVIDER_NAME" property="providerName" />
-		<result column="PROVIDER_DISPLAY_NAME" property="providerDisplayName" />
-		<result column="PROVIDER_PHOTO_URL" property="providerPhotoUrl" />
-		<result column="PROVIDER_EMAIL" property="providerEmail" />
-		<result column="BGPHOTO_URL" property="bgPhotoUrl" />
-		<result column="PHONE_NUMBER" property="phoneNumber" />
-		<result column="WEBSITE_URL" property="websiteUrl" />
-		
-		<result column="LOCATION_NO" property="locationNo" />
-		<result column="LOCATION_NAME" property="locationName" />
-		
-		<result column="COMMENT_CNT" property="commentCnt"/>
-		<result column="LIKE_CNT" property="likeCnt"/>
-	</resultMap>
-	
-	<select id="selectMyBookMark" parameterType="BoardBookMarkVO" resultType="int">
-		SELECT *
-		FROM BOARD_BOOKMARK_TB
-		WHERE TARGET_NO = #{targetNo} AND TARGET_TYPE = 1 AND USER_UID = #{userUid}
-	</select>
-	
-	<select id="selectCommunityList" resultMap="CommunityVOMap" parameterType="hashMap">
-		SELECT *, 
-			(SELECT COUNT(*) FROM BOARD_COMMENT_TB BC WHERE BC.BOARD_NO=B.BOARD_NO) COMMENT_CNT, 
-			(SELECT COUNT(*) FROM BOARD_LIKE_TB LIKETB WHERE LIKETB.TARGET_NO=B.BOARD_NO AND LIKETB.TARGET_TYPE=1) LIKE_CNT
-		FROM BOARD_TB B, BOARD_CATEGORY_TB C, USER_TB U, LOCATION_TB L
-		WHERE C.CATEGORY_NO = B.CATEGORY_NO 
-			AND B.USER_UID = U.USER_UID 
-			AND U.LOCATION_NO = L.LOCATION_NO
-		ORDER BY BOARD_NO DESC
+	<select id="selectBookMarkList" parameterType="BookMarkPageVO" resultMap="BookMarkMap">
+		(SELECT B.BOARD_NO AS NO, BB.TARGET_TYPE, BB.REG_DATE, B.USER_UID, TITLE, TITLE AS STRAPLINE, TITLE AS INTRODUCE, B.BOARD_NO AS PICTURE, U.PHOTO_URL, U.DISPLAY_NAME
+		 FROM BOARD_BOOKMARK_TB BB, BOARD_TB B, USER_TB U
+		 WHERE BB.USER_UID = #{userUid} AND BB.TARGET_TYPE = '1' AND BB.TARGET_NO = B.BOARD_NO AND B.USER_UID = U.USER_UID)
+		UNION
+		(SELECT R.RECORD_NO AS NO, BB.TARGET_TYPE, BB.REG_DATE, R.USER_UID, TITLE, R.STRAPLINE, R.INTRODUCE, R.PICTURE, U.PHOTO_URL, U.DISPLAY_NAME
+		 FROM BOARD_BOOKMARK_TB BB, RECORD_TB R, USER_TB U
+		 WHERE BB.USER_UID = #{userUid} AND BB.TARGET_TYPE = '3' AND BB.TARGET_NO = R.RECORD_NO AND R.USER_UID = U.USER_UID)
+		ORDER BY REG_DATE DESC
 		LIMIT #{page}, #{count}
 	</select>
-
+	
+	<select id="countBookMark" parameterType="string" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD_BOOKMARK_TB
+		WHERE USER_UID = #{userUid}
+	</select>
+	
 </mapper>

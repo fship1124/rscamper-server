@@ -3,83 +3,72 @@
 
 <mapper namespace="kr.co.rscamper.AppMainMapper">
 
-	<resultMap type="CommunityVO" id="CommunityVOMap">
-		<result column="BOARD_NO" property="boardNo" />
-		<result column="VIEW_CNT" property="viewCnt" />
-		<result column="REG_DATE" property="regDate" />
-		
-		<result column="CATEGORY_NO" property="categoryNo" />
-		<result column="CATEGORY_NAME" property="categoryName" />
-		
-		<result column="USER_UID" property="userUid" />
-		<result column="PHOTO_URL" property="photoUrl" />
-		<result column="DISPLAY_NAME" property="displayName" />
-		<result column="PROVIDER_UID" property="providerUid" />
-		<result column="PROVIDER_NAME" property="providerName" />
-		<result column="PROVIDER_DISPLAY_NAME" property="providerDisplayName" />
-		<result column="PROVIDER_PHOTO_URL" property="providerPhotoUrl" />
-		<result column="PROVIDER_EMAIL" property="providerEmail" />
-		<result column="BGPHOTO_URL" property="bgPhotoUrl" />
-		<result column="PHONE_NUMBER" property="phoneNumber" />
-		<result column="WEBSITE_URL" property="websiteUrl" />
-		
-		<result column="LOCATION_NO" property="locationNo" />
-		<result column="LOCATION_NAME" property="locationName" />
-		
-		<result column="COMMENT_CNT" property="commentCnt"/>
+	<resultMap type="AppMainVO" id="AppMainMap">
+		<result column="CATEGORY_NAME" property="categoryName"/>
+		<result column="NO" property="no"/>
+		<result column="REG_DATE" property="regDate"/>
+		<result column="USER_UID" property="userUid"/>
+		<result column="TITLE" property="title"/>
+		<result column="PICTURE" property="picture"/>
+		<result column="DISPLAY_NAME" property="displayName"/>
 		<result column="LIKE_CNT" property="likeCnt"/>
+		<result column="TARGET_TYPE" property="targetType"/>
 	</resultMap>
-	
-	<select id="selectCommunityList" resultMap="CommunityVOMap" parameterType="hashMap">
-		SELECT *, 
-			(SELECT COUNT(*) FROM BOARD_COMMENT_TB BC WHERE BC.BOARD_NO=B.BOARD_NO) COMMENT_CNT, 
-			(SELECT COUNT(*) FROM BOARD_LIKE_TB LIKETB WHERE LIKETB.TARGET_NO=B.BOARD_NO AND LIKETB.TARGET_TYPE=1) LIKE_CNT
-		FROM BOARD_TB B, BOARD_CATEGORY_TB C, USER_TB U, LOCATION_TB L
-		WHERE C.CATEGORY_NO = B.CATEGORY_NO 
-			AND B.USER_UID = U.USER_UID 
-			AND U.LOCATION_NO = L.LOCATION_NO
-		ORDER BY BOARD_NO DESC
+
+	<select id="selectMainList" parameterType="hashMap" resultMap="AppMainMap">
+		(SELECT B.BOARD_NO AS NO, B.REG_DATE, B.USER_UID, TITLE, B.BOARD_NO AS PICTURE, U.DISPLAY_NAME, 
+				COALESCE((SELECT COUNT(*) FROM BOARD_LIKE_TB BL WHERE BL.TARGET_NO = B.BOARD_NO), 0) LIKE_CNT, 
+				(SELECT DISTINCT COALESCE(TARGET_TYPE, 1) FROM BOARD_TB B LEFT JOIN BOARD_LIKE_TB BL ON BL.TARGET_NO = B.BOARD_NO) TARGET_TYPE
+		 FROM BOARD_TB B, USER_TB U
+		 WHERE B.USER_UID = U.USER_UID)
+		UNION
+		(SELECT R.RECORD_NO AS NO, R.REG_DATE, R.USER_UID, TITLE, R.PICTURE, U.DISPLAY_NAME, 
+				COALESCE((SELECT COUNT(*) FROM RECORD_LIKE_TB RL WHERE RL.RECORD_NO = R.RECORD_NO), 0) LIKE_CNT, 
+				(SELECT DISTINCT COALESCE(TARGET_TYPE, 3) FROM RECORD_TB R LEFT JOIN RECORD_LIKE_TB RL ON RL.RECORD_NO = R.RECORD_NO WHERE RL.RECORD_NO = R.RECORD_NO) TARGET_TYPE
+		 FROM RECORD_TB R, USER_TB U
+		 WHERE R.USER_UID = U.USER_UID
+		 	AND R.ISOPEN = 1)
+		ORDER BY LIKE_CNT DESC, REG_DATE DESC
 		LIMIT #{page}, #{count}
 	</select>
 	
-	<select id="selectCommunityListByCategoryNo" resultMap="CommunityVOMap" parameterType="hashMap">
-		SELECT *, 
-			(SELECT COUNT(*) FROM BOARD_COMMENT_TB BC WHERE BC.BOARD_NO=B.BOARD_NO) COMMENT_CNT, 
-			(SELECT COUNT(*) FROM BOARD_LIKE_TB LIKETB WHERE LIKETB.TARGET_NO=B.BOARD_NO AND LIKETB.TARGET_TYPE=1) LIKE_CNT
-		FROM BOARD_TB B, BOARD_CATEGORY_TB C, USER_TB U, LOCATION_TB L
-		WHERE C.CATEGORY_NO = B.CATEGORY_NO 
-			AND B.USER_UID = U.USER_UID 
-			AND U.LOCATION_NO = L.LOCATION_NO
-			AND B.CATEGORY_NO = #{categoryNo}
-		ORDER BY BOARD_NO DESC
-		LIMIT #{page}, #{count}
-	</select>
-	
-	<select id="selectCommunityTotalPages" resultType="int">
+	<select id="countAllBoard" resultType="int">
 		SELECT COUNT(*)
 		FROM BOARD_TB
 	</select>
 	
-	<select id="selectCommunityTotalPagesByCategoryNo" resultType="int" parameterType="int">
+	<select id="countAllRecord" resultType="int">
+		SELECT COUNT(*)
+		FROM RECORD_TB
+	</select>
+	
+	<select id="selectBoardListByCategoryNo" parameterType="hashMap" resultMap="AppMainMap">
+		SELECT C.CATEGORY_NAME, B.BOARD_NO AS NO, B.REG_DATE, B.USER_UID, TITLE, B.BOARD_NO AS PICTURE, U.PHOTO_URL, U.DISPLAY_NAME, 
+			COALESCE((SELECT COUNT(*) FROM BOARD_LIKE_TB BL WHERE BL.TARGET_NO = B.BOARD_NO), 0) LIKE_CNT, 
+			(SELECT DISTINCT COALESCE(TARGET_TYPE, 1) FROM BOARD_TB B LEFT JOIN BOARD_LIKE_TB BL ON BL.TARGET_NO = B.BOARD_NO) TARGET_TYPE
+		 FROM BOARD_TB B, BOARD_CATEGORY_TB C, USER_TB U
+		 WHERE B.USER_UID = U.USER_UID
+		 	AND B.CATEGORY_NO = C.CATEGORY_NO
+		 	AND B.CATEGORY_NO = #{categoryNo}
+		 ORDER BY LIKE_CNT DESC, REG_DATE DESC
+		 LIMIT #{page}, #{count}
+	</select>
+	
+	<select id="countBoardByCategoryNo" parameterType="int" resultType="int">
 		SELECT COUNT(*)
 		FROM BOARD_TB
 		WHERE CATEGORY_NO = #{categoryNo}
 	</select>
 	
-	<select id="selectCommunity" resultMap="CommunityVOMap" parameterType="int">
-		SELECT *, 
-			(SELECT COUNT(*) FROM BOARD_COMMENT_TB BC WHERE BC.BOARD_NO=B.BOARD_NO) COMMENT_CNT, 
-			(SELECT COUNT(*) FROM BOARD_LIKE_TB LIKETB WHERE LIKETB.TARGET_NO=B.BOARD_NO AND LIKETB.TARGET_TYPE=1) LIKE_CNT
-		FROM BOARD_TB B, BOARD_CATEGORY_TB C, USER_TB U, LOCATION_TB L
-		WHERE C.CATEGORY_NO = B.CATEGORY_NO 
-			AND B.USER_UID = U.USER_UID 
-			AND U.LOCATION_NO = L.LOCATION_NO
-			AND BOARD_NO = #{boardNo}
-	</select>
-	
-	<select id="selectCategoryList" resultMap="CommunityVOMap">
-		SELECT *
-		FROM BOARD_CATEGORY_TB
+	<select id="selectRecordList" parameterType="hashMap" resultMap="AppMainMap">
+		 SELECT R.RECORD_NO AS NO, R.REG_DATE, R.USER_UID, TITLE, R.PICTURE, U.PHOTO_URL, U.DISPLAY_NAME, 
+			COALESCE((SELECT COUNT(*) FROM RECORD_LIKE_TB RL WHERE RL.RECORD_NO = R.RECORD_NO), 0) LIKE_CNT, 
+			(SELECT DISTINCT COALESCE(TARGET_TYPE, 3) FROM RECORD_TB R LEFT JOIN RECORD_LIKE_TB RL ON RL.RECORD_NO = R.RECORD_NO WHERE RL.RECORD_NO = R.RECORD_NO) TARGET_TYPE
+		 FROM RECORD_TB R, USER_TB U
+		 WHERE R.USER_UID = U.USER_UID
+		 	AND R.ISOPEN = 1
+		 ORDER BY LIKE_CNT DESC, REG_DATE DESC
+		 LIMIT #{page}, #{count}
 	</select>
 
 </mapper>
