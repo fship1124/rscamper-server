@@ -114,4 +114,9 @@
 	from chat_room_info_tb
 	where CHAT_ROOM_INFO_NO = #{chatRoomInfoNo}
 </select>
+<delete id="delChatUser" parameterType="string">
+	delete 
+	from chat_user_info_tb 
+	where USER_UID = #{uid} 
+</delete>
 </mapper>

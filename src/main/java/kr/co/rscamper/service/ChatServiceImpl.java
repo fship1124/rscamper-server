@@ -89,4 +89,10 @@ public class ChatServiceImpl implements ChatService {
 		dao.deleteChatRoom(roomNo);
 	}
 
+
+	@Override
+	public void delChatUser(String uid) throws Exception {
+		dao.delChatUser(uid);
+	}
+
 }

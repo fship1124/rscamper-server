@@ -17,7 +17,28 @@ public class TourScheduleVO {
 	private String strapline;
 	private String introduce;
 	private Date regDate;
+	private int isOpen;
+	private int likeCnt;
+	private int commentCnt;
 	
+	public int getLikeCnt() {
+		return likeCnt;
+	}
+	public void setLikeCnt(int likeCnt) {
+		this.likeCnt = likeCnt;
+	}
+	public int getCommentCnt() {
+		return commentCnt;
+	}
+	public void setCommentCnt(int commentCnt) {
+		this.commentCnt = commentCnt;
+	}
+	public int getIsOpen() {
+		return isOpen;
+	}
+	public void setIsOpen(int isOpen) {
+		this.isOpen = isOpen;
+	}
 	public Date getRegDate() {
 		return regDate;
 	}
