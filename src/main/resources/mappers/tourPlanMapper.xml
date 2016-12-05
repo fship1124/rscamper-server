@@ -11,7 +11,7 @@
 		<result property="departureDate" column="DEPARTURE_DATE"/>
 		<result property="arriveDate" column="ARRIVE_DATE"/>
 		<result property="title" column="TITLE"/>
-		<result property="budget" column="BUDGET"/>
+		<result property="budGet" column="BUDGET"/>
 		<result property="picture" column="PICTURE"/>
 		<result property="period" column="PERIOD" />
 		<result property="strapline" column="STRAPLINE"/>
@@ -89,6 +89,7 @@
 			AND (DATEDIFF(ARRIVE_DATE, DEPARTURE_DATE) + 1) BETWEEN #{minTripDays} AND #{maxTripDays}
 			AND (R.TITLE LIKE '%${word}%' OR R.INTRODUCE LIKE '%${word}%' OR R.STRAPLINE LIKE '%${word}%') 
 			AND DATE(R.REG_DATE) >= #{datePeriodDate}
+			AND ISOPEN = 1
 			ORDER BY ${standard} ${order}
 			LIMIT #{startRow}, #{amount}
 		]]>
@@ -99,7 +100,7 @@
 			SELECT R.*, C.FILE_PATH FILE_PATH, U.DISPLAY_NAME DISPLAY_NAME,
 				(SELECT COUNT(*) FROM RECORD_LIKE_TB RLT WHERE R.RECORD_NO=RLT.RECORD_NO) LIKE_CNT,
 				(SELECT COUNT(*) FROM BOARD_BOOKMARK_TB BBT WHERE R.RECORD_NO=BBT.TARGET_NO AND BBT.TARGET_TYPE LIKE '3') BOOKMARK_CNT,
-				(SELECT COUNT(*) FROM RECORD_CUSTOMIZING_TB RCMT WHERE R.RECORD_NO=RCMT.TARGET_RECORD_NO) CUSTOM_CNT,
+				(SELECT COUNT(*) FROM RECORD_CUSTOMIZING_TB RCMT WHERE R.RECORD_NO=RCMT.RECORD_NO) CUSTOM_CNT,
 				(SELECT COUNT(*) FROM RECORD_COMMENT_TB RCT WHERE R.RECORD_NO=RCT.RECORD_NO) COMMENT_CNT
 			FROM RECORD_TB R
 			LEFT OUTER JOIN RECORD_COVER_TB C
@@ -246,5 +247,12 @@
  		ON R.CONTENT_CODE = DC.contentid
 		WHERE RECORD_NO = #{recordNo}
 	</select>
+	
+	<!-- 공개 비공개 설정 -->
+	<update id="updateTourPlanOpen" parameterType="TourPlanVO">
+		UPDATE RECORD_TB
+		SET ISOPEN = #{isOpen}
+		WHERE RECORD_NO = #{recordNo}
+	</update>
 	
 </mapper>

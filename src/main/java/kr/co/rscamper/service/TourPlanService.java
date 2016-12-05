@@ -45,4 +45,7 @@ public interface TourPlanService {
 	/** 장소정보 디테일 가져오기*/
 	public TourPlanSpotVO selectSpotDetail(int contentid);
 
+	/** 공개 비공개 토글 */
+	public int updateTourPlanOpen(TourPlanVO tourPlan);
+
 }

@@ -18,13 +18,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import kr.co.rscamper.domain.BoardBookMarkVO;
+import kr.co.rscamper.domain.ScheduleLikeVO;
+import kr.co.rscamper.domain.ScheduleListCommentVO;
+import kr.co.rscamper.domain.ScheduleMemoVO;
 import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
 import kr.co.rscamper.domain.TourPlanScheduleVO;
 import kr.co.rscamper.domain.TourPlanSpotParamVO;
 import kr.co.rscamper.domain.TourPlanSpotVO;
 import kr.co.rscamper.domain.TourPlanVO;
+import kr.co.rscamper.domain.TourScheduleVO;
 import kr.co.rscamper.service.TourPlanService;
+import kr.co.rscamper.service.TourScheduleService;
 
 @Controller
 @RequestMapping("/tourPlan")
@@ -34,6 +40,9 @@ public class TourPlanController {
 	
 	@Inject
 	private TourPlanService tourPlanService;
+	
+	@Inject
+	private TourScheduleService tourScheduleService;
 	
 	@Inject
 	private ServletContext servletContext;
@@ -50,6 +59,7 @@ public class TourPlanController {
 	
 	@RequestMapping(value = "/update/tourPlan", method = RequestMethod.POST)
 	public @ResponseBody void updateTourPlan(TourPlanVO tourPlan) throws Exception {
+		System.out.println(tourPlan.toString());
 		tourPlanService.updateTourPlan(tourPlan);
 	}
 	
@@ -92,7 +102,6 @@ public class TourPlanController {
 	public @ResponseBody void updateTourPlanTitle(TourPlanVO tourPlan) throws Exception {
 		tourPlanService.updateTourPlanTitle(tourPlan);
 	}
-	
 	
 	@RequestMapping(value = "/upload/coverImage", method = RequestMethod.POST)
 	public @ResponseBody TourPlanCoverVO coverImageUpload(MultipartHttpServletRequest mRequest) throws Exception {
@@ -158,7 +167,98 @@ public class TourPlanController {
 		return tourPlanCover;
 	}
 	
+	@RequestMapping(value = "/update/tourPlanOpen", method = RequestMethod.GET)
+	public @ResponseBody int updateTourPlanOpen(TourPlanVO tourPlan) throws Exception {
+		System.out.println(tourPlan.getIsOpen());
+		return tourPlanService.updateTourPlanOpen(tourPlan);
+	}
 	
+	@RequestMapping("/addScheduleLike")
+	@ResponseBody
+	public int addScheduleLike(ScheduleLikeVO sl) throws Exception {
+		return tourScheduleService.addScheduleLike(sl);
+	}
+	
+	@RequestMapping("/cancelScheduleLike")
+	@ResponseBody
+	public int cancelScheduleLike(ScheduleLikeVO sl) throws Exception {
+		return tourScheduleService.cancelScheduleLike(sl);
+	}
+	
+	@RequestMapping("/addCustomizing")
+	@ResponseBody
+	public int addCustomizing(TourScheduleVO tv) throws Exception {
+		return tourScheduleService.addCustomizing(tv);
+	}
+	
+	@RequestMapping("/cancelCustomizing")
+	@ResponseBody
+	public int cancelCustomizing(ScheduleLikeVO sl) throws Exception {
+		System.out.println(sl.toString());
+		return tourScheduleService.cancelCustomizing(sl);
+	}
+	
+	@RequestMapping("/addScheduleBookmark")
+	@ResponseBody
+	public int addScheduleBookmark(BoardBookMarkVO bbv) throws Exception {
+		return tourScheduleService.addScheduleBookmark(bbv);
+	}
+	
+	@RequestMapping("/cancelScheduleBookMark")
+	@ResponseBody
+	public int cancelScheduleBookMark(BoardBookMarkVO bbv) throws Exception {
+		System.out.println(bbv.toString());
+		return tourScheduleService.cancelScheduleBookMark(bbv);
+	}
+	
+	
+	@RequestMapping("/checkScheduleSet")
+	@ResponseBody
+	public Map<String, Boolean> checkScheduleSet(ScheduleLikeVO sl, int targetType) throws Exception {
+		return tourScheduleService.checkScheduleSet(sl, targetType);
+	}
+	
+	@RequestMapping("/scheduleListDetail")
+	@ResponseBody
+	public TourPlanVO scheduleListDetail(int no) throws Exception {
+		return tourScheduleService.scheduleListDetail(no);
+	}
+	
+	@RequestMapping("/insertScheduleListComment")
+	@ResponseBody
+	public List<ScheduleListCommentVO> insertScheduleListComment(ScheduleListCommentVO slc) throws Exception {
+		return tourScheduleService.insertScheduleListComment(slc);
+	}
+	
+	@RequestMapping("/getScheduleListComment")
+	@ResponseBody
+	public List<ScheduleListCommentVO> getScheduleListComment(int recordNo) throws Exception {
+		return tourScheduleService.getScheduleListComment(recordNo);
+	}
+	
+	@RequestMapping("/delScheduleListComment")
+	@ResponseBody
+	public List<ScheduleListCommentVO> delScheduleListComment(int commentNo, int recordNo) throws Exception {
+		return tourScheduleService.delScheduleListComment(commentNo, recordNo);
+	}
+	
+	@RequestMapping("/addScheduleMemo")
+	@ResponseBody
+	public List<ScheduleMemoVO> addScheduleMemo(ScheduleMemoVO sm) throws Exception {
+		return tourScheduleService.addScheduleMemo(sm);
+	}
+	
+	@RequestMapping("/getScheduleMemo")
+	@ResponseBody
+	public List<ScheduleMemoVO> getScheduleMemo(int recordNo) throws Exception {
+		return tourScheduleService.getScheduleMemo(recordNo);
+	}
+	
+	@RequestMapping("/getMyPost")
+	@ResponseBody
+	public List<ScheduleMemoVO> getMyPost(String userUid) throws Exception {
+		return tourScheduleService.getMyPost(userUid);
+	}
 	
 	
 

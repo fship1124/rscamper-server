@@ -59,5 +59,7 @@ public interface TourPlanDAO {
 	/** 여행지 - 디테일 조회 */
 	public TourPlanSpotVO selectSpotDetail(int contentid);
 
-	
+	/** 일정 공개 비공개 */
+	public void updateTourPlanOpen(TourPlanVO tourPlan);
+
 }

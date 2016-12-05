@@ -144,4 +144,10 @@ public class TourPlanServiceImpl implements TourPlanService {
 		return dao.selectSpotDetail(contentid);
 	}
 
+	@Override
+	public int updateTourPlanOpen(TourPlanVO tourPlan) {
+			dao.updateTourPlanOpen(tourPlan);
+			return tourPlan.getIsOpen(); 
+	}
+
 }

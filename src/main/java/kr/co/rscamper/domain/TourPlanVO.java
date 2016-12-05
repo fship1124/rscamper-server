@@ -18,7 +18,6 @@ public class TourPlanVO {
 
 	private Date regDate;
 	private int isOpen;
-	private RecordCoverVO cover;
 	
 	// 카운트(좋아요 북마크 일정복사 댓글수)
 	private int likeCnt;
@@ -132,13 +131,13 @@ public class TourPlanVO {
 		this.isOpen = isOpen;
 	}
 
-	public RecordCoverVO getCover() {
-		return cover;
-	}
-
-	public void setCover(RecordCoverVO cover) {
-		this.cover = cover;
-	}
+//	public RecordCoverVO getCover() {
+//		return cover;
+//	}
+//
+//	public void setCover(RecordCoverVO cover) {
+//		this.cover = cover;
+//	}
 
 	public int getLikeCnt() {
 		return likeCnt;
@@ -202,6 +201,17 @@ public class TourPlanVO {
 
 	public void setTotalPages(int totalPages) {
 		this.totalPages = totalPages;
+	}
+
+	@Override
+	public String toString() {
+		return "TourPlanVO [recordNo=" + recordNo + ", userUid=" + userUid + ", departureDate=" + departureDate
+				+ ", arriveDate=" + arriveDate + ", title=" + title + ", budGet=" + budGet + ", picture=" + picture
+				+ ", period=" + period + ", strapline=" + strapline + ", introduce=" + introduce + ", regDate="
+				+ regDate + ", isOpen=" + isOpen + ",likeCnt=" + likeCnt + ", bookmarkCnt="
+				+ bookmarkCnt + ", customCnt=" + customCnt + ", commentCnt=" + commentCnt + ", displayName="
+				+ displayName + ", photoUrl=" + photoUrl + ", filePath=" + filePath + ", totalPages=" + totalPages
+				+ "]";
 	}
 
 	

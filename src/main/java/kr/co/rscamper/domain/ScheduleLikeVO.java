@@ -30,4 +30,11 @@ public class ScheduleLikeVO {
 	public void setRecordNo(int recordNo) {
 		this.recordNo = recordNo;
 	}
+	@Override
+	public String toString() {
+		return "ScheduleLikeVO [userUid=" + userUid + ", recordNo=" + recordNo + ", targetRecordNo=" + targetRecordNo
+				+ ", afterRecordNo=" + afterRecordNo + "]";
+	}
+	
+	
 }
