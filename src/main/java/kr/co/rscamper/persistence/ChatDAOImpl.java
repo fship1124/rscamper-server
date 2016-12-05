@@ -98,15 +98,15 @@ public class ChatDAOImpl implements ChatDAO {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public List<ChatRoomVO> listByArea(int area) throws Exception {
 		List<ChatRoomVO> list = new ArrayList<>();
 		list = sqlSessionTemplate.selectList(namespace + ".listRoomByArea", area);
 		System.out.println(list.size());
 		return list;
-=======
+	}
+	
+	@Override
 	public void delChatUser(String uid) throws Exception {
 		sqlSessionTemplate.delete(namespace + ".delChatUser", uid);
->>>>>>> master
 	}
 }

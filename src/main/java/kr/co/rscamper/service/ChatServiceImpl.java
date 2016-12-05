@@ -92,13 +92,14 @@ public class ChatServiceImpl implements ChatService {
 
 
 	@Override
-<<<<<<< HEAD
 	public List<ChatRoomVO> listByArea(int area) throws Exception {
 		return dao.listByArea(area);
-=======
+	}
+	
+	
+	@Override
 	public void delChatUser(String uid) throws Exception {
 		dao.delChatUser(uid);
->>>>>>> master
 	}
 
 }
