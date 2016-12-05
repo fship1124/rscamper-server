@@ -121,8 +121,7 @@ public class ChatController {
 		title = URLEncoder.encode(title, "UTF-8");
 		areaName = URLEncoder.encode(areaName, "UTF-8");
 
-		return "redirect:http://192.168.0.173:80/rscamper-web/views/chat/detail.jsp?room=" + areaName + "&location="
-				+ location + "&title=" + title + "&roomNo=" + roomNo;
+		return "redirect:http://192.168.0.173:80/rscamper-web/views/chat/detail.jsp?room=" + areaName + "&location=" + location + "&title=" + title + "&roomNo=" + roomNo;
 
 	};
 	

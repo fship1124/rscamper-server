@@ -1,8 +1,10 @@
 package kr.co.rscamper.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class TourScheduleVO {
+	
 	private int recordNo;
 	private String userUid;
 	private Date departureDate;
