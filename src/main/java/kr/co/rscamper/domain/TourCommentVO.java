@@ -3,6 +3,7 @@ package kr.co.rscamper.domain;
 import java.util.Date;
 
 public class TourCommentVO {
+	private int tourCommentNo;
 	private int contentid;
 	private String content;
 	private Date regDate;
@@ -27,6 +28,14 @@ public class TourCommentVO {
 	private Date birthday;
 	
 	
+	
+	
+	public int getTourCommentNo() {
+		return tourCommentNo;
+	}
+	public void setTourCommentNo(int tourCommentNo) {
+		this.tourCommentNo = tourCommentNo;
+	}
 	public String getLikeStatus() {
 		return likeStatus;
 	}
@@ -156,12 +165,13 @@ public class TourCommentVO {
 	}
 	@Override
 	public String toString() {
-		return "TourCommentVO [contentid=" + contentid + ", content=" + content + ", regDate=" + regDate + ", likeCnt="
-				+ likeCnt + ", commentCnt=" + commentCnt + ", likeStatus=" + likeStatus + ", bookmarkStatus="
-				+ bookmarkStatus + ", userUid=" + userUid + ", displayName=" + displayName + ", photoUrl=" + photoUrl
-				+ ", email=" + email + ", providerUid=" + providerUid + ", providerName=" + providerName
-				+ ", providerDisplayName=" + providerDisplayName + ", providerPhotoUrl=" + providerPhotoUrl
-				+ ", providerEmail=" + providerEmail + ", bgPhotoUrl=" + bgPhotoUrl + ", phoneNumber=" + phoneNumber
-				+ ", websiteUrl=" + websiteUrl + ", introduce=" + introduce + ", birthday=" + birthday + "]";
+		return "TourCommentVO [tourCommentNo=" + tourCommentNo + ", contentid=" + contentid + ", content=" + content
+				+ ", regDate=" + regDate + ", likeCnt=" + likeCnt + ", commentCnt=" + commentCnt + ", likeStatus="
+				+ likeStatus + ", bookmarkStatus=" + bookmarkStatus + ", userUid=" + userUid + ", displayName="
+				+ displayName + ", photoUrl=" + photoUrl + ", email=" + email + ", providerUid=" + providerUid
+				+ ", providerName=" + providerName + ", providerDisplayName=" + providerDisplayName
+				+ ", providerPhotoUrl=" + providerPhotoUrl + ", providerEmail=" + providerEmail + ", bgPhotoUrl="
+				+ bgPhotoUrl + ", phoneNumber=" + phoneNumber + ", websiteUrl=" + websiteUrl + ", introduce="
+				+ introduce + ", birthday=" + birthday + "]";
 	}
 }

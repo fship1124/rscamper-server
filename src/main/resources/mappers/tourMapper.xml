@@ -27,7 +27,7 @@
 
 
 	<select id="commentList" parameterType="int" resultMap="TourCommentVOMap">
-		SELECT CONTENT_ID as  contentid, USER_UID as userUid, CONTENT as content, REG_DATE as regDate
+		SELECT TOUR_COMMENT_NO as tourCommentNo, CONTENT_ID as  contentid, USER_UID as userUid, CONTENT as content, REG_DATE as regDate
 		FROM 
 			tour_comment_tb
 		WHERE CONTENT_ID = #{contentid}
