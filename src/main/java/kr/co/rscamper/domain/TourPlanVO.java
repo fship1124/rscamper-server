@@ -4,38 +4,43 @@ import java.util.Date;
 
 public class TourPlanVO {
 
+	// 기본정보
 	private int recordNo;
 	private String userUid;
 	private Date departureDate;
 	private Date arriveDate;
 	private String title;
-	private int budGet;
+	private int budget;
 	private int picture;
 	private String period;
-	private RecordCoverVO cover;
 	private String strapline;
 	private String introduce;
 	private Date regDate;
 	
+	// 카운트
 	private int likeCnt;
 	private int commentCnt;
 	private int locationCnt;
 	private int postCnt;
-	
-	
+
+
+	// 유저정보
 	private String displayName;
 	
+	// 배경화면 이미지 정보
+	private String filePath;
+	
+	// 페이징
 	private int totalPages;
 	
-	
-	@Override
-	public String toString() {
-		return "TourPlanVO [recordNo=" + recordNo + ", userUid=" + userUid + ", departureDate=" + departureDate
-				+ ", arriveDate=" + arriveDate + ", title=" + title + ", budGet=" + budGet + ", picture=" + picture
-				+ ", period=" + period + ", cover=" + cover + ", strapline=" + strapline + ", introduce=" + introduce
-				+ ", regDate=" + regDate + ", likeCnt=" + likeCnt + ", commentCnt=" + commentCnt + ", locationCnt="
-				+ locationCnt + ", postCnt=" + postCnt + ", displayName=" + displayName + ", totalPages=" + totalPages
-				+ "]";
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 
 
@@ -103,12 +108,6 @@ public class TourPlanVO {
 	public void setIntroduce(String introduce) {
 		this.introduce = introduce;
 	}	
-	public RecordCoverVO getCover() {
-		return cover;
-	}
-	public void setCover(RecordCoverVO cover) {
-		this.cover = cover;
-	}
 	public int getRecordNo() {
 		return recordNo;
 	}
@@ -140,10 +139,10 @@ public class TourPlanVO {
 		this.title = title;
 	}
 	public int getBudGet() {
-		return budGet;
+		return budget;
 	}
-	public void setBudGet(int budGet) {
-		this.budGet = budGet;
+	public void setBudget(int budget) {
+		this.budget = budget;
 	}
 	public int getPicture() {
 		return picture;
@@ -151,4 +150,18 @@ public class TourPlanVO {
 	public void setPicture(int picture) {
 		this.picture = picture;
 	}
+
+
+	@Override
+	public String toString() {
+		return "TourPlanVO [recordNo=" + recordNo + ", userUid=" + userUid + ", departureDate=" + departureDate
+				+ ", arriveDate=" + arriveDate + ", title=" + title + ", budget=" + budget + ", picture=" + picture
+				+ ", period=" + period + ", strapline=" + strapline + ", introduce=" + introduce + ", regDate="
+				+ regDate + ", likeCnt=" + likeCnt + ", commentCnt=" + commentCnt + ", locationCnt=" + locationCnt
+				+ ", postCnt=" + postCnt + ", displayName=" + displayName + ", filePath=" + filePath + ", totalPages="
+				+ totalPages + "]";
+	}
+
+	
+	
 }
