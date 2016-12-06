@@ -2,20 +2,20 @@ package kr.co.rscamper.domain;
 
 import java.util.Date;
 
-public class CommentVO {
-	private Integer commentNo;
-	private Integer targetCommentNo;
-	private Integer boardNo;
-	private String commentContent;
+public class TourCommentVO {
+	private int tourCommentNo;
+	private int contentid;
 	private String content;
-
 	private Date regDate;
+	private int likeCnt;
+	private int commentCnt;
+	private String likeStatus;
+	private String bookmarkStatus;
 	
 	private String userUid;
 	private String displayName;
 	private String photoUrl;
 	private String email;
-	
 	private String providerUid;
 	private String providerName;
 	private String providerDisplayName;
@@ -27,14 +27,56 @@ public class CommentVO {
 	private String introduce;
 	private Date birthday;
 	
-	private int locationNo;
-	private String locationName;
 	
+	
+	
+	public int getTourCommentNo() {
+		return tourCommentNo;
+	}
+	public void setTourCommentNo(int tourCommentNo) {
+		this.tourCommentNo = tourCommentNo;
+	}
+	public String getLikeStatus() {
+		return likeStatus;
+	}
+	public void setLikeStatus(String likeStatus) {
+		this.likeStatus = likeStatus;
+	}
+	public int getContentid() {
+		return contentid;
+	}
+	public void setContentid(int contentid) {
+		this.contentid = contentid;
+	}
 	public String getContent() {
 		return content;
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public Date getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
+	}
+	public int getLikeCnt() {
+		return likeCnt;
+	}
+	public void setLikeCnt(int likeCnt) {
+		this.likeCnt = likeCnt;
+	}
+	public int getCommentCnt() {
+		return commentCnt;
+	}
+	public void setCommentCnt(int commentCnt) {
+		this.commentCnt = commentCnt;
+	}
+	public String getUserUid() {
+		return userUid;
+	}
+	public void setUserUid(String userUid) {
+		this.userUid = userUid;
 	}
 	public String getDisplayName() {
 		return displayName;
@@ -114,68 +156,22 @@ public class CommentVO {
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
-	public int getLocationNo() {
-		return locationNo;
-	}
-	public void setLocationNo(int locationNo) {
-		this.locationNo = locationNo;
-	}
-	public String getLocationName() {
-		return locationName;
-	}
-	public void setLocationName(String locationName) {
-		this.locationName = locationName;
-	}
 	
-	public Integer getCommentNo() {
-		return commentNo;
+	public String getBookmarkStatus() {
+		return bookmarkStatus;
 	}
-	public void setCommentNo(Integer commentNo) {
-		this.commentNo = commentNo;
+	public void setBookmarkStatus(String bookmarkStatus) {
+		this.bookmarkStatus = bookmarkStatus;
 	}
-	public Integer getTargetCommentNo() {
-		return targetCommentNo;
-	}
-	public void setTargetCommentNo(Integer targetCommentNo) {
-		this.targetCommentNo = targetCommentNo;
-	}
-	public Integer getBoardNo() {
-		return boardNo;
-	}
-	public void setBoardNo(Integer boardNo) {
-		this.boardNo = boardNo;
-	}
-	public String getUserUid() {
-		return userUid;
-	}
-	public void setUserUid(String userUid) {
-		this.userUid = userUid;
-	}
-	
-	public String getCommentContent() {
-		return commentContent;
-	}
-	public void setCommentContent(String commentContent) {
-		this.commentContent = commentContent;
-	}
-	public Date getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
-	
-
 	@Override
 	public String toString() {
-		return "CommentVO [commentNo=" + commentNo + ", targetCommentNo=" + targetCommentNo + ", boardNo=" + boardNo
-				+ ", commentContent=" + commentContent + ", content=" + content + ", regDate=" + regDate + ", userUid="
-				+ userUid + ", displayName=" + displayName + ", photoUrl=" + photoUrl + ", email=" + email
-				+ ", providerUid=" + providerUid + ", providerName=" + providerName + ", providerDisplayName="
-				+ providerDisplayName + ", providerPhotoUrl=" + providerPhotoUrl + ", providerEmail=" + providerEmail
-				+ ", bgPhotoUrl=" + bgPhotoUrl + ", phoneNumber=" + phoneNumber + ", websiteUrl=" + websiteUrl
-				+ ", introduce=" + introduce + ", birthday=" + birthday + ", locationNo=" + locationNo
-				+ ", locationName=" + locationName + "]";
+		return "TourCommentVO [tourCommentNo=" + tourCommentNo + ", contentid=" + contentid + ", content=" + content
+				+ ", regDate=" + regDate + ", likeCnt=" + likeCnt + ", commentCnt=" + commentCnt + ", likeStatus="
+				+ likeStatus + ", bookmarkStatus=" + bookmarkStatus + ", userUid=" + userUid + ", displayName="
+				+ displayName + ", photoUrl=" + photoUrl + ", email=" + email + ", providerUid=" + providerUid
+				+ ", providerName=" + providerName + ", providerDisplayName=" + providerDisplayName
+				+ ", providerPhotoUrl=" + providerPhotoUrl + ", providerEmail=" + providerEmail + ", bgPhotoUrl="
+				+ bgPhotoUrl + ", phoneNumber=" + phoneNumber + ", websiteUrl=" + websiteUrl + ", introduce="
+				+ introduce + ", birthday=" + birthday + "]";
 	}
-	
 }

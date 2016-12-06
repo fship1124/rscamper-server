@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.rscamper.domain.TourPlanCommentVO;
 import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
 import kr.co.rscamper.domain.TourPlanScheduleVO;
@@ -96,6 +97,31 @@ public class TourPlanDAOImpl implements TourPlanDAO {
 	@Override
 	public List<TourPlanScheduleVO> selectTourPlanScheduleListByRecordNo(int recordNo) {
 		return sqlSessionTemplate.selectList(namespace + ".selectTourPlanScheduleListByRecordNo", recordNo);
+	}
+
+	@Override
+	public TourPlanSpotVO selectSpotDetail(int contentid) {
+		return sqlSessionTemplate.selectOne(namespace + ".selectSpotDetail", contentid);
+	}
+
+	@Override
+	public void updateTourPlanOpen(TourPlanVO tourPlan) {
+		sqlSessionTemplate.update(namespace + ".updateTourPlanOpen", tourPlan);
+	}
+
+	@Override
+	public void insertTourPlanComment(TourPlanCommentVO tourPlanComment) {
+		sqlSessionTemplate.insert(namespace + ".insertTourPlanComment", tourPlanComment);
+	}
+
+	@Override
+	public List<TourPlanCommentVO> selectTourPlanCommentListByRecordNo(int recordNo) {
+		return sqlSessionTemplate.selectList(namespace + ".selectTourPlanCommentListByRecordNo", recordNo);
+	}
+
+	@Override
+	public void deleteTourPlanCommentByCommentNo(int commentNo) {
+		sqlSessionTemplate.delete(namespace+ ".deleteTourPlanCommentByCommentNo", commentNo);
 	}
 
 

@@ -3,10 +3,12 @@ package kr.co.rscamper.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.rscamper.domain.TourPlanCommentVO;
 import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
 import kr.co.rscamper.domain.TourPlanScheduleVO;
 import kr.co.rscamper.domain.TourPlanSpotParamVO;
+import kr.co.rscamper.domain.TourPlanSpotVO;
 import kr.co.rscamper.domain.TourPlanVO;
 
 public interface TourPlanService {
@@ -38,8 +40,22 @@ public interface TourPlanService {
 	/** 여행일정 - 스케쥴 리스트 삭제 */
 	public void deleteTourPlanScheduleByRecordNo(int recordNo);
 
-	/** 여행일정 - 스케쥴 리스트 가져오기 
-	 * @return */
+	/** 여행일정 - 스케쥴 리스트 가져오기 */
 	public List<TourPlanScheduleVO> selectTourPlanScheduleListByRecordNo(int recordNo);
+
+	/** 장소정보 디테일 가져오기*/
+	public TourPlanSpotVO selectSpotDetail(int contentid);
+
+	/** 공개 비공개 토글 */
+	public int updateTourPlanOpen(TourPlanVO tourPlan);
+
+	/** 댓글 등록 */
+	public void insertTourPlanComment(TourPlanCommentVO tourPlanComment);
+
+	/** 댓글 리스트 조회 */
+	public List<TourPlanCommentVO> selectTourPlanCommentListByRecordNo(int recordNo);
+
+	/** 댓글 삭제 */
+	public void deleteTourPlanCommentByCommentNo(int commentNo);
 
 }

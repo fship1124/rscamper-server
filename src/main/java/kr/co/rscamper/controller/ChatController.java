@@ -29,7 +29,6 @@ public class ChatController {
 	
 	@Inject
 	private ChatService service;
-	
 	@Inject 
 	private UserService userService;
 	
@@ -49,11 +48,37 @@ public class ChatController {
 
 		List<ChatRoomVO> list = new ArrayList<>();
 		list = service.list();
-//		System.out.println(list);
 		
 		CodeVO cVo = new CodeVO();
 		for (ChatRoomVO vo : list) {
-			cVo.setGroupCodeNo("areacode");
+			cVo.setGroupCodeNo("chat_areacode");
+			cVo.setCodeNo(vo.getAreacode());
+			String areaName = service.selectAreaNameBycode(cVo);
+			vo.setAreaName(areaName);
+			
+			List<ChatUserVO> userList = new ArrayList<>();
+			
+			userList = service.selectRoomUserList(vo.getChatRoomInfoNo());
+			vo.setRoomUserCnt(userList.size());
+		}
+		
+		return list;
+	};
+	
+	
+	// 지역별 채팅방 리스트
+	@RequestMapping(value = "/area_room_list", method = RequestMethod.GET)
+	public @ResponseBody List<ChatRoomVO> ajaxAreaRoomList(@RequestParam("area") int area) throws Exception {
+		logger.info("/chat > area_room_list");
+		
+		System.out.println("area : " + area);
+		
+		List<ChatRoomVO> list = new ArrayList<>();
+		list = service.listByArea(area);
+		
+		CodeVO cVo = new CodeVO();
+		for (ChatRoomVO vo : list) {
+			cVo.setGroupCodeNo("chat_areacode");
 			cVo.setCodeNo(vo.getAreacode());
 			String areaName = service.selectAreaNameBycode(cVo);
 			vo.setAreaName(areaName);
@@ -113,7 +138,7 @@ public class ChatController {
 		System.out.println(title);
 
 		CodeVO cVo = new CodeVO();
-		cVo.setGroupCodeNo("areacode");
+		cVo.setGroupCodeNo("chat_areacode");
 		cVo.setCodeNo(location);
 		String areaName = service.selectAreaNameBycode(cVo);
 
@@ -138,7 +163,7 @@ public class ChatController {
 		ChatRoomVO vo = new ChatRoomVO();
 		vo = service.insertRoomInfo(crVo);
 		CodeVO cVo = new CodeVO();
-		cVo.setGroupCodeNo("areacode");
+		cVo.setGroupCodeNo("chat_areacode");
 		cVo.setCodeNo(crVo.getAreacode());
 		String areaName1 = service.selectAreaNameBycode(cVo);
 		vo.setAreaName(areaName1);
@@ -171,5 +196,8 @@ public class ChatController {
 		System.out.println("삭제할 채팅방 번호 : " + roomNo);
 		service.deleteChatRoom(roomNo);
 	}
+	
+	
+	
 }
 

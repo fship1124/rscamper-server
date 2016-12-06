@@ -5,7 +5,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
 
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONObject;
@@ -18,11 +22,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.rscamper.domain.ChatUserVO;
+import kr.co.rscamper.domain.TourCommentVO;
 import kr.co.rscamper.domain.TourVO;
+import kr.co.rscamper.domain.UserVO;
+import kr.co.rscamper.service.TourService;
+import kr.co.rscamper.service.UserService;
 
 @Controller
 @RequestMapping("/tour/*")
 public class TourController {
+
+	@Inject
+	TourService service;
+	@Inject 
+	private UserService userService;
+
+	
 	private static final Logger logger = LoggerFactory.getLogger(TogetherController.class);
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -163,4 +178,88 @@ public class TourController {
 		conn.disconnect();
 		return sb.toString();
 	}
+	
+	
+	@RequestMapping(value = "/comment/insert", method = RequestMethod.POST)
+	public @ResponseBody void commentInsert(TourCommentVO vo) throws Exception {
+		logger.info("/tour > comment > insert");
+		
+		System.out.println(vo.toString());
+		
+		service.commentInsert(vo);
+	}
+	
+	
+	@RequestMapping(value = "/comment/list", method = RequestMethod.GET)
+	public @ResponseBody Map<String, Object> commentList(TourCommentVO vo) throws Exception {
+		logger.info("/tour > comment > list");
+		
+		System.out.println("contentid : " + vo.getContentid());
+		System.out.println("userUid : " + vo.getUserUid());
+		
+		List<TourCommentVO> clist = new ArrayList<>();
+		
+		clist = service.commentList(vo.getContentid());
+		System.out.println(clist.size());
+		
+		
+		for (TourCommentVO tVo : clist) {
+			UserVO uVo = userService.selectUserByUid(vo.getUserUid());
+			tVo.setDisplayName(uVo.getDisplayName());
+			tVo.setPhotoUrl(uVo.getPhotoUrl());
+		}
+		
+		
+		int likeCnt = service.likeCnt(vo.getContentid());
+		System.out.println("likeCnt : " + likeCnt);
+		
+		
+		int bookmarkCnt = service.bookmarkCnt(vo.getContentid());
+		System.out.println("bookmarkCnt : " + bookmarkCnt);
+		
+		
+		String likeStatus = service.likeStatus(vo);
+		System.out.println("likeStatus : " + likeStatus);
+		String bookmarkStatus = service.bookmarkStatus(vo);
+		System.out.println("bookmarkStatus : " + bookmarkStatus);
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("list", clist);
+		map.put("commentCnt", clist.size());
+		map.put("likeCnt", likeCnt);
+		map.put("likeStatus", likeStatus);
+		map.put("bookmarkCnt", bookmarkCnt);
+		map.put("bookmarkStatus", bookmarkStatus);
+		
+		return map;
+	}
+	
+	
+	
+	@RequestMapping(value = "/like", method = RequestMethod.POST)
+	public @ResponseBody void likeInsert(TourCommentVO vo) throws Exception {
+		logger.info("/tour > comment > like");
+	
+		System.out.println(vo.toString());
+		
+		service.likeInsert(vo);
+	}
+	
+	
+	@RequestMapping(value = "/bookmark", method = RequestMethod.POST)
+	public @ResponseBody void bookmarkInsert(TourCommentVO vo) throws Exception {
+		logger.info("/tour > comment > bookmark");
+	
+		System.out.println(vo.toString());
+		
+		service.bookmarkInsert(vo);
+		
+	}
+	
+	
+	
+	
+	
+	
 }
