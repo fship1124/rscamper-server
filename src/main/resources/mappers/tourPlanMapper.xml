@@ -72,6 +72,41 @@
 		<result property="detailArriveDate" column="DETAIL_ARRIVE_DATE"/>
 	</resultMap>
 	
+	<resultMap type="TourPlanCommentVO" id="TourPlanCommentVOMap">
+		<result property="commentNo" column="COMMENT_NO"/>
+		<result property="recordNo" column="RECORD_NO"/>
+		<result property="userUid" column="USER_UID"/>
+		<result property="regDate" column="REG_DATE"/>
+		<result property="displayName" column="DISPLAY_NAME"/>
+		<result property="photoUrl" column="PHOTO_URL"/>
+	</resultMap>
+	
+	
+	<insert id="insertTourPlanComment" parameterType="TourPlanCommentVO">
+		INSERT INTO RECORD_COMMENT_TB (COMMENT_NO, RECORD_NO, USER_UID, CONTENT)
+		VALUES (#{commentNo}, #{recordNo}, #{userUid}, #{content})
+	</insert>
+	
+	<update id="updateTourPlanCommentByRecordNo" parameterType="TourPlanCommentVO">
+		UPDATE RECORD_COMMENT_TB
+		SET CONTENT = #{content}
+		FROM COMMENT_NO = #{commnetNo}
+	</update>
+	
+	<select id="selectTourPlanCommentListByRecordNo" resultMap="TourPlanCommentVOMap" parameterType="int">
+		SELECT RC.*, U.DISPLAY_NAME DISPLAY_NAME, U.PHOTO_URL PHOTO_URL
+		FROM RECORD_COMMENT_TB RC
+		LEFT OUTER JOIN USER_TB U
+        ON RC.USER_UID = U.USER_UID
+		WHERE RECORD_NO = #{recordNo}
+		AND RC.USER_UID = U.USER_UID
+		ORDER BY REG_DATE DESC
+	</select>
+	
+	<delete id="deleteTourPlanCommentByCommentNo" parameterType="int">
+		DELETE FROM RECORD_COMMENT_TB
+		WHERE COMMENT_NO = #{commentNo}
+	</delete>
 	
 	<select id="selectTourPlanList" resultMap="TourPlanVOMap" parameterType="TourPlanParamVO">
 		<![CDATA[

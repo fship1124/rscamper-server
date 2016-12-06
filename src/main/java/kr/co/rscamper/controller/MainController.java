@@ -98,7 +98,7 @@ public class MainController {
 		logger.info("/benefitList > list");
 		
 		BenefitVO bvo = new BenefitVO();
-		return mainService.selectList(benefitno);;
+		return mainService.selectList(benefitno);
 	}
 	
 	

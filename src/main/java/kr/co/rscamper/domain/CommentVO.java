@@ -8,12 +8,7 @@ public class CommentVO {
 	private Integer boardNo;
 	private String commentContent;
 	private String content;
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
-	}
+
 	private Date regDate;
 	
 	private String userUid;
@@ -35,6 +30,12 @@ public class CommentVO {
 	private int locationNo;
 	private String locationName;
 	
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 	public String getDisplayName() {
 		return displayName;
 	}

@@ -22,6 +22,7 @@ import kr.co.rscamper.domain.BoardBookMarkVO;
 import kr.co.rscamper.domain.ScheduleLikeVO;
 import kr.co.rscamper.domain.ScheduleListCommentVO;
 import kr.co.rscamper.domain.ScheduleMemoVO;
+import kr.co.rscamper.domain.TourPlanCommentVO;
 import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
 import kr.co.rscamper.domain.TourPlanScheduleVO;
@@ -46,6 +47,21 @@ public class TourPlanController {
 	
 	@Inject
 	private ServletContext servletContext;
+	
+	@RequestMapping(value = "/insert/tourPlan/comment", method = RequestMethod.POST)
+	public @ResponseBody void insertTourPlanComment(TourPlanCommentVO tourPlanComment) throws Exception {
+		tourPlanService.insertTourPlanComment(tourPlanComment);
+	}
+	
+	@RequestMapping(value = "/delete/tourPlan/comment", method = RequestMethod.GET)
+	public @ResponseBody void deleteTourPlanCommentByCommentNo(int commentNo) throws Exception {
+		tourPlanService.deleteTourPlanCommentByCommentNo(commentNo);
+	}
+	
+	@RequestMapping(value = "/select/tourPlan/commentList", method = RequestMethod.GET)
+	public @ResponseBody List<TourPlanCommentVO> selectTourPlanCommentListByRecordNo(int recordNo) throws Exception {
+		return tourPlanService.selectTourPlanCommentListByRecordNo(recordNo);
+	}
 
 	@RequestMapping(value = "/select/tourPlanList", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> selectTourPlanList(TourPlanParamVO tourPlanParam) throws Exception {

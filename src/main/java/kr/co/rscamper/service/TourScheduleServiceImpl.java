@@ -121,7 +121,7 @@ public class TourScheduleServiceImpl implements TourScheduleService {
 		List<TourPlanVO> tourList = dao.allScheduleList(pageMap);
 		for (TourPlanVO ts : tourList) {
 			if (ts.getPicture() == 1) {
-				ts.setCover(dao.getCover(ts.getRecordNo()));
+//				ts.setCover(dao.getCover(ts.getRecordNo()));
 			}
 		}
 		Map<String, Object> boardMap = new HashMap<>();
@@ -232,7 +232,7 @@ public class TourScheduleServiceImpl implements TourScheduleService {
 	public TourPlanVO scheduleListDetail(int no) throws Exception {
 		TourPlanVO tv = dao.scheduleListDetail(no);
 		if (tv.getPicture() == 1) {
-			tv.setCover(dao.getCover(no));
+//			tv.setCover(dao.getCover(no));
 		}
 		return tv;
 	}

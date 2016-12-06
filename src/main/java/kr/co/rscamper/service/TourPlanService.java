@@ -3,6 +3,7 @@ package kr.co.rscamper.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.rscamper.domain.TourPlanCommentVO;
 import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
 import kr.co.rscamper.domain.TourPlanScheduleVO;
@@ -47,5 +48,14 @@ public interface TourPlanService {
 
 	/** 공개 비공개 토글 */
 	public int updateTourPlanOpen(TourPlanVO tourPlan);
+
+	/** 댓글 등록 */
+	public void insertTourPlanComment(TourPlanCommentVO tourPlanComment);
+
+	/** 댓글 리스트 조회 */
+	public List<TourPlanCommentVO> selectTourPlanCommentListByRecordNo(int recordNo);
+
+	/** 댓글 삭제 */
+	public void deleteTourPlanCommentByCommentNo(int commentNo);
 
 }
