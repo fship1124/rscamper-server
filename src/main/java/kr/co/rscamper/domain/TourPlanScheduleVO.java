@@ -14,12 +14,24 @@ public class TourPlanScheduleVO {
 	private String mapX;
 	private String mapY;
 	
-	@Override
-	public String toString() {
-		return "TourPlanScheduleVO [locationNo=" + locationNo + ", recordNo=" + recordNo + ", title=" + title
-				+ ", contentCode=" + contentCode + ", imageUrl=" + imageUrl + ", detailDepartureDate="
-				+ detailDepartureDate + ", detailArriveDate=" + detailArriveDate + ", departureDate=" + departureDate
-				+ ", contentTypeId=" + contentTypeId + ", mapX=" + mapX + ", mapY=" + mapY + "]";
+	// 상세 - 공통정보
+	private String overview;
+	private String homepage;
+	private String addr1;
+	private String tel;
+	
+	
+	public String getAddr1() {
+		return addr1;
+	}
+	public void setAddr1(String addr1) {
+		this.addr1 = addr1;
+	}
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 	public int getLocationNo() {
 		return locationNo;
@@ -87,6 +99,17 @@ public class TourPlanScheduleVO {
 	public void setMapY(String mapY) {
 		this.mapY = mapY;
 	}
-	
+	public String getOverview() {
+		return overview;
+	}
+	public void setOverview(String overview) {
+		this.overview = overview;
+	}
+	public String getHomepage() {
+		return homepage;
+	}
+	public void setHomepage(String homepage) {
+		this.homepage = homepage;
+	}
 	
 }
