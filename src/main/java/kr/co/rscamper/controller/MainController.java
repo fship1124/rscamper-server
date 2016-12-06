@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.rscamper.domain.BenefitVO;
 import kr.co.rscamper.domain.MainVO;
 import kr.co.rscamper.domain.UserVO;
-import kr.co.rscamper.service.BenefitService;
 import kr.co.rscamper.service.MainService;
 import kr.co.rscamper.service.UserService;
 
@@ -94,11 +93,12 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="benefitList", method = RequestMethod.GET)
-	public @ResponseBody List<BenefitVO> list(@RequestParam("benefitno") int benefitno)throws Exception {
+	public @ResponseBody List<BenefitVO> list()throws Exception {
 		logger.info("/benefitList > list");
 		
-		BenefitVO bvo = new BenefitVO();
-		return mainService.selectList(benefitno);;
+		List<BenefitVO> list = new ArrayList<>();
+		list = mainService.list();
+		return list;
 	}
 	
 	

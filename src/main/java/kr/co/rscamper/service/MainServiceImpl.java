@@ -28,9 +28,10 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public List<BenefitVO> selectList(int benefitno) throws Exception {
-		return dao.selectList(benefitno);
+	public List<BenefitVO> list() throws Exception {
+		return dao.list();
 	}
+
 
 
 }

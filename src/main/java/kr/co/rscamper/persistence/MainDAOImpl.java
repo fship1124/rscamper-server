@@ -20,6 +20,8 @@ public class MainDAOImpl implements MainDAO {
 	
 	private static final String namespace = "kr.co.rscamper.MainMapper";
 	
+	private static final String Bnamespace = "kr.co.rscamper.BenefitMapper";
+	
 	@Override
 	public void insertMainComment(MainVO vo) {
 		sqlSessionTemplate.insert(namespace + ".insertMainComment", vo);
@@ -35,8 +37,8 @@ public class MainDAOImpl implements MainDAO {
 	}
 
 	@Override
-	public List<BenefitVO> selectList(int benefitno) throws Exception {
-		return sqlSessionTemplate.selectList(namespace + "selectBenefit", benefitno);
+	public List<BenefitVO> list() throws Exception {
+		return sqlSessionTemplate.selectList(Bnamespace +".selectBenefit");
 	}
 
 }

@@ -10,5 +10,5 @@ public interface MainDAO {
 	
 	public void insertMainComment(MainVO vo);
 	public List<MainVO> selectMainComment();
-	public List<BenefitVO> selectList(int benefitno)throws Exception;
+	public List<BenefitVO> list()throws Exception;
 }

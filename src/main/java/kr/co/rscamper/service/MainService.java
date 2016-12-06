@@ -9,5 +9,5 @@ import kr.co.rscamper.domain.UserVO;
 public interface MainService {
 	public void insertMainComment(MainVO vo) throws Exception;
 	public List<MainVO> selectMainComment() throws Exception;
-	public List<BenefitVO> selectList(int benefitno)throws Exception;
+	public List<BenefitVO> list()throws Exception;
 }
