@@ -33,4 +33,6 @@ public interface ChatDAO {
 	
 	public void delChatUser(String uid) throws Exception;
 
+	public List<ChatRoomVO> listByArea(int area) throws Exception;
+
 }

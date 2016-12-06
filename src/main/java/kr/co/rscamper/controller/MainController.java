@@ -96,9 +96,14 @@ public class MainController {
 	public @ResponseBody List<BenefitVO> list()throws Exception {
 		logger.info("/benefitList > list");
 		
+<<<<<<< HEAD
 		List<BenefitVO> list = new ArrayList<>();
 		list = mainService.list();
 		return list;
+=======
+		BenefitVO bvo = new BenefitVO();
+		return mainService.selectList(benefitno);
+>>>>>>> master
 	}
 	
 	

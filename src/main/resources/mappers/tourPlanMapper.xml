@@ -11,12 +11,17 @@
 		<result property="departureDate" column="DEPARTURE_DATE"/>
 		<result property="arriveDate" column="ARRIVE_DATE"/>
 		<result property="title" column="TITLE"/>
-		<result property="budget" column="BUDGET"/>
+		<result property="budGet" column="BUDGET"/>
 		<result property="picture" column="PICTURE"/>
 		<result property="period" column="PERIOD" />
 		<result property="strapline" column="STRAPLINE"/>
 		<result property="introduce" column="INTRODUCE"/>
 		<result property="regDate" column="REG_DATE"/>
+		
+		<result property="likeCnt" column="LIKE_CNT"/>
+		<result property="bookmarkCnt" column="BOOKMARK_CNT"/>
+		<result property="customCnt" column="CUSTOM_CNT"/>
+		<result property="commentCnt" column="COMMENT_CNT"/>
 		
 		<result property="displayName" column="DISPLAY_NAME"/>
 		
@@ -67,13 +72,49 @@
 		<result property="detailArriveDate" column="DETAIL_ARRIVE_DATE"/>
 	</resultMap>
 	
+	<resultMap type="TourPlanCommentVO" id="TourPlanCommentVOMap">
+		<result property="commentNo" column="COMMENT_NO"/>
+		<result property="recordNo" column="RECORD_NO"/>
+		<result property="userUid" column="USER_UID"/>
+		<result property="regDate" column="REG_DATE"/>
+		<result property="displayName" column="DISPLAY_NAME"/>
+		<result property="photoUrl" column="PHOTO_URL"/>
+	</resultMap>
+	
+	
+	<insert id="insertTourPlanComment" parameterType="TourPlanCommentVO">
+		INSERT INTO RECORD_COMMENT_TB (COMMENT_NO, RECORD_NO, USER_UID, CONTENT)
+		VALUES (#{commentNo}, #{recordNo}, #{userUid}, #{content})
+	</insert>
+	
+	<update id="updateTourPlanCommentByRecordNo" parameterType="TourPlanCommentVO">
+		UPDATE RECORD_COMMENT_TB
+		SET CONTENT = #{content}
+		FROM COMMENT_NO = #{commnetNo}
+	</update>
+	
+	<select id="selectTourPlanCommentListByRecordNo" resultMap="TourPlanCommentVOMap" parameterType="int">
+		SELECT RC.*, U.DISPLAY_NAME DISPLAY_NAME, U.PHOTO_URL PHOTO_URL
+		FROM RECORD_COMMENT_TB RC
+		LEFT OUTER JOIN USER_TB U
+        ON RC.USER_UID = U.USER_UID
+		WHERE RECORD_NO = #{recordNo}
+		AND RC.USER_UID = U.USER_UID
+		ORDER BY REG_DATE DESC
+	</select>
+	
+	<delete id="deleteTourPlanCommentByCommentNo" parameterType="int">
+		DELETE FROM RECORD_COMMENT_TB
+		WHERE COMMENT_NO = #{commentNo}
+	</delete>
 	
 	<select id="selectTourPlanList" resultMap="TourPlanVOMap" parameterType="TourPlanParamVO">
-<!-- 			(SELECT COUNT(*) ) LIKE_CNT,  -->
-<!-- 			(SELECT COUNT(*) ) COMMENT_CNT,  -->
-<!-- 			(SELECT COUNT(*) ) LOCATION_CNT -->
 		<![CDATA[
-			SELECT R.*, C.FILE_PATH FILE_PATH, U.DISPLAY_NAME DISPLAY_NAME
+			SELECT R.*, C.FILE_PATH FILE_PATH, U.DISPLAY_NAME DISPLAY_NAME,
+				(SELECT COUNT(*) FROM RECORD_LIKE_TB RLT WHERE R.RECORD_NO=RLT.RECORD_NO) LIKE_CNT,
+				(SELECT COUNT(*) FROM BOARD_BOOKMARK_TB BBT WHERE R.RECORD_NO=BBT.TARGET_NO AND BBT.TARGET_TYPE LIKE '3') BOOKMARK_CNT,
+				(SELECT COUNT(*) FROM RECORD_CUSTOMIZING_TB RCMT WHERE R.RECORD_NO=RCMT.TARGET_RECORD_NO) CUSTOM_CNT,
+				(SELECT COUNT(*) FROM RECORD_COMMENT_TB RCT WHERE R.RECORD_NO=RCT.RECORD_NO) COMMENT_CNT
 			FROM RECORD_TB R
 			LEFT OUTER JOIN RECORD_COVER_TB C
  			ON R.RECORD_NO = C.RECORD_NO
@@ -83,14 +124,19 @@
 			AND (DATEDIFF(ARRIVE_DATE, DEPARTURE_DATE) + 1) BETWEEN #{minTripDays} AND #{maxTripDays}
 			AND (R.TITLE LIKE '%${word}%' OR R.INTRODUCE LIKE '%${word}%' OR R.STRAPLINE LIKE '%${word}%') 
 			AND DATE(R.REG_DATE) >= #{datePeriodDate}
-			ORDER BY R.${standard} ${order}
+			AND ISOPEN = 1
+			ORDER BY ${standard} ${order}
 			LIMIT #{startRow}, #{amount}
 		]]>
 	</select>
 	
 	<select id="selectTourPlan" resultMap="TourPlanVOMap" parameterType="int">
 		<![CDATA[
-			SELECT R.*, C.FILE_PATH FILE_PATH, U.DISPLAY_NAME DISPLAY_NAME
+			SELECT R.*, C.FILE_PATH FILE_PATH, U.DISPLAY_NAME DISPLAY_NAME,
+				(SELECT COUNT(*) FROM RECORD_LIKE_TB RLT WHERE R.RECORD_NO=RLT.RECORD_NO) LIKE_CNT,
+				(SELECT COUNT(*) FROM BOARD_BOOKMARK_TB BBT WHERE R.RECORD_NO=BBT.TARGET_NO AND BBT.TARGET_TYPE LIKE '3') BOOKMARK_CNT,
+				(SELECT COUNT(*) FROM RECORD_CUSTOMIZING_TB RCMT WHERE R.RECORD_NO=RCMT.RECORD_NO) CUSTOM_CNT,
+				(SELECT COUNT(*) FROM RECORD_COMMENT_TB RCT WHERE R.RECORD_NO=RCT.RECORD_NO) COMMENT_CNT
 			FROM RECORD_TB R
 			LEFT OUTER JOIN RECORD_COVER_TB C
  			ON R.RECORD_NO = C.RECORD_NO
@@ -157,6 +203,15 @@
 		</if>
 			LIMIT #{startRow}, #{amount}
 	</select>
+	
+	<select id="selectSpotDetail" parameterType="int" resultMap="TourPlanSpotVOMap">
+			SELECT L.*, DC.homepage, DC.overview, C.CODE_NAME as areaname
+			FROM PUBLIC_DATA_LIST_TB L, PUBLIC_DATA_DETAIL_COMMON_TB DC, PUBLIC_CODE_TB C
+			WHERE L.contentid like #{contentid}
+			AND L.contentid = DC.contentid
+			AND L.areacode = c.CODE_NO
+			AND c.GROUP_CODE_NO LIKE 'areacode'
+	</select>
 			
 	
 	<!-- 커버 이미지 파일 조회 -->
@@ -221,9 +276,18 @@
 	
 	<!-- 일정 스케쥴 리스트 조회 -->
 	<select id="selectTourPlanScheduleListByRecordNo" resultMap="TourPlanScheduleVOMap" parameterType="int">
-		SELECT *
-		FROM RECORD_LOCATION_TB
+		SELECT R.*, DC.homepage, DC.overview, DC.tel, DC.addr1
+		FROM RECORD_LOCATION_TB R
+		LEFT OUTER JOIN PUBLIC_DATA_DETAIL_COMMON_TB DC
+ 		ON R.CONTENT_CODE = DC.contentid
 		WHERE RECORD_NO = #{recordNo}
 	</select>
+	
+	<!-- 공개 비공개 설정 -->
+	<update id="updateTourPlanOpen" parameterType="TourPlanVO">
+		UPDATE RECORD_TB
+		SET ISOPEN = #{isOpen}
+		WHERE RECORD_NO = #{recordNo}
+	</update>
 	
 </mapper>

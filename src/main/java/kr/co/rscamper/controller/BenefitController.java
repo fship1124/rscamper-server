@@ -20,6 +20,7 @@ import kr.co.rscamper.domain.PageMaker;
 import kr.co.rscamper.domain.PageVO;
 import kr.co.rscamper.domain.TogetherVO;
 import kr.co.rscamper.service.BenefitService;
+import kr.co.rscamper.service.UserService;
 
 @Controller
 @RequestMapping("/benefit/*")
@@ -28,6 +29,7 @@ public class BenefitController {
 
 	@Inject
 	private BenefitService service;
+
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String benefit() {

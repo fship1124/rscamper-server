@@ -14,6 +14,13 @@
 		<result column="LIKE_CNT" property="likeCnt"/>
 		<result column="TARGET_TYPE" property="targetType"/>
 	</resultMap>
+	
+	<resultMap type="AppMainCommentVO" id="AppMainCommentMap">
+		<result column="NO" property="no"/>
+		<result column="TITLE" property="title"/>
+		<result column="REG_DATE" property="regDate"/>
+		<result column="TARGET_TYPE" property="targetType"/>
+	</resultMap>
 
 	<select id="selectMainList" parameterType="hashMap" resultMap="AppMainMap">
 		(SELECT B.BOARD_NO AS NO, B.REG_DATE, B.USER_UID, TITLE, B.BOARD_NO AS PICTURE, U.DISPLAY_NAME, 
@@ -70,5 +77,16 @@
 		 ORDER BY LIKE_CNT DESC, REG_DATE DESC
 		 LIMIT #{page}, #{count}
 	</select>
-
+	
+	<select id="selectMainCommentList" parameterType="string" resultMap="AppMainCommentMap">
+		(SELECT R.RECORD_NO AS NO, R.TITLE, RC.REG_DATE, R.TARGET_TYPE
+		 FROM RECORD_TB R, RECORD_COMMENT_TB RC
+		 WHERE R.USER_UID = #{userUid} AND R.RECORD_NO = RC.RECORD_NO)
+		UNION
+		(SELECT B.BOARD_NO AS NO, B.TITLE, BC.REG_DATE, (SELECT DISTINCT COALESCE(TARGET_TYPE, 1) FROM BOARD_TB B LEFT JOIN BOARD_LIKE_TB BL ON BL.TARGET_NO = B.BOARD_NO) TARGET_TYPE
+		 FROM BOARD_TB B, BOARD_COMMENT_TB BC
+		 WHERE B.USER_UID = #{userUid} AND B.BOARD_NO = BC.BOARD_NO)
+		ORDER BY REG_DATE DESC
+	</select>
+	
 </mapper>

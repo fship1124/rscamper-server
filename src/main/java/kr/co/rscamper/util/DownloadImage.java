@@ -24,7 +24,7 @@ public class DownloadImage extends HttpServlet {
 		ServletContext context = request.getServletContext();
 		String uploadPath = context.getRealPath("");
 		
-		String defaultPath = "upload/images/default/default-user-bg.jpg";			
+		String defaultPath = "upload/images/default/default-user-bg.png";			
 		
 		File f = new File(uploadPath + path);
 		if (!f.exists() || f.isDirectory()) {

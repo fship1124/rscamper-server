@@ -13,6 +13,11 @@ public class NoteVO {
 	private String recvRead;
 	private String recvDel;
 	private String sentRead;
+	
+	private String displayName;
+	private String photoUrl;
+	
+	
 	public int getNotesNo() {
 		return notesNo;
 	}
@@ -73,10 +78,23 @@ public class NoteVO {
 	public void setSentRead(String sentRead) {
 		this.sentRead = sentRead;
 	}
+	public String getDisplayName() {
+		return displayName;
+	}
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
 	@Override
 	public String toString() {
 		return "NoteVO [notesNo=" + notesNo + ", recvUserUid=" + recvUserUid + ", sentUserUid=" + sentUserUid
 				+ ", title=" + title + ", content=" + content + ", dateSent=" + dateSent + ", dateRead=" + dateRead
-				+ ", recvRead=" + recvRead + ", recvDel=" + recvDel + ", sentRead=" + sentRead + "]";
-	} 
+				+ ", recvRead=" + recvRead + ", recvDel=" + recvDel + ", sentRead=" + sentRead + ", displayName="
+				+ displayName + ", photoUrl=" + photoUrl + "]";
+	}
 }

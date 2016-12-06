@@ -18,16 +18,12 @@ public class TourPlanVO {
 
 	private Date regDate;
 	private int isOpen;
-	private RecordCoverVO cover;
 	
-
-
-	// 카운트
+	// 카운트(좋아요 북마크 일정복사 댓글수)
 	private int likeCnt;
+	private int bookmarkCnt;
+	private int customCnt;
 	private int commentCnt;
-	private int locationCnt;
-	private int postCnt;
-
 
 	// 유저정보
 	private String displayName;
@@ -135,13 +131,13 @@ public class TourPlanVO {
 		this.isOpen = isOpen;
 	}
 
-	public RecordCoverVO getCover() {
-		return cover;
-	}
-
-	public void setCover(RecordCoverVO cover) {
-		this.cover = cover;
-	}
+//	public RecordCoverVO getCover() {
+//		return cover;
+//	}
+//
+//	public void setCover(RecordCoverVO cover) {
+//		this.cover = cover;
+//	}
 
 	public int getLikeCnt() {
 		return likeCnt;
@@ -151,28 +147,28 @@ public class TourPlanVO {
 		this.likeCnt = likeCnt;
 	}
 
+	public int getBookmarkCnt() {
+		return bookmarkCnt;
+	}
+
+	public void setBookmarkCnt(int bookmarkCnt) {
+		this.bookmarkCnt = bookmarkCnt;
+	}
+
+	public int getCustomCnt() {
+		return customCnt;
+	}
+
+	public void setCustomCnt(int customCnt) {
+		this.customCnt = customCnt;
+	}
+
 	public int getCommentCnt() {
 		return commentCnt;
 	}
 
 	public void setCommentCnt(int commentCnt) {
 		this.commentCnt = commentCnt;
-	}
-
-	public int getLocationCnt() {
-		return locationCnt;
-	}
-
-	public void setLocationCnt(int locationCnt) {
-		this.locationCnt = locationCnt;
-	}
-
-	public int getPostCnt() {
-		return postCnt;
-	}
-
-	public void setPostCnt(int postCnt) {
-		this.postCnt = postCnt;
 	}
 
 	public String getDisplayName() {
@@ -206,6 +202,18 @@ public class TourPlanVO {
 	public void setTotalPages(int totalPages) {
 		this.totalPages = totalPages;
 	}
+
+	@Override
+	public String toString() {
+		return "TourPlanVO [recordNo=" + recordNo + ", userUid=" + userUid + ", departureDate=" + departureDate
+				+ ", arriveDate=" + arriveDate + ", title=" + title + ", budGet=" + budGet + ", picture=" + picture
+				+ ", period=" + period + ", strapline=" + strapline + ", introduce=" + introduce + ", regDate="
+				+ regDate + ", isOpen=" + isOpen + ",likeCnt=" + likeCnt + ", bookmarkCnt="
+				+ bookmarkCnt + ", customCnt=" + customCnt + ", commentCnt=" + commentCnt + ", displayName="
+				+ displayName + ", photoUrl=" + photoUrl + ", filePath=" + filePath + ", totalPages=" + totalPages
+				+ "]";
+	}
+
 	
 	
 }
