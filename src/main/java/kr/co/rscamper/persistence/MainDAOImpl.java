@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.rscamper.domain.BenefitVO;
 import kr.co.rscamper.domain.MainVO;
+import kr.co.rscamper.domain.SubwayVO;
 import kr.co.rscamper.domain.TourPlanSpotVO;
 import kr.co.rscamper.domain.TrainVO;
 
@@ -27,6 +28,8 @@ public class MainDAOImpl implements MainDAO {
 	private static final String Tnamespace = "kr.co.rscamper.TourPlanMapper";
 	
 	private static final String Trnamespace = "kr.co.rscamper.TrainMapper";
+	
+	private static final String TTnamespace = "kr.co.rscamper.SubwayMapper";
 	
 	@Override
 	public void insertMainComment(MainVO vo) {
@@ -55,6 +58,11 @@ public class MainDAOImpl implements MainDAO {
 	@Override
 	public List<TrainVO> maintrainList() throws Exception {
 		return sqlSessionTemplate.selectList(Trnamespace + ".trainselectList");
+	}
+
+	@Override
+	public void mainTimeList(SubwayVO sub) throws Exception {
+		sqlSessionTemplate.selectList(TTnamespace + ".mainTimeList", sub);
 	}
 
 }
