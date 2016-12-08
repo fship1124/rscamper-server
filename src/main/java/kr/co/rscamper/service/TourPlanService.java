@@ -58,4 +58,19 @@ public interface TourPlanService {
 	/** 댓글 삭제 */
 	public void deleteTourPlanCommentByCommentNo(int commentNo);
 
+	/** 일정 삭제 */
+	public void deleteTourPlanByRecordNo(int recordNo);
+
+	/** 일정 리스트 추천수순 15개 조회 */
+	public List<TourPlanVO> selectTourPlanListByLikeCnt();
+
+	/** 내 여행일정 리스트 가져오기 */
+	public List<TourPlanVO> selectMyTourPlanList(String userUid);
+
+	/** 북마크한 여행일정 리스트 가져오기 */
+	public List<TourPlanVO> selectBookmarkTourPlanList(String userUid);
+
+	/** 북마크한 여행장소 리스트 가져오기 */
+	public Map<String, Object> selectBookmarkSpotList(TourPlanSpotParamVO tourPlanSpotParam);
+
 }

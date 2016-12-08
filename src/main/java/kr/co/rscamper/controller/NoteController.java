@@ -30,9 +30,6 @@ public class NoteController {
 		
 		List<NoteVO> list = new ArrayList<>();
 		
-		
-		
-		
 		return list;
 	}
 }

@@ -77,6 +77,19 @@ public class TourPlanServiceImpl implements TourPlanService {
 		tourSpotMap.put("totalPages", totalPages);
 		return tourSpotMap;
 	}
+	
+	@Override
+	public Map<String, Object> selectBookmarkSpotList(TourPlanSpotParamVO tourPlanSpotParam) {
+		tourPlanSpotParam.setStartRow((tourPlanSpotParam.getPageNo() - 1) * tourPlanSpotParam.getAmount());
+
+		int totalPages = (int) Math.ceil((double) dao.selectBookmarkSpotTotalPages(tourPlanSpotParam) / (double) tourPlanSpotParam.getAmount());
+		List<TourPlanSpotVO> tourSpotList = dao.selectBookmarkSpotList(tourPlanSpotParam);
+
+		Map<String, Object> tourSpotMap = new HashMap<>();
+		tourSpotMap.put("tourSpotList", tourSpotList);
+		tourSpotMap.put("totalPages", totalPages);
+		return tourSpotMap;
+	}
 
 	@Override
 	public TourPlanVO selectTourPlan(int recordNo) {
@@ -160,5 +173,28 @@ public class TourPlanServiceImpl implements TourPlanService {
 	public void deleteTourPlanCommentByCommentNo(int commentNo) {
 		dao.deleteTourPlanCommentByCommentNo(commentNo);
 	}
+
+	@Override
+	public void deleteTourPlanByRecordNo(int recordNo) {
+		// TODO 일정에 관련된 모든거 삭제
+		dao.deleteTourPlanByRecordNo(recordNo);
+	}
+
+	@Override
+	public List<TourPlanVO> selectTourPlanListByLikeCnt() {
+		return dao.selectTourPlanListByLikeCnt();
+	}
+
+	@Override
+	public List<TourPlanVO> selectMyTourPlanList(String userUid) {
+		return dao.selectMyTourPlanList(userUid);
+	}
+
+	@Override
+	public List<TourPlanVO> selectBookmarkTourPlanList(String userUid) {
+		return dao.selectBookmarkTourPlanList(userUid);
+	}
+
+
 
 }

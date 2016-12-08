@@ -59,6 +59,46 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		return boardMap;
 	}
+	
+	@Override
+	public Map<String, Object> selectCommunityListByUserUid(int page, int count, String userUid) {
+		page = (page - 1) * count;
+		
+		int totalPages = (int) Math.ceil((double) dao.selectCommunityTotalPagesByUserUid(userUid) / (double) count);
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+		pageMap.put("page", page);
+		pageMap.put("count", count);
+		pageMap.put("userUid", userUid);
+		List<CommunityVO> boardList = dao.selectCommunityListByUserUid(pageMap);
+
+		Map<String, Object> boardMap = new HashMap<>();
+		boardMap.put("boardList", boardList);
+		boardMap.put("totalPages", totalPages);
+		boardMap.put("count", count);
+		boardMap.put("page", page);
+		
+		return boardMap;
+	}
+	
+	@Override
+	public Map<String, Object> selectBookmarkCommunityListByUserUid(int page, int count, String userUid) {
+		page = (page - 1) * count;
+		
+		int totalPages = (int) Math.ceil((double) dao.selectBookmarkCommunityTotalPagesByUserUid(userUid) / (double) count);
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+		pageMap.put("page", page);
+		pageMap.put("count", count);
+		pageMap.put("userUid", userUid);
+		List<CommunityVO> boardList = dao.selectBookmarkCommunityListByUserUid(pageMap);
+
+		Map<String, Object> boardMap = new HashMap<>();
+		boardMap.put("boardList", boardList);
+		boardMap.put("totalPages", totalPages);
+		boardMap.put("count", count);
+		boardMap.put("page", page);
+		
+		return boardMap;
+	}
 
 	@Override
 	public List<CommunityVO> selectCategoryList() {
@@ -149,4 +189,7 @@ public class CommunityServiceImpl implements CommunityService {
 			return true;
 		}
 	}
+
+
+
 }

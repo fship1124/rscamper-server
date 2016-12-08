@@ -24,6 +24,13 @@ public interface CommunityService {
 	 * @return Map(boardList(게시글 리스트),  totalPages(총 페이지수))
 	 */ 
 	public Map<String, Object> selectCommunityListByCategoryNo(int page, int count, int categoryNo);
+	
+	/** 커뮤니티 게시글 리스트(유저-북마크별로)*/
+	public Map<String, Object> selectBookmarkCommunityListByUserUid(int page, int count, String userUid);
+
+	/** 커뮤니티 게시글 리스트(유저별로) */
+	public Map<String, Object> selectCommunityListByUserUid(int page, int count, String userUid);
+
 
 	/** 커뮤니티 게시글 하나 정보 가져오기 */
 	public CommunityVO selectCommunity(int boardNo);
@@ -65,5 +72,7 @@ public interface CommunityService {
 
 	/** 북마크 여부 조회 */
 	public boolean selectBookMarkStatus(BoardBookMarkVO boardBookMark);
+
+
 	
 }
