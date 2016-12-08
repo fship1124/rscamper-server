@@ -68,9 +68,29 @@ public class TourPlanController {
 		return tourPlanService.selectTourPlanList(tourPlanParam);
 	}
 	
+	@RequestMapping(value = "/select/tourPlanList/likeCnt", method = RequestMethod.GET)
+	public @ResponseBody List<TourPlanVO> selectTourPlanListByLikeCnt() throws Exception {
+		return tourPlanService.selectTourPlanListByLikeCnt();
+	}
+	
+	@RequestMapping(value = "/select/myTourPlanList", method = RequestMethod.GET)
+	public @ResponseBody List<TourPlanVO> selectMyTourPlanList(String userUid) throws Exception {
+		return tourPlanService.selectMyTourPlanList(userUid);
+	}
+	
+	@RequestMapping(value = "/select/bookmarkTourPlanList", method = RequestMethod.GET)
+	public @ResponseBody List<TourPlanVO> selectBookmarkTourPlanList(String userUid) throws Exception {
+		return tourPlanService.selectBookmarkTourPlanList(userUid);
+	}
+	
 	@RequestMapping(value = "/insert/tourPlan", method = RequestMethod.POST)
 	public @ResponseBody int insertTourPlan(TourPlanVO tourPlan) throws Exception {
 		return tourPlanService.insertTourPlan(tourPlan);
+	}
+	
+	@RequestMapping(value = "/delete/tourPlan", method = RequestMethod.GET)
+	public @ResponseBody void deleteTourPlanByRecordNo(int recordNo) throws Exception {
+		tourPlanService.deleteTourPlanByRecordNo(recordNo);
 	}
 	
 	@RequestMapping(value = "/update/tourPlan", method = RequestMethod.POST)
@@ -97,6 +117,12 @@ public class TourPlanController {
 	@RequestMapping(value = "/select/spotList", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> selectSpotList(TourPlanSpotParamVO tourPlanSpotParam) throws Exception {
 		return tourPlanService.selectSpotList(tourPlanSpotParam);
+	}
+	
+	@RequestMapping(value = "/select/spotList/bookmark", method = RequestMethod.GET)
+	public @ResponseBody Map<String, Object> selectBookmarkSpotList(TourPlanSpotParamVO tourPlanSpotParam) throws Exception {
+		System.out.println(tourPlanSpotParam.toString());
+		return tourPlanService.selectBookmarkSpotList(tourPlanSpotParam);
 	}
 	
 	@RequestMapping(value = "/select/spotDetail", method = RequestMethod.GET)
@@ -172,7 +198,8 @@ public class TourPlanController {
 			}
 		}
 		
-		String filePath = "http://14.32.66.104:8081" + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
+//		String filePath = "http://14.32.66.104:8081" + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
+		String filePath = "http://192.168.0.9:8081" + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
 		
 		tourPlanCover.setOriName(oriFileName);
 		tourPlanCover.setFileName(saveFileName);
@@ -226,7 +253,6 @@ public class TourPlanController {
 		System.out.println(bbv.toString());
 		return tourScheduleService.cancelScheduleBookMark(bbv);
 	}
-	
 	
 	@RequestMapping("/checkScheduleSet")
 	@ResponseBody

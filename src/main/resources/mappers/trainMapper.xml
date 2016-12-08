@@ -25,6 +25,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	from
 			train_tb
 </select>
+
+<!-- 메인 전체 조회 -->
+<select id="trainselectList" resultMap="trainMap" parameterType="string">
+	select *
+	
+	from train_tb
+
+</select>
  
 <select id="searchList" parameterType="java.util.List" resultType="TrainVO">
 select station_title as stationTitle, train_saemaeul as trainSaemaeul, train_mugunghwa as trainMugunghwa, train_tonggeun as trainTonggeun,

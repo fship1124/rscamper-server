@@ -29,6 +29,16 @@ public class CommunityController {
 		return communityService.selectCommunityList(page, 10);
 	}
 	
+	@RequestMapping(value = "/select/board/user", method = RequestMethod.GET)
+	public @ResponseBody Map<String, Object> selectCommunityListByUserUid(int page, String userUid) throws Exception {
+		return communityService.selectCommunityListByUserUid(page, 10, userUid);
+	}
+	
+	@RequestMapping(value = "/select/board/bookmark", method = RequestMethod.GET)
+	public @ResponseBody Map<String, Object> selectBookmarkCommunityListByUserUid(int page, String userUid) throws Exception {
+		return communityService.selectBookmarkCommunityListByUserUid(page, 10, userUid);
+	}
+	
 	@RequestMapping(value = "/select/categoryBoard", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> selectCommunityList(int page, int categoryNo) throws Exception {
 		System.out.println("page:"+ page + "categoryNo:"+ categoryNo );

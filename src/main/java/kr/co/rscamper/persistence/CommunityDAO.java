@@ -9,18 +9,30 @@ import kr.co.rscamper.domain.CommentVO;
 import kr.co.rscamper.domain.CommunityVO;
 
 public interface CommunityDAO {
+	
+	/** 게시판 리스트 조회(유저별) */
+	public int selectCommunityTotalPagesByUserUid(String userUid);
+	
+	/** 게시물 카운트 조회(유저별) */
+	public List<CommunityVO> selectCommunityListByUserUid(Map<String, Object> pageMap);
 
 	/** 게시판 리스트 조회(전체) */
 	public List<CommunityVO> selectCommunityList(Map<String, Integer> pageMap);
 	
 	/** 게시글 리스트 조회(카테고리별) */
 	public List<CommunityVO> selectCommunityListByCategoryNo(Map<String, Integer> pageMap);
+	
+	/** 게시글 리스트 조회(유저 북마크별)*/
+	public int selectBookmarkCommunityTotalPagesByUserUid(String userUid);
 
 	/** 전체 게시물 카운트 조회 */
 	public int selectCommunityTotalPages();
 	
 	/** 게시판별 게시물 카운트 조회 */
 	public int selectCommunityTotalPagesByCategoryNo(int categoryNo);
+	
+	/** 게시물 카운트 조회(유저 북마크별)*/
+	public List<CommunityVO> selectBookmarkCommunityListByUserUid(Map<String, Object> pageMap);
 
 	/** 게시판 카테고리 조회 */
 	public List<CommunityVO> selectCategoryList();
@@ -69,4 +81,7 @@ public interface CommunityDAO {
 
 	/** 북마크 삭제 */
 	public void deleteBoardBookMark(BoardBookMarkVO boardBookMark);
+
+
+
 }
