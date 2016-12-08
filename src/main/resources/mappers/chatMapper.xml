@@ -34,6 +34,16 @@
 	from chat_room_info_tb 
 </select>
 
+<select id="listRoomByArea" resultMap="chatMap" parameterType="int">
+	select * 
+	from chat_room_info_tb
+	where AREACODE = #{no}
+</select>
+
+
+
+
+
 <select id="getCodeName" resultMap="codeMap" parameterType="string">
 	select * 
 	  from public_code_tb 

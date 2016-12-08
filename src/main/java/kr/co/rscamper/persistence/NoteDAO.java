@@ -1,4 +1,4 @@
-package kr.co.rscamper.service;
+package kr.co.rscamper.persistence;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import kr.co.rscamper.domain.NoteVO;
 import kr.co.rscamper.domain.PageVO;
 import kr.co.rscamper.domain.UserVO;
 
-public interface NoteService {
+public interface NoteDAO {
 
 	public List<NoteVO> noteList(String uid) throws Exception;
 

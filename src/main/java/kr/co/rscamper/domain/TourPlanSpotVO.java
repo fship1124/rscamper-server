@@ -31,6 +31,34 @@ public class TourPlanSpotVO {
 	private String overview;
 	private String homepage;
 	
+	// 메인 추천수 정보 추가
+	private String userUid;
+	private String status;
+	private String regDate;
+
+	public String getUserUid() {
+		return userUid;
+	}
+
+	public void setUserUid(String userUid) {
+		this.userUid = userUid;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getRegDate() {
+		return regDate;
+	}
+
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
+	}
 
 	public String getAreaname() {
 		return areaname;
