@@ -41,6 +41,28 @@
 	
 	<resultMap type="TourPlanSpotVO" id="TourPlanSpotVOMap">
 		<result property="publicDataListNo" column="PUBLIC_DATA_LIST_NO" />
+		<result property="addr1" column="addr1"/>
+		<result property="addr2" column="addr2"/>
+		<result property="areacode" column="areacode"/>
+		<result property="cat1" column="cat1"/>
+		<result property="cat2" column="cat2"/>
+		<result property="cat3" column="cat3"/>
+		<result property="contentid" column="contentid"/>
+		<result property="contenttypeid" column="contenttypeid"/>
+		<result property="createdtime" column="createdtime"/>
+		<result property="firstimage" column="firstimage"/>
+		<result property="firstimage2" column="firstimage2"/>
+		<result property="mapx" column="mapx"/>
+		<result property="mapy" column="mapy"/>
+		<result property="mlevel" column="mlevel"/>
+		<result property="modifiedtime" column="modifiedtime"/>
+		<result property="readcount" column="readcount"/>
+		<result property="sigungucode" column="sigungucode"/>
+		<result property="title" column="title"/>
+		<result property="zipcode" column="zipcode"/>
+		<result property="userUid" column="userUid"/>
+		<result property="status" column="status"/>
+		<result property="regDate" column="regDate"/>
 	</resultMap>
 	
 	<resultMap type="TourPlanCoverVO" id="TourPlanCoverVOMap">
@@ -289,5 +311,14 @@
 		SET ISOPEN = #{isOpen}
 		WHERE RECORD_NO = #{recordNo}
 	</update>
+	
+	<!-- 메인에 추천수 높은순으로 가져오기 -->
+	<select id="tourList" resultMap="TourPlanSpotVOMap" parameterType="string">
+		select *
+		from tour_like_tb a
+		inner join public_data_list_tb b
+		on a.content_id = b.contentid
+	</select>
+	
 	
 </mapper>

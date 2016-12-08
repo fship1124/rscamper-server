@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.rscamper.domain.ChatUserVO;
 import kr.co.rscamper.domain.TourCommentVO;
 import kr.co.rscamper.domain.TourVO;
 import kr.co.rscamper.domain.UserVO;

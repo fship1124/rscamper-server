@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import kr.co.rscamper.domain.BenefitVO;
 import kr.co.rscamper.domain.MainVO;
+import kr.co.rscamper.domain.TourPlanSpotVO;
+import kr.co.rscamper.domain.TrainVO;
 import kr.co.rscamper.domain.UserVO;
 import kr.co.rscamper.persistence.MainDAO;
 
@@ -30,6 +32,16 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public List<BenefitVO> list() throws Exception {
 		return dao.list();
+	}
+
+	@Override
+	public List<TourPlanSpotVO> tourlist() throws Exception {
+		return dao.tourlist();
+	}
+
+	@Override
+	public List<TrainVO> maintrainList() throws Exception {
+		return dao.maintrainList();
 	}
 
 
