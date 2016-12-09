@@ -1,7 +1,5 @@
 package kr.co.rscamper.domain;
 
-import java.util.Date;
-
 public class TourPlanSpotParamVO {
 	
 	// 페이징
@@ -19,8 +17,6 @@ public class TourPlanSpotParamVO {
 	
 	// 북마크용 유저아이디
 	private String userUid;
-	
-	
 	
 	@Override
 	public String toString() {
@@ -76,12 +72,6 @@ public class TourPlanSpotParamVO {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
-	
-	
-	
-	
-	
 
 	
 	
