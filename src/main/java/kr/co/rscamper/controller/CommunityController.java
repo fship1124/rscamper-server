@@ -58,6 +58,7 @@ public class CommunityController {
 	
 	@RequestMapping(value = "/insert/board", method = RequestMethod.POST)
 	public @ResponseBody void insertBoard(CommunityVO community) throws Exception {
+		System.out.println(community.toString());
 		communityService.insertBoard(community);
 	}
 	
