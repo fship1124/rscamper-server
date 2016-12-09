@@ -162,6 +162,7 @@ public class TourPlanServiceImpl implements TourPlanService {
 	@Override
 	public void insertTourPlanComment(TourPlanCommentVO tourPlanComment) {
 		dao.insertTourPlanComment(tourPlanComment);
+		dao.insertTourPlanCommentNotification(tourPlanComment);
 	}
 
 	@Override

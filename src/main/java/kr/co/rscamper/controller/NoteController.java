@@ -37,17 +37,21 @@ public class NoteController {
 	public @ResponseBody Map<String, Object> ajaxNoteList(@RequestParam("uid") String uid, PageVO vo) throws Exception {
 		logger.info("/note > list");
 		
+		System.out.println(vo.toString());
+		
 		List<NoteVO> list = new ArrayList<>();
 		
 		list = service.noteList(uid, vo);
 		int totalCount = service.totalCount(uid);
 		
+		int v = 1;
 		for (NoteVO nVo : list) {
 			UserVO uVo = userService.selectUserByUid(nVo.getSentUserUid());
+			System.out.println(v++);
+			System.out.println(nVo.toString());
+			System.out.println(uVo.toString());
 			nVo.setDisplayName(uVo.getDisplayName());
 			nVo.setPhotoUrl(uVo.getPhotoUrl());
-			
-//			System.out.println(uVo.toString());
 		}
 		
 		PageMaker pageMaker = new PageMaker();
@@ -56,18 +60,19 @@ public class NoteController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("page", list);
 		map.put("pageMaker", pageMaker);
+//		
+//		System.out.print("endPage : ");
+//		System.out.println(pageMaker.getEndPage());
 		
-		
-		System.out.println(list.size());
 		return map;
 	}
 	
 	
 	@RequestMapping(value = "/sent-list", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> ajaxNoteSentList(@RequestParam("uid") String uid, PageVO vo) throws Exception {
-		logger.info("/note > list");
+		logger.info("/note > sent-list");
 		
-		System.out.println("uid : " + uid);
+//		System.out.println("uid : " + uid);
 		List<NoteVO> list = new ArrayList<>();
 		
 		list = service.noteSentList(uid, vo);
@@ -77,8 +82,6 @@ public class NoteController {
 			UserVO uVo = userService.selectUserByUid(nVo.getRecvUserUid());
 			nVo.setDisplayName(uVo.getDisplayName());
 			nVo.setPhotoUrl(uVo.getPhotoUrl());
-			
-//			System.out.println(uVo.toString());
 		}
 		
 		PageMaker pageMaker = new PageMaker();
@@ -95,13 +98,12 @@ public class NoteController {
 	@RequestMapping(value = "/send", method = RequestMethod.POST)
 	public @ResponseBody void ajaxNoteSend(NoteVO vo) throws Exception {
 		logger.info("/note > send");
-		
-		System.out.println(vo.toString());
+//		System.out.println(vo.toString());
 		vo.setRecvRead("N");
 		
 		service.insertNote(vo);
-		
 	}
+	
 	
 	@RequestMapping(value = "/user-list", method = RequestMethod.GET)
 	public @ResponseBody List<UserVO> searchUserList() throws Exception {
@@ -109,9 +111,6 @@ public class NoteController {
 		
 		List<UserVO> list = new ArrayList<>();
 		list = userService.selectUserList();
-		
-		System.out.println("list.size : ");
-		System.out.println(list.size());
 		
 		return list;
 	}
