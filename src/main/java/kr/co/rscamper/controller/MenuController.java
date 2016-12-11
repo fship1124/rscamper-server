@@ -29,8 +29,8 @@ public class MenuController {
 	
 
 	@RequestMapping(value="/list", method = RequestMethod.GET)
-	public @ResponseBody List<MenuVO> list() throws Exception{
-
+	public @ResponseBody List<MenuVO> list() throws Exception {
+		logger.info("in menu > list");
 		List<MenuVO> list = new ArrayList<>();
 		list = service.list();
 		return list;

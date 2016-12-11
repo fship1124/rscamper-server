@@ -24,7 +24,8 @@ public class UserServiceImpl implements UserService {
 	@Inject
 	ServletContext servletContext;
 	
-	private final String URL = "http://14.32.66.104:8081";
+//	private final String URL = "http://14.32.66.104:8081";
+	private final String URL = "http://192.168.0.9:8081";
 //	private final String URL = "http://192.168.0.228:3001";
 //	private final String URL = "http://192.168.1.13:3001";
 
@@ -47,7 +48,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserVO selectUserByUid(String userUid) {
-		System.out.println("회원조회 : " + userUid);
+//		System.out.println("회원조회 : " + userUid);
 		return dao.selectUserByUid(userUid);
 	}
 
@@ -125,5 +126,4 @@ public class UserServiceImpl implements UserService {
 	public LocationVO selectLocationByNo() {
 		return dao.selectLocationByNo();
 	}
-
 }

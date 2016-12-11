@@ -33,7 +33,18 @@ public class CommunityVO {
 	
 	private int likeCnt;
 	private int commentCnt;
+	private int bookmarkCnt;
 	
+	
+	
+	public int getBookmarkCnt() {
+		return bookmarkCnt;
+	}
+
+	public void setBookmarkCnt(int bookmarkCnt) {
+		this.bookmarkCnt = bookmarkCnt;
+	}
+
 	public int getCommentCnt() {
 		return commentCnt;
 	}
