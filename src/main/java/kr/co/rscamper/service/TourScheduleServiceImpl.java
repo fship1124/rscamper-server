@@ -2,6 +2,7 @@ package kr.co.rscamper.service;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -11,15 +12,22 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import kr.co.rscamper.domain.BoardBookMarkVO;
+import kr.co.rscamper.domain.LocationCommentVO;
 import kr.co.rscamper.domain.LocationLikedVO;
 import kr.co.rscamper.domain.RecordCoverVO;
 import kr.co.rscamper.domain.RecordLocationVO;
 import kr.co.rscamper.domain.ScheduleLikeVO;
 import kr.co.rscamper.domain.ScheduleListCommentVO;
+import kr.co.rscamper.domain.ScheduleMemoCommentVO;
+import kr.co.rscamper.domain.ScheduleMemoLikeVO;
 import kr.co.rscamper.domain.ScheduleMemoVO;
-import kr.co.rscamper.domain.TourPlanVO;
+import kr.co.rscamper.domain.TourSchedulePlanVO;
 import kr.co.rscamper.domain.TourScheduleVO;
+import kr.co.rscamper.domain.TravelPriceVO;
 import kr.co.rscamper.persistence.TourScheduleDAO;
 
 @Service
@@ -96,8 +104,23 @@ public class TourScheduleServiceImpl implements TourScheduleService {
 	}
 
 	@Override
-	public LocationLikedVO checkedIsLike(LocationLikedVO ll) throws Exception {
-		return dao.checkedIsLike(ll);
+	public Map<String, Object> checkedIsLike(LocationLikedVO ll) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		LocationLikedVO isLike = dao.checkedIsLike(ll);
+		if (isLike == null) {
+			map.put("isLike", true);
+		} else {
+			map.put("isLike", false);
+		}
+		
+		LocationLikedVO isBack = dao.checkBackLocationLike(ll);
+		if (isBack == null) {
+			map.put("isBack", true);
+		} else {
+			map.put("isBack", false);
+		}
+		map.put("contentId", ll.getContentId());
+		return map;
 	}
 
 	@Override
@@ -111,24 +134,45 @@ public class TourScheduleServiceImpl implements TourScheduleService {
 	}
 
 	@Override
-	public Map<String, Object> allScheduleList(int page, int count) throws Exception {
+	public Map<String, Object> allScheduleList(int page, int count, int soltType) throws Exception {
 		page = (page - 1) * count;
 		int totalCount = dao.selectScheduleCount();
 		int totalPages = (int) Math.ceil((double) totalCount / (double) count);
 		Map<String, Integer> pageMap = new HashMap<String, Integer>();
 		pageMap.put("count", count);
 		pageMap.put("page", page);
-		List<TourPlanVO> tourList = dao.allScheduleList(pageMap);
-		for (TourPlanVO ts : tourList) {
+		switch(soltType) {
+		case 1 :
+			return soltScheduleList(dao.allScheduleList(pageMap), totalPages, totalCount);
+		case 2 : 
+			return soltScheduleList(dao.allScheduleListDate(pageMap), totalPages, totalCount);
+		case 3 :
+			return soltScheduleList(dao.allScheduleListDate(pageMap), totalPages, totalCount); 
+		case 4 : 
+			pageMap.put("day", 1);
+			return soltScheduleList(dao.allScheduleListDay(pageMap), totalPages, totalCount); 
+		case 5 : 
+			pageMap.put("day", 7);
+			return soltScheduleList(dao.allScheduleListDay(pageMap), totalPages, totalCount); 
+		case 6 : 
+			pageMap.put("day", 30);
+			return soltScheduleList(dao.allScheduleListDay(pageMap), totalPages, totalCount); 
+		}
+		return null;
+	}
+	
+	public Map<String, Object> soltScheduleList(List<TourSchedulePlanVO> tourList, int totalPages, int totalCount) {
+		for (TourSchedulePlanVO ts : tourList) {
 			if (ts.getPicture() == 1) {
 				ts.setCover(dao.getCover(ts.getRecordNo()));
 			}
 		}
+		
 		Map<String, Object> boardMap = new HashMap<>();
 		boardMap.put("tourList", tourList);
 		boardMap.put("totalPages", totalPages);
 		boardMap.put("totalCount", totalCount);
-		return boardMap;
+		return boardMap; 
 	}
 
 	@Override
@@ -229,8 +273,8 @@ public class TourScheduleServiceImpl implements TourScheduleService {
 	}
 
 	@Override
-	public TourPlanVO scheduleListDetail(int no) throws Exception {
-		TourPlanVO tv = dao.scheduleListDetail(no);
+	public TourSchedulePlanVO scheduleListDetail(int no) throws Exception {
+		TourSchedulePlanVO tv = dao.scheduleListDetail(no);
 		if (tv.getPicture() == 1) {
 			tv.setCover(dao.getCover(no));
 		}
@@ -257,17 +301,153 @@ public class TourScheduleServiceImpl implements TourScheduleService {
 	@Override
 	public List<ScheduleMemoVO> addScheduleMemo(ScheduleMemoVO sm) throws Exception {
 		dao.addScheduleMemo(sm);
-		return dao.getScheduleMemo(sm.getRecordNo());
+		return dao.getScheduleMemo(sm);
 	}
 
 	@Override
-	public List<ScheduleMemoVO> getScheduleMemo(int recordNo) throws Exception {
-		return dao.getScheduleMemo(recordNo);
+	public List<ScheduleMemoVO> getScheduleMemo(ScheduleMemoVO sm) throws Exception {
+		return dao.getScheduleMemo(sm);
 	}
 
 	@Override
 	public List<ScheduleMemoVO> getMyPost(String userUid) throws Exception {
 		return dao.getMyPost(userUid);
+	}
+
+	@Override
+	public ScheduleMemoVO getDetailPost(ScheduleMemoVO sm) throws Exception {
+		return dao.getDetailPost(sm);
+	}
+
+	@Override
+	public List<ScheduleMemoCommentVO> insertMemoComment(ScheduleMemoCommentVO smv) throws Exception {
+		dao.insertMemoComment(smv);
+		return dao.getMemoComment(smv.getScheduleMemoNo());
+	}
+
+	@Override
+	public List<ScheduleMemoCommentVO> getMemoComment(int postNo) throws Exception {
+		return dao.getMemoComment(postNo);
+	}
+
+	@Override
+	public int addScheduleMemoLike(ScheduleMemoLikeVO sml) throws Exception {
+		dao.addScheduleMemoLike(sml);
+		return dao.getScheduleMemoLikeCnt(sml.getScheduleMemoNo());
+	}
+
+	@Override
+	public int cancelScheduleMemoLike(ScheduleMemoLikeVO sml) throws Exception {
+		dao.cancelScheduleMemoLike(sml);
+		return dao.getScheduleMemoLikeCnt(sml.getScheduleMemoNo());
+	}
+
+	@Override
+	public List<ScheduleMemoCommentVO> delMemoComment(ScheduleMemoCommentVO smc) throws Exception {
+		dao.delMemoComment(smc.getCommentNo());
+		return dao.getMemoComment(smc.getScheduleMemoNo());
+	}
+
+	@Override
+	public void delScheduleMemo(int scheduleMemoNo) throws Exception {
+		dao.delScheduleMemo(scheduleMemoNo);
+	}
+
+	@Override
+	public List<LocationLikedVO> getWishBoardList(String userUid) throws Exception {
+		return dao.getWishBoardList(userUid);
+	}
+
+	@Override
+	public List<ScheduleMemoVO> getLocationMemo(int contentId) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getLocationMemo(contentId);
+	}
+
+	@Override
+	public Map<String, Integer> checkLocationLikeCnt(int contentId) throws Exception {
+		Map<String,Integer> map = new HashMap<>();
+		map.put("likeCnt", dao.locationLikeCount(contentId));
+		map.put("postCnt", dao.getLocationMemoCnt(contentId));
+		map.put("backLocationCnt", dao.getBackLocationLikeCnt(contentId));
+		return map;
+	}
+
+	@Override
+	public int addBackLocationLike(LocationLikedVO ll) throws Exception {
+		dao.addBackLocationLike(ll);
+		return dao.getBackLocationLikeCnt(ll.getContentId());
+	}
+
+	@Override
+	public int delBackLocationLike(LocationLikedVO ll) throws Exception {
+		dao.delBackLocationLike(ll);
+		return dao.getBackLocationLikeCnt(ll.getContentId());
+	}
+
+	@Override
+	public List<LocationCommentVO> getLocationComment(int contentId) throws Exception {
+		return dao.getLocationComment(contentId);
+	}
+
+	@Override
+	public List<LocationCommentVO> addLocationComment(LocationCommentVO lc) throws Exception {
+		dao.addLocationComment(lc);
+		return dao.getLocationComment(lc.getContentId());
+	}
+
+	@Override
+	public Map<String, Integer> checkScheduleDetailCnt(ScheduleLikeVO sv, int targetType) throws Exception {
+		Map<String, Integer> map = new HashMap<>();
+		BoardBookMarkVO bbv = new BoardBookMarkVO();
+		bbv.setTargetNo(sv.getRecordNo());
+		bbv.setTargetType(targetType);
+		map.put("likeCnt", dao.getScheduleLikeCount(sv.getRecordNo()));
+		map.put("customizingCnt", dao.getCustomizingCnt(sv.getRecordNo()));
+		map.put("bookMarkCnt", dao.getScheduleBookMark(bbv));
+		return map;
+	}
+
+	@Override
+	public List<Map<String, Object>> addTravelPrice(String list) throws Exception {
+		ObjectMapper mapper =  new ObjectMapper();
+		List<TravelPriceVO> tList = new ArrayList<>();
+		tList = mapper.readValue(list, new TypeReference<List<TravelPriceVO>>() {});
+		
+		for (TravelPriceVO tp : tList) {
+			dao.addTravelPrice(tp);
+			System.out.println("예산 입력 완료");
+		}
+		List<TravelPriceVO> getList = dao.getLocationTravelPrice(tList.get(0).getLocationNo());
+		List<Map<String, Object>> resultList = new ArrayList<>();
+		// priceType
+		// 1. 교통비
+		// 2. 음식
+		// 3. 오락,엑티비티
+		// 4. 쇼핑
+		// 5. 숙박
+		// 6. 기타
+		
+		for (TravelPriceVO tp : getList) {
+			Map<String, Object> map = new HashMap<>();
+			switch (tp.getPriceType()) {
+			case 1: map.put("type", "교통비"); break;
+			case 2: map.put("type", "음식"); break;
+			case 3: map.put("type", "오락,엑티비티"); break;
+			case 4: map.put("type", "쇼핑"); break;
+			case 5: map.put("type", "숙박"); break;
+			case 6: map.put("type", "기타"); break;
+			}
+			map.put("price", tp.getTravelPrice());
+			resultList.add(map);
+		}
+		
+		return resultList;
+	}
+
+	@Override
+	public List<TravelPriceVO> getScheduleTravelPrice(int recordNo) throws Exception {
+		return dao.getScheduleTravelPrice(recordNo);
 	}
 
 }

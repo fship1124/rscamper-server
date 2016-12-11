@@ -9,14 +9,18 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.co.rscamper.domain.BoardBookMarkVO;
+import kr.co.rscamper.domain.LocationCommentVO;
 import kr.co.rscamper.domain.LocationLikedVO;
 import kr.co.rscamper.domain.RecordCoverVO;
 import kr.co.rscamper.domain.RecordLocationVO;
 import kr.co.rscamper.domain.ScheduleLikeVO;
 import kr.co.rscamper.domain.ScheduleListCommentVO;
+import kr.co.rscamper.domain.ScheduleMemoCommentVO;
+import kr.co.rscamper.domain.ScheduleMemoLikeVO;
 import kr.co.rscamper.domain.ScheduleMemoVO;
-import kr.co.rscamper.domain.TourPlanVO;
+import kr.co.rscamper.domain.TourSchedulePlanVO;
 import kr.co.rscamper.domain.TourScheduleVO;
+import kr.co.rscamper.domain.TravelPriceVO;
 
 @Repository
 public class TourScheduleDAO {
@@ -89,8 +93,16 @@ public class TourScheduleDAO {
 		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.delLocation",locationNo);
 	}
 	
-	public List<TourPlanVO> allScheduleList(Map<String, Integer> pageMap) {
+	public List<TourSchedulePlanVO> allScheduleList(Map<String, Integer> pageMap) {
 		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.allScheduleList",pageMap);
+	}
+	
+	public List<TourSchedulePlanVO> allScheduleListDate(Map<String, Integer> pageMap) {
+		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.allScheduleListDate",pageMap);
+	}
+	
+	public List<TourSchedulePlanVO> allScheduleListDay(Map<String, Integer> pageMap) {
+		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.allScheduleListDay",pageMap);
 	}
 	
 	public int selectScheduleCount() {
@@ -118,6 +130,10 @@ public class TourScheduleDAO {
 		return tv.getRecordNo(); 
 	}
 	
+	public int getCustomizingCnt(int recordNo) {
+		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getCustomizingLikeCount", recordNo);
+	}
+	
 	public int addCustomizingLike(ScheduleLikeVO sl) {
 		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.addCustomizingLike", sl);
 		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getCustomizingLikeCount", sl);
@@ -142,11 +158,15 @@ public class TourScheduleDAO {
 		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getScheduleBookMarkCount", bbv);
 	}
 	
+	public int getScheduleBookMark (BoardBookMarkVO bbv) {
+		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getScheduleBookMarkCount", bbv);
+	}
+	
 	public BoardBookMarkVO checkScheduleBookMark(BoardBookMarkVO bbv) {
 		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.checkScheduleBookMark", bbv);
 	}
 	
-	public TourPlanVO scheduleListDetail(int no) {
+	public TourSchedulePlanVO scheduleListDetail(int no) {
 		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.scheduleListDetail", no);
 	}
 	
@@ -166,11 +186,93 @@ public class TourScheduleDAO {
 		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.addScheduleMemo", sm);
 	}
 	
-	public List<ScheduleMemoVO> getScheduleMemo(int recordNo) {
-		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getScheduleMemo", recordNo);
+	public List<ScheduleMemoVO> getScheduleMemo(ScheduleMemoVO sm) {
+		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getScheduleMemo", sm);
 	}
 	
 	public List<ScheduleMemoVO> getMyPost(String userUid) {
 		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getMyPost", userUid);
+	}
+	
+	public ScheduleMemoVO getDetailPost(ScheduleMemoVO sm) {
+		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getDetailPost", sm);
+	}
+	
+	public void insertMemoComment(ScheduleMemoCommentVO smv) {
+		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.insertMemoComment", smv);
+	}
+	
+	public List<ScheduleMemoCommentVO> getMemoComment(int postNo) {
+		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getMemoComment", postNo);
+	}
+	
+	public void addScheduleMemoLike(ScheduleMemoLikeVO sml) {
+		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.addScheduleMemoLike", sml);
+	}
+	
+	public void cancelScheduleMemoLike(ScheduleMemoLikeVO sml) {
+		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.cancelScheduleMemoLike", sml);
+	}
+	
+	public int getScheduleMemoLikeCnt(int commentNo) {
+		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getScheduleMemoLikeCnt", commentNo);
+	}
+	
+	public void delMemoComment(int commentNo) {
+		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.delMemoComment", commentNo);
+	}
+	
+	public void delScheduleMemo(int scheduleMemoNo) {
+		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.delScheduleMemo", scheduleMemoNo);
+		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.delScheduleMemoComment", scheduleMemoNo);
+		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.delScheduleMemolike", scheduleMemoNo);
+	}
+	
+	public List<LocationLikedVO> getWishBoardList(String userUid) {
+		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getWishBoardList", userUid);
+	}
+	
+	public int getBackLocationLikeCnt(int contentId) {
+		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getBackLocationLikeCnt", contentId);
+	}
+	
+	public List<ScheduleMemoVO> getLocationMemo(int contentId) {
+		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getLocationMemo", contentId);
+	}
+	
+	public int getLocationMemoCnt(int contentId) {
+		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getLocationMemoCnt", contentId);
+	}
+	
+	public void addBackLocationLike(LocationLikedVO ll) {
+		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.addBackLocationLike", ll);
+	}
+	
+	public void delBackLocationLike(LocationLikedVO ll) {
+		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.delBackLocationLike", ll);
+	}
+	
+	public LocationLikedVO checkBackLocationLike(LocationLikedVO ll) {
+		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.checkBackLocationLike", ll);
+	}
+	
+	public List<LocationCommentVO> getLocationComment(int contentId) {
+		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getLocationComment", contentId);
+	}
+	
+	public void addLocationComment(LocationCommentVO lc) {
+		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.addLocationComment", lc);
+	}
+	
+	public void addTravelPrice(TravelPriceVO tp) {
+		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.addTravelPrice", tp);
+	}
+	
+	public List<TravelPriceVO> getLocationTravelPrice(int locationNo) {
+		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getLocationTravelPrice", locationNo);
+	}
+	
+	public List<TravelPriceVO> getScheduleTravelPrice(int recordNo) {
+		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getScheduleTravelPrice", recordNo);
 	}
 }

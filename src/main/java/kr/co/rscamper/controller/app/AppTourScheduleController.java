@@ -12,15 +12,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import kr.co.rscamper.domain.BoardBookMarkVO;
+import kr.co.rscamper.domain.LocationCommentVO;
 import kr.co.rscamper.domain.LocationLikedVO;
 import kr.co.rscamper.domain.RecordCoverVO;
 import kr.co.rscamper.domain.RecordLocationVO;
 import kr.co.rscamper.domain.ScheduleLikeVO;
 import kr.co.rscamper.domain.ScheduleListCommentVO;
+import kr.co.rscamper.domain.ScheduleMemoCommentVO;
+import kr.co.rscamper.domain.ScheduleMemoLikeVO;
 import kr.co.rscamper.domain.ScheduleMemoVO;
-import kr.co.rscamper.domain.TourPlanVO;
+import kr.co.rscamper.domain.TourSchedulePlanVO;
 import kr.co.rscamper.domain.TourScheduleVO;
+import kr.co.rscamper.domain.TravelPriceVO;
 import kr.co.rscamper.service.TourScheduleService;
 
 @Controller
@@ -212,16 +219,8 @@ public class AppTourScheduleController {
 	
 	@RequestMapping("/checkedIsLike")
 	@ResponseBody
-	public boolean checkedIsLike(int no, String uid) throws Exception {
-		LocationLikedVO ll = new LocationLikedVO();
-		ll.setContentId(no);
-		ll.setUid(uid);
-		LocationLikedVO lv = new LocationLikedVO();
-		lv = service.checkedIsLike(ll);
-		if(lv == null) {
-			return false;
-		}
-		return true;
+	public Map<String, Object> checkedIsLike(LocationLikedVO ll) throws Exception {
+		return service.checkedIsLike(ll);
 	}
 	
 	@RequestMapping("/insertLikePlus")
@@ -250,8 +249,8 @@ public class AppTourScheduleController {
 	
 	@RequestMapping("/allScheduleList")
 	@ResponseBody
-	public Map<String, Object> allScheduleList(int page, int count) throws Exception {
-		return service.allScheduleList(page, count);
+	public Map<String, Object> allScheduleList(int page, int count, int soltType) throws Exception {
+		return service.allScheduleList(page, count, soltType);
 	}
 	
 	@RequestMapping("/checkScheduleLike")
@@ -311,7 +310,7 @@ public class AppTourScheduleController {
 	
 	@RequestMapping("/scheduleListDetail")
 	@ResponseBody
-	public TourPlanVO scheduleListDetail(int no) throws Exception {
+	public TourSchedulePlanVO scheduleListDetail(int no) throws Exception {
 		return service.scheduleListDetail(no);
 	}
 	
@@ -341,8 +340,8 @@ public class AppTourScheduleController {
 	
 	@RequestMapping("/getScheduleMemo")
 	@ResponseBody
-	public List<ScheduleMemoVO> getScheduleMemo(int recordNo) throws Exception {
-		return service.getScheduleMemo(recordNo);
+	public List<ScheduleMemoVO> getScheduleMemo(ScheduleMemoVO sm) throws Exception {
+		return service.getScheduleMemo(sm);
 	}
 	
 	@RequestMapping("/getMyPost")
@@ -350,4 +349,107 @@ public class AppTourScheduleController {
 	public List<ScheduleMemoVO> getMyPost(String userUid) throws Exception {
 		return service.getMyPost(userUid);
 	}
+	
+	@RequestMapping("/getDetailPost")
+	@ResponseBody
+	public ScheduleMemoVO getDetailPost(ScheduleMemoVO sm) throws Exception {
+		return service.getDetailPost(sm);
+	}
+	
+	@RequestMapping("/insertMemoComment")
+	@ResponseBody
+	public List<ScheduleMemoCommentVO> insertMemoComment(ScheduleMemoCommentVO smv) throws Exception {
+		return service.insertMemoComment(smv);
+	}
+	
+	@RequestMapping("/getMemoComment")
+	@ResponseBody
+	public List<ScheduleMemoCommentVO> getMemoComment(int postNo) throws Exception {
+		return service.getMemoComment(postNo);
+	}
+	
+	@RequestMapping("/addScheduleMemoLike")
+	@ResponseBody
+	public int addScheduleMemoLike(ScheduleMemoLikeVO sml) throws Exception {
+		return service.addScheduleMemoLike(sml);
+	}
+	
+	@RequestMapping("/cancelScheduleMemoLike")
+	@ResponseBody
+	public int cancelScheduleMemoLike(ScheduleMemoLikeVO sml) throws Exception {
+		return service.cancelScheduleMemoLike(sml);
+	}
+	
+	@RequestMapping("/delMemoComment")
+	@ResponseBody
+	public List<ScheduleMemoCommentVO> delMemoComment(ScheduleMemoCommentVO smc) throws Exception {
+		return service.delMemoComment(smc);
+	}
+	
+	@RequestMapping("/delScheduleMemo")
+	@ResponseBody
+	public void delScheduleMemo(int scheduleMemoNo) throws Exception {
+		service.delScheduleMemo(scheduleMemoNo);
+	}
+	
+	@RequestMapping("/getWishBoardList")
+	@ResponseBody
+	public List<LocationLikedVO> getWishBoardList(String userUid) throws Exception {
+		return service.getWishBoardList(userUid);
+	}
+	
+	@RequestMapping("/getLocationMemo")
+	@ResponseBody
+	public List<ScheduleMemoVO> getLocationMemo(int contentId) throws Exception {
+		return service.getLocationMemo(contentId);
+	}
+	
+	@RequestMapping("/checkLocationLikeCnt")
+	@ResponseBody
+	public Map<String,Integer> checkLocationLikeCnt(int contentId) throws Exception {
+		return service.checkLocationLikeCnt(contentId);
+	}
+	
+	@RequestMapping("/addBackLocationLike")
+	@ResponseBody
+	public int addBackLocationLike(LocationLikedVO ll) throws Exception {
+		return service.addBackLocationLike(ll);
+	}
+	
+	@RequestMapping("/delBackLocationLike")
+	@ResponseBody
+	public int delBackLocationLike(LocationLikedVO ll) throws Exception {
+		return service.delBackLocationLike(ll);
+	}
+	
+	@RequestMapping("/getLocationComment")
+	@ResponseBody
+	public List<LocationCommentVO> getLocationComment(int contentId) throws Exception {
+		return service.getLocationComment(contentId);
+	}
+	
+	@RequestMapping("/addLocationComment")
+	@ResponseBody
+	public List<LocationCommentVO> addLocationComment(LocationCommentVO lc) throws Exception {
+		return service.addLocationComment(lc);
+	}
+	
+	@RequestMapping("/checkScheduleDetailCnt")
+	@ResponseBody
+	public Map<String, Integer> checkScheduleDetailCnt(ScheduleLikeVO sv, int targetType) throws Exception {
+		return service.checkScheduleDetailCnt(sv, targetType);
+	}
+	
+	@RequestMapping("/addTravelPrice")
+	@ResponseBody
+	public List<Map<String, Object>> addTravelPrice(String list) throws Exception {
+		return service.addTravelPrice(list);
+	}
+	
+	@RequestMapping("/getScheduleTravelPrice")
+	@ResponseBody
+	public List<TravelPriceVO> getScheduleTravelPrice(int recordNo) throws Exception {
+		return service.getScheduleTravelPrice(recordNo);
+	}
+	
 }
