@@ -21,4 +21,9 @@ public class NotisficationDAOImpl implements NotisficationDAO {
 		return sqlSessionTemplate.selectList(namespace + ".list", userUid);
 	}
 
+	@Override
+	public void deleteByNo(int no) throws Exception {
+		sqlSessionTemplate.delete(namespace + ".deleteByNo", no);
+	}
+
 }

@@ -8,4 +8,6 @@ public interface NotisficationService {
 
 	public List<NotisficationVO> list(String userUid) throws Exception;
 
+	public void deleteByNo(int no) throws Exception;
+
 }

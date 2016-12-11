@@ -22,6 +22,12 @@ SELECT *
 	WHERE RECIV_USER_UID = #{userUid}
 </select>
 
+<delete id="deleteByNo" parameterType="int">
+DELETE 
+	FROM notisfication_tb
+	WHERE NOTISFICATION_NO = #{NO}
+</delete>
+
 </mapper>
 
 
