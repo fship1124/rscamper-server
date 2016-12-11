@@ -41,6 +41,12 @@ SELECT *
 	SELECT CONTENT
 	FROM BENEFIT_DETAIL_TB
 	WHERE BENEFIT_NO = #{no}
+</select>
+
+<select id="selectBenefit" resultMap="benefitMap" parameterType="string">
+	SELECT *
+	FROM BENEFIT_TB
+	ORDER BY BENEFIT_NO DESC
 </select>	
 
 </mapper>

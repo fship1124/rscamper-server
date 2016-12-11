@@ -164,7 +164,7 @@ public class TourScheduleServiceImpl implements TourScheduleService {
 	public Map<String, Object> soltScheduleList(List<TourSchedulePlanVO> tourList, int totalPages, int totalCount) {
 		for (TourSchedulePlanVO ts : tourList) {
 			if (ts.getPicture() == 1) {
-				ts.setCover(dao.getCover(ts.getRecordNo()));
+//				ts.setCover(dao.getCover(ts.getRecordNo()));
 			}
 		}
 		
@@ -276,7 +276,7 @@ public class TourScheduleServiceImpl implements TourScheduleService {
 	public TourSchedulePlanVO scheduleListDetail(int no) throws Exception {
 		TourSchedulePlanVO tv = dao.scheduleListDetail(no);
 		if (tv.getPicture() == 1) {
-			tv.setCover(dao.getCover(no));
+//			tv.setCover(dao.getCover(no));
 		}
 		return tv;
 	}

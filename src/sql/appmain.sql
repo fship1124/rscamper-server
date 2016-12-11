@@ -135,7 +135,89 @@ SELECT C.CATEGORY_NAME, B.BOARD_NO AS NO, B.REG_DATE, B.USER_UID, TITLE, B.BOARD
  WHERE R.USER_UID = U.USER_UID
  ORDER BY LIKE_CNT DESC, REG_DATE DESC
  
+
  
+ 
+ 
+ 		(SELECT B.BOARD_NO AS NO, B.REG_DATE, B.USER_UID, TITLE, B.BOARD_NO AS PICTURE, U.DISPLAY_NAME, 
+				COALESCE((SELECT COUNT(*) FROM BOARD_LIKE_TB BL WHERE BL.TARGET_NO = B.BOARD_NO), 0) LIKE_CNT, 
+				(SELECT DISTINCT COALESCE(TARGET_TYPE, 1) FROM BOARD_TB B LEFT JOIN BOARD_LIKE_TB BL ON BL.TARGET_NO = B.BOARD_NO) TARGET_TYPE
+		 FROM BOARD_TB B, USER_TB U
+		 WHERE B.USER_UID = U.USER_UID)
+		UNION
+		(SELECT R.RECORD_NO AS NO, R.REG_DATE, R.USER_UID, TITLE, R.PICTURE, U.DISPLAY_NAME, 
+				COALESCE((SELECT COUNT(*) FROM RECORD_LIKE_TB RL WHERE RL.RECORD_NO = R.RECORD_NO), 0) LIKE_CNT, 
+				(SELECT DISTINCT COALESCE(TARGET_TYPE, 3) FROM RECORD_TB R LEFT JOIN RECORD_LIKE_TB RL ON RL.RECORD_NO = R.RECORD_NO WHERE RL.RECORD_NO = R.RECORD_NO) TARGET_TYPE
+		 FROM RECORD_TB R, USER_TB U
+		 WHERE R.USER_UID = U.USER_UID
+		 	AND R.ISOPEN = 1)
+		ORDER BY LIKE_CNT DESC, REG_DATE DESC
+ 
+ 
+select * from record_tb; 
+select * from record_comment_tb;
+select * from board_tb;
+select * from board_comment_tb;
+
+select r.record_no as no, r.title, rc.reg_date, r.target_type
+from record_tb r, record_comment_tb rc
+where r.user_uid = '1YboVQ9qoUf3IxMoPrxI6Wltwut2' and r.record_no = rc.record_no
+union
+select b.board_no as no, b.title, bc.reg_date, (SELECT DISTINCT COALESCE(TARGET_TYPE, 1) FROM BOARD_TB B LEFT JOIN BOARD_LIKE_TB BL ON BL.TARGET_NO = B.BOARD_NO) TARGET_TYPE
+from board_tb b, board_comment_tb bc
+where b.user_uid = '1YboVQ9qoUf3IxMoPrxI6Wltwut2' and b.board_no = bc.board_no
+order by reg_date
+
+
+show tables;
+select * from notes_tb;
+
+select * from record_travelprice_tb;
+
+select * from board_tb;
+select * from board_bookmark_tb;
+select * from board_like_tb;
+
+
+
+CREATE TABLE BOARD_ROUTE_TB (
+	BOARD_ROUTE_NO INT,
+	ORDER_NO INT,
+	TARGET_TYPE VARCHAR(10) DEFAULT '2',
+	TITLE VARCHAR(100),
+	PLACE VARCHAR(100),
+	CONTENT VARCHAR(1000),
+	USER_UID VARCHAR(100),
+	REG_DATE TIMESTAMP DEFAULT NOW()
+)
+
+drop table board_route_tb;
+select COALESCE(max(board_route_no), 0)
+from board_route_tb;
+
+select * from board_route_tb;
+
+
+select n.notes_no, n.sent_user_uid, n.title, n.content, n.date_sent, n.recv_read, u.photo_url, u.display_name
+from notes_tb n, user_tb u
+where n.recv_user_uid = '1YboVQ9qoUf3IxMoPrxI6Wltwut2'
+	and n.sent_user_uid = u.user_uid;
+
+
+SELECT NOTES_NO, TITLE
+		FROM NOTES_TB
+		WHERE RECV_USER_UID = '1YboVQ9qoUf3IxMoPrxI6Wltwut2'
+		AND RECV_READ = 'N'
+		ORDER BY DATE_SENT DESC
+		
+SELECT *
+		FROM NOTES_TB
+		WHERE RECV_USER_UID = '1YboVQ9qoUf3IxMoPrxI6Wltwut2'
+		ORDER BY DATE_SENT DESC
+	
+	
+	
+
  
  select * from record_tb;
  

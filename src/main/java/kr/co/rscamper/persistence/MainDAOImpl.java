@@ -9,7 +9,10 @@ import javax.inject.Inject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.rscamper.domain.BenefitVO;
 import kr.co.rscamper.domain.MainVO;
+import kr.co.rscamper.domain.TourPlanSpotVO;
+import kr.co.rscamper.domain.TrainVO;
 
 @Repository
 public class MainDAOImpl implements MainDAO {
@@ -18,6 +21,12 @@ public class MainDAOImpl implements MainDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	private static final String namespace = "kr.co.rscamper.MainMapper";
+	
+	private static final String Bnamespace = "kr.co.rscamper.BenefitMapper";
+	
+	private static final String Tnamespace = "kr.co.rscamper.TourPlanMapper";
+	
+	private static final String Trnamespace = "kr.co.rscamper.TrainMapper";
 	
 	@Override
 	public void insertMainComment(MainVO vo) {
@@ -32,4 +41,20 @@ public class MainDAOImpl implements MainDAO {
 	
 		return list;
 	}
+
+	@Override
+	public List<BenefitVO> list() throws Exception {
+		return sqlSessionTemplate.selectList(Bnamespace +".selectBenefit");
+	}
+
+	@Override
+	public List<TourPlanSpotVO> tourlist() throws Exception {
+		return sqlSessionTemplate.selectList(Tnamespace + ".tourList");
+	}
+
+	@Override
+	public List<TrainVO> maintrainList() throws Exception {
+		return sqlSessionTemplate.selectList(Trnamespace + ".trainselectList");
+	}
+
 }

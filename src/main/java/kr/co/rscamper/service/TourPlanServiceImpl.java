@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.rscamper.domain.TourPlanCommentVO;
 import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
 import kr.co.rscamper.domain.TourPlanScheduleVO;
@@ -76,6 +77,19 @@ public class TourPlanServiceImpl implements TourPlanService {
 		tourSpotMap.put("totalPages", totalPages);
 		return tourSpotMap;
 	}
+	
+	@Override
+	public Map<String, Object> selectBookmarkSpotList(TourPlanSpotParamVO tourPlanSpotParam) {
+		tourPlanSpotParam.setStartRow((tourPlanSpotParam.getPageNo() - 1) * tourPlanSpotParam.getAmount());
+
+		int totalPages = (int) Math.ceil((double) dao.selectBookmarkSpotTotalPages(tourPlanSpotParam) / (double) tourPlanSpotParam.getAmount());
+		List<TourPlanSpotVO> tourSpotList = dao.selectBookmarkSpotList(tourPlanSpotParam);
+
+		Map<String, Object> tourSpotMap = new HashMap<>();
+		tourSpotMap.put("tourSpotList", tourSpotList);
+		tourSpotMap.put("totalPages", totalPages);
+		return tourSpotMap;
+	}
 
 	@Override
 	public TourPlanVO selectTourPlan(int recordNo) {
@@ -84,7 +98,6 @@ public class TourPlanServiceImpl implements TourPlanService {
 
 	@Override
 	public void updateCoverImage(TourPlanCoverVO tourPlanCover) {
-		System.out.println("배경이미지수정 : " + tourPlanCover.toString());
 		
 		// 이전에 있던 파일 정보 가져오기
 		TourPlanCoverVO oldTourPlanCover = dao.selectTourPlanCoverByNo(tourPlanCover.getRecordNo());
@@ -117,26 +130,72 @@ public class TourPlanServiceImpl implements TourPlanService {
 
 	@Override
 	public void updateTourPlan(TourPlanVO tourPlan) {
-		System.out.println("일정정보 : " + tourPlan.toString());
 		dao.updateTourPlan(tourPlan);
 	}
 
 	@Override
 	public void insertTourPlanSchedule(TourPlanScheduleVO tourPlanSchedule) {
-		System.out.println("일정스케쥴정보 : " + tourPlanSchedule.toString());
 		dao.insertTourPlanSchedule(tourPlanSchedule);
 	}
 
 	@Override
 	public void deleteTourPlanScheduleByRecordNo(int recordNo) {
-		System.out.println("일정스케쥴 리스트 삭제");
 		dao.deleteTourPlanScheduleByRecordNo(recordNo);
 	}
 
 	@Override
 	public List<TourPlanScheduleVO> selectTourPlanScheduleListByRecordNo(int recordNo) {
-		System.out.println("일정스케쥴 리스트 조회");
 		return dao.selectTourPlanScheduleListByRecordNo(recordNo);
 	}
+
+	@Override
+	public TourPlanSpotVO selectSpotDetail(int contentid) {
+		return dao.selectSpotDetail(contentid);
+	}
+
+	@Override
+	public int updateTourPlanOpen(TourPlanVO tourPlan) {
+		dao.updateTourPlanOpen(tourPlan);
+		return tourPlan.getIsOpen(); 
+	}
+
+	@Override
+	public void insertTourPlanComment(TourPlanCommentVO tourPlanComment) {
+		dao.insertTourPlanComment(tourPlanComment);
+		dao.insertTourPlanCommentNotification(tourPlanComment);
+	}
+
+	@Override
+	public List<TourPlanCommentVO> selectTourPlanCommentListByRecordNo(int recordNo) {
+		return dao.selectTourPlanCommentListByRecordNo(recordNo);
+	}
+
+	@Override
+	public void deleteTourPlanCommentByCommentNo(int commentNo) {
+		dao.deleteTourPlanCommentByCommentNo(commentNo);
+	}
+
+	@Override
+	public void deleteTourPlanByRecordNo(int recordNo) {
+		// TODO 일정에 관련된 모든거 삭제
+		dao.deleteTourPlanByRecordNo(recordNo);
+	}
+
+	@Override
+	public List<TourPlanVO> selectTourPlanListByLikeCnt() {
+		return dao.selectTourPlanListByLikeCnt();
+	}
+
+	@Override
+	public List<TourPlanVO> selectMyTourPlanList(String userUid) {
+		return dao.selectMyTourPlanList(userUid);
+	}
+
+	@Override
+	public List<TourPlanVO> selectBookmarkTourPlanList(String userUid) {
+		return dao.selectBookmarkTourPlanList(userUid);
+	}
+
+
 
 }

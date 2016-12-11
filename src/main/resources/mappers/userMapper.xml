@@ -113,4 +113,9 @@
 	
 	<!-- ======================================================================================= -->
 
+	<select id="selectUserList" resultMap="UserVOMap">
+		SELECT *
+		FROM USER_TB
+	</select>
+
 </mapper>

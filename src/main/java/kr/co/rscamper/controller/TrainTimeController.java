@@ -72,14 +72,14 @@ public class TrainTimeController {
 		
         StringBuilder urlBuilder = new StringBuilder("http://openapi.tago.go.kr/openapi/service/TrainInfoService/getStrtpntAlocFndTrainInfo"); /*URL*/
         urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=XPIlh8%2Bq3M1vpyrwOfH512edOBZMsZD0%2F3xZvjEd42mwMNJqeouD9L6xCPpzyF70KYm078jOK%2FePGlyoXTbCDw%3D%3D"); /*Service Key*/
-        urlBuilder.append("&" + URLEncoder.encode("depPlaceId","UTF-8") + "=" + service.selectDepPlaceId(sub.getDepPlaceId())); /*검색건수*/
-        urlBuilder.append("&" + URLEncoder.encode("arrPlaceId","UTF-8") + "=" + service.selectArrPlaceId(sub.getArrPlaceId())); /*검색건수*/
-        urlBuilder.append("&" + URLEncoder.encode("depPlandTime","UTF-8") + "=" + sub.getDepPlandTime()); /*검색건수*/
-        urlBuilder.append("&" + URLEncoder.encode("trainGradeCode","UTF-8") + "=" + sub.getTrainGradeCode()); /*검색건수*/
-        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + sub.getNumOfRows()); /*검색건수*/
-        urlBuilder.append("&" + URLEncoder.encode("pageSize","UTF-8") + "=" + sub.getPageSize()); /*검색건수*/
-        urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + sub.getPageNo()); /*페이지 번호*/
-        urlBuilder.append("&" + URLEncoder.encode("startPage","UTF-8") + "=" + sub.getStartPage()); /*페이지 번호*/
+        urlBuilder.append("&" + URLEncoder.encode("depPlaceId","UTF-8") + "=" + service.selectDepPlaceId(sub.getDepPlaceId())); 
+        urlBuilder.append("&" + URLEncoder.encode("arrPlaceId","UTF-8") + "=" + service.selectArrPlaceId(sub.getArrPlaceId()));
+        urlBuilder.append("&" + URLEncoder.encode("depPlandTime","UTF-8") + "=" + sub.getDepPlandTime());
+        urlBuilder.append("&" + URLEncoder.encode("trainGradeCode","UTF-8") + "=" + sub.getTrainGradeCode()); 
+        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + sub.getNumOfRows()); 
+        urlBuilder.append("&" + URLEncoder.encode("pageSize","UTF-8") + "=" + sub.getPageSize()); 
+        urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + sub.getPageNo()); 
+        urlBuilder.append("&" + URLEncoder.encode("startPage","UTF-8") + "=" + sub.getStartPage());
     	urlBuilder.append("&_type=json");
     	URL url = new URL(urlBuilder.toString());
     	System.out.println(url);

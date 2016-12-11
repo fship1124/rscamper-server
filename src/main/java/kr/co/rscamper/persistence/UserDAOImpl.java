@@ -80,10 +80,11 @@ public class UserDAOImpl implements UserDAO {
 		return null;
 	}
 
+	
+	// hodong 
 	@Override
 	public List<UserVO> selectUserList() {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSessionTemplate.selectList(namespace + ".selectUserList");
 	}
 
 }

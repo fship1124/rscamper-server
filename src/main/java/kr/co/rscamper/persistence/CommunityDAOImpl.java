@@ -31,6 +31,19 @@ public class CommunityDAOImpl implements CommunityDAO {
 	public List<CommunityVO> selectCommunityListByCategoryNo(Map<String, Integer> pageMap) {
 		return sqlSessionTemplate.selectList(namespace + ".selectCommunityListByCategoryNo", pageMap);
 	}
+	
+	@Override
+	public int selectCommunityTotalPagesByUserUid(String userUid) {
+		return sqlSessionTemplate.selectOne(namespace + ".selectCommunityTotalPagesByUserUid");
+	}
+
+	@Override
+	public List<CommunityVO> selectCommunityListByUserUid(Map<String, Object> pageMap) {
+		System.out.println("count" + pageMap.get("count"));
+		System.out.println("page" + pageMap.get("page"));
+		System.out.println("userUid" + pageMap.get("userUid"));
+		return sqlSessionTemplate.selectList(namespace + ".selectCommunityListByUserUid", pageMap);
+	}
 
 	@Override
 	public int selectCommunityTotalPages() {
@@ -121,5 +134,16 @@ public class CommunityDAOImpl implements CommunityDAO {
 	public void deleteBoardBookMark(BoardBookMarkVO boardBookMark) {
 		sqlSessionTemplate.insert(namespace + ".deleteBoardBookMark", boardBookMark);
 	}
-	
+
+	@Override
+	public int selectBookmarkCommunityTotalPagesByUserUid(String userUid) {
+		return sqlSessionTemplate.selectOne(namespace + ".selectBookmarkCommunityTotalPagesByUserUid", userUid);
+	}
+
+	@Override
+	public List<CommunityVO> selectBookmarkCommunityListByUserUid(Map<String, Object> pageMap) {
+		return sqlSessionTemplate.selectList(namespace + ".selectBookmarkCommunityListByUserUid", pageMap);
+	}
+
+
 }

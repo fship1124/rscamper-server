@@ -8,6 +8,8 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.rscamper.domain.AppMainCommentVO;
+import kr.co.rscamper.domain.AppMessageVO;
 import kr.co.rscamper.domain.AppMainVO;
 import kr.co.rscamper.persistence.AppMainDAO;
 import kr.co.rscamper.persistence.TourScheduleDAO;
@@ -82,5 +84,15 @@ public class AppMainServiceImpl implements AppMainService {
 		recordListMap.put("totalPages", totalPages);
 
 		return recordListMap;
+	}
+	
+	@Override
+	public List<AppMainCommentVO> selectMainCommentList(String userUid) {
+		return dao.selectMainCommentList(userUid);
+	}
+	
+	@Override
+	public List<AppMessageVO> selectMainMessageList(String userUid) {
+		return dao.selectMainMessageList(userUid);
 	}
 }

@@ -34,4 +34,30 @@
 		WHERE USER_UID = #{userUid}
 	</select>
 	
+	
+	
+	
+	
+	
+	<resultMap type="BoardRouteVO" id="BoardRouteMap">
+		<result column="BOARD_ROUTE_NO" property="boardRouteNo"/>
+		<result column="ORDER_NO" property="orderNo"/>
+		<result column="TARGET_TYPE" property="targetType"/>
+		<result column="TITLE" property="title"/>
+		<result column="PLACE" property="place"/>
+		<result column="CONTENT" property="content"/>
+		<result column="USER_UID" property="userUid"/>
+		<result column="REG_DATE" property="regDate"/>
+	</resultMap>
+	
+	<select id="selectMaxNo" resultType="int">
+		SELECT COALESCE(MAX(BOARD_ROUTE_NO), 0)
+		FROM BOARD_ROUTE_TB
+	</select>
+	
+	<insert id="insertRoute" parameterType="BoardRouteVO">
+		INSERT INTO BOARD_ROUTE_TB (BOARD_ROUTE_NO, ORDER_NO, TITLE, PLACE, CONTENT, USER_UID)
+		VALUES (#{boardRouteNo}, #{orderNo}, #{title}, #{place}, #{content}, #{userUid})
+	</insert>
+	
 </mapper>

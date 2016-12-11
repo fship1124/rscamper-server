@@ -2,6 +2,7 @@ package kr.co.rscamper.persistence;
 
 import java.util.List;
 
+import kr.co.rscamper.domain.TourPlanCommentVO;
 import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
 import kr.co.rscamper.domain.TourPlanScheduleVO;
@@ -56,5 +57,42 @@ public interface TourPlanDAO {
 	/** 여행일정 - 스케쥴 조회 */
 	public List<TourPlanScheduleVO> selectTourPlanScheduleListByRecordNo(int recordNo);
 
+	/** 여행지 - 디테일 조회 */
+	public TourPlanSpotVO selectSpotDetail(int contentid);
+
+	/** 일정 공개 비공개 */
+	public void updateTourPlanOpen(TourPlanVO tourPlan);
+
+	/** 댓글 - 등록 */
+	public void insertTourPlanComment(TourPlanCommentVO tourPlanComment);
 	
+	/** 댓글 - 등록 - 알림*/
+	public void insertTourPlanCommentNotification(TourPlanCommentVO tourPlanComment);
+
+	/** 댓글 - 조회 */
+	public List<TourPlanCommentVO> selectTourPlanCommentListByRecordNo(int recordNo);
+
+	/** 댓글 - 삭제 */
+	public void deleteTourPlanCommentByCommentNo(int commentNo);
+
+	/** 여행일정 - 삭제 */
+	public void deleteTourPlanByRecordNo(int recordNo);
+
+	/** 여행일정 추천수순 15개 조회 */
+	public List<TourPlanVO> selectTourPlanListByLikeCnt();
+
+	/** 내 여행일정 리스트 조회 */
+	public List<TourPlanVO> selectMyTourPlanList(String userUid);
+
+	/** 북마크한 여행일정 리스트 조회 */
+	public List<TourPlanVO> selectBookmarkTourPlanList(String userUid);
+
+	/** 북마크한 여행지 총 페이지 조회 */
+	public int selectBookmarkSpotTotalPages(TourPlanSpotParamVO tourPlanSpotParam);
+
+	/** 북마크한 여행지 리스트 조회 */
+	public List<TourPlanSpotVO> selectBookmarkSpotList(TourPlanSpotParamVO tourPlanSpotParam);
+
+	
+
 }

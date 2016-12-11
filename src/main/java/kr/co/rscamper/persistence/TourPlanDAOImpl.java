@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.rscamper.domain.TourPlanCommentVO;
 import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
 import kr.co.rscamper.domain.TourPlanScheduleVO;
@@ -31,7 +32,7 @@ public class TourPlanDAOImpl implements TourPlanDAO {
 	public int selectTourPlanTotalPages(TourPlanParamVO tourPlanParam) {
 		return sqlSessionTemplate.selectOne(namespace + ".selectTourPlanTotalPages", tourPlanParam);
 	}
-
+	
 	@Override
 	public int insertTourPlan(TourPlanVO tourPlan) {
 		sqlSessionTemplate.insert(namespace + ".insertTourPlan", tourPlan);
@@ -46,6 +47,16 @@ public class TourPlanDAOImpl implements TourPlanDAO {
 	@Override
 	public List<TourPlanSpotVO> selectTourSpotList(TourPlanSpotParamVO tourPlanSpotParam) {
 		return sqlSessionTemplate.selectList(namespace + ".selectTourPlanSpotList", tourPlanSpotParam);
+	}
+	
+	@Override
+	public int selectBookmarkSpotTotalPages(TourPlanSpotParamVO tourPlanSpotParam) {
+		return sqlSessionTemplate.selectOne(namespace + ".selectBookmarkSpotTotalPages", tourPlanSpotParam);
+	}
+
+	@Override
+	public List<TourPlanSpotVO> selectBookmarkSpotList(TourPlanSpotParamVO tourPlanSpotParam) {
+		return sqlSessionTemplate.selectList(namespace + ".selectBookmarkSpotList", tourPlanSpotParam);
 	}
 
 	@Override
@@ -97,6 +108,62 @@ public class TourPlanDAOImpl implements TourPlanDAO {
 	public List<TourPlanScheduleVO> selectTourPlanScheduleListByRecordNo(int recordNo) {
 		return sqlSessionTemplate.selectList(namespace + ".selectTourPlanScheduleListByRecordNo", recordNo);
 	}
+
+	@Override
+	public TourPlanSpotVO selectSpotDetail(int contentid) {
+		return sqlSessionTemplate.selectOne(namespace + ".selectSpotDetail", contentid);
+	}
+
+	@Override
+	public void updateTourPlanOpen(TourPlanVO tourPlan) {
+		sqlSessionTemplate.update(namespace + ".updateTourPlanOpen", tourPlan);
+	}
+
+	@Override
+	public void insertTourPlanComment(TourPlanCommentVO tourPlanComment) {
+		sqlSessionTemplate.insert(namespace + ".insertTourPlanComment", tourPlanComment);
+	}
+	
+	@Override
+	public void insertTourPlanCommentNotification(TourPlanCommentVO tourPlanComment) {
+		 sqlSessionTemplate.insert(namespace + ".insertTourPlanCommentNotification", tourPlanComment);
+	}
+	
+
+	@Override
+	public List<TourPlanCommentVO> selectTourPlanCommentListByRecordNo(int recordNo) {
+		return sqlSessionTemplate.selectList(namespace + ".selectTourPlanCommentListByRecordNo", recordNo);
+	}
+
+	@Override
+	public void deleteTourPlanCommentByCommentNo(int commentNo) {
+		sqlSessionTemplate.delete(namespace+ ".deleteTourPlanCommentByCommentNo", commentNo);
+	}
+
+	@Override
+	public void deleteTourPlanByRecordNo(int recordNo) {
+		sqlSessionTemplate.delete(namespace + ".deleteTourPlanByRecordNo", recordNo);
+	}
+
+	@Override
+	public List<TourPlanVO> selectTourPlanListByLikeCnt() {
+		return sqlSessionTemplate.selectList(namespace + ".selectTourPlanListByLikeCnt");
+	}
+
+	@Override
+	public List<TourPlanVO> selectMyTourPlanList(String userUid) {
+		return sqlSessionTemplate.selectList(namespace + ".selectMyTourPlanList", userUid);
+	}
+
+	@Override
+	public List<TourPlanVO> selectBookmarkTourPlanList(String userUid) {
+//		System.out.println("유저아이디 : " + userUid);
+		return sqlSessionTemplate.selectList(namespace + ".selectBookmarkTourPlanList", userUid);
+	}
+
+	
+
+
 
 
 }
