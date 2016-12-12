@@ -1,6 +1,7 @@
 package kr.co.rscamper.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class ScheduleMemoVO {
 	private int scheduleMemoNo;
@@ -19,8 +20,22 @@ public class ScheduleMemoVO {
 	private int likeCnt;
 	private int isLike;
 	private int memoCnt;
+	private List<TravelPriceVO> price;
+	private int locationNo;
 	
 	
+	public int getLocationNo() {
+		return locationNo;
+	}
+	public void setLocationNo(int locationNo) {
+		this.locationNo = locationNo;
+	}
+	public List<TravelPriceVO> getPrice() {
+		return price;
+	}
+	public void setPrice(List<TravelPriceVO> price) {
+		this.price = price;
+	}
 	public int getMemoCnt() {
 		return memoCnt;
 	}

@@ -333,7 +333,7 @@ public class AppTourScheduleController {
 	
 	@RequestMapping("/addScheduleMemo")
 	@ResponseBody
-	public List<ScheduleMemoVO> addScheduleMemo(ScheduleMemoVO sm) throws Exception {
+	public Map<String,Object> addScheduleMemo(ScheduleMemoVO sm) throws Exception {
 		return service.addScheduleMemo(sm);
 	}
 	
