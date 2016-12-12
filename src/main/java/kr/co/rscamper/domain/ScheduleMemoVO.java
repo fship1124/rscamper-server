@@ -1,6 +1,7 @@
 package kr.co.rscamper.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class ScheduleMemoVO {
 	private int scheduleMemoNo;
@@ -13,8 +14,64 @@ public class ScheduleMemoVO {
 	private int memoType;
 	private String locationTitle;
 	private String recordTitle;
+	private int commentCnt;
+	private String displayName;
+	private String photoUrl;
+	private int likeCnt;
+	private int isLike;
+	private int memoCnt;
+	private List<TravelPriceVO> price;
+	private int locationNo;
 	
 	
+	public int getLocationNo() {
+		return locationNo;
+	}
+	public void setLocationNo(int locationNo) {
+		this.locationNo = locationNo;
+	}
+	public List<TravelPriceVO> getPrice() {
+		return price;
+	}
+	public void setPrice(List<TravelPriceVO> price) {
+		this.price = price;
+	}
+	public int getMemoCnt() {
+		return memoCnt;
+	}
+	public void setMemoCnt(int memoCnt) {
+		this.memoCnt = memoCnt;
+	}
+	public int getIsLike() {
+		return isLike;
+	}
+	public void setIsLike(int isLike) {
+		this.isLike = isLike;
+	}
+	public int getLikeCnt() {
+		return likeCnt;
+	}
+	public void setLikeCnt(int likeCnt) {
+		this.likeCnt = likeCnt;
+	}
+	public String getDisplayName() {
+		return displayName;
+	}
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
+	public int getCommentCnt() {
+		return commentCnt;
+	}
+	public void setCommentCnt(int commentCnt) {
+		this.commentCnt = commentCnt;
+	}
 	public String getLocationTitle() {
 		return locationTitle;
 	}

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.rscamper.domain.AppMainCommentVO;
+import kr.co.rscamper.domain.AppMessageVO;
 import kr.co.rscamper.service.AppMainService;
 
 @Controller
@@ -41,6 +42,11 @@ public class AppMainController {
 	@RequestMapping(value = "/commentList", method = RequestMethod.GET)
 	public @ResponseBody List<AppMainCommentVO> selectMainCommentList(String userUid) throws Exception {
 		return service.selectMainCommentList(userUid);
+	}
+	
+	@RequestMapping(value = "/messageList", method = RequestMethod.GET)
+	public @ResponseBody List<AppMessageVO> selectMainMessageList(String userUid) throws Exception {
+		return service.selectMainMessageList(userUid);
 	}
 	
 }

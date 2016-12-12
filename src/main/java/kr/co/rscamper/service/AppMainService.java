@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.rscamper.domain.AppMainCommentVO;
+import kr.co.rscamper.domain.AppMessageVO;
 
 public interface AppMainService {
 
@@ -18,4 +19,7 @@ public interface AppMainService {
 	
 	/**메인페이지 댓글*/
 	public List<AppMainCommentVO> selectMainCommentList(String userUid);
+	
+	/**메인페이지 메세지*/
+	public List<AppMessageVO> selectMainMessageList(String userUid);
 }

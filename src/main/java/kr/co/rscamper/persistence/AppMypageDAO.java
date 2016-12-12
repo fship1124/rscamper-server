@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.rscamper.domain.BoardRouteVO;
 import kr.co.rscamper.domain.BookMarkPageVO;
 import kr.co.rscamper.domain.BookMarkVO;
 
@@ -24,6 +25,21 @@ public class AppMypageDAO {
 	
 	public int countBookMark(String userUid) {
 		return sqlSessionTemplate.selectOne(namespace + ".countBookMark", userUid);
+	}
+	
+	
+	
+	
+	
+	
+	
+	//////////////
+	public int selectMaxNo() {
+		return sqlSessionTemplate.selectOne(namespace + ".selectMaxNo");
+	}
+	
+	public void insertRoute(BoardRouteVO br) {
+		sqlSessionTemplate.insert(namespace + ".insertRoute", br);
 	}
 	
 }
