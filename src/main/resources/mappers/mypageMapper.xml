@@ -12,7 +12,7 @@
 		(SELECT COUNT(*) FROM BOARD_TB WHERE USER_UID = #{useruid}) myPostCnt,
 		(SELECT COUNT(*) FROM BOARD_BOOKMARK_TB WHERE USER_UID = #{useruid} AND TARGET_TYPE = '1') bookmarkPostCnt,
 		(SELECT COUNT(*) FROM BOARD_BOOKMARK_TB WHERE USER_UID = #{useruid} AND TARGET_TYPE = '3') bookmarkTourPlanCnt,
-		(SELECT COUNT(*) FROM TOUR_BOOKMARK_TB WHERE USER_UID = #{useruid}) bookmarkTourSpotCnt 
+		(SELECT COUNT(*) FROM TOUR_BOOKMARK_TB WHERE USER_UID = #{useruid} AND STATUS LIKE 'ON') bookmarkTourSpotCnt 
 	</select>
 
 </mapper>

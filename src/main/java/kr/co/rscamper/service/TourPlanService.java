@@ -7,6 +7,7 @@ import kr.co.rscamper.domain.TourPlanCommentVO;
 import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
 import kr.co.rscamper.domain.TourPlanScheduleVO;
+import kr.co.rscamper.domain.TourPlanSpotMemoVO;
 import kr.co.rscamper.domain.TourPlanSpotParamVO;
 import kr.co.rscamper.domain.TourPlanSpotVO;
 import kr.co.rscamper.domain.TourPlanVO;
@@ -72,5 +73,13 @@ public interface TourPlanService {
 
 	/** 북마크한 여행장소 리스트 가져오기 */
 	public Map<String, Object> selectBookmarkSpotList(TourPlanSpotParamVO tourPlanSpotParam);
+
+	/** 여행장소 메모 리스트 가져오기 */
+	public List<TourPlanSpotMemoVO> selectTourSpotMemoList(int recordNo);
+
+	/** 여행장소 메모 등록 */
+	public void insertTourSpotMemo(TourPlanSpotMemoVO tourPlanSpotMemo);
+
+	public void deleteTourSpotMemoBylocationMemoNo(int locationMemoNo);
 
 }

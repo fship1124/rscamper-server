@@ -6,6 +6,7 @@ import kr.co.rscamper.domain.TourPlanCommentVO;
 import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
 import kr.co.rscamper.domain.TourPlanScheduleVO;
+import kr.co.rscamper.domain.TourPlanSpotMemoVO;
 import kr.co.rscamper.domain.TourPlanSpotParamVO;
 import kr.co.rscamper.domain.TourPlanVO;
 import kr.co.rscamper.domain.TourPlanSpotVO;
@@ -92,6 +93,15 @@ public interface TourPlanDAO {
 
 	/** 북마크한 여행지 리스트 조회 */
 	public List<TourPlanSpotVO> selectBookmarkSpotList(TourPlanSpotParamVO tourPlanSpotParam);
+
+	/** 여행장소 메모 리스트 조회 */
+	public List<TourPlanSpotMemoVO> selectTourSpotMemoList(int recordNo);
+
+	/** 여행장소 메모 등록 */
+	public void insertTourSpotMemo(TourPlanSpotMemoVO tourPlanSpotMemo);
+
+	/** 여행장소 메모 삭제 */
+	public void deleteTourSpotMemoBylocationMemoNo(int locationMemoNo);
 
 	
 

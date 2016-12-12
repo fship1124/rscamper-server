@@ -104,6 +104,32 @@
 		<result property="photoUrl" column="PHOTO_URL"/>
 	</resultMap>
 	
+	<resultMap type="TourPlanSpotMemoVo" id="TourPlanSpotMemoVOMap">
+		<result property="locationMemoNo" column="LOCATION_MEMO_NO"/>
+		<result property="locationNo" column="LOCATION_NO"/>
+		<result property="recordNo" column="RECORD_NO"/>
+		<result property="memoType" column="MEMO_TYPE"/>
+		<result property="userUid" column="USER_UID"/>
+		<result property="regDate" column="REG_DATE"/>
+	</resultMap>
+	
+	<delete id="deleteTourSpotMemoBylocationMemoNo" parameterType="int">
+		DELETE FROM RECORD_LOCATION_MEMO_TB
+		WHERE LOCATION_MEMO_NO = #{locationMemoNo}
+	</delete>
+	
+	<!-- 여행일정 장소 메모 리스트 조회 -->
+	<select id="selectTourSpotMemoList" parameterType="int" resultMap="TourPlanSpotMemoVOMap">
+		SELECT *
+		FROM RECORD_LOCATION_MEMO_TB
+		WHERE RECORD_NO = #{recordNo}
+	</select>
+	
+	<insert id="insertTourSpotMemo" parameterType="TourPlanSpotMemoVO">
+		INSERT INTO RECORD_LOCATION_MEMO_TB (LOCATION_NO, RECORD_NO, MEMO_TYPE, USER_UID, TITLE, CONTENT)
+		VALUES (#{locationNo}, #{recordNo}, #{memoType}, #{userUid}, #{title}, #{content})
+	</insert>
+	
 	<!-- 여행일정 댓글 알림 등록 -->
 	<insert id="insertTourPlanCommentNotification" parameterType="TourPlanCommentVO">
 		INSERT INTO notisfication_tb (reciv_user_uid, target_user_uid, notisfication_type, notisfication_content_id, notisfication_message, notisfication_url, title)

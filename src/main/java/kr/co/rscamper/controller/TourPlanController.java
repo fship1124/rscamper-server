@@ -26,6 +26,7 @@ import kr.co.rscamper.domain.TourPlanCommentVO;
 import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
 import kr.co.rscamper.domain.TourPlanScheduleVO;
+import kr.co.rscamper.domain.TourPlanSpotMemoVO;
 import kr.co.rscamper.domain.TourPlanSpotParamVO;
 import kr.co.rscamper.domain.TourPlanSpotVO;
 import kr.co.rscamper.domain.TourPlanVO;
@@ -47,6 +48,22 @@ public class TourPlanController {
 	
 	@Inject
 	private ServletContext servletContext;
+	
+	
+	@RequestMapping(value = "/delete/tourSpotMemo", method = RequestMethod.DELETE)
+	public @ResponseBody void deleteTourSpotMemoBylocationMemoNo(int locationMemoNo) throws Exception {
+		tourPlanService.deleteTourSpotMemoBylocationMemoNo(locationMemoNo);
+	}
+	
+	@RequestMapping(value = "/insert/tourSpotMemo", method = RequestMethod.POST)
+	public @ResponseBody void insertTourSpotMemo(TourPlanSpotMemoVO tourPlanSpotMemo) throws Exception {
+		tourPlanService.insertTourSpotMemo(tourPlanSpotMemo);
+	}
+	
+	@RequestMapping(value = "/select/tourSpotMemoList", method = RequestMethod.GET)
+	public @ResponseBody List<TourPlanSpotMemoVO> selectTourSpotMemoList(int recordNo) throws Exception {
+		return tourPlanService.selectTourSpotMemoList(recordNo);
+	}
 	
 	@RequestMapping(value = "/insert/tourPlan/comment", method = RequestMethod.POST)
 	public @ResponseBody void insertTourPlanComment(TourPlanCommentVO tourPlanComment) throws Exception {
@@ -260,12 +277,6 @@ public class TourPlanController {
 		return tourScheduleService.checkScheduleSet(sl, targetType);
 	}
 	
-	@RequestMapping("/scheduleListDetail")
-	@ResponseBody
-	public TourPlanVO scheduleListDetail(int no) throws Exception {
-		return tourScheduleService.scheduleListDetail(no);
-	}
-	
 	@RequestMapping("/insertScheduleListComment")
 	@ResponseBody
 	public List<ScheduleListCommentVO> insertScheduleListComment(ScheduleListCommentVO slc) throws Exception {
@@ -282,18 +293,6 @@ public class TourPlanController {
 	@ResponseBody
 	public List<ScheduleListCommentVO> delScheduleListComment(int commentNo, int recordNo) throws Exception {
 		return tourScheduleService.delScheduleListComment(commentNo, recordNo);
-	}
-	
-	@RequestMapping("/addScheduleMemo")
-	@ResponseBody
-	public List<ScheduleMemoVO> addScheduleMemo(ScheduleMemoVO sm) throws Exception {
-		return tourScheduleService.addScheduleMemo(sm);
-	}
-	
-	@RequestMapping("/getScheduleMemo")
-	@ResponseBody
-	public List<ScheduleMemoVO> getScheduleMemo(int recordNo) throws Exception {
-		return tourScheduleService.getScheduleMemo(recordNo);
 	}
 	
 	@RequestMapping("/getMyPost")

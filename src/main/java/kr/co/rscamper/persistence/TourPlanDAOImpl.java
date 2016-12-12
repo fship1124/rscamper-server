@@ -11,6 +11,7 @@ import kr.co.rscamper.domain.TourPlanCommentVO;
 import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
 import kr.co.rscamper.domain.TourPlanScheduleVO;
+import kr.co.rscamper.domain.TourPlanSpotMemoVO;
 import kr.co.rscamper.domain.TourPlanSpotParamVO;
 import kr.co.rscamper.domain.TourPlanVO;
 import kr.co.rscamper.domain.TourPlanSpotVO;
@@ -161,9 +162,20 @@ public class TourPlanDAOImpl implements TourPlanDAO {
 		return sqlSessionTemplate.selectList(namespace + ".selectBookmarkTourPlanList", userUid);
 	}
 
-	
+	@Override
+	public List<TourPlanSpotMemoVO> selectTourSpotMemoList(int recordNo) {
+		return sqlSessionTemplate.selectList(namespace + ".selectTourSpotMemoList", recordNo);
+	}
 
+	@Override
+	public void insertTourSpotMemo(TourPlanSpotMemoVO tourPlanSpotMemo) {
+		sqlSessionTemplate.insert(namespace + ".insertTourSpotMemo", tourPlanSpotMemo);
+	}
 
+	@Override
+	public void deleteTourSpotMemoBylocationMemoNo(int locationMemoNo) {
+		sqlSessionTemplate.delete(namespace + ".deleteTourSpotMemoBylocationMemoNo", locationMemoNo);
+	}
 
 
 }
