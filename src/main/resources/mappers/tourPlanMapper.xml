@@ -105,29 +105,30 @@
 	</resultMap>
 	
 	<resultMap type="TourPlanSpotMemoVo" id="TourPlanSpotMemoVOMap">
-		<result property="locationMemoNo" column="LOCATION_MEMO_NO"/>
+		<result property="scheduleMemoNo" column="SCHEDULEMEMO_NO"/>
 		<result property="locationNo" column="LOCATION_NO"/>
 		<result property="recordNo" column="RECORD_NO"/>
 		<result property="memoType" column="MEMO_TYPE"/>
 		<result property="userUid" column="USER_UID"/>
 		<result property="regDate" column="REG_DATE"/>
+		<result property="contentId" column="CONTENTID"/>
 	</resultMap>
 	
 	<delete id="deleteTourSpotMemoBylocationMemoNo" parameterType="int">
-		DELETE FROM RECORD_LOCATION_MEMO_TB
-		WHERE LOCATION_MEMO_NO = #{locationMemoNo}
+		DELETE FROM RECORD_SCHEDULEMEMO_TB
+		WHERE SCHEDULEMEMO_NO = #{scheduleMemoNo}
 	</delete>
 	
 	<!-- 여행일정 장소 메모 리스트 조회 -->
 	<select id="selectTourSpotMemoList" parameterType="int" resultMap="TourPlanSpotMemoVOMap">
 		SELECT *
-		FROM RECORD_LOCATION_MEMO_TB
+		FROM RECORD_SCHEDULEMEMO_TB
 		WHERE RECORD_NO = #{recordNo}
 	</select>
 	
 	<insert id="insertTourSpotMemo" parameterType="TourPlanSpotMemoVO">
-		INSERT INTO RECORD_LOCATION_MEMO_TB (LOCATION_NO, RECORD_NO, MEMO_TYPE, USER_UID, TITLE, CONTENT)
-		VALUES (#{locationNo}, #{recordNo}, #{memoType}, #{userUid}, #{title}, #{content})
+		INSERT INTO RECORD_SCHEDULEMEMO_TB (LOCATION_NO, RECORD_NO, MEMO_TYPE, USER_UID, TITLE, CONTENT, CONTENTID)
+		VALUES (#{locationNo}, #{recordNo}, #{memoType}, #{userUid}, #{title}, #{content}, #{contentId})
 	</insert>
 	
 	<!-- 여행일정 댓글 알림 등록 -->
@@ -480,6 +481,24 @@
 		inner join public_data_list_tb b
 		on a.content_id = b.contentid
 	</select>
+	
+	<!-- 예산 작성 -->
+	<insert id="insertTourPlanBudget" parameterType="TravelPriceVO">
+		insert into record_travelPrice_tb(RECORD_NO, CONTENTID, USER_UID, CONTENT, TRAVEL_PRICE, PRICE_TYPE, LOCATION_NO, SCHEDULEMEMO_NO)
+		values (#{recordNo}, #{contentId}, #{userUid}, #{content}, #{travelPrice}, #{priceType}, #{locationNo}, #{scheduleMemoNo})
+	</insert>
+	
+	<!-- 예산 삭제 -->
+	<delete id="deleteTourPlanBudgetByTravelPriceNo" parameterType="int">
+		delete from record_travelPrice_tb
+		where TRAVELPRICE_NO = #{travelPriceNo}
+	</delete>
+	
+	<!-- 예산 삭제 메모 삭제시 -->
+	<delete id="deleteTourPlanBudgetByScheduleMemoNo" parameterType="int">
+		delete from record_travelPrice_tb
+		where SCHEDULEMEMO_NO = #{scheduleMemoNo}
+	</delete>
 	
 	
 </mapper>

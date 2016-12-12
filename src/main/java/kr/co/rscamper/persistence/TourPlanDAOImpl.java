@@ -14,6 +14,7 @@ import kr.co.rscamper.domain.TourPlanScheduleVO;
 import kr.co.rscamper.domain.TourPlanSpotMemoVO;
 import kr.co.rscamper.domain.TourPlanSpotParamVO;
 import kr.co.rscamper.domain.TourPlanVO;
+import kr.co.rscamper.domain.TravelPriceVO;
 import kr.co.rscamper.domain.TourPlanSpotVO;
 
 @Repository
@@ -158,7 +159,6 @@ public class TourPlanDAOImpl implements TourPlanDAO {
 
 	@Override
 	public List<TourPlanVO> selectBookmarkTourPlanList(String userUid) {
-//		System.out.println("유저아이디 : " + userUid);
 		return sqlSessionTemplate.selectList(namespace + ".selectBookmarkTourPlanList", userUid);
 	}
 
@@ -173,8 +173,24 @@ public class TourPlanDAOImpl implements TourPlanDAO {
 	}
 
 	@Override
-	public void deleteTourSpotMemoBylocationMemoNo(int locationMemoNo) {
-		sqlSessionTemplate.delete(namespace + ".deleteTourSpotMemoBylocationMemoNo", locationMemoNo);
+	public void deleteTourSpotMemoBylocationMemoNo(int scheduleMemoNo) {
+		sqlSessionTemplate.delete(namespace + ".deleteTourSpotMemoBylocationMemoNo", scheduleMemoNo);
+	}
+
+	@Override
+	public void insertTourPlanBudget(TravelPriceVO travelPrice) {
+//		System.out.println(travelPrice.toString());
+		sqlSessionTemplate.insert(namespace + ".insertTourPlanBudget", travelPrice);
+	}
+
+	@Override
+	public void deleteTourPlanBudgetByTravelPriceNo(int travelPriceNo) {
+		sqlSessionTemplate.delete(namespace + ".deleteTourPlanBudgetByTravelPriceNo", travelPriceNo);
+	}
+
+	@Override
+	public void deleteTourPlanBudgetByScheduleMemoNo(int scheduleMemoNo) {
+		sqlSessionTemplate.delete(namespace + ".deleteTourPlanBudgetByScheduleMemoNo", scheduleMemoNo);
 	}
 
 

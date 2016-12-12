@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class TourPlanSpotMemoVO {
 	
-	private int locationMemoNo;
+	private int scheduleMemoNo;
 	private int locationNo;
 	private int recordNo;
 	private int memoType;
@@ -12,17 +12,20 @@ public class TourPlanSpotMemoVO {
 	private String title;
 	private String content;
 	private Date regDate;
-	@Override
-	public String toString() {
-		return "TourPlanSpotMemoVO [locationMemoNo=" + locationMemoNo + ", locationNo=" + locationNo + ", recordNo="
-				+ recordNo + ", memoType=" + memoType + ", userUid=" + userUid + ", title=" + title + ", content="
-				+ content + ", regDate=" + regDate + "]";
+	private int contentId;
+	
+	
+	public int getContentId() {
+		return contentId;
 	}
-	public int getLocationMemoNo() {
-		return locationMemoNo;
+	public void setContentId(int contentId) {
+		this.contentId = contentId;
 	}
-	public void setLocationMemoNo(int locationMemoNo) {
-		this.locationMemoNo = locationMemoNo;
+	public int getScheduleMemoNo() {
+		return scheduleMemoNo;
+	}
+	public void setScheduleMemoNo(int scheduleMemoNo) {
+		this.scheduleMemoNo = scheduleMemoNo;
 	}
 	public int getLocationNo() {
 		return locationNo;

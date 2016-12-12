@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.rscamper.domain.BoardBookMarkVO;
 import kr.co.rscamper.domain.ScheduleLikeVO;
-import kr.co.rscamper.domain.ScheduleListCommentVO;
 import kr.co.rscamper.domain.ScheduleMemoVO;
 import kr.co.rscamper.domain.TourPlanCommentVO;
 import kr.co.rscamper.domain.TourPlanCoverVO;
@@ -31,6 +30,7 @@ import kr.co.rscamper.domain.TourPlanSpotParamVO;
 import kr.co.rscamper.domain.TourPlanSpotVO;
 import kr.co.rscamper.domain.TourPlanVO;
 import kr.co.rscamper.domain.TourScheduleVO;
+import kr.co.rscamper.domain.TravelPriceVO;
 import kr.co.rscamper.service.TourPlanService;
 import kr.co.rscamper.service.TourScheduleService;
 
@@ -51,8 +51,8 @@ public class TourPlanController {
 	
 	
 	@RequestMapping(value = "/delete/tourSpotMemo", method = RequestMethod.DELETE)
-	public @ResponseBody void deleteTourSpotMemoBylocationMemoNo(int locationMemoNo) throws Exception {
-		tourPlanService.deleteTourSpotMemoBylocationMemoNo(locationMemoNo);
+	public @ResponseBody void deleteTourSpotMemoBylocationMemoNo(int scheduleMemoNo) throws Exception {
+		tourPlanService.deleteTourSpotMemoBylocationMemoNo(scheduleMemoNo);
 	}
 	
 	@RequestMapping(value = "/insert/tourSpotMemo", method = RequestMethod.POST)
@@ -215,8 +215,8 @@ public class TourPlanController {
 			}
 		}
 		
-//		String filePath = "http://14.32.66.104:8081" + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
-		String filePath = "http://192.168.0.9:8081" + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
+		String filePath = "http://14.32.66.104:8081" + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
+//		String filePath = "http://192.168.0.9:8081" + servletContext.getContextPath() + "/images?path=" + path.substring(path.lastIndexOf("upload")).replaceAll("\\\\","/");
 		
 		tourPlanCover.setOriName(oriFileName);
 		tourPlanCover.setFileName(saveFileName);
@@ -277,30 +277,65 @@ public class TourPlanController {
 		return tourScheduleService.checkScheduleSet(sl, targetType);
 	}
 	
-	@RequestMapping("/insertScheduleListComment")
+	
+	
+	
+	
+	/** 
+	 * 메모
+	 * */
+	@RequestMapping("/getDetailPost")
 	@ResponseBody
-	public List<ScheduleListCommentVO> insertScheduleListComment(ScheduleListCommentVO slc) throws Exception {
-		return tourScheduleService.insertScheduleListComment(slc);
+	public ScheduleMemoVO getDetailPost(ScheduleMemoVO sm) throws Exception {
+		return tourScheduleService.getDetailPost(sm);
 	}
 	
-	@RequestMapping("/getScheduleListComment")
+	@RequestMapping("/getScheduleMemo")
 	@ResponseBody
-	public List<ScheduleListCommentVO> getScheduleListComment(int recordNo) throws Exception {
-		return tourScheduleService.getScheduleListComment(recordNo);
+	public List<ScheduleMemoVO> getScheduleMemo(ScheduleMemoVO sm) throws Exception {
+		return tourScheduleService.getScheduleMemo(sm);
 	}
 	
-	@RequestMapping("/delScheduleListComment")
+	@RequestMapping("/getLocationMemo")
 	@ResponseBody
-	public List<ScheduleListCommentVO> delScheduleListComment(int commentNo, int recordNo) throws Exception {
-		return tourScheduleService.delScheduleListComment(commentNo, recordNo);
+	public List<ScheduleMemoVO> getLocationMemo(int contentId) throws Exception {
+		return tourScheduleService.getLocationMemo(contentId);
 	}
 	
-	@RequestMapping("/getMyPost")
+	@RequestMapping("/addScheduleMemo")
 	@ResponseBody
-	public List<ScheduleMemoVO> getMyPost(String userUid) throws Exception {
-		return tourScheduleService.getMyPost(userUid);
+	public Map<String,Object> addScheduleMemo(ScheduleMemoVO sm) throws Exception {
+		return tourScheduleService.addScheduleMemo(sm);
 	}
 	
+	@RequestMapping("/delScheduleMemo")
+	@ResponseBody
+	public void delScheduleMemo(int scheduleMemoNo) throws Exception {
+		tourScheduleService.delScheduleMemo(scheduleMemoNo);
+	}
+
+	
+	/** 
+	 *  예산
+	 * */
+	// 예산 리스트 가져오기
+	@RequestMapping("/select/budgetListByRecordNo")
+	@ResponseBody
+	public List<TravelPriceVO> getScheduleTravelPrice(int recordNo) throws Exception {
+		return tourScheduleService.getScheduleTravelPrice(recordNo);
+	}
+	
+	// 예산 등록하기
+	@RequestMapping(value = "/insert/budget", method = RequestMethod.POST)
+	public @ResponseBody void insertTourPlanBudget(TravelPriceVO travelPrice) throws Exception {
+		tourPlanService.insertTourPlanBudget(travelPrice);
+	}
+	
+	// 예산 삭제하기
+	@RequestMapping(value = "/delete/budgetByTravelPriceNo", method = RequestMethod.DELETE)
+	public @ResponseBody void deleteTourPlanBudgetByTravelPriceNo(int travelPriceNo) throws Exception {
+		tourPlanService.deleteTourPlanBudgetByTravelPriceNo(travelPriceNo);
+	}
 	
 
 }

@@ -11,6 +11,7 @@ import kr.co.rscamper.domain.TourPlanSpotMemoVO;
 import kr.co.rscamper.domain.TourPlanSpotParamVO;
 import kr.co.rscamper.domain.TourPlanSpotVO;
 import kr.co.rscamper.domain.TourPlanVO;
+import kr.co.rscamper.domain.TravelPriceVO;
 
 public interface TourPlanService {
 
@@ -80,6 +81,13 @@ public interface TourPlanService {
 	/** 여행장소 메모 등록 */
 	public void insertTourSpotMemo(TourPlanSpotMemoVO tourPlanSpotMemo);
 
-	public void deleteTourSpotMemoBylocationMemoNo(int locationMemoNo);
+	/** 여행장소 메모 삭제 */
+	public void deleteTourSpotMemoBylocationMemoNo(int scheduleMemoNo);
+
+	/** 여행장소 예산 등록 */
+	public void insertTourPlanBudget(TravelPriceVO travelPrice);
+
+	/** 예산 하나 삭제 */
+	public void deleteTourPlanBudgetByTravelPriceNo(int travelPriceNo);
 
 }

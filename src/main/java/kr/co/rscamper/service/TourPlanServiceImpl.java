@@ -17,6 +17,7 @@ import kr.co.rscamper.domain.TourPlanScheduleVO;
 import kr.co.rscamper.domain.TourPlanSpotMemoVO;
 import kr.co.rscamper.domain.TourPlanSpotParamVO;
 import kr.co.rscamper.domain.TourPlanVO;
+import kr.co.rscamper.domain.TravelPriceVO;
 import kr.co.rscamper.domain.UserPhotoVO;
 import kr.co.rscamper.domain.UserVO;
 import kr.co.rscamper.domain.TourPlanSpotVO;
@@ -208,8 +209,19 @@ public class TourPlanServiceImpl implements TourPlanService {
 	}
 
 	@Override
-	public void deleteTourSpotMemoBylocationMemoNo(int locationMemoNo) {
-		dao.deleteTourSpotMemoBylocationMemoNo(locationMemoNo);
+	public void deleteTourSpotMemoBylocationMemoNo(int scheduleMemoNo) {
+		dao.deleteTourSpotMemoBylocationMemoNo(scheduleMemoNo);
+		dao.deleteTourPlanBudgetByScheduleMemoNo(scheduleMemoNo);
+	}
+
+	@Override
+	public void insertTourPlanBudget(TravelPriceVO travelPrice) {
+		dao.insertTourPlanBudget(travelPrice);
+	}
+
+	@Override
+	public void deleteTourPlanBudgetByTravelPriceNo(int travelPriceNo) {
+		dao.deleteTourPlanBudgetByTravelPriceNo(travelPriceNo);
 	}
 
 
