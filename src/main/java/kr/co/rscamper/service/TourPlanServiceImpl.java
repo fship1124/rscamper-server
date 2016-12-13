@@ -10,17 +10,16 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.rscamper.domain.TourPlanBudgetForChartVO;
 import kr.co.rscamper.domain.TourPlanCommentVO;
 import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
 import kr.co.rscamper.domain.TourPlanScheduleVO;
 import kr.co.rscamper.domain.TourPlanSpotMemoVO;
 import kr.co.rscamper.domain.TourPlanSpotParamVO;
+import kr.co.rscamper.domain.TourPlanSpotVO;
 import kr.co.rscamper.domain.TourPlanVO;
 import kr.co.rscamper.domain.TravelPriceVO;
-import kr.co.rscamper.domain.UserPhotoVO;
-import kr.co.rscamper.domain.UserVO;
-import kr.co.rscamper.domain.TourPlanSpotVO;
 import kr.co.rscamper.persistence.TourPlanDAO;
 
 @Service
@@ -223,6 +222,12 @@ public class TourPlanServiceImpl implements TourPlanService {
 	public void deleteTourPlanBudgetByTravelPriceNo(int travelPriceNo) {
 		dao.deleteTourPlanBudgetByTravelPriceNo(travelPriceNo);
 	}
+
+	@Override
+	public List<TourPlanBudgetForChartVO> selectBudgetListForChartByRecordNo(int recordNo) {
+		return dao.selectBudgetListForChartByRecordNo(recordNo);
+	}
+	
 
 
 

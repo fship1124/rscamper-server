@@ -7,15 +7,16 @@ import javax.inject.Inject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.rscamper.domain.TourPlanBudgetForChartVO;
 import kr.co.rscamper.domain.TourPlanCommentVO;
 import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
 import kr.co.rscamper.domain.TourPlanScheduleVO;
 import kr.co.rscamper.domain.TourPlanSpotMemoVO;
 import kr.co.rscamper.domain.TourPlanSpotParamVO;
+import kr.co.rscamper.domain.TourPlanSpotVO;
 import kr.co.rscamper.domain.TourPlanVO;
 import kr.co.rscamper.domain.TravelPriceVO;
-import kr.co.rscamper.domain.TourPlanSpotVO;
 
 @Repository
 public class TourPlanDAOImpl implements TourPlanDAO {
@@ -191,6 +192,11 @@ public class TourPlanDAOImpl implements TourPlanDAO {
 	@Override
 	public void deleteTourPlanBudgetByScheduleMemoNo(int scheduleMemoNo) {
 		sqlSessionTemplate.delete(namespace + ".deleteTourPlanBudgetByScheduleMemoNo", scheduleMemoNo);
+	}
+
+	@Override
+	public List<TourPlanBudgetForChartVO> selectBudgetListForChartByRecordNo(int recordNo) {
+		return sqlSessionTemplate.selectList(namespace + ".selectBudgetListForChartByRecordNo", recordNo);
 	}
 
 

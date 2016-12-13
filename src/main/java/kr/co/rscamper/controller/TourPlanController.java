@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import kr.co.rscamper.domain.BoardBookMarkVO;
 import kr.co.rscamper.domain.ScheduleLikeVO;
 import kr.co.rscamper.domain.ScheduleMemoVO;
+import kr.co.rscamper.domain.TourPlanBudgetForChartVO;
 import kr.co.rscamper.domain.TourPlanCommentVO;
 import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
@@ -335,6 +336,12 @@ public class TourPlanController {
 	@RequestMapping(value = "/delete/budgetByTravelPriceNo", method = RequestMethod.DELETE)
 	public @ResponseBody void deleteTourPlanBudgetByTravelPriceNo(int travelPriceNo) throws Exception {
 		tourPlanService.deleteTourPlanBudgetByTravelPriceNo(travelPriceNo);
+	}
+	
+	// 예산 리스트 가져오기(차트용)
+	@RequestMapping(value = "/select/budgetListForChartByRecordNo", method = RequestMethod.GET)
+	public @ResponseBody List<TourPlanBudgetForChartVO> selectBudgetListForChartByRecordNo(int recordNo) throws Exception {
+		return tourPlanService.selectBudgetListForChartByRecordNo(recordNo);
 	}
 	
 

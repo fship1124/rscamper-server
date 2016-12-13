@@ -3,6 +3,7 @@ package kr.co.rscamper.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.rscamper.domain.TourPlanBudgetForChartVO;
 import kr.co.rscamper.domain.TourPlanCommentVO;
 import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
@@ -89,5 +90,8 @@ public interface TourPlanService {
 
 	/** 예산 하나 삭제 */
 	public void deleteTourPlanBudgetByTravelPriceNo(int travelPriceNo);
+
+	/** 예산 리스트 가져오기 (차트) */
+	public List<TourPlanBudgetForChartVO> selectBudgetListForChartByRecordNo(int recordNo);
 
 }

@@ -500,5 +500,17 @@
 		where SCHEDULEMEMO_NO = #{scheduleMemoNo}
 	</delete>
 	
+	<select id="selectBudgetListForChartByRecordNo" parameterType="int" resultType="TourPlanBudgetForChartVO">
+		<![CDATA[
+			SELECT CONTENT AS content, TRAVEL_PRICE AS travelPrice, PRICE_TYPE AS priceType, TITLE AS title, DATEDIFF(DETAIL_DEPARTURE_DATE, (SELECT DEPARTURE_DATE FROM RECORD_TB WHERE RECORD_NO = #{recordNo}))+1 AS DATEARRAY
+			FROM RECORD_TRAVELPRICE_TB RTT
+			LEFT OUTER JOIN RECORD_LOCATION_TB RLT ON RLT.LOCATION_NO = RTT.LOCATION_NO
+			WHERE RTT.RECORD_NO = #{recordNo}
+		]]>
+	</select>
+	
+			
+		
+	
 	
 </mapper>

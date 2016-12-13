@@ -2,15 +2,16 @@ package kr.co.rscamper.persistence;
 
 import java.util.List;
 
+import kr.co.rscamper.domain.TourPlanBudgetForChartVO;
 import kr.co.rscamper.domain.TourPlanCommentVO;
 import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
 import kr.co.rscamper.domain.TourPlanScheduleVO;
 import kr.co.rscamper.domain.TourPlanSpotMemoVO;
 import kr.co.rscamper.domain.TourPlanSpotParamVO;
+import kr.co.rscamper.domain.TourPlanSpotVO;
 import kr.co.rscamper.domain.TourPlanVO;
 import kr.co.rscamper.domain.TravelPriceVO;
-import kr.co.rscamper.domain.TourPlanSpotVO;
 
 public interface TourPlanDAO {
 
@@ -112,6 +113,9 @@ public interface TourPlanDAO {
 
 	/** 메모 삭제시 예산 삭제 */
 	public void deleteTourPlanBudgetByScheduleMemoNo(int scheduleMemoNo);
+
+	/** 예산 가져오기(차트) */
+	public List<TourPlanBudgetForChartVO> selectBudgetListForChartByRecordNo(int recordNo);
 
 	
 
