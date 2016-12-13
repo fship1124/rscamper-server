@@ -169,6 +169,55 @@ where b.user_uid = '1YboVQ9qoUf3IxMoPrxI6Wltwut2' and b.board_no = bc.board_no
 order by reg_date
 
 
+show tables;
+select * from notes_tb;
+
+select * from record_travelprice_tb;
+
+select * from board_tb;
+select * from board_bookmark_tb;
+select * from board_like_tb;
+
+
+
+CREATE TABLE BOARD_ROUTE_TB (
+	BOARD_ROUTE_NO INT,
+	ORDER_NO INT,
+	TARGET_TYPE VARCHAR(10) DEFAULT '2',
+	TITLE VARCHAR(100),
+	PLACE VARCHAR(100),
+	CONTENT VARCHAR(1000),
+	USER_UID VARCHAR(100),
+	REG_DATE TIMESTAMP DEFAULT NOW()
+)
+
+drop table board_route_tb;
+select COALESCE(max(board_route_no), 0)
+from board_route_tb;
+
+select * from board_route_tb;
+
+
+select n.notes_no, n.sent_user_uid, n.title, n.content, n.date_sent, n.recv_read, u.photo_url, u.display_name
+from notes_tb n, user_tb u
+where n.recv_user_uid = '1YboVQ9qoUf3IxMoPrxI6Wltwut2'
+	and n.sent_user_uid = u.user_uid;
+
+
+SELECT NOTES_NO, TITLE
+		FROM NOTES_TB
+		WHERE RECV_USER_UID = '1YboVQ9qoUf3IxMoPrxI6Wltwut2'
+		AND RECV_READ = 'N'
+		ORDER BY DATE_SENT DESC
+		
+SELECT *
+		FROM NOTES_TB
+		WHERE RECV_USER_UID = '1YboVQ9qoUf3IxMoPrxI6Wltwut2'
+		ORDER BY DATE_SENT DESC
+	
+	
+	
+
  
  select * from record_tb;
  

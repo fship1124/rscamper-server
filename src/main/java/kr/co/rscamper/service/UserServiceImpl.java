@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserVO selectUserByUid(String userUid) {
-		System.out.println("회원조회 : " + userUid);
+//		System.out.println("회원조회 : " + userUid);
 		return dao.selectUserByUid(userUid);
 	}
 
@@ -126,5 +126,4 @@ public class UserServiceImpl implements UserService {
 	public LocationVO selectLocationByNo() {
 		return dao.selectLocationByNo();
 	}
-
 }

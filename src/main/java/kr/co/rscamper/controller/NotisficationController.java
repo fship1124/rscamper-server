@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,18 +37,12 @@ public class NotisficationController {
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public @ResponseBody List<NotisficationVO> list(@RequestParam("userUid") String userUid) throws Exception {
 		logger.info("in notisfication > list");
-		System.out.print("userUid : ");
-		System.out.println(userUid);
 		
 		List<NotisficationVO> list = new ArrayList<>();
 		list = service.list(userUid);
 		
 		for (NotisficationVO vo : list) {
-			System.out.println("i");
-			System.out.println(vo.toString());
-			
 			UserVO uVo = userService.selectUserByUid(vo.getTargetUserUid());
-			System.out.println(uVo.toString());
 			vo.setDisplayName(uVo.getDisplayName());
 			vo.setPhotoUrl(uVo.getPhotoUrl());
 			
@@ -55,14 +50,11 @@ public class NotisficationController {
 			
 			switch(vo.getType()) {
 			case "1": case "2": case "3":
-				System.out.println("여행기");
 				cVo.setGroupCodeNo("notisfication_code");
-				
-			break;
-			
+				break;
 			case "4": case "5": case "6": 
 				System.out.println("~~~~~");
-			break;
+				break;
 			}
 			
 			cVo.setCodeNo(Integer.parseInt(vo.getType()));
@@ -72,4 +64,13 @@ public class NotisficationController {
 		
 		return list;
 	}
+	
+	
+	@RequestMapping(value="/delete/{no}", method = RequestMethod.DELETE)
+	public @ResponseBody void deleteByNo(@PathVariable("no") int no) throws Exception {
+		logger.info("in notisfication > delete");
+//		System.out.print("notificationNO : ");
+//		System.out.println(no);
+		service.deleteByNo(no);
+	};
 }

@@ -123,6 +123,12 @@ public class TourPlanDAOImpl implements TourPlanDAO {
 	public void insertTourPlanComment(TourPlanCommentVO tourPlanComment) {
 		sqlSessionTemplate.insert(namespace + ".insertTourPlanComment", tourPlanComment);
 	}
+	
+	@Override
+	public void insertTourPlanCommentNotification(TourPlanCommentVO tourPlanComment) {
+		 sqlSessionTemplate.insert(namespace + ".insertTourPlanCommentNotification", tourPlanComment);
+	}
+	
 
 	@Override
 	public List<TourPlanCommentVO> selectTourPlanCommentListByRecordNo(int recordNo) {
@@ -154,6 +160,8 @@ public class TourPlanDAOImpl implements TourPlanDAO {
 //		System.out.println("유저아이디 : " + userUid);
 		return sqlSessionTemplate.selectList(namespace + ".selectBookmarkTourPlanList", userUid);
 	}
+
+	
 
 
 

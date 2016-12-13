@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.co.rscamper.domain.AppMainCommentVO;
+import kr.co.rscamper.domain.AppMessageVO;
 import kr.co.rscamper.domain.AppMainVO;
 
 @Repository
@@ -45,5 +46,9 @@ public class AppMainDAO {
 	
 	public List<AppMainCommentVO> selectMainCommentList(String userUid) {
 		return sqlSessionTemplate.selectList(namespace + ".selectMainCommentList", userUid);
+	}
+	
+	public List<AppMessageVO> selectMainMessageList(String userUid) {
+		return sqlSessionTemplate.selectList(namespace + ".selectMainMessageList", userUid);
 	}
 }

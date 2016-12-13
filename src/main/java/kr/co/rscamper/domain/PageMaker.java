@@ -20,19 +20,27 @@ public class PageMaker {
 		calcData();
 	}
 	private void calcData() {
-		
+		System.out.println("in calcData");
 		endPage = (int) (Math.ceil(page.getPage() / (double) displayPageNum) * displayPageNum);
+		
+		System.out.println("endPage : " + endPage);
 		startPage = (endPage - displayPageNum) + 1;
 		
 		int tempEndPage = (int) (Math.ceil(totalCount / (double) page.getPerPageNum()));
+		System.out.println("tempEndPage : " + tempEndPage);
+		
+		System.out.print("totalCount / (double) page.getPerPageNum() : ");
+		System.out.println(totalCount / (double) page.getPerPageNum());
+		System.out.println(Math.ceil(totalCount / (double) page.getPerPageNum()));
 		
 		if (endPage > tempEndPage) {
+			System.out.println(" endPage > tempEndPage ");
 			endPage = tempEndPage;
+			System.out.println("endPage : " + endPage);
 		}
 		
 		prev = startPage == 1? false : true;
 		next = endPage * page.getPerPageNum() >= totalCount ? false : true;
-		
 	}
 	public int getStartPage() {
 		return startPage;

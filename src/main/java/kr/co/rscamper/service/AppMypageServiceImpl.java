@@ -1,5 +1,6 @@
 package kr.co.rscamper.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,10 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import kr.co.rscamper.domain.BoardRouteVO;
 import kr.co.rscamper.domain.BookMarkPageVO;
 import kr.co.rscamper.domain.BookMarkVO;
 import kr.co.rscamper.persistence.AppMypageDAO;
@@ -33,9 +38,7 @@ public class AppMypageServiceImpl implements AppMypageService {
 		List<BookMarkVO> bookMarkList = dao.selectBookMarkList(bookMarkPage);
 		
 		for (BookMarkVO bookMarkVO : bookMarkList) {
-			System.out.println(bookMarkVO.getTitle());
 			if (bookMarkVO.getTargetType().equals("3") && bookMarkVO.getPicture() == 1) {
-				System.out.println(bookMarkVO.getTitle());
 				bookMarkVO.setCoverImgUrl(tdao.getCover(bookMarkVO.getNo()).getFilePath());
 			}
 		}
@@ -46,4 +49,36 @@ public class AppMypageServiceImpl implements AppMypageService {
 		return bookMarkMap;
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/////////////////////////
+	@Override
+	public void insertRoute(String jsonValue) throws Exception {
+		ObjectMapper mapper = new ObjectMapper();
+		List<BoardRouteVO> brList = new ArrayList<>();
+		brList = mapper.readValue(jsonValue, new TypeReference<List<BoardRouteVO>>() {});
+		
+		int no = dao.selectMaxNo() + 1;
+		int orderNo = 0;
+		for (BoardRouteVO br : brList) {
+			br.setOrderNo(++orderNo);
+			br.setBoardRouteNo(no);
+			dao.insertRoute(br);
+		}
+	}
 }

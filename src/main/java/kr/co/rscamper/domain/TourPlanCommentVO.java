@@ -10,10 +10,37 @@ public class TourPlanCommentVO {
 	private String content;
 	private Date regDate;
 	
+	// 유저정보
 	private String displayName;
 	private String photoUrl;
 	
+	// 알림 정보
+	private String recivUserUid;
+	private String title;
+	private String url;
 	
+	
+	
+	
+	
+	public String getRecivUserUid() {
+		return recivUserUid;
+	}
+	public void setRecivUserUid(String recivUserUid) {
+		this.recivUserUid = recivUserUid;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	public String getDisplayName() {
 		return displayName;
 	}
