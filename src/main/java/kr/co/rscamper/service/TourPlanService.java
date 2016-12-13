@@ -3,13 +3,16 @@ package kr.co.rscamper.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.rscamper.domain.TourPlanBudgetForChartVO;
 import kr.co.rscamper.domain.TourPlanCommentVO;
 import kr.co.rscamper.domain.TourPlanCoverVO;
 import kr.co.rscamper.domain.TourPlanParamVO;
 import kr.co.rscamper.domain.TourPlanScheduleVO;
+import kr.co.rscamper.domain.TourPlanSpotMemoVO;
 import kr.co.rscamper.domain.TourPlanSpotParamVO;
 import kr.co.rscamper.domain.TourPlanSpotVO;
 import kr.co.rscamper.domain.TourPlanVO;
+import kr.co.rscamper.domain.TravelPriceVO;
 
 public interface TourPlanService {
 
@@ -72,5 +75,23 @@ public interface TourPlanService {
 
 	/** 북마크한 여행장소 리스트 가져오기 */
 	public Map<String, Object> selectBookmarkSpotList(TourPlanSpotParamVO tourPlanSpotParam);
+
+	/** 여행장소 메모 리스트 가져오기 */
+	public List<TourPlanSpotMemoVO> selectTourSpotMemoList(int recordNo);
+
+	/** 여행장소 메모 등록 */
+	public void insertTourSpotMemo(TourPlanSpotMemoVO tourPlanSpotMemo);
+
+	/** 여행장소 메모 삭제 */
+	public void deleteTourSpotMemoBylocationMemoNo(int scheduleMemoNo);
+
+	/** 여행장소 예산 등록 */
+	public void insertTourPlanBudget(TravelPriceVO travelPrice);
+
+	/** 예산 하나 삭제 */
+	public void deleteTourPlanBudgetByTravelPriceNo(int travelPriceNo);
+
+	/** 예산 리스트 가져오기 (차트) */
+	public List<TourPlanBudgetForChartVO> selectBudgetListForChartByRecordNo(int recordNo);
 
 }
