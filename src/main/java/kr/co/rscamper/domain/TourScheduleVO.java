@@ -20,7 +20,15 @@ public class TourScheduleVO {
 	private int isOpen;
 	private int likeCnt;
 	private int commentCnt;
+	private int totalPrice;
 	
+	
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 	public int getLikeCnt() {
 		return likeCnt;
 	}

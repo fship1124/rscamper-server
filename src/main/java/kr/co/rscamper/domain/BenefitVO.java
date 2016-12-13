@@ -1,7 +1,5 @@
 package kr.co.rscamper.domain;
 
-
-
 public class BenefitVO {
 	private int benefitNo;			// 
 	private String title;
@@ -14,6 +12,7 @@ public class BenefitVO {
 	private String sapceText;
 	private String space;
 	private String discount;
+	
 	private String content;
 	
 	
