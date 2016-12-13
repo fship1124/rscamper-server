@@ -104,6 +104,12 @@
 		<result property="photoUrl" column="PHOTO_URL"/>
 	</resultMap>
 	
+	<!-- 여행일정 댓글 알림 등록 -->
+	<insert id="insertTourPlanCommentNotification" parameterType="TourPlanCommentVO">
+		INSERT INTO notisfication_tb (reciv_user_uid, target_user_uid, notisfication_type, notisfication_content_id, notisfication_message, notisfication_url, title)
+		values (#{recivUserUid}, #{userUid}, 1, #{recordNo}, #{content}, #{url}, #{title})
+	</insert>
+	
 	<!-- 여행일정 댓글 등록 -->
 	<insert id="insertTourPlanComment" parameterType="TourPlanCommentVO">
 		INSERT INTO RECORD_COMMENT_TB (COMMENT_NO, RECORD_NO, USER_UID, CONTENT)

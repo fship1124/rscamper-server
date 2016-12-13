@@ -65,6 +65,9 @@ public interface TourPlanDAO {
 
 	/** 댓글 - 등록 */
 	public void insertTourPlanComment(TourPlanCommentVO tourPlanComment);
+	
+	/** 댓글 - 등록 - 알림*/
+	public void insertTourPlanCommentNotification(TourPlanCommentVO tourPlanComment);
 
 	/** 댓글 - 조회 */
 	public List<TourPlanCommentVO> selectTourPlanCommentListByRecordNo(int recordNo);
@@ -89,5 +92,7 @@ public interface TourPlanDAO {
 
 	/** 북마크한 여행지 리스트 조회 */
 	public List<TourPlanSpotVO> selectBookmarkSpotList(TourPlanSpotParamVO tourPlanSpotParam);
+
+	
 
 }

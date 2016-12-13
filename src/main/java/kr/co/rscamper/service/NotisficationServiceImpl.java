@@ -20,4 +20,10 @@ public class NotisficationServiceImpl implements NotisficationService {
 		return dao.list(userUid);
 	}
 
+
+	@Override
+	public void deleteByNo(int no) throws Exception {
+		dao.deleteByNo(no);
+	}
+
 }

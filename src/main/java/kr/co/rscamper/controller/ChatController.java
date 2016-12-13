@@ -38,7 +38,7 @@ public class ChatController {
 	public String chat() {
 		logger.info("/chat > home");
 
-		return "redirect:http://192.168.0.173:80/rscamper-web/views/chat/list.jsp";
+		return "redirect:http://192.168.0.187:80/rscamper-web/views/chat/list.jsp";
 	};
 	
 	
@@ -146,7 +146,7 @@ public class ChatController {
 		title = URLEncoder.encode(title, "UTF-8");
 		areaName = URLEncoder.encode(areaName, "UTF-8");
 
-		return "redirect:http://192.168.0.173:80/rscamper-web/views/chat/detail.jsp?room=" + areaName + "&location=" + location + "&title=" + title + "&roomNo=" + roomNo;
+		return "redirect:http://192.168.0.187:80/rscamper-web/views/chat/detail.jsp?room=" + areaName + "&location=" + location + "&title=" + title + "&roomNo=" + roomNo;
 
 	};
 	
@@ -172,7 +172,7 @@ public class ChatController {
 		String title = URLEncoder.encode(crVo.getChatRoomName(), "UTF-8");
 		String areaName = URLEncoder.encode(areaName1, "UTF-8");
 		
-		return "redirect:http://192.168.0.173:80/rscamper-web/views/chat/detail.jsp?room=" + areaName + "&location=" + crVo.getAreacode() + "&title=" + title + "&roomNo=" + crVo.getChatRoomInfoNo();
+		return "redirect:http://192.168.0.187:80/rscamper-web/views/chat/detail.jsp?room=" + areaName + "&location=" + crVo.getAreacode() + "&title=" + title + "&roomNo=" + crVo.getChatRoomInfoNo();
 	};
 	
 	
@@ -196,7 +196,6 @@ public class ChatController {
 		System.out.println("삭제할 채팅방 번호 : " + roomNo);
 		service.deleteChatRoom(roomNo);
 	}
-	
 	
 	
 }
