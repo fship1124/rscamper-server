@@ -37,7 +37,7 @@ public class NoteController {
 	public @ResponseBody Map<String, Object> ajaxNoteList(@RequestParam("uid") String uid, PageVO vo) throws Exception {
 		logger.info("/note > list");
 		
-		System.out.println(vo.toString());
+//		System.out.println(vo.toString());
 		
 		List<NoteVO> list = new ArrayList<>();
 		
@@ -47,9 +47,8 @@ public class NoteController {
 		int v = 1;
 		for (NoteVO nVo : list) {
 			UserVO uVo = userService.selectUserByUid(nVo.getSentUserUid());
-			System.out.println(v++);
-			System.out.println(nVo.toString());
-			System.out.println(uVo.toString());
+//			System.out.println(nVo.toString());
+//			System.out.println(uVo.toString());
 			nVo.setDisplayName(uVo.getDisplayName());
 			nVo.setPhotoUrl(uVo.getPhotoUrl());
 		}

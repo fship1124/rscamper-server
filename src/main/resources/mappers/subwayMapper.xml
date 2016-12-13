@@ -17,6 +17,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where station_title = #{station_title}
 </select>
 
+<select id="mainTimeList" resultType="SubwayVO" parameterType="string">
+	select *
+	from train_tb
+
+</select>
 
 
 </mapper>

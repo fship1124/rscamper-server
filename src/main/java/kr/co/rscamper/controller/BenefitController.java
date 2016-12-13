@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.rscamper.domain.BenefitVO;
 import kr.co.rscamper.domain.PageMaker;
 import kr.co.rscamper.domain.PageVO;
-import kr.co.rscamper.domain.TogetherVO;
 import kr.co.rscamper.service.BenefitService;
-import kr.co.rscamper.service.UserService;
 
 @Controller
 @RequestMapping("/benefit/*")
@@ -47,7 +45,7 @@ public class BenefitController {
 		System.out.print("totalCount: ");
 		System.out.println(totalCount);
 		
-		vo.setPerPageNum(12);
+		vo.setPerPageNum(20);
 		list = service.listTogether(vo);
 		System.out.print("list: ");
 		System.out.println(list);
