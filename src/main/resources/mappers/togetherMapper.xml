@@ -25,7 +25,7 @@
 	SELECT *
 		FROM TOGETHER_TB
 		WHERE together_no > 0
-		ORDER BY TOGETHER_NO DESC
+		ORDER BY TOGETHER_NO ASC
 		LIMIT #{pageStart}, #{perPageNum}
 	]]>
 </select>

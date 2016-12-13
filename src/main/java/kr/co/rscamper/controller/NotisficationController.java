@@ -73,4 +73,14 @@ public class NotisficationController {
 //		System.out.println(no);
 		service.deleteByNo(no);
 	};
+	
+	
+	// 알림 DB 입력
+	@RequestMapping(value="/insert", method = RequestMethod.POST)
+	public @ResponseBody void insertNotification(NotisficationVO vo) throws Exception {
+		logger.info("in notisfication > insert");
+		System.out.print(vo.toString());
+		
+		service.insertNotification(vo);
+	};
 }
