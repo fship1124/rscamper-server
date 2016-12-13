@@ -46,8 +46,11 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public void mainTimeList(SubwayVO sub) throws Exception {
-		dao.mainTimeList(sub);
+	public List<SubwayVO> mainTrainTimeList(String deplaceId, String arrPlaceId, String depPlandTime,
+			String trainGradeCode, String numOfRows, String pageSize, String pageNo, String startPage)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return dao.mainTrainTimeList(deplaceId, arrPlaceId, depPlandTime, trainGradeCode, numOfRows, pageSize, pageNo, startPage);
 	}
 
 

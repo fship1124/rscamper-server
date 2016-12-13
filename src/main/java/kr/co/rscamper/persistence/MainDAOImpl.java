@@ -2,7 +2,9 @@ package kr.co.rscamper.persistence;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -61,8 +63,20 @@ public class MainDAOImpl implements MainDAO {
 	}
 
 	@Override
-	public void mainTimeList(SubwayVO sub) throws Exception {
-		sqlSessionTemplate.selectList(TTnamespace + ".mainTimeList", sub);
+	public List<SubwayVO> mainTrainTimeList(String deplaceId, String arrPlaceId, String depPlandTime,
+			String trainGradeCode, String numOfRows, String pageSize, String pageNo, String startPage)
+			throws Exception {
+		Map<String, String> map = new HashMap<>();
+		map.put("deplaceId", deplaceId);
+		map.put("arrPlaceId", arrPlaceId);
+		map.put("depPlandTime", depPlandTime);
+		map.put("trainGradeCode", trainGradeCode);
+		map.put("numOfRows", numOfRows);
+		map.put("pageSize", pageSize);
+		map.put("pageNo", pageNo);
+		map.put("startPage", startPage);
+		
+		return sqlSessionTemplate.selectList(TTnamespace + ".mainTimeList", map);
 	}
 
 }

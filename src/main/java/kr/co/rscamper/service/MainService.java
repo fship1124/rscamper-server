@@ -15,5 +15,6 @@ public interface MainService {
 	public List<BenefitVO> list()throws Exception;
 	public List<TourPlanSpotVO> tourlist()throws Exception;
 	public List<TrainVO> maintrainList()throws Exception;
-	public void mainTimeList(SubwayVO sub)throws Exception;
+	public List<SubwayVO> mainTrainTimeList(String deplaceId, String arrPlaceId, String depPlandTime,
+			String trainGradeCode, String numOfRows, String pageSize, String pageNo, String startPage)throws Exception;
 }
