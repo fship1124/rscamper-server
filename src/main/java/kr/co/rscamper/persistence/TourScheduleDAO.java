@@ -28,251 +28,284 @@ public class TourScheduleDAO {
 	@Inject
 	private SqlSessionTemplate sqlSessionTemplate;
 	
+	private static final String namespace = "kr.co.rscamper.TourSchedule";
+	
 	public List<TourScheduleVO> getSchedule(String uid) {
-		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getSchedule", uid);
+		return sqlSessionTemplate.selectList(namespace + ".getSchedule", uid);
 	}
 	
 	public void insertSchedule(TourScheduleVO tv) {
-		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.insertSchedule", tv);
+		sqlSessionTemplate.insert(namespace + ".insertSchedule", tv);
 	}
 	
 	public void delSchedule(int no) {
-		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.delSchedule", no);
-		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.delCover", no);
-		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.delScheduleLocation", no);
+		sqlSessionTemplate.delete(namespace + ".delSchedule", no);
+	}
+	
+	public void delCover(int no) {
+		sqlSessionTemplate.delete(namespace + ".delCover", no);
+	}
+	
+	public void delScheduleLocation(int no) {
+		sqlSessionTemplate.delete(namespace + ".delScheduleLocation", no);
 	}
 	
 	public void changeCover(RecordCoverVO rc) {
-		sqlSessionTemplate.update("kr.co.rscamper.TourSchedule.changeCover", rc);
+		sqlSessionTemplate.update(namespace + ".changeCover", rc);
 	}
 	
 	public void insertCover(RecordCoverVO rc) {
-		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.insertCover",rc);
+		sqlSessionTemplate.insert(namespace + ".insertCover",rc);
 		int no = rc.getRecordNo();
 		System.out.println(no);
-		sqlSessionTemplate.update("kr.co.rscamper.TourSchedule.updateCover", no);
+		sqlSessionTemplate.update(namespace + ".updateCover", no);
 	}
 	
 	public RecordCoverVO getCover(int no) {
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getCover", no);
+		return sqlSessionTemplate.selectOne(namespace + ".getCover", no);
 	}
 	
 	public TourScheduleVO getDetailTourSchedule(int no) {
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getDetailTourSchedule", no);
+		return sqlSessionTemplate.selectOne(namespace + ".getDetailTourSchedule", no);
 	}
 	
 	public void updateStrapline(TourScheduleVO tv) {
-		sqlSessionTemplate.update("kr.co.rscamper.TourSchedule.updateStrapline", tv);
+		sqlSessionTemplate.update(namespace + ".updateStrapline", tv);
 	}
 	
 	public void addScheduleLocation(RecordLocationVO rl) {
-		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.addScheduleLocation", rl);
+		sqlSessionTemplate.insert(namespace + ".addScheduleLocation", rl);
 	}
 	
 	public List<RecordLocationVO> getScheduleLocation(int no) {
-		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getScheduleLocation", no);
+		return sqlSessionTemplate.selectList(namespace + ".getScheduleLocation", no);
 	}
 	
 	public int locationLikeCount(int code) {
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.locationLikeCount", code);
+		return sqlSessionTemplate.selectOne(namespace + ".locationLikeCount", code);
 	}
 	
 	public void insertLikePlus(LocationLikedVO ll) {
-		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.insertLikePlus", ll);
+		sqlSessionTemplate.insert(namespace + ".insertLikePlus", ll);
 	}
 	
 	public LocationLikedVO checkedIsLike(LocationLikedVO ll) {
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.checkedIsLike", ll);
+		return sqlSessionTemplate.selectOne(namespace + ".checkedIsLike", ll);
 	}
 	
 	public void removeLiked(LocationLikedVO ll) {
-		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.removeLiked", ll);
+		sqlSessionTemplate.delete(namespace + ".removeLiked", ll);
 	}
 	
 	public void delLocation(int locationNo) {
-		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.delLocation",locationNo);
+		sqlSessionTemplate.delete(namespace + ".delLocation",locationNo);
 	}
 	
 	public List<TourSchedulePlanVO> allScheduleList(Map<String, Integer> pageMap) {
-		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.allScheduleList",pageMap);
+		return sqlSessionTemplate.selectList(namespace + ".allScheduleList",pageMap);
 	}
 	
 	public List<TourSchedulePlanVO> allScheduleListDate(Map<String, Integer> pageMap) {
-		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.allScheduleListDate",pageMap);
+		return sqlSessionTemplate.selectList(namespace + ".allScheduleListDate",pageMap);
 	}
 	
 	public List<TourSchedulePlanVO> allScheduleListDay(Map<String, Integer> pageMap) {
-		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.allScheduleListDay",pageMap);
+		return sqlSessionTemplate.selectList(namespace + ".allScheduleListDay",pageMap);
 	}
 	
 	public int selectScheduleCount() {
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.selectScheduleCount");
+		return sqlSessionTemplate.selectOne(namespace + ".selectScheduleCount");
 	}
 	
 	public void addScheduleLike(ScheduleLikeVO sl) {
-		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.addScheduleLike", sl);
+		sqlSessionTemplate.insert(namespace + ".addScheduleLike", sl);
 	}
 	
 	public int getScheduleLikeCount(int recordNo) {
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getScheduleLikeCount", recordNo);
+		return sqlSessionTemplate.selectOne(namespace + ".getScheduleLikeCount", recordNo);
 	}
 	
 	public ScheduleLikeVO checkScheduleLike(ScheduleLikeVO sl) {
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.checkScheduleLike", sl);
+		return sqlSessionTemplate.selectOne(namespace + ".checkScheduleLike", sl);
 	}
 	
 	public void cancelScheduleLike(ScheduleLikeVO sl) {
-		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.cancelScheduleLike", sl);
+		sqlSessionTemplate.delete(namespace + ".cancelScheduleLike", sl);
 	}
 	
 	public int addCustomizing(TourScheduleVO tv) {
-		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.addCustomizing", tv);
+		sqlSessionTemplate.insert(namespace + ".addCustomizing", tv);
 		return tv.getRecordNo(); 
 	}
 	
 	public int getCustomizingCnt(int recordNo) {
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getCustomizingLikeCount", recordNo);
+		return sqlSessionTemplate.selectOne(namespace + ".getCustomizingLikeCount", recordNo);
 	}
 	
 	public int addCustomizingLike(ScheduleLikeVO sl) {
-		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.addCustomizingLike", sl);
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getCustomizingLikeCount", sl);
+		sqlSessionTemplate.insert(namespace + ".addCustomizingLike", sl);
+		return sqlSessionTemplate.selectOne(namespace + ".getCustomizingLikeCount", sl);
 	}
 	
 	public ScheduleLikeVO checkCustomizing(ScheduleLikeVO sl) {
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.checkCustomizingLike", sl);
+		return sqlSessionTemplate.selectOne(namespace + ".checkCustomizingLike", sl);
 	}
 	
 	public int cancelCustomizingLike(ScheduleLikeVO sl) {
-		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.cancelCustomizingLike", sl);
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getCustomizingLikeCount", sl);
+		sqlSessionTemplate.delete(namespace + ".cancelCustomizingLike", sl);
+		return sqlSessionTemplate.selectOne(namespace + ".getCustomizingLikeCount", sl);
 	}
 	
 	public int addScheduleBookmark(BoardBookMarkVO bbv) {
-		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.addScheduleBookmark", bbv);
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getScheduleBookMarkCount", bbv);
+		sqlSessionTemplate.insert(namespace + ".addScheduleBookmark", bbv);
+		return sqlSessionTemplate.selectOne(namespace + ".getScheduleBookMarkCount", bbv);
 	}
 	
 	public int cancelScheduleBookMark(BoardBookMarkVO bbv) {
-		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.cancelScheduleBookMark", bbv);
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getScheduleBookMarkCount", bbv);
+		sqlSessionTemplate.delete(namespace + ".cancelScheduleBookMark", bbv);
+		return sqlSessionTemplate.selectOne(namespace + ".getScheduleBookMarkCount", bbv);
 	}
 	
 	public int getScheduleBookMark (BoardBookMarkVO bbv) {
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getScheduleBookMarkCount", bbv);
+		return sqlSessionTemplate.selectOne(namespace + ".getScheduleBookMarkCount", bbv);
 	}
 	
 	public BoardBookMarkVO checkScheduleBookMark(BoardBookMarkVO bbv) {
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.checkScheduleBookMark", bbv);
+		return sqlSessionTemplate.selectOne(namespace + ".checkScheduleBookMark", bbv);
 	}
 	
 	public TourSchedulePlanVO scheduleListDetail(int no) {
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.scheduleListDetail", no);
+		return sqlSessionTemplate.selectOne(namespace + ".scheduleListDetail", no);
 	}
 	
 	public void insertScheduleListComment(ScheduleListCommentVO slc) {
-		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.insertScheduleListComment", slc);
+		sqlSessionTemplate.insert(namespace + ".insertScheduleListComment", slc);
 	}
 	
 	public List<ScheduleListCommentVO> getScheduleListComment(int recordNo) {
-		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getScheduleListComment", recordNo);
+		return sqlSessionTemplate.selectList(namespace + ".getScheduleListComment", recordNo);
 	}
 	
 	public void delScheduleListComment(int commentNo) {
-		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.delScheduleListComment", commentNo);
+		sqlSessionTemplate.delete(namespace + ".delScheduleListComment", commentNo);
 	}
 	
-	public void addScheduleMemo(ScheduleMemoVO sm) {
-		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.addScheduleMemo", sm);
+	public int addScheduleMemo(ScheduleMemoVO sm) {
+		sqlSessionTemplate.insert(namespace + ".addScheduleMemo", sm);
+		return sm.getScheduleMemoNo();
 	}
 	
 	public List<ScheduleMemoVO> getScheduleMemo(ScheduleMemoVO sm) {
-		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getScheduleMemo", sm);
+		return sqlSessionTemplate.selectList(namespace + ".getScheduleMemo", sm);
 	}
 	
 	public List<ScheduleMemoVO> getMyPost(String userUid) {
-		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getMyPost", userUid);
+		return sqlSessionTemplate.selectList(namespace + ".getMyPost", userUid);
 	}
 	
 	public ScheduleMemoVO getDetailPost(ScheduleMemoVO sm) {
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getDetailPost", sm);
+		return sqlSessionTemplate.selectOne(namespace + ".getDetailPost", sm);
 	}
 	
 	public void insertMemoComment(ScheduleMemoCommentVO smv) {
-		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.insertMemoComment", smv);
+		sqlSessionTemplate.insert(namespace + ".insertMemoComment", smv);
 	}
 	
 	public List<ScheduleMemoCommentVO> getMemoComment(int postNo) {
-		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getMemoComment", postNo);
+		return sqlSessionTemplate.selectList(namespace + ".getMemoComment", postNo);
 	}
 	
 	public void addScheduleMemoLike(ScheduleMemoLikeVO sml) {
-		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.addScheduleMemoLike", sml);
+		sqlSessionTemplate.insert(namespace + ".addScheduleMemoLike", sml);
 	}
 	
 	public void cancelScheduleMemoLike(ScheduleMemoLikeVO sml) {
-		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.cancelScheduleMemoLike", sml);
+		sqlSessionTemplate.delete(namespace + ".cancelScheduleMemoLike", sml);
 	}
 	
 	public int getScheduleMemoLikeCnt(int commentNo) {
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getScheduleMemoLikeCnt", commentNo);
+		return sqlSessionTemplate.selectOne(namespace + ".getScheduleMemoLikeCnt", commentNo);
 	}
 	
 	public void delMemoComment(int commentNo) {
-		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.delMemoComment", commentNo);
+		sqlSessionTemplate.delete(namespace + ".delMemoComment", commentNo);
 	}
 	
 	public void delScheduleMemo(int scheduleMemoNo) {
-		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.delScheduleMemo", scheduleMemoNo);
-		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.delScheduleMemoComment", scheduleMemoNo);
-		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.delScheduleMemolike", scheduleMemoNo);
+		sqlSessionTemplate.delete(namespace + ".delScheduleMemo", scheduleMemoNo);
+		sqlSessionTemplate.delete(namespace + ".delScheduleMemoComment", scheduleMemoNo);
+		sqlSessionTemplate.delete(namespace + ".delScheduleMemolike", scheduleMemoNo);
 	}
 	
 	public List<LocationLikedVO> getWishBoardList(String userUid) {
-		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getWishBoardList", userUid);
+		return sqlSessionTemplate.selectList(namespace + ".getWishBoardList", userUid);
 	}
 	
 	public int getBackLocationLikeCnt(int contentId) {
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getBackLocationLikeCnt", contentId);
+		return sqlSessionTemplate.selectOne(namespace + ".getBackLocationLikeCnt", contentId);
 	}
 	
 	public List<ScheduleMemoVO> getLocationMemo(int contentId) {
-		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getLocationMemo", contentId);
+		return sqlSessionTemplate.selectList(namespace + ".getLocationMemo", contentId);
 	}
 	
 	public int getLocationMemoCnt(int contentId) {
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.getLocationMemoCnt", contentId);
+		return sqlSessionTemplate.selectOne(namespace + ".getLocationMemoCnt", contentId);
 	}
 	
 	public void addBackLocationLike(LocationLikedVO ll) {
-		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.addBackLocationLike", ll);
+		sqlSessionTemplate.insert(namespace + ".addBackLocationLike", ll);
 	}
 	
 	public void delBackLocationLike(LocationLikedVO ll) {
-		sqlSessionTemplate.delete("kr.co.rscamper.TourSchedule.delBackLocationLike", ll);
+		sqlSessionTemplate.delete(namespace + ".delBackLocationLike", ll);
 	}
 	
 	public LocationLikedVO checkBackLocationLike(LocationLikedVO ll) {
-		return sqlSessionTemplate.selectOne("kr.co.rscamper.TourSchedule.checkBackLocationLike", ll);
+		return sqlSessionTemplate.selectOne(namespace + ".checkBackLocationLike", ll);
 	}
 	
 	public List<LocationCommentVO> getLocationComment(int contentId) {
-		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getLocationComment", contentId);
+		return sqlSessionTemplate.selectList(namespace + ".getLocationComment", contentId);
 	}
 	
 	public void addLocationComment(LocationCommentVO lc) {
-		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.addLocationComment", lc);
+		sqlSessionTemplate.insert(namespace + ".addLocationComment", lc);
 	}
 	
 	public void addTravelPrice(TravelPriceVO tp) {
-		sqlSessionTemplate.insert("kr.co.rscamper.TourSchedule.addTravelPrice", tp);
+		sqlSessionTemplate.insert(namespace + ".addTravelPrice", tp);
 	}
 	
 	public List<TravelPriceVO> getLocationTravelPrice(int locationNo) {
-		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getLocationTravelPrice", locationNo);
+		return sqlSessionTemplate.selectList(namespace + ".getLocationTravelPrice", locationNo);
 	}
 	
 	public List<TravelPriceVO> getScheduleTravelPrice(int recordNo) {
-		return sqlSessionTemplate.selectList("kr.co.rscamper.TourSchedule.getScheduleTravelPrice", recordNo);
+		return sqlSessionTemplate.selectList(namespace + ".getScheduleTravelPrice", recordNo);
+	}
+	
+	public List<TravelPriceVO> getMemoTravelPrice(int scheduleMemoNo) {
+		return sqlSessionTemplate.selectList(namespace + ".getMemoTravelPrice", scheduleMemoNo);
+	}
+	
+	public void delMemoPrice(int scheduleMemoNo) {
+		sqlSessionTemplate.delete(namespace + ".delMemoPrice", scheduleMemoNo);
+	}
+	
+	public void delLocationPrice(int locationNo) {
+		sqlSessionTemplate.delete(namespace + ".delLocationPrice", locationNo);
+	}
+	
+	public void delLocationMemo(int locationNo) {
+		sqlSessionTemplate.delete(namespace + ".delLocationMemo", locationNo);
+	}
+	
+	public void delScheduleAllMemo(int no) {
+		sqlSessionTemplate.delete(namespace + ".delScheduleAllMemo", no);
+	}
+	
+	public void delSchedulePrice(int no) {
+		sqlSessionTemplate.delete(namespace + ".delSchedulePrice", no);
 	}
 }

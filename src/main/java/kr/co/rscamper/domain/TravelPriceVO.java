@@ -10,14 +10,25 @@ public class TravelPriceVO {
 	private int priceType;
 	private String $$hashKey;
 	private int locationNo;
+	private int scheduleMemoNo;
 	
 	
 	@Override
 	public String toString() {
 		return "TravelPriceVO [travelPriceNo=" + travelPriceNo + ", recordNo=" + recordNo + ", contentId=" + contentId
 				+ ", userUid=" + userUid + ", content=" + content + ", travelPrice=" + travelPrice + ", priceType="
-				+ priceType + ", $$hashKey=" + $$hashKey + ", locationNo=" + locationNo + "]";
+				+ priceType + ", $$hashKey=" + $$hashKey + ", locationNo=" + locationNo + ", scheduleMemoNo="
+				+ scheduleMemoNo + "]";
 	}
+
+	public int getScheduleMemoNo() {
+		return scheduleMemoNo;
+	}
+
+	public void setScheduleMemoNo(int scheduleMemoNo) {
+		this.scheduleMemoNo = scheduleMemoNo;
+	}
+
 	public int getLocationNo() {
 		return locationNo;
 	}

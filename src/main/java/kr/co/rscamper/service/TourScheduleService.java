@@ -78,7 +78,7 @@ public interface TourScheduleService {
 	
 	public List<ScheduleListCommentVO> delScheduleListComment(int commentNo, int recordNo) throws Exception;
 	
-	public List<ScheduleMemoVO> addScheduleMemo(ScheduleMemoVO sm) throws Exception;
+	public Map<String,Object> addScheduleMemo(ScheduleMemoVO sm) throws Exception;
 	
 	public List<ScheduleMemoVO> getScheduleMemo(ScheduleMemoVO sm) throws Exception;
 	

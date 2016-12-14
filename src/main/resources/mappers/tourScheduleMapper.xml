@@ -100,6 +100,7 @@
 		<result property="likeCnt" column="LIKE_CNT"/>
 		<result property="isLike" column="ISLIKE"/>
 		<result property="memoCnt" column="MEMO_CNT"/>
+		<result property="locationNo" column="LOCATION_NO"/>
 	</resultMap>
 	
 	<resultMap type="ScheduleMemoCommentVO" id="scheduleMemoCommentMap">
@@ -141,15 +142,16 @@
 		<result property="contentId" column="CONTENTID"/>
 		<result property="userUid" column="USER_UID"/>
 		<result property="content" column="CONTENT" />
-		<result property="travelPrice" column="PRICE"/>
+		<result property="travelPrice" column="TRAVEL_PRICE"/>
 		<result property="priceType" column="PRICE_TYPE"/>
 		<result property="locationNo" column="LOCATION_NO"/>
+		<result property="scheduleMemoNo" column="SCHEDULEMEMO_NO"/>
 	</resultMap>
 	
 	<select id="getSchedule" parameterType="string" resultMap="scheduleMap">
 		SELECT *, COALESCE((SELECT COUNT(*) FROM RECORD_LIKE_TB RL WHERE RL.RECORD_NO = r.RECORD_NO), 0) LIKE_CNT,
 		          COALESCE((SELECT COUNT(*) FROM RECORD_COMMENT_TB RC WHERE RC.RECORD_NO = R.RECORD_NO), 0) COMMENT_CNT,
-		          COALESCE((SELECT SUM(PRICE) FROM RECORD_TRAVELPRICE_TB RT WHERE RT.RECORD_NO = R.RECORD_NO),0) AS TOTAL_PRICE 
+		          COALESCE((SELECT SUM(TRAVEL_PRICE) FROM RECORD_TRAVELPRICE_TB RT WHERE RT.RECORD_NO = R.RECORD_NO),0) AS TOTAL_PRICE 
 		  FROM RECORD_TB R
 		 WHERE USER_UID = #{uid}
 	</select>
@@ -189,7 +191,7 @@
 		 where RECORD_NO = #{no}
 	</update>
 	<select id="getDetailTourSchedule" parameterType="int" resultMap="scheduleMap">
-		SELECT *, COALESCE((SELECT SUM(PRICE) FROM RECORD_TRAVELPRICE_TB RT WHERE RT.RECORD_NO = R.RECORD_NO AND RECORD_NO = #{no}),0) AS TOTAL_PRICE
+		SELECT *, COALESCE((SELECT SUM(TRAVEL_PRICE) FROM RECORD_TRAVELPRICE_TB RT WHERE RT.RECORD_NO = R.RECORD_NO AND RECORD_NO = #{no}),0) AS TOTAL_PRICE
   		  FROM RECORD_TB R
          WHERE R.RECORD_NO = #{no};
 	</select>
@@ -375,8 +377,11 @@
 		 WHERE COMMENT_NO = #{commentNo}
 	</delete>
 	<insert id="addScheduleMemo" parameterType="ScheduleMemoVO">
-		insert into record_scheduleMemo_tb(RECORD_NO, USER_UID, TITLE, CONTENT, CONTENTID, MEMO_TYPE)
-		values (#{recordNo}, #{userUid}, #{title}, #{content}, #{contentId}, #{memoType})
+		insert into record_scheduleMemo_tb(RECORD_NO, USER_UID, TITLE, CONTENT, CONTENTID, MEMO_TYPE, LOCATION_NO)
+		values (#{recordNo}, #{userUid}, #{title}, #{content}, #{contentId}, #{memoType}, #{locationNo})
+		<selectKey keyProperty="scheduleMemoNo" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
 	</insert>
 	<select id="getScheduleMemo" parameterType="ScheduleMemoVO" resultMap="scheduleMemoMap">
 		select *,(select title from record_location_tb rl where rl.content_code = rs.contentid) LOCATION_TITLE,
@@ -516,8 +521,8 @@
 		values(#{contentId}, #{userUid}, #{content})
 	</insert>
 	<insert id="addTravelPrice" parameterType="TravelPriceVO">
-		insert into record_travelPrice_tb(RECORD_NO, CONTENTID, USER_UID, CONTENT, PRICE, PRICE_TYPE, LOCATION_NO)
-		values (#{recordNo}, #{contentId}, #{userUid}, #{content}, #{travelPrice}, #{priceType}, #{locationNo})
+		insert into record_travelPrice_tb(RECORD_NO, CONTENTID, USER_UID, CONTENT, TRAVEL_PRICE, PRICE_TYPE, LOCATION_NO, SCHEDULEMEMO_NO)
+		values (#{recordNo}, #{contentId}, #{userUid}, #{content}, #{travelPrice}, #{priceType}, #{locationNo}, #{scheduleMemoNo})
 	</insert>
 	<select id="getLocationTravelPrice" parameterType="int" resultMap="TravelPriceMap">
 		SELECT * 
@@ -529,4 +534,34 @@
 		  FROM RECORD_TRAVELPRICE_TB
 		 WHERE RECORD_NO = #{recordNo}
 	</select>
+	<select id="getMemoTravelPrice" parameterType="int" resultMap="TravelPriceMap">
+		SELECT * 
+		  FROM RECORD_TRAVELPRICE_TB
+		 WHERE SCHEDULEMEMO_NO = #{scheduleMemoNo}
+	</select>
+	<delete id="delMemoPrice" parameterType="int">
+		DELETE
+		  FROM RECORD_TRAVELPRICE_TB
+		 WHERE SCHEDULEMEMO_NO = #{scheduleMemoNo}
+	</delete>
+	<delete id="delLocationPrice" parameterType="int">
+		DELETE
+		  FROM RECORD_TRAVELPRICE_TB
+		 WHERE LOCATION_NO = #{locationNo}
+	</delete>
+	<delete id="delLocationMemo" parameterType="int">
+		DELETE
+		  FROM RECORD_SCHEDULEMEMO_TB
+		 WHERE LOCATION_NO = #{locationNo}
+	</delete>
+	<delete id="delScheduleAllMemo" parameterType="int">
+		DELETE
+		  FROM RECORD_SCHEDULEMEMO_TB
+		 WHERE RECORD_NO = #{no}
+	</delete>
+	<delete id="delSchedulePrice" parameterType="int">
+		DELETE
+		  FROM RECORD_TRAVELPRICE_TB
+		 WHERE RECORD_NO = #{no}
+	</delete>
 </mapper>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.rscamper.domain.BenefitVO;
 import kr.co.rscamper.domain.MainVO;
+import kr.co.rscamper.domain.SubwayVO;
 import kr.co.rscamper.domain.TourPlanSpotVO;
 import kr.co.rscamper.domain.TrainVO;
 import kr.co.rscamper.domain.UserVO;
@@ -43,6 +44,15 @@ public class MainServiceImpl implements MainService {
 	public List<TrainVO> maintrainList() throws Exception {
 		return dao.maintrainList();
 	}
+
+	@Override
+	public List<SubwayVO> mainTrainTimeList(String deplaceId, String arrPlaceId, String depPlandTime,
+			String trainGradeCode, String numOfRows, String pageSize, String pageNo, String startPage)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return dao.mainTrainTimeList(deplaceId, arrPlaceId, depPlandTime, trainGradeCode, numOfRows, pageSize, pageNo, startPage);
+	}
+
 
 
 

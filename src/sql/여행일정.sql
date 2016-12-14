@@ -2,7 +2,18 @@ show tables
 
 show columns from tour_comment_tb
 
+select * from record_travelPrice_tb
+
+select * from record_schedulememo_tb;
+
 select * from record_location_tb
+
+delete
+  from record_travelPrice_tb
+
+alter table record_schedulememo_tb add LOCATION_NO int
+
+delete from record_travelPrice_tb
 
 alter table record_travelPrice_tb  add LOCATION_NO int
 

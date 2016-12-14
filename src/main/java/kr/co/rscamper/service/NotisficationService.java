@@ -10,4 +10,6 @@ public interface NotisficationService {
 
 	public void deleteByNo(int no) throws Exception;
 
+	public void insertNotification(NotisficationVO vo) throws Exception;
+
 }

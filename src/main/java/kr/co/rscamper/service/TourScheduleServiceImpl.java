@@ -49,6 +49,10 @@ public class TourScheduleServiceImpl implements TourScheduleService {
 	@Override
 	public void delSchedule(int no) throws Exception {
 		dao.delSchedule(no);
+		dao.delCover(no);
+		dao.delScheduleLocation(no);
+		dao.delScheduleAllMemo(no);
+		dao.delSchedulePrice(no);
 	}
 
 	@Override
@@ -131,6 +135,8 @@ public class TourScheduleServiceImpl implements TourScheduleService {
 	@Override
 	public void delLocation(int locationNo) throws Exception {
 		dao.delLocation(locationNo);
+		dao.delLocationPrice(locationNo);
+		dao.delLocationMemo(locationNo);
 	}
 
 	@Override
@@ -299,14 +305,25 @@ public class TourScheduleServiceImpl implements TourScheduleService {
 	}
 
 	@Override
-	public List<ScheduleMemoVO> addScheduleMemo(ScheduleMemoVO sm) throws Exception {
-		dao.addScheduleMemo(sm);
-		return dao.getScheduleMemo(sm);
+	public Map<String,Object> addScheduleMemo(ScheduleMemoVO sm) throws Exception {
+		Map<String,Object> map = new HashMap<>();
+		int scheduleMemoNo = dao.addScheduleMemo(sm);
+		List<ScheduleMemoVO> list = dao.getScheduleMemo(sm);
+		for (ScheduleMemoVO sv : list) {
+			sv.setPrice(dao.getMemoTravelPrice(sv.getScheduleMemoNo()));
+		}
+		map.put("scheduleMemoNo", scheduleMemoNo);
+		map.put("list", list);
+		return map;
 	}
 
 	@Override
 	public List<ScheduleMemoVO> getScheduleMemo(ScheduleMemoVO sm) throws Exception {
-		return dao.getScheduleMemo(sm);
+		List<ScheduleMemoVO> list = dao.getScheduleMemo(sm);
+		for (ScheduleMemoVO sd : list) {
+			sd.setPrice(dao.getMemoTravelPrice(sd.getScheduleMemoNo()));
+		}
+		return list;
 	}
 
 	@Override
@@ -351,6 +368,7 @@ public class TourScheduleServiceImpl implements TourScheduleService {
 	@Override
 	public void delScheduleMemo(int scheduleMemoNo) throws Exception {
 		dao.delScheduleMemo(scheduleMemoNo);
+		dao.delMemoPrice(scheduleMemoNo);
 	}
 
 	@Override
@@ -416,7 +434,7 @@ public class TourScheduleServiceImpl implements TourScheduleService {
 		
 		for (TravelPriceVO tp : tList) {
 			dao.addTravelPrice(tp);
-			System.out.println("예산 입력 완료");
+			System.out.println(tp.toString());
 		}
 		List<TravelPriceVO> getList = dao.getLocationTravelPrice(tList.get(0).getLocationNo());
 		List<Map<String, Object>> resultList = new ArrayList<>();
