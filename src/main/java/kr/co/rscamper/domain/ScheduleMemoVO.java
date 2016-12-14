@@ -24,6 +24,15 @@ public class ScheduleMemoVO {
 	private int locationNo;
 	
 	
+	@Override
+	public String toString() {
+		return "ScheduleMemoVO [scheduleMemoNo=" + scheduleMemoNo + ", recordNo=" + recordNo + ", contentId="
+				+ contentId + ", userUid=" + userUid + ", title=" + title + ", content=" + content + ", regDate="
+				+ regDate + ", memoType=" + memoType + ", locationTitle=" + locationTitle + ", recordTitle="
+				+ recordTitle + ", commentCnt=" + commentCnt + ", displayName=" + displayName + ", photoUrl=" + photoUrl
+				+ ", likeCnt=" + likeCnt + ", isLike=" + isLike + ", memoCnt=" + memoCnt + ", price=" + price
+				+ ", locationNo=" + locationNo + "]";
+	}
 	public int getLocationNo() {
 		return locationNo;
 	}

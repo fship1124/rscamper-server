@@ -49,12 +49,10 @@ public class NotisficationController {
 			CodeVO cVo = new CodeVO();
 			
 			switch(vo.getType()) {
-			case "1": case "2": case "3":
+			case "1": case "2": case "3": case "4":
 				cVo.setGroupCodeNo("notisfication_code");
 				break;
-			case "4": case "5": case "6": 
-				System.out.println("~~~~~");
-				break;
+			
 			}
 			
 			cVo.setCodeNo(Integer.parseInt(vo.getType()));
