@@ -51,4 +51,12 @@ public class AppMainDAO {
 	public List<AppMessageVO> selectMainMessageList(String userUid) {
 		return sqlSessionTemplate.selectList(namespace + ".selectMainMessageList", userUid);
 	}
+	
+	public List<AppMainVO> selectMainRouteList(Map<String, Integer> pageMap) {
+		return sqlSessionTemplate.selectList(namespace + ".selectMainRouteList", pageMap);
+	}
+	
+	public int countAllRouteList() {
+		return sqlSessionTemplate.selectOne(namespace + ".countAllRouteList");
+	}
 }

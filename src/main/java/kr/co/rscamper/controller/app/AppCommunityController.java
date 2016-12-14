@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.rscamper.domain.AppCommunityVO;
 import kr.co.rscamper.domain.BoardBookMarkVO;
 import kr.co.rscamper.domain.BoardLikeVO;
 import kr.co.rscamper.domain.CommentVO;
@@ -96,4 +97,21 @@ public class AppCommunityController {
 		return communityService.selectBookMarkStatus(boardBookMark);
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping(value = "/board", method = RequestMethod.GET)
+	public @ResponseBody Map<String, Object> selectAppCommunityList(int page, int count) throws Exception {
+		return communityService.selectAppCommunityList(page, count);
+	}
+	@RequestMapping(value = "/oneBoard", method = RequestMethod.GET)
+	public @ResponseBody AppCommunityVO selectOneRoute(int boardNo) throws Exception {
+		return communityService.selectOneRoute(boardNo);
+	}
 }
