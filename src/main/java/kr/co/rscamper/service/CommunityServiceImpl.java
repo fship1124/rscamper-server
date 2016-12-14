@@ -8,8 +8,10 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.rscamper.domain.AppCommunityVO;
 import kr.co.rscamper.domain.BoardBookMarkVO;
 import kr.co.rscamper.domain.BoardLikeVO;
+import kr.co.rscamper.domain.BoardRouteVO;
 import kr.co.rscamper.domain.CommentVO;
 import kr.co.rscamper.domain.CommunityVO;
 import kr.co.rscamper.persistence.CommunityDAO;
@@ -191,5 +193,42 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public Map<String, Object> selectAppCommunityList(int page, int count) {
+		page = (page - 1) * count;
+
+		int totalPages = (int) Math.ceil(((double) dao.selectCommunityTotalPages() + (double)dao.countAllRouteList()) / (double) count);
+		Map<String, Integer> pageMap = new HashMap<String, Integer>();
+		pageMap.put("page", page);
+		pageMap.put("count", count);
+		List<AppCommunityVO> boardList = dao.selectAppCommunityList(pageMap);
+		
+		for (AppCommunityVO ac : boardList) {
+			List<AppCommunityVO> routeDetailList = dao.selectRouteDetailByNo(ac.getBoardNo());
+			ac.setRouteDetailList(routeDetailList);
+		}
+
+		Map<String, Object> boardMap = new HashMap<>();
+		boardMap.put("boardList", boardList);
+		boardMap.put("totalPages", totalPages);
+		return boardMap;
+	}
+	
+	@Override
+	public AppCommunityVO selectOneRoute(int boardNo) {
+		AppCommunityVO route = dao.selectOneRoute(boardNo);
+		route.setRouteDetailList(dao.selectRouteDetailByNo(boardNo));
+		return route;
+	}
 
 }

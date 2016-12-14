@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import kr.co.rscamper.domain.AppMainVO;
 import kr.co.rscamper.domain.BoardRouteVO;
 import kr.co.rscamper.domain.BookMarkPageVO;
 import kr.co.rscamper.domain.BookMarkVO;
@@ -80,5 +81,28 @@ public class AppMypageServiceImpl implements AppMypageService {
 			br.setBoardRouteNo(no);
 			dao.insertRoute(br);
 		}
+	}
+	
+	@Override
+	public Map<String, Object> selectRouteListByNo(int page, int count) {
+		page = (page - 1) * count;
+
+		int totalPages = (int)Math.ceil((double)dao.countAllRouteList() / (double)count);
+		Map<String, Integer> pageMap = new HashMap<>();
+		pageMap.put("page", page);
+		pageMap.put("count", count);
+		List<BoardRouteVO> routeList = dao.selectRouteListByNo(pageMap);
+		
+		
+		for (BoardRouteVO br : routeList) {
+			List<BoardRouteVO> routeDetailList = dao.selectRouteDetailByNo(br.getBoardRouteNo());
+			br.setRouteDetailList(routeDetailList);
+		}
+		
+		Map<String, Object> routeMap = new HashMap<>();
+		routeMap.put("routeList", routeList);
+		routeMap.put("totalPages", totalPages);
+
+		return routeMap;
 	}
 }

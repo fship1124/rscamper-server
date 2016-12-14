@@ -49,4 +49,9 @@ public class AppMainController {
 		return service.selectMainMessageList(userUid);
 	}
 	
+	@RequestMapping(value = "/routeList", method = RequestMethod.GET)
+	public @ResponseBody Map<String, Object> selectMainRouteList(int page, int count) throws Exception {
+		return service.selectMainRouteList(page, count);
+	}
+	
 }

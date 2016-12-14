@@ -3,6 +3,7 @@ package kr.co.rscamper.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.rscamper.domain.AppCommunityVO;
 import kr.co.rscamper.domain.BoardBookMarkVO;
 import kr.co.rscamper.domain.BoardLikeVO;
 import kr.co.rscamper.domain.CommentVO;
@@ -74,5 +75,16 @@ public interface CommunityService {
 	public boolean selectBookMarkStatus(BoardBookMarkVO boardBookMark);
 
 
+
 	
+	
+	
+	
+	
+	
+	
+	/** 앱 커뮤니티 전체 */
+	public Map<String, Object> selectAppCommunityList(int page, int count);
+	/** 앱 커뮤니티 루트 추천 글 조회 */
+	public AppCommunityVO selectOneRoute(int boardNo);
 }

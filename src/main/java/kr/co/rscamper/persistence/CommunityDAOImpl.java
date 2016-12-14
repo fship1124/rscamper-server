@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.rscamper.domain.AppCommunityVO;
 import kr.co.rscamper.domain.BoardBookMarkVO;
 import kr.co.rscamper.domain.BoardLikeVO;
 import kr.co.rscamper.domain.CommentVO;
@@ -146,4 +147,42 @@ public class CommunityDAOImpl implements CommunityDAO {
 	}
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public List<AppCommunityVO> selectAppCommunityList(Map<String, Integer> pageMap) {
+		return sqlSessionTemplate.selectList(namespace + ".selectAppCommunityList", pageMap);
+	}
+	@Override
+	public int countAllRouteList() {
+		return sqlSessionTemplate.selectOne(namespace + ".countAllRouteList");
+	}
+	@Override
+	public List<AppCommunityVO> selectRouteDetailByNo(int boardNo) {
+		return sqlSessionTemplate.selectList(namespace + ".selectRouteDetailByNo", boardNo);
+	}
+	@Override
+	public AppCommunityVO selectOneRoute(int boardNo) {
+		return sqlSessionTemplate.selectOne(namespace + ".selectOneRoute", boardNo);
+	}
 }
