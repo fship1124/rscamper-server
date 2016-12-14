@@ -451,4 +451,21 @@ public class AppTourScheduleController {
 		return service.getScheduleTravelPrice(recordNo);
 	}
 	
+	@RequestMapping("/addWishBoardReview")
+	@ResponseBody
+	public Map<String,Object> addWishBoardReview (ScheduleMemoVO sm) throws Exception {
+		return service.addWishBoardReview(sm);
+	}
+	
+	@RequestMapping("/updateSchedule")
+	@ResponseBody
+	public TourScheduleVO updateSchedule(TourScheduleVO ts, int type) throws Exception {
+		return service.updateSchedule(ts, type);
+	}
+	
+	@RequestMapping("/getLocationCnt")
+	@ResponseBody
+	public List<LocationLikedVO> getLocationCnt(String contentIdJson) throws Exception {
+		return service.getLocationCnt(contentIdJson);
+	}
 }

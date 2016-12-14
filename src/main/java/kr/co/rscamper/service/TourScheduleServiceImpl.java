@@ -170,7 +170,7 @@ public class TourScheduleServiceImpl implements TourScheduleService {
 	public Map<String, Object> soltScheduleList(List<TourSchedulePlanVO> tourList, int totalPages, int totalCount) {
 		for (TourSchedulePlanVO ts : tourList) {
 			if (ts.getPicture() == 1) {
-//				ts.setCover(dao.getCover(ts.getRecordNo()));
+				ts.setCover(dao.getCover(ts.getRecordNo()));
 			}
 		}
 		
@@ -282,7 +282,7 @@ public class TourScheduleServiceImpl implements TourScheduleService {
 	public TourSchedulePlanVO scheduleListDetail(int no) throws Exception {
 		TourSchedulePlanVO tv = dao.scheduleListDetail(no);
 		if (tv.getPicture() == 1) {
-//			tv.setCover(dao.getCover(no));
+			tv.setCover(dao.getCover(no));
 		}
 		return tv;
 	}
@@ -328,12 +328,18 @@ public class TourScheduleServiceImpl implements TourScheduleService {
 
 	@Override
 	public List<ScheduleMemoVO> getMyPost(String userUid) throws Exception {
-		return dao.getMyPost(userUid);
+		List<ScheduleMemoVO> list = dao.getMyPost(userUid);
+		for (ScheduleMemoVO sd : list) {
+			sd.setPrice(dao.getMemoTravelPrice(sd.getScheduleMemoNo()));
+		}
+		return list;
 	}
 
 	@Override
 	public ScheduleMemoVO getDetailPost(ScheduleMemoVO sm) throws Exception {
-		return dao.getDetailPost(sm);
+		ScheduleMemoVO smv = dao.getDetailPost(sm);
+		smv.setPrice(dao.getMemoTravelPrice(smv.getScheduleMemoNo()));
+		return smv;
 	}
 
 	@Override
@@ -379,7 +385,11 @@ public class TourScheduleServiceImpl implements TourScheduleService {
 	@Override
 	public List<ScheduleMemoVO> getLocationMemo(int contentId) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.getLocationMemo(contentId);
+		List<ScheduleMemoVO> list = dao.getLocationMemo(contentId);
+		for (ScheduleMemoVO sv : list) {
+			sv.setPrice(dao.getMemoTravelPrice(sv.getScheduleMemoNo()));
+		}
+		return list;
 	}
 
 	@Override
@@ -466,6 +476,50 @@ public class TourScheduleServiceImpl implements TourScheduleService {
 	@Override
 	public List<TravelPriceVO> getScheduleTravelPrice(int recordNo) throws Exception {
 		return dao.getScheduleTravelPrice(recordNo);
+	}
+
+	@Override
+	public Map<String, Object> addWishBoardReview(ScheduleMemoVO sm) throws Exception {
+		Map<String,Object> map = new HashMap<>();
+		int scheduleMemoNo = dao.addScheduleMemo(sm);
+		List<ScheduleMemoVO> list = dao.addWishBoardReview(sm.getContentId());
+		for (ScheduleMemoVO sv : list) {
+			sv.setPrice(dao.getMemoTravelPrice(sv.getScheduleMemoNo()));
+		}
+		map.put("scheduleMemoNo", scheduleMemoNo);
+		map.put("list", list);
+		return map;
+	}
+
+	@Override
+	public TourScheduleVO updateSchedule(TourScheduleVO ts, int type) throws Exception {
+		// type : 1 출발 도착 날짜가 모두 같은 경우(지역, 메모 정보를 삭제 할 필요 없음)
+		// type : 2 하나라도 다르면 지역, 메모 정보 전부 삭제
+		System.out.println(ts.toString());
+		switch (type) {
+		case 1 : dao.updateScheduleSameDate(ts); break;
+		case 2 : 
+			dao.delScheduleLocation(ts.getRecordNo());
+			dao.delScheduleAllMemo(ts.getRecordNo());
+			dao.delSchedulePrice(ts.getRecordNo());
+			dao.updateScheduleDifferentDate(ts);
+			break;
+		}
+		return dao.getDetailTourSchedule(ts.getRecordNo());
+	}
+
+	@Override
+	public List<LocationLikedVO> getLocationCnt(String contentIdJson) throws Exception {
+		System.out.println(contentIdJson);
+		ObjectMapper mapper =  new ObjectMapper();
+		List<Integer> tList = mapper.readValue(contentIdJson, new TypeReference<List<Integer>>() {});
+		List<LocationLikedVO> list = new ArrayList<>();
+		for (Integer contentId : tList) {
+			LocationLikedVO lv = dao.getLocationCnt(contentId);
+			lv.setContentId(contentId);
+			list.add(lv);
+		}
+		return list;
 	}
 
 }

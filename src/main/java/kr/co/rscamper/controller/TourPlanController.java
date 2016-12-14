@@ -260,12 +260,6 @@ public class TourPlanController {
 		return tourScheduleService.checkScheduleSet(sl, targetType);
 	}
 	
-	@RequestMapping("/scheduleListDetail")
-	@ResponseBody
-	public TourPlanVO scheduleListDetail(int no) throws Exception {
-		return tourScheduleService.scheduleListDetail(no);
-	}
-	
 	@RequestMapping("/insertScheduleListComment")
 	@ResponseBody
 	public List<ScheduleListCommentVO> insertScheduleListComment(ScheduleListCommentVO slc) throws Exception {
@@ -282,18 +276,6 @@ public class TourPlanController {
 	@ResponseBody
 	public List<ScheduleListCommentVO> delScheduleListComment(int commentNo, int recordNo) throws Exception {
 		return tourScheduleService.delScheduleListComment(commentNo, recordNo);
-	}
-	
-	@RequestMapping("/addScheduleMemo")
-	@ResponseBody
-	public List<ScheduleMemoVO> addScheduleMemo(ScheduleMemoVO sm) throws Exception {
-		return tourScheduleService.addScheduleMemo(sm);
-	}
-	
-	@RequestMapping("/getScheduleMemo")
-	@ResponseBody
-	public List<ScheduleMemoVO> getScheduleMemo(int recordNo) throws Exception {
-		return tourScheduleService.getScheduleMemo(recordNo);
 	}
 	
 	@RequestMapping("/getMyPost")
