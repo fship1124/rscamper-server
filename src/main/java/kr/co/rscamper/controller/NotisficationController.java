@@ -49,12 +49,10 @@ public class NotisficationController {
 			CodeVO cVo = new CodeVO();
 			
 			switch(vo.getType()) {
-			case "1": case "2": case "3":
+			case "1": case "2": case "3": case "4":
 				cVo.setGroupCodeNo("notisfication_code");
 				break;
-			case "4": case "5": case "6": 
-				System.out.println("~~~~~");
-				break;
+			
 			}
 			
 			cVo.setCodeNo(Integer.parseInt(vo.getType()));
@@ -72,5 +70,15 @@ public class NotisficationController {
 //		System.out.print("notificationNO : ");
 //		System.out.println(no);
 		service.deleteByNo(no);
+	};
+	
+	
+	// 알림 DB 입력
+	@RequestMapping(value="/insert", method = RequestMethod.POST)
+	public @ResponseBody void insertNotification(NotisficationVO vo) throws Exception {
+		logger.info("in notisfication > insert");
+		System.out.print(vo.toString());
+		
+		service.insertNotification(vo);
 	};
 }

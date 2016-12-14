@@ -10,13 +10,11 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import kr.co.rscamper.domain.PageMaker;
 import kr.co.rscamper.domain.PageVO;
 import kr.co.rscamper.domain.TogetherVO;
@@ -34,7 +32,7 @@ public class TogetherController {
 	public String together() {
 		logger.info("/together > home");
 		
-		return "redirect:http://localhost:80/rscamper-web/views/together/list.jsp";
+		return "redirect:http://14.32.66.104:8083/rscamper-web/views/together/list.jsp";
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -42,6 +40,7 @@ public class TogetherController {
 		logger.info("/together > List");
 		
 		List<TogetherVO> list = new ArrayList<>();
+		vo.setPerPageNum(30);
 		list = service.listTogether(vo);
 		int totalCount = service.totalCount();
 		
@@ -59,7 +58,7 @@ public class TogetherController {
 	public String redirectDetail(@PathVariable("detailNo") int dNo) throws Exception {
 		logger.info("/together > redirectDetail");
 		
-		return "redirect:http://localhost:80/rscamper-web/views/together/detail.jsp?no=" + dNo;
+		return "redirect:http://14.32.66.104:8083/rscamper-web/views/together/detail.jsp?no=" + dNo;
 	}
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.POST)

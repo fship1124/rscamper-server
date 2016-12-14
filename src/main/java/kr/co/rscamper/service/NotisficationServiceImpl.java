@@ -26,4 +26,10 @@ public class NotisficationServiceImpl implements NotisficationService {
 		dao.deleteByNo(no);
 	}
 
+
+	@Override
+	public void insertNotification(NotisficationVO vo) throws Exception {
+		dao.insertNotification(vo);
+	}
+
 }

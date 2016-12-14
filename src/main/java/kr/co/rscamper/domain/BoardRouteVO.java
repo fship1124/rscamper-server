@@ -1,6 +1,7 @@
 package kr.co.rscamper.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class BoardRouteVO {
 	private int boardRouteNo;
@@ -12,6 +13,9 @@ public class BoardRouteVO {
 	private String userUid;
 	private Date regDate;
 	private String $$hashKey;
+	private String displayName;
+	private String photoUrl;
+	private List<BoardRouteVO> routeDetailList;
 	
 	public int getBoardRouteNo() {
 		return boardRouteNo;
@@ -66,5 +70,23 @@ public class BoardRouteVO {
 	}
 	public void set$$hashKey(String $$hashKey) {
 		this.$$hashKey = $$hashKey;
+	}
+	public String getDisplayName() {
+		return displayName;
+	}
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
+	public List<BoardRouteVO> getRouteDetailList() {
+		return routeDetailList;
+	}
+	public void setRouteDetailList(List<BoardRouteVO> routeDetailList) {
+		this.routeDetailList = routeDetailList;
 	}
 }

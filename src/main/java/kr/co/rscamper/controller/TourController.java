@@ -35,28 +35,34 @@ public class TourController {
 	TourService service;
 	@Inject 
 	private UserService userService;
+	
+	private static final Logger logger = LoggerFactory.getLogger(TourController.class);
 
 	
-	private static final Logger logger = LoggerFactory.getLogger(TogetherController.class);
-
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public String tourAll() {
 		logger.info("/tour > all");
 
 		return "redirect:http://localhost:80/rscamper-web/views/tour-all/list.jsp";
 	};
+	
+	
 	@RequestMapping(value = "/destination", method = RequestMethod.GET)
 	public String tourDestination() {
 		logger.info("/tour > destination");
 		
 		return "redirect:http://localhost:80/rscamper-web/views/tour-destination/list.jsp";
 	};
+	
+	
 	@RequestMapping(value = "/food", method = RequestMethod.GET)
 	public String tourFood() {
 		logger.info("/tour > food");
 		
 		return "redirect:http://localhost:80/rscamper-web/views/tour-food/list.jsp";
 	};
+	
+	
 	@RequestMapping(value = "/lodge", method = RequestMethod.GET)
 	public String tourLodge() {
 		logger.info("/tour > lodge");
@@ -153,7 +159,7 @@ public class TourController {
 		urlBuilder.append("&_type=json"); 
 		URL url = new URL(urlBuilder.toString());
 
-		logger.info("url~~~~ : " + url);
+		logger.info("url : " + url);
 		
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
@@ -235,7 +241,6 @@ public class TourController {
 	}
 	
 	
-	
 	@RequestMapping(value = "/like", method = RequestMethod.POST)
 	public @ResponseBody void likeInsert(TourCommentVO vo) throws Exception {
 		logger.info("/tour > comment > like");
@@ -255,10 +260,4 @@ public class TourController {
 		service.bookmarkInsert(vo);
 		
 	}
-	
-	
-	
-	
-	
-	
 }

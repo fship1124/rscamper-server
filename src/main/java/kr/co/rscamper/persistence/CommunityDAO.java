@@ -3,6 +3,7 @@ package kr.co.rscamper.persistence;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.rscamper.domain.AppCommunityVO;
 import kr.co.rscamper.domain.BoardBookMarkVO;
 import kr.co.rscamper.domain.BoardLikeVO;
 import kr.co.rscamper.domain.CommentVO;
@@ -83,5 +84,22 @@ public interface CommunityDAO {
 	public void deleteBoardBookMark(BoardBookMarkVO boardBookMark);
 
 
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/** 앱 커뮤니티 전체 */
+	public List<AppCommunityVO> selectAppCommunityList(Map<String, Integer> pageMap);
+	/** 루트 추천 게시글 갯수 */
+	public int countAllRouteList();
+	/** 루트 추천 게시글 상세 */
+	public List<AppCommunityVO> selectRouteDetailByNo(int boardNo);
+	/** 루트 추천 게시물 하나 조회 */
+	public AppCommunityVO selectOneRoute(int boardNo);
+	
 }

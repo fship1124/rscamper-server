@@ -26,4 +26,8 @@ public class NotisficationDAOImpl implements NotisficationDAO {
 		sqlSessionTemplate.delete(namespace + ".deleteByNo", no);
 	}
 
+	@Override
+	public void insertNotification(NotisficationVO vo) throws Exception {
+		sqlSessionTemplate.insert(namespace + ".insertNotification", vo);
+	}
 }
