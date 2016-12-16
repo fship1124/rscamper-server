@@ -27,6 +27,7 @@ public class TourSchedulePlanVO {
 	private int commentCnt;
 	private int locationCnt;
 	private int postCnt;
+	private int totalPrice;
 
 
 	// 유저정보
@@ -38,6 +39,15 @@ public class TourSchedulePlanVO {
 	
 	// 페이징
 	private int totalPages;
+	
+	
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 
 	public int getRecordNo() {
 		return recordNo;

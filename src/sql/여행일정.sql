@@ -1,12 +1,18 @@
 show tables
 
-show columns from tour_comment_tb
+show columns from record_tb
+
+select * from record_location_liked_tb
+
+update record_tb
+   set title = 1
+ where record_no = 132
 
 select * from record_travelPrice_tb
 
 select * from record_schedulememo_tb;
 
-select * from record_location_tb
+select * from record_tb
 
 delete
   from record_travelPrice_tb
@@ -292,3 +298,20 @@ select *,(select title from record_location_tb rl where rl.content_code = rs.con
  show tables
  
  select * from record_schedulememo_tb
+ 
+ select *,(select title from record_location_tb rl where rl.content_code = rs.contentid) LOCATION_TITLE,
+                 (select title from record_tb r where r.record_no = rs.record_no) RECORD_TITLE,
+                 (select count(*) from record_scheduleMemo_comment_tb rsc where rs.scheduleMemo_no = rsc.scheduleMemo_no) COMMENT_CNT,
+                 COALESCE((select PHOTO_URL from user_tb u where u.user_uid = rs.user_uid), 0) PHOTO_URL,
+                 COALESCE((select DISPLAY_NAME from user_tb u where u.user_uid = rs.user_uid), 0) DISPLAY_NAME,
+                 COALESCE((select count(*) from record_scheduleMemo_like_tb rsl where rsl.SCHEDULEMEMO_NO = rs.SCHEDULEMEMO_NO),0) LIKE_CNT,
+                 COALESCE((select count(*) from record_scheduleMemo_like_tb rsl where rsl.SCHEDULEMEMO_NO = rs.SCHEDULEMEMO_NO),0) ISLIKE
+          from record_scheduleMemo_tb rs
+		 where rs.contentid = 692908
+		 
+		 
+		select count(*) LIKE_CNT, COALESCE((select count(*) from record_schedulememo_tb rs where rs.contentId = rl.content_Code),0) POST_CNT,
+		          COALESCE((select count(*) from RECORD_BACKLOCATIONLIKE_TB rb where rl.content_code = rb.content_code),0) BACK_LIKE_CNT
+          from record_location_liked_tb rl
+         where CONTENT_CODE = 841488
+         order by like_cnt desc
