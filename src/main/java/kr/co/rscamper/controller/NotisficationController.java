@@ -63,7 +63,6 @@ public class NotisficationController {
 		return list;
 	}
 	
-	
 	@RequestMapping(value="/delete/{no}", method = RequestMethod.DELETE)
 	public @ResponseBody void deleteByNo(@PathVariable("no") int no) throws Exception {
 		logger.info("in notisfication > delete");
