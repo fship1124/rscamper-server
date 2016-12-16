@@ -2,8 +2,6 @@ package kr.co.rscamper.service;
 
 import java.util.Map;
 
-import kr.co.rscamper.domain.BoardRouteVO;
-
 public interface AppMypageService {
 	
 	/**내 북마크 리스트 가져오기*/
@@ -16,5 +14,8 @@ public interface AppMypageService {
 	///////////////////////////////////////////
 	/**루트 추천 글 등록*/
 	public void insertRoute(String jsonValue) throws Exception;
+	
+	/**루트 추천 글 리스트*/
+	public Map<String, Object> selectRouteListByNo(int page, int count);
 	
 }

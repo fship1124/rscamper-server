@@ -59,6 +59,7 @@
 		<result property="photoUrl" column="PHOTO_URL" />
 		<result property="likeCnt" column="LIKE_CNT" />
 		<result property="commentCnt" column="COMMENT_CNT" />
+		<result property="totalPrice" column="TOTAL_PRICE"/>
 	</resultMap>
 	
 	<resultMap type="ScheduleLikeVO" id="scheduleLikeMap">
@@ -354,7 +355,8 @@
 	</select>
 	<select id="scheduleListDetail" parameterType="int" resultMap="tourPlanMap">
 		select r.record_no,r.user_uid,r.departure_date,r.arrive_date,r.title,r.budget,r.picture,r.period,r.strapline,r.introduce,r.reg_date,r.isopen,u.photo_url,u.display_name, COALESCE((SELECT COUNT(*) FROM RECORD_LIKE_TB RL WHERE RL.RECORD_NO = r.RECORD_NO), 0) LIKE_CNT,
-		          COALESCE((SELECT COUNT(*) FROM RECORD_COMMENT_TB RC WHERE RC.RECORD_NO = R.RECORD_NO), 0) COMMENT_CNT
+		          COALESCE((SELECT COUNT(*) FROM RECORD_COMMENT_TB RC WHERE RC.RECORD_NO = R.RECORD_NO), 0) COMMENT_CNT,
+		          COALESCE((SELECT SUM(TRAVEL_PRICE) FROM RECORD_TRAVELPRICE_TB RT WHERE RT.RECORD_NO = #{no}),0) TOTAL_PRICE
 	      from user_tb u, record_tb r
 	     where ISOPEN = 1
 	       and u.user_uid = r.user_uid
@@ -564,4 +566,36 @@
 		  FROM RECORD_TRAVELPRICE_TB
 		 WHERE RECORD_NO = #{no}
 	</delete>
+	<select id="addWishBoardReview" parameterType="int" resultMap="scheduleMemoMap">
+		select *,(select title from record_location_tb rl where rl.content_code = rs.contentid) LOCATION_TITLE,
+                 (select title from record_tb r where r.record_no = rs.record_no) RECORD_TITLE,
+                 (select count(*) from record_scheduleMemo_comment_tb rsc where rs.scheduleMemo_no = rsc.scheduleMemo_no) COMMENT_CNT,
+                 COALESCE((select PHOTO_URL from user_tb u where u.user_uid = rs.user_uid), 0) PHOTO_URL,
+                 COALESCE((select DISPLAY_NAME from user_tb u where u.user_uid = rs.user_uid), 0) DISPLAY_NAME,
+                 COALESCE((select count(*) from record_scheduleMemo_like_tb rsl where rsl.SCHEDULEMEMO_NO = rs.SCHEDULEMEMO_NO),0) LIKE_CNT,
+                 COALESCE((select count(*) from record_scheduleMemo_like_tb rsl where rsl.SCHEDULEMEMO_NO = rs.SCHEDULEMEMO_NO),0) ISLIKE
+          from record_scheduleMemo_tb rs
+		 where rs.contentid = #{contentId}
+	</select>
+	<update id="updateScheduleSameDate" parameterType="TourScheduleVO">
+		UPDATE RECORD_TB
+		   SET TITLE = #{title},
+		       ISOPEN = #{isOpen}
+		 WHERE RECORD_NO = #{recordNo}
+	</update>
+	<update id="updateScheduleDifferentDate" parameterType="TourScheduleVO">
+		UPDATE RECORD_TB
+		   SET TITLE = #{title},
+		       ISOPEN = #{isOpen},
+		       DEPARTURE_DATE = #{departureDate},
+		       ARRIVE_DATE = #{arriveDate}
+		 WHERE RECORD_NO = #{recordNo}
+	</update>
+	<select id="getLocationCnt" parameterType="int" resultMap="locationLikedMap">
+		select count(*) LIKE_CNT, COALESCE((select count(*) from record_schedulememo_tb rs where rs.contentId = rl.content_Code),0) POST_CNT,
+		          COALESCE((select count(*) from RECORD_BACKLOCATIONLIKE_TB rb where rl.content_code = rb.content_code),0) BACK_LIKE_CNT
+          from record_location_liked_tb rl
+         where CONTENT_CODE = #{contentId}
+         order by like_cnt desc
+	</select>
 </mapper>

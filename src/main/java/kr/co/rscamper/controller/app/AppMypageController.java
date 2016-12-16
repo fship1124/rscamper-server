@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.rscamper.domain.BoardRouteVO;
 import kr.co.rscamper.service.AppMypageService;
 
 @Controller
@@ -27,9 +26,14 @@ public class AppMypageController {
 		return service.selectBookMarkList(page, count, userUid);
 	}
 	
-	@RequestMapping(value = "/insert/route", method = RequestMethod.POST)
+	@RequestMapping(value = "/route", method = RequestMethod.POST)
 	public @ResponseBody void insertRoute(String jsonValue) throws Exception {
 		service.insertRoute(jsonValue);
+	}
+	
+	@RequestMapping(value = "/route", method = RequestMethod.GET)
+	public @ResponseBody Map<String, Object> selectRouteListByNo(int page, int count) throws Exception {
+		return service.selectRouteListByNo(page, count);
 	}
 	
 }

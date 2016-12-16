@@ -22,4 +22,7 @@ public interface AppMainService {
 	
 	/**메인페이지 메세지*/
 	public List<AppMessageVO> selectMainMessageList(String userUid);
+	
+	/**메인페이지 추천루트*/
+	public Map<String, Object> selectMainRouteList(int page, int count);
 }

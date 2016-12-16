@@ -23,6 +23,15 @@ public class TourScheduleVO {
 	private int totalPrice;
 	
 	
+	
+	@Override
+	public String toString() {
+		return "TourScheduleVO [recordNo=" + recordNo + ", userUid=" + userUid + ", departureDate=" + departureDate
+				+ ", arriveDate=" + arriveDate + ", title=" + title + ", budGet=" + budGet + ", picture=" + picture
+				+ ", period=" + period + ", cover=" + cover + ", strapline=" + strapline + ", introduce=" + introduce
+				+ ", regDate=" + regDate + ", isOpen=" + isOpen + ", likeCnt=" + likeCnt + ", commentCnt=" + commentCnt
+				+ ", totalPrice=" + totalPrice + "]";
+	}
 	public int getTotalPrice() {
 		return totalPrice;
 	}

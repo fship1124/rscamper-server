@@ -95,4 +95,21 @@ public class AppMainServiceImpl implements AppMainService {
 	public List<AppMessageVO> selectMainMessageList(String userUid) {
 		return dao.selectMainMessageList(userUid);
 	}
+	
+	@Override
+	public Map<String, Object> selectMainRouteList(int page, int count) {
+		page = (page - 1) * count;
+
+		int totalPages = (int)Math.ceil((double)dao.countAllRouteList() / (double)count);
+		Map<String, Integer> pageMap = new HashMap<>();
+		pageMap.put("page", page);
+		pageMap.put("count", count);
+		List<AppMainVO> routeList = dao.selectMainRouteList(pageMap);
+		
+		Map<String, Object> routeListMap = new HashMap<>();
+		routeListMap.put("routeList", routeList);
+		routeListMap.put("totalPages", totalPages);
+
+		return routeListMap;
+	}
 }
