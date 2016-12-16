@@ -49,12 +49,19 @@ public class MainDAOImpl implements MainDAO {
 
 	@Override
 	public List<BenefitVO> list() throws Exception {
-		return sqlSessionTemplate.selectList(Bnamespace +".selectBenefit");
+		List<BenefitVO> list = new ArrayList<>();
+		list = sqlSessionTemplate.selectList(Bnamespace +".selectBenefit");
+		return list;
 	}
 
 	@Override
 	public List<TourPlanSpotVO> tourlist() throws Exception {
-		return sqlSessionTemplate.selectList(Tnamespace + ".tourList");
+		List<TourPlanSpotVO> list = new ArrayList<>();
+		list = sqlSessionTemplate.selectList(Tnamespace + ".tourList");
+		System.out.println("----------------------------------");
+		System.out.println("관광지 :" + list);
+		System.out.println("----------------------------------");
+		return list;
 	}
 
 	@Override
