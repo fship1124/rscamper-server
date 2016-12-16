@@ -1,6 +1,7 @@
 package kr.co.rscamper.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -40,6 +41,18 @@ public class AppMypageDAO {
 	
 	public void insertRoute(BoardRouteVO br) {
 		sqlSessionTemplate.insert(namespace + ".insertRoute", br);
+	}
+	
+	public List<BoardRouteVO> selectRouteListByNo(Map<String, Integer> pageMap) {
+		return sqlSessionTemplate.selectList(namespace + ".selectRouteListByNo", pageMap);
+	}
+	
+	public List<BoardRouteVO> selectRouteDetailByNo(int boardRouteNo) {
+		return sqlSessionTemplate.selectList(namespace + ".selectRouteDetailByNo", boardRouteNo);
+	}
+	
+	public int countAllRouteList() {
+		return sqlSessionTemplate.selectOne(namespace + ".countAllRouteList");
 	}
 	
 }

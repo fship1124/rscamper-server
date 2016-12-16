@@ -308,4 +308,20 @@ public class TourScheduleDAO {
 	public void delSchedulePrice(int no) {
 		sqlSessionTemplate.delete(namespace + ".delSchedulePrice", no);
 	}
+	
+	public List<ScheduleMemoVO> addWishBoardReview(int contentId) {
+		return sqlSessionTemplate.selectList(namespace + ".addWishBoardReview", contentId);
+	}
+	
+	public void updateScheduleSameDate(TourScheduleVO ts) {
+		sqlSessionTemplate.update(namespace + ".updateScheduleSameDate", ts);
+	}
+	
+	public void updateScheduleDifferentDate(TourScheduleVO ts) {
+		sqlSessionTemplate.update(namespace + ".updateScheduleDifferentDate", ts);
+	}
+	
+	public LocationLikedVO getLocationCnt(int contentId) {
+		return sqlSessionTemplate.selectOne(namespace + ".getLocationCnt", contentId);
+	}
 }

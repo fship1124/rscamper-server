@@ -117,4 +117,10 @@ public interface TourScheduleService {
 	public List<Map<String, Object>> addTravelPrice(String list) throws Exception;
 	
 	public List<TravelPriceVO> getScheduleTravelPrice(int recordNo) throws Exception;
+	
+	public Map<String,Object> addWishBoardReview (ScheduleMemoVO sm) throws Exception;
+	
+	public TourScheduleVO updateSchedule(TourScheduleVO ts, int type) throws Exception;
+	
+	public List<LocationLikedVO> getLocationCnt(String contentIdJson) throws Exception;
 }
