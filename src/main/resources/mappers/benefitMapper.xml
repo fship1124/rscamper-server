@@ -43,6 +43,7 @@ SELECT *
 	WHERE BENEFIT_NO = #{no}
 </select>
 
+<!-- 메인 -->
 <select id="selectBenefit" resultMap="benefitMap" parameterType="string">
 	SELECT *
 	FROM BENEFIT_TB

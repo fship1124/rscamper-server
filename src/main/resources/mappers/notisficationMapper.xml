@@ -20,6 +20,7 @@
 	SELECT *
 		FROM notisfication_tb                     
 		WHERE RECIV_USER_UID = #{userUid}
+		ORDER BY NOTISFICATION_NO DESC
 	</select>
 	
 	<delete id="deleteByNo" parameterType="int">
