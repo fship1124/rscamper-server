@@ -113,13 +113,13 @@ public class AppTourScheduleController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy. MM. dd.");
 		String dayText = sdf.format(d);
 		switch (d.getDay()) {
-		case 0: dayText = dayText +  "(일)"; break;
-		case 1: dayText = dayText +  "(월)"; break;
-		case 2: dayText = dayText +  "(화)"; break;
-		case 3: dayText = dayText +  "(수)"; break;
-		case 4: dayText = dayText +  "(목)"; break;
-		case 5: dayText = dayText +  "(금)"; break;
-		case 6: dayText = dayText +  "(토)"; break;
+		case 0: dayText = dayText +  " 일"; break;
+		case 1: dayText = dayText +  " 월"; break;
+		case 2: dayText = dayText +  " 화"; break;
+		case 3: dayText = dayText +  " 수"; break;
+		case 4: dayText = dayText +  " 목"; break;
+		case 5: dayText = dayText +  " 금"; break;
+		case 6: dayText = dayText +  " 토"; break;
 		}
 		return dayText;
 	}

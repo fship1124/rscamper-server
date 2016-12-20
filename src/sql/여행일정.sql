@@ -1,12 +1,14 @@
 show tables
 
-show columns from record_tb
+show columns from record_cover_tb
 
 select * from record_location_liked_tb
 
 update record_tb
    set title = 1
  where record_no = 132
+ 
+ 
 
 select * from record_travelPrice_tb
 
@@ -315,3 +317,17 @@ select *,(select title from record_location_tb rl where rl.content_code = rs.con
           from record_location_liked_tb rl
          where CONTENT_CODE = 841488
          order by like_cnt desc
+         select * from 
+         record_scheduleMemo_tb
+         
+select *,(select title from record_location_tb rl where rl.content_code = rs.contentid and rl.location_no = rs.location_no) LOCATION_TITLE,
+                 COALESCE((select title from record_tb r where r.record_no = rs.record_no),0) RECORD_TITLE,
+                 COALESCE((select count(*) from record_scheduleMemo_comment_tb rsc where rs.scheduleMemo_no = rsc.scheduleMemo_no),0) COMMENT_CNT,
+                 COALESCE((select PHOTO_URL from user_tb u where u.user_uid = rs.user_uid), 0) PHOTO_URL,
+                 COALESCE((select DISPLAY_NAME from user_tb u where u.user_uid = rs.user_uid), 0) DISPLAY_NAME,
+                 COALESCE((select count(*) from record_scheduleMemo_like_tb rsl where rsl.SCHEDULEMEMO_NO = rs.SCHEDULEMEMO_NO),0) LIKE_CNT,
+                 COALESCE((select count(*) from record_scheduleMemo_like_tb rsl where rsl.SCHEDULEMEMO_NO = rs.SCHEDULEMEMO_NO),0) ISLIKE
+          from record_scheduleMemo_tb rs
+          
+          
+          select * from record_location_tb

@@ -155,6 +155,7 @@
 		          COALESCE((SELECT SUM(TRAVEL_PRICE) FROM RECORD_TRAVELPRICE_TB RT WHERE RT.RECORD_NO = R.RECORD_NO),0) AS TOTAL_PRICE 
 		  FROM RECORD_TB R
 		 WHERE USER_UID = #{uid}
+		 ORDER BY R.REG_DATE DESC
 	</select>
 	
 	<insert id="insertSchedule" parameterType="TourScheduleVO">
@@ -210,6 +211,7 @@
 		select *
 		  from record_location_tb
 		 where RECORD_NO = #{no}
+		 order by DETAIL_DEPARTURE_DATE
 	</select>
 	<select id="locationLikeCount" parameterType="int" resultType="int">
 		select count(CONTENT_CODE)
@@ -386,7 +388,7 @@
 		</selectKey>
 	</insert>
 	<select id="getScheduleMemo" parameterType="ScheduleMemoVO" resultMap="scheduleMemoMap">
-		select *,(select title from record_location_tb rl where rl.content_code = rs.contentid) LOCATION_TITLE,
+		select *,(select title from record_location_tb rl where rl.content_code = rs.contentid  and rl.location_no = rs.location_no) LOCATION_TITLE,
                  (select title from record_tb r where r.record_no = rs.record_no) RECORD_TITLE,
                  (select count(*) from record_scheduleMemo_comment_tb rsc where rs.scheduleMemo_no = rsc.scheduleMemo_no) COMMENT_CNT,
                  COALESCE((select PHOTO_URL from user_tb u where u.user_uid = rs.user_uid), 0) PHOTO_URL,
@@ -397,7 +399,7 @@
 		 where rs.record_No = #{recordNo}
 	</select>
 	<select id="getMyPost" parameterType="string" resultMap="scheduleMemoMap">
-		select *,(select title from record_location_tb rl where rl.content_code = rs.contentid) LOCATION_TITLE,
+		select *,(select title from record_location_tb rl where rl.content_code = rs.contentid and rl.location_no = rs.location_no) LOCATION_TITLE,
                  (select title from record_tb r where r.record_no = rs.record_no) RECORD_TITLE,
                  (select count(*) from record_scheduleMemo_comment_tb rsc where rs.scheduleMemo_no = rsc.scheduleMemo_no) COMMENT_CNT,
                  COALESCE((select PHOTO_URL from user_tb u where u.user_uid = rs.user_uid), 0) PHOTO_URL,
@@ -408,7 +410,7 @@
 		 where rs.USER_UID = #{userUid}
 	</select>
 	<select id="getDetailPost" parameterType="ScheduleMemoVO" resultMap="scheduleMemoMap">
-		select *,(select title from record_location_tb rl where rl.content_code = rs.contentid) LOCATION_TITLE,
+		select *,(select title from record_location_tb rl where rl.content_code = rs.contentid  and rl.location_no = rs.location_no) LOCATION_TITLE,
                  (select title from record_tb r where r.record_no = rs.record_no) RECORD_TITLE,
                  (select count(*) from record_scheduleMemo_comment_tb rsc where rs.scheduleMemo_no = rsc.scheduleMemo_no) COMMENT_CNT,
                  COALESCE((select PHOTO_URL from user_tb u where u.user_uid = rs.user_uid), 0) PHOTO_URL,
