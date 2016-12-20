@@ -324,4 +324,5 @@ public class TourScheduleDAO {
 	public LocationLikedVO getLocationCnt(int contentId) {
 		return sqlSessionTemplate.selectOne(namespace + ".getLocationCnt", contentId);
 	}
+
 }
