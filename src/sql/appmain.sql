@@ -326,9 +326,13 @@ SELECT *,
 		
 		
 		
-		
+		select * from record_tb;
+
 		 
-		 
+		 		update record_tb
+		set
+		title = '방학하고 나서 나홀로 떠나는 내일로 타고 전국 여행지 섭렵하기!!! :D'
+		where record_no = 136;
 		 
 		 delete from board_like_tb where target_no = 3 and target_type = '2'
 		 
